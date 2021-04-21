@@ -8,4 +8,3 @@ config/database.php
 .DS_Store
 /.user.ini
 /public/.user.ini
-config/database.php

@@ -9,10 +9,9 @@
 
 namespace app\admin\controller;
 
-use app\common\controller\Backend;
-use \think\facade\View;
+use app\common\controller\AdminController;
 
-class IndexController extends Backend
+class IndexController extends AdminController
 {
 
     public function index()
