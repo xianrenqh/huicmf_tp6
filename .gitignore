@@ -4,4 +4,7 @@
 /runtime
 *.log
 .env
-/config/database.php
+config/database.php
+.DS_Store
+/.user.ini
+/public/.user.ini

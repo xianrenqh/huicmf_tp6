@@ -21,13 +21,13 @@ return [
             // 数据库类型
             'type'            => env('database.type', 'mysql'),
             // 服务器地址
-            'hostname'        => env('database.hostname', '82.156.11.220'),
+            'hostname'        => env('database.hostname', ''),
             // 数据库名
-            'database'        => env('database.database', 'huicmf_tp6_auth'),
+            'database'        => env('database.database', ''),
             // 用户名
-            'username'        => env('database.username', 'huicmf_tp6_auth'),
+            'username'        => env('database.username', ''),
             // 密码
-            'password'        => env('database.password', 'BsBkbkys3swfLT2A'),
+            'password'        => env('database.password', ''),
             // 端口
             'hostport'        => env('database.hostport', '3306'),
             // 数据库连接参数
