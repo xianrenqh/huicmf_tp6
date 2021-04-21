@@ -4,4 +4,4 @@
 /runtime
 *.log
 .env
-/confog/app.php
+/config/app.php
