@@ -4,4 +4,4 @@
 /runtime
 *.log
 .env
-/config/app.php
+/config/database.php
