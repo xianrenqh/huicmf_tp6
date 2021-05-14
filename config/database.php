@@ -21,11 +21,11 @@ return [
             // 数据库类型
             'type'            => env('database.type', 'mysql'),
             // 服务器地址
-            'hostname'        => env('database.hostname', ''),
+            'hostname'        => env('database.hostname', '82.156.11.220'),
             // 数据库名
-            'database'        => env('database.database', ''),
+            'database'        => env('database.database', 'huicmf_tp6_auth'),
             // 用户名
-            'username'        => env('database.username', ''),
+            'username'        => env('database.username', 'huicmf_tp6_auth'),
             // 密码
             'password'        => env('database.password', 'BsBkbkys3swfLT2A'),
             // 端口
@@ -35,7 +35,7 @@ return [
             // 数据库编码默认采用utf8
             'charset'         => env('database.charset', 'utf8'),
             // 数据库表前缀
-            'prefix'          => env('database.prefix', ''),
+            'prefix'          => env('database.prefix', 'hui_'),
 
             // 数据库部署方式:0 集中式(单一服务器),1 分布式(主从服务器)
             'deploy'          => 0,

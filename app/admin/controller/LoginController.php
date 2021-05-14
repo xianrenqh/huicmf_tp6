@@ -9,7 +9,25 @@
 
 namespace app\admin\controller;
 
-class LoginController
+use app\common\controller\AdminController;
+use think\facade\Env;
+
+class LoginController extends AdminController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+        $action = $this->request->action();
+        if ( ! empty(session('admin')) && ! in_array($action, ['out'])) {
+            $adminModuleName = config('app.admin_alias_name');
+            $this->success('已登录，无需再次登录', [], url($adminModuleName));
+        }
+    }
+
+    public function index()
+    {
+        echo "登录";
+    }
 
 }

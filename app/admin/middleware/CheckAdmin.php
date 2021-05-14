@@ -19,25 +19,41 @@ class CheckAdmin
 
     public function handle(Request $request, \Closure $next)
     {
-        $adminId    = session('admin.id');
-        $expireTime = session('admin.expire_time');
+        $adminConfig = config('admin');
+        $adminId     = session('admin.id');
+        $expireTime  = session('admin.expire_time');
 
-        $currentNode       = [];
-        $currentController = [];
+        $currentNode = [];
+
+        $currentController = parse_name($request->controller());
+
         // 验证登录
-        empty($adminId) && $this->error('请先登录后台', [], url('admin/login/index'));
-
-        // 判断是否登录过期
-        if ($expireTime !== true && time() > $expireTime) {
-            session('admin', null);
-            $this->error('登录已过期，请重新登录', [], url('admin/login/index'));
+        if ( ! in_array($currentController, $adminConfig['no_login_controller']) && ! in_array($currentNode,
+                $adminConfig['no_login_node'])) {
+            empty($adminId) && $this->error('请先登录后台', [], url('admin/login/index'));
+            // 判断是否登录过期
+            if ($expireTime !== true && time() > $expireTime) {
+                session('admin', null);
+                $this->error('登录已过期，请重新登录', [], url('admin/login/index'));
+            }
         }
 
         // 验证权限
-        exit;
-        $Auth  = '';
+        if (!in_array($currentController, $adminConfig['no_auth_controller']) &&
+            !in_array($currentNode, $adminConfig['no_auth_node'])) {
+            /*$check = $authService->checkNode($currentNode);
+            !$check && $this->error('无权限访问');*/
+
+            // 判断是否为演示环境
+            if(env('easyadmin.is_demo', false) && $request->isPost()){
+                $this->error('演示环境下不允许修改');
+            }
+
+        }
+
+        /*$Auth  = '';
         $check = $Auth->checkNode($currentNode);
-        ! $check && $this->error('无权限访问');
+        ! $check && $this->error('无权限访问');*/
 
         return $next($request);
     }
