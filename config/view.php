@@ -3,6 +3,8 @@
 // | 模板设置
 // +----------------------------------------------------------------------
 
+use think\facade\Env;
+
 return [
     // 模板引擎类型使用Think
     'type'          => 'Think',
@@ -22,4 +24,12 @@ return [
     'taglib_begin'  => '{',
     // 标签库标签结束标记
     'taglib_end'    => '}',
+    // 模板缓存
+    'display_cache' => true,
+    // 字符替换
+    'tpl_replace_string' => [
+        '__STATIC_ADMIN__' => Env::get('easyadmin.static_path', '/static/admin'),
+        '__STATIC_INDEX__' => Env::get('easyadmin.static_path', '/static/index'),
+        '__LIB__' => Env::get('easyadmin.static_path', '/static/lib'),
+    ]
 ];
