@@ -144,6 +144,25 @@ if ( ! function_exists('curl_post')) {
     }
 }
 
+if (!function_exists('array_format_key')) {
+
+    /**
+     * 二位数组重新组合数据
+     * @param $array
+     * @param $key
+     * @return array
+     */
+    function array_format_key($array, $key)
+    {
+        $newArray = [];
+        foreach ($array as $vo) {
+            $newArray[$vo[$key]] = $vo;
+        }
+        return $newArray;
+    }
+
+}
+
 /**
  * 　　* 下划线转驼峰
  * 　　* 思路:

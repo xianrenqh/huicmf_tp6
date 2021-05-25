@@ -79,7 +79,7 @@ class LoginController extends AdminController
         $adminInfo->save();
 
         $adminInfo                = $adminInfo->toArray();
-        $adminInfo['expire_time'] = $param['keep_login'] == 'on' ? true : time() + 7200;
+        $adminInfo['expire_time'] = ( ! empty($param['keep_login']) && $param['keep_login'] == 'on') ? true : time() + 7200;
         unset($adminInfo['password']);
         session('admin', $adminInfo);
         $this->success('登录成功');

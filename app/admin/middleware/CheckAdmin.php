@@ -43,7 +43,7 @@ class CheckAdmin
         // 验证权限
         if ( ! in_array($currentController, $adminConfig['no_auth_controller']) && ! in_array($currentNode,
                 $adminConfig['no_auth_node'])) {
-            halt($currentNode);
+            //halt($currentNode);
             /*$check = $authService->checkNode($currentNode);
             !$check && $this->error('无权限访问');*/
 

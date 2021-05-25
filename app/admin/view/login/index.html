@@ -1,3 +1,4 @@
+{__NOLAYOUT__}
 <!DOCTYPE html>
 <html>
 <head>
@@ -390,7 +391,7 @@
         keep_login:data.keep_login
       }, function (res) {
         if (res.code == 1) {
-          console.log(res);
+          window.location ="{:url('admin/index/index')}";
         } else {
           layer.msg(res.msg, {icon: 2});
           $('#refreshCaptcha').attr("src", "{:url('login/captcha')}" + "?" + Math.random());
