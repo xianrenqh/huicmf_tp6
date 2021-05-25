@@ -20,17 +20,19 @@ class CheckAdmin
     public function handle(Request $request, \Closure $next)
     {
         $adminConfig = config('admin');
-        $adminId     = session('admin.id');
+        $adminId     = cmf_get_admin_id();
         $expireTime  = session('admin.expire_time');
-
-        $currentNode = [];
+        $node        = uncamelize(request()->controller().'/'.request()->action());
+        $currentNode = $node;
 
         $currentController = parse_name($request->controller());
 
         // 验证登录
         if ( ! in_array($currentController, $adminConfig['no_login_controller']) && ! in_array($currentNode,
                 $adminConfig['no_login_node'])) {
-            empty($adminId) && $this->error('请先登录后台', [], url('admin/login/index'));
+            if (empty($adminId)) {
+                $this->error('请先登录', [], url('admin/login/index'));
+            }
             // 判断是否登录过期
             if ($expireTime !== true && time() > $expireTime) {
                 session('admin', null);
@@ -39,15 +41,16 @@ class CheckAdmin
         }
 
         // 验证权限
-        if (!in_array($currentController, $adminConfig['no_auth_controller']) &&
-            !in_array($currentNode, $adminConfig['no_auth_node'])) {
+        if ( ! in_array($currentController, $adminConfig['no_auth_controller']) && ! in_array($currentNode,
+                $adminConfig['no_auth_node'])) {
+            halt($currentNode);
             /*$check = $authService->checkNode($currentNode);
             !$check && $this->error('无权限访问');*/
 
             // 判断是否为演示环境
-            if(env('easyadmin.is_demo', false) && $request->isPost()){
+            /*if(env('easyadmin.is_demo', false) && $request->isPost()){
                 $this->error('演示环境下不允许修改');
-            }
+            }*/
 
         }
 

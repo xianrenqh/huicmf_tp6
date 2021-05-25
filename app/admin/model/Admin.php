@@ -11,7 +11,7 @@ namespace app\admin\model;
 
 use think\Model;
 
-class AdminModel extends Model
+class Admin extends Model
 {
 
     public function getInfo($adminId)

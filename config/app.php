@@ -11,7 +11,7 @@ return [
     // 是否启用路由
     'with_route'       => true,
     // 默认应用
-    'default_app'      => 'admin',
+    'default_app'      => 'index',
     // 默认时区
     'default_timezone' => 'Asia/Shanghai',
 
@@ -30,5 +30,8 @@ return [
     // 显示错误信息
     'show_error_msg'   => false,
 
-    'dispatch_error_tmpl' => 'tpl/think_exception.tpl',
+    'dispatch_success_tmpl' => 'tpl/think_exception.tpl',
+
+    'dispatch_error_tmpl' => 'tpl/think_exception.tpl'
+
 ];

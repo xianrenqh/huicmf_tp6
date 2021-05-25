@@ -11,7 +11,7 @@
         body{padding:20px 0;background:#fff;font-weight:400;font-size:1pc;-webkit-text-size-adjust:none;color:#333}
         a{outline:0;color:#3498db;text-decoration:none;cursor:pointer}
         .system-message{margin:0px 5%;padding:0px 20px;background:#fff;box-shadow:1px 0px 1px hsla(0,0%,39%,.1);text-align:center}
-        .system-message h1{margin:0;margin-bottom:9pt;color:#444;font-weight:400;font-size:40px}
+        .system-message h1{margin:0;margin-top:5pt;margin-bottom:9pt;color:#444;font-weight:400;font-size:30px}
         .system-message .jump,.system-message .image{margin:20px 0;padding:0;padding:10px 0;font-weight:400}
         .system-message .jump{font-size:14px}
         .system-message .jump a{color:#333}
@@ -38,9 +38,9 @@
         <?php case 0:?>
         <img src="/static/admin/error.svg" alt="" width="150" />
         </div>
-        <h1><?php echo(strip_tags($msg));?></h1>
         <?php break;?>
         <?php } ?>
+        <h1><?php echo(strip_tags($msg));?></h1>
         <p class="jump">
             页面将在 <span id="wait"><?php echo($wait);?></span> 秒后自动跳转        </p>
         <p class="clearfix">

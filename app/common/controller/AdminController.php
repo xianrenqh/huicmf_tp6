@@ -12,10 +12,11 @@ namespace app\common\controller;
 use app\BaseController;
 use think\facade\Env;
 use think\Model;
-use app\common\traits\JumpTrait;
 
 class AdminController extends BaseController
 {
+
+    use \app\common\traits\JumpTrait;
 
     /**
      * 当前模型

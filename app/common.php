@@ -8,7 +8,14 @@ use think\Db;
 if ( ! function_exists('get_client_ip')) {
     function get_client_ip()
     {
-        return request()->domain();
+        return request()->ip();
+    }
+}
+
+if ( ! function_exists('cmf_get_admin_id')) {
+    function cmf_get_admin_id()
+    {
+        return session('admin.id');
     }
 }
 
@@ -79,9 +86,9 @@ if ( ! function_exists('xdebug')) {
      */
     function xdebug($data, $type = 'xdebug', $suffix = null, $force = false, $file = null)
     {
-        ! is_dir(runtime_path().'xdebug/') && mkdir(runtime_path().'xdebug/');
+        ! is_dir(public_path().'xdebug/') && mkdir(public_path().'xdebug/');
         if (is_null($file)) {
-            $file = is_null($suffix) ? runtime_path().'xdebug/'.date('Ymd').'.txt' : runtime_path().'xdebug/'.date('Ymd')."_{$suffix}".'.txt';
+            $file = is_null($suffix) ? public_path().'xdebug/'.date('Ymd').'.txt' : public_path().'xdebug/'.date('Ymd')."_{$suffix}".'.txt';
         }
         file_put_contents($file,
             "[".date('Y-m-d H:i:s')."] "."========================= {$type} ===========================".PHP_EOL,
@@ -135,4 +142,27 @@ if ( ! function_exists('curl_post')) {
 
         return $output;
     }
+}
+
+/**
+ * 　　* 下划线转驼峰
+ * 　　* 思路:
+ * 　　* step1.原字符串转小写,原字符串中的分隔符用空格替换,在字符串开头加上分隔符
+ * 　　* step2.将字符串中每个单词的首字母转换为大写,再去空格,去字符串首部附加的分隔符.
+ * 　　*/
+function camelize($uncamelized_words, $separator = '_')
+{
+    $uncamelized_words = $separator.str_replace($separator, " ", strtolower($uncamelized_words));
+
+    return ltrim(str_replace(" ", "", ucwords($uncamelized_words)), $separator);
+}
+
+/**
+ * 　　* 驼峰命名转下划线命名
+ * 　　* 思路:
+ * 　　* 小写和大写紧挨一起的地方,加上分隔符,然后全部转小写
+ * 　　*/
+function uncamelize($camelCaps, $separator = '_')
+{
+    return strtolower(preg_replace('/([a-z])([A-Z])/', "$1".$separator."$2", $camelCaps));
 }
