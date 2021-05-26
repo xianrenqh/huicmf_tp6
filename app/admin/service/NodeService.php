@@ -122,6 +122,7 @@ class NodeService
             AnnotationRegistry::registerLoader('class_exists');
             $reader = new FileCacheReader(new AnnotationReader(), $this->annotationCacheDir, $this->annotationDebug);
             foreach ($controllerList as $controllerFormat => $controller) {
+                $controllerFormat = str_replace("_controller", "", $controllerFormat);
                 // 获取类和方法的注释信息
                 $reflectionClass = new \ReflectionClass($controller);
                 $methods         = $reflectionClass->getMethods();
@@ -133,12 +134,10 @@ class NodeService
                     if ( ! empty($nodeAnnotation) && ! empty($nodeAnnotation->title)) {
                         $actionTitle  = ! empty($nodeAnnotation) && ! empty($nodeAnnotation->title) ? $nodeAnnotation->title : null;
                         $actionAuth   = ! empty($nodeAnnotation) && ! empty($nodeAnnotation->auth) ? $nodeAnnotation->auth : false;
-                        $actionMenu   = ! empty($nodeAnnotation) && ! empty($nodeAnnotation->menu) ? $nodeAnnotation->menu : false;
                         $actionList[] = [
                             'node'    => $controllerFormat.'/'.$method->name,
                             'title'   => $actionTitle,
                             'is_auth' => $actionAuth,
-                            'is_menu' => $actionMenu,
                             'type'    => 2,
                         ];
                     }
@@ -149,12 +148,10 @@ class NodeService
                     $controllerAnnotation = $reader->getClassAnnotation($reflectionClass, ControllerAnnotation::class);
                     $controllerTitle      = ! empty($controllerAnnotation) && ! empty($controllerAnnotation->title) ? $controllerAnnotation->title : null;
                     $controllerAuth       = ! empty($controllerAnnotation) && ! empty($controllerAnnotation->auth) ? $controllerAnnotation->auth : false;
-                    $controllerMenu       = ! empty($controllerAnnotation) && ! empty($controllerAnnotation->menu) ? $controllerAnnotation->menu : false;
                     $nodeList[]           = [
                         'node'    => $controllerFormat,
                         'title'   => $controllerTitle,
                         'is_auth' => $controllerAuth,
-                        'is_menu' => $controllerMenu,
                         'type'    => 1,
                     ];
                     $nodeList             = array_merge($nodeList, $actionList);
@@ -187,7 +184,6 @@ class NodeService
         list($list, $temp_list, $dirExplode) = [[], scandir($path), explode($this->dir, $path)];
         $middleDir = isset($dirExplode[1]) && ! empty($dirExplode[1]) ? str_replace('/', '\\',
                 substr($dirExplode[1], 1))."\\" : null;
-
         foreach ($temp_list as $file) {
             // 排除根目录和没有开启注解的模块
             if ($file == ".." || $file == ".") {

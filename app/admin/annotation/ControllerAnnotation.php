@@ -43,11 +43,4 @@ final class ControllerAnnotation
      */
     public $auth = true;
 
-    /**
-     * 是否菜单
-     * @Enum({true,false})
-     * @var bool
-     */
-    public $menu = true;
-
 }

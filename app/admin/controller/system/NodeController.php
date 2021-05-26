@@ -15,7 +15,7 @@ use app\admin\service\NodeService;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use think\App;
-use app\admin\model\SystemNode;
+use app\admin\model\AuthRule;
 
 /**
  * @ControllerAnnotation(title="系统节点管理")
@@ -31,14 +31,14 @@ class NodeController extends AdminController
     }
 
     /**
-     * @NodeAnotation(title="列表",menu=true)
+     * @NodeAnotation(title="列表")
      */
     public function index()
     {
-        $systemNode = new SystemNode();
-        $count      = $systemNode->count();
-        $list       = $systemNode->getNodeTreeList();
-        $data       = [
+        $authRule = new AuthRule();
+        $count    = $authRule->count();
+        $list     = $authRule->getNodeTreeList();
+        $data     = [
             'code'  => 0,
             'msg'   => '',
             'count' => $count,
@@ -49,26 +49,25 @@ class NodeController extends AdminController
     }
 
     /**
-     * @NodeAnotation(title="系统节点更新",menu=false)
+     * @NodeAnotation(title="系统节点更新")
      */
     public function refreshNode($force = 0)
     {
         $nodeList = (new NodeService())->getNodelist();
         empty($nodeList) && $this->error('暂无需要更新的系统节点');
-        $systemNode = new SystemNode();
+        $authRule = new AuthRule();
         try {
             if ($force == 1) {
-                $updateNodeList = $systemNode->whereIn('node', array_column($nodeList, 'node'))->select();
+                $updateNodeList = $authRule->whereIn('node', array_column($nodeList, 'node'))->select();
                 $formatNodeList = array_format_key($nodeList, 'node');
                 foreach ($updateNodeList as $vo) {
-                    isset($formatNodeList[$vo['node']]) && $systemNode->where('id', $vo['id'])->update([
+                    isset($formatNodeList[$vo['node']]) && $authRule->where('id', $vo['id'])->update([
                         'title'   => $formatNodeList[$vo['node']]['title'],
                         'is_auth' => $formatNodeList[$vo['node']]['is_auth'],
-                        'is_menu' => $formatNodeList[$vo['node']]['is_menu'],
                     ]);
                 }
             }
-            $existNodeList = $systemNode->field('node,title,type,is_auth')->select();
+            $existNodeList = $authRule->field('node,title,type,is_auth')->select();
             foreach ($nodeList as $key => $vo) {
                 foreach ($existNodeList as $v) {
                     if ($vo['node'] == $v->node) {
@@ -77,11 +76,11 @@ class NodeController extends AdminController
                     }
                 }
             }
-            $systemNode->saveAll($nodeList);
+            $authRule->saveAll($nodeList);
             TriggerService::updateNode();
         } catch (\Exception $e) {
-            $this->error('节点更新失败');
+            //$this->error('节点更新失败');
         }
-        $this->success('节点更新成功');
+        //$this->success('节点更新成功');
     }
 }

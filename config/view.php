@@ -27,8 +27,6 @@ return [
     // 模板缓存
     'display_cache' => true,
 
-    'layout_on'          => true,
-    'layout_name'        => 'layout/default',
     // 字符替换
     'tpl_replace_string' => [
         '__STATIC_ADMIN__' => Env::get('easyadmin.static_path', '/static/admin'),

@@ -19,6 +19,24 @@ if ( ! function_exists('cmf_get_admin_id')) {
     }
 }
 
+if ( ! function_exists('__url')) {
+
+    /**
+     * 构建URL地址
+     *
+     * @param string $url
+     * @param array  $vars
+     * @param bool   $suffix
+     * @param bool   $domain
+     *
+     * @return string
+     */
+    function __url(string $url = '', array $vars = [], $suffix = true, $domain = false)
+    {
+        return url($url, $vars, $suffix, $domain)->build();
+    }
+}
+
 /**
  * CMF密码加密方法
  *
@@ -144,12 +162,14 @@ if ( ! function_exists('curl_post')) {
     }
 }
 
-if (!function_exists('array_format_key')) {
+if ( ! function_exists('array_format_key')) {
 
     /**
      * 二位数组重新组合数据
+     *
      * @param $array
      * @param $key
+     *
      * @return array
      */
     function array_format_key($array, $key)
@@ -158,6 +178,7 @@ if (!function_exists('array_format_key')) {
         foreach ($array as $vo) {
             $newArray[$vo[$key]] = $vo;
         }
+
         return $newArray;
     }
 

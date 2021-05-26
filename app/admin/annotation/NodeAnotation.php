@@ -37,11 +37,4 @@ final class NodeAnotation
      */
     public $auth = true;
 
-    /**
-     * 是否菜单
-     * @Enum({true,false})
-     * @var bool
-     */
-    public $menu = false;
-
 }

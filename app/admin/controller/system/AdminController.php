@@ -18,7 +18,7 @@ use think\Model;
 /**
  * Class AdminController
  * @package app\admin\controller\system
- * @ControllerAnnotation(title="管理员管理",auth=true,menu=true)
+ * @ControllerAnnotation(title="管理员管理",auth=true)
  */
 class AdminController extends \app\common\controller\AdminController
 {
@@ -29,7 +29,7 @@ class AdminController extends \app\common\controller\AdminController
     }
 
     /**
-     * @NodeAnotation(title="管理员列表",auth=true,menu=true)
+     * @NodeAnotation(title="管理员列表",auth=true)
      */
     public function index()
     {

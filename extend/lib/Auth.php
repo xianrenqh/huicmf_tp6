@@ -1,15 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: 小灰灰
- * Date: 2021-04-21
- * Time: 下午6:20:41
- * Info:
- */
 
-namespace app\common\service;
+// +----------------------------------------------------------------------
+// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
+// +----------------------------------------------------------------------
+// | Copyright (c) 2011 http://thinkphp.cn All rights reserved.
+// +----------------------------------------------------------------------
+// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
+// +----------------------------------------------------------------------
+// | Author: luofei614 <weibo.com/luofei614>
+// +----------------------------------------------------------------------
+// | 修改者: anuo (本权限类在原3.2.3的基础上修改过来的)
+// +----------------------------------------------------------------------
 
-use think\facade\Db;
+namespace lib;
+
+use think\Db;
 use think\facade\Config;
 use think\facade\Session;
 use think\facade\Request;
@@ -29,7 +34,7 @@ use think\facade\Request;
  * 5、支持放行public_方法（2020-01-07，小灰灰修改）
  *      如果访问的方法里包含：public_，不做权限验证，直接放行，为true
  */
-class AuthService
+class Auth
 {
 
     /**
@@ -52,7 +57,7 @@ class AuthService
         'auth_group'        => 'auth_group', // 用户组数据表名
         'auth_group_access' => 'auth_group_access', // 用户-用户组关系表
         'auth_rule'         => 'auth_rule', // 权限规则表
-        'auth_user'         => 'admin', // 用户信息表
+        'auth_user'         => 'user', // 用户信息表
     ];
 
     public function __construct()
@@ -96,7 +101,6 @@ class AuthService
         if ( ! $this->config['auth_on']) {
             return true;
         }
-
         // 获取用户需要验证的所有有效规则列表
         $rulelist = $this->getRuleList($uid);
         if (in_array('*', $rulelist)) {
@@ -164,8 +168,9 @@ class AuthService
         if (isset($groups[$uid])) {
             return $groups[$uid];
         }
+
         // 执行查询
-        $user_groups  = Db::name($this->config['auth_group_access'])->alias('aga')->join(($this->config['auth_group']).' ag',
+        $user_groups  = Db::name($this->config['auth_group_access'])->alias('aga')->join('__'.strtoupper($this->config['auth_group']).'__ ag',
             'aga.group_id = ag.id',
             'LEFT')->field('aga.uid,aga.group_id,ag.id,ag.pid,ag.name,ag.rules')->where("aga.uid='{$uid}' and ag.status='normal'")->select();
         $groups[$uid] = $user_groups ?: [];
@@ -206,26 +211,22 @@ class AuthService
             $ids = ['in', $ids];
         }*/
         if ( ! in_array('*', $ids)) {
-            $where = ['id' => $ids];
+            $where = ['status' => 'normal', 'id' => $ids];
         } else {
-            $where = [];
+            $where = ['status' => 'normal'];
         }
         //读取用户组所有权限规则
-        /*if (cache('cache_auth_rules')) {
+        if (cache('cache_auth_rules')) {
             $this->rules = cache('cache_auth_rules');
         } else {
-            $this->rules = Db::name($this->config['auth_rule'])->where($where)->fetchSql()->select();
-
+            $this->rules = Db::name($this->config['auth_rule'])->where($where)->select();
             cache('cache_auth_rules', $this->rules);
-        }*/
-        $this->rules = Db::name($this->config['auth_rule'])->where($where)->select();
-
+        }
         //循环规则，判断结果。
         $rulelist = []; //
         if (in_array('*', $ids)) {
             $rulelist[] = "*";
         }
-        $condition = '';
         foreach ($this->rules as $rule) {
             //超级管理员无需验证condition
             if ( ! empty($rule['condition']) && ! in_array('*', $ids)) {
@@ -234,11 +235,11 @@ class AuthService
                 $command = preg_replace('/\{(\w*?)\}/', '$user[\'\\1\']', $rule['condition']);
                 @(eval('$condition=('.$command.');'));
                 if ($condition) {
-                    $rulelist[$rule['id']] = strtolower($rule['node']);
+                    $rulelist[$rule['id']] = strtolower($rule['name']);
                 }
             } else {
                 //只要存在就记录
-                $rulelist[$rule['id']] = strtolower($rule['node']);
+                $rulelist[$rule['id']] = strtolower($rule['name']);
             }
         }
         $_rulelist[$uid] = $rulelist;
@@ -284,4 +285,5 @@ class AuthService
 
         return $user_info[$uid];
     }
+
 }
