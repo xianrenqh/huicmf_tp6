@@ -39,19 +39,17 @@ class CheckAdmin
                 $this->error('登录已过期，请重新登录', [], url('admin/login/index'));
             }
         }
-
         // 验证权限
         if ( ! in_array($currentController, $adminConfig['no_auth_controller']) && ! in_array($currentNode,
                 $adminConfig['no_auth_node'])) {
-            //halt($currentNode);
-            /*$check = $authService->checkNode($currentNode);
-            !$check && $this->error('无权限访问');*/
-
+            $checkNode = AuthService::instance()->check($currentNode, $adminId);
+            if ( ! $checkNode) {
+                $this->error('无访问权限！');
+            }
             // 判断是否为演示环境
-            /*if(env('easyadmin.is_demo', false) && $request->isPost()){
+            if (env('huiadmin.is_demo', false) && $request->isPost()) {
                 $this->error('演示环境下不允许修改');
-            }*/
-
+            }
         }
 
         /*$Auth  = '';

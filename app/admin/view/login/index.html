@@ -9,7 +9,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="format-detection" content="telephone=no">
-    <link rel="stylesheet" href="__LIB__/layui-v2.6.3/css/layui.css" media="all">
+    <link rel="stylesheet" href="__LIB__/layui-v2.6.7/css/layui.css" media="all">
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
@@ -337,9 +337,9 @@
     </div>
 </div>
 <div class="footer">
-    ©版权所有 2014-2018 叁贰柒工作室<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn">粤ICP备16006642号-2</a>
+    ©版权所有 2018-2021 小灰灰工作室<span class="padding-5">|</span><a target="_blank" href="http://www.miitbeian.gov.cn"></a>
 </div>
-<script src="__LIB__/layui-v2.6.3/layui.js" charset="utf-8"></script>
+<script src="__LIB__/layui-v2.6.7/layui.js" charset="utf-8"></script>
 <script>
   layui.use(['form', 'jquery'], function () {
     var $ = layui.jquery,
@@ -390,6 +390,7 @@
         keep_login:data.keep_login
       }, function (res) {
         if (res.code == 1) {
+          layer.msg(res.msg,{icon:1});
           window.location ="{:url('admin/index/index')}";
         } else {
           layer.msg(res.msg, {icon: 2});

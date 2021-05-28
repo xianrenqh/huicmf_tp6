@@ -19,9 +19,18 @@
     miniAdmin.render(options);
 
     $('.login-out').on("click", function () {
-      layer.msg('退出登录成功', function () {
-        window.location = 'page/login-3.html';
+      layer.confirm('您确定要退出登录吗？', {
+        btn: ['确定', '取消']
+      }, function () {
+        $.post("{:url('login/out')}", {}, function (res) {
+          if (res.code == 1) {
+            layer.msg(res.msg, {time: 1000}, function () {
+              window.location = "{:url('login/index')}";
+            })
+          }
+        })
       });
+
     });
   });
 </script>

@@ -79,8 +79,8 @@ class NodeController extends AdminController
             $authRule->saveAll($nodeList);
             TriggerService::updateNode();
         } catch (\Exception $e) {
-            //$this->error('节点更新失败');
+            $this->error('节点更新失败');
         }
-        //$this->success('节点更新成功');
+        $this->success('节点更新成功');
     }
 }

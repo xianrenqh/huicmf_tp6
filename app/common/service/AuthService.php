@@ -26,7 +26,7 @@ use think\facade\Request;
  * 4，支持规则表达式。
  *      在think_auth_rule 表中定义一条规则，condition字段就可以定义规则表达式。 如定义{score}>5  and {score}<100
  * 表示用户的分数在5-100之间时这条规则才会通过。
- * 5、支持放行public_方法（2020-01-07，小灰灰修改）
+ * 5，支持放行public_方法（2021-05-26，小灰灰修改）
  *      如果访问的方法里包含：public_，不做权限验证，直接放行，为true
  */
 class AuthService

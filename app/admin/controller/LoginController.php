@@ -105,6 +105,17 @@ class LoginController extends AdminController
     }
 
     /**
+     * 退出登录
+     */
+    public function out()
+    {
+        if ($this->request->isPost()) {
+            session('admin', null);
+            $this->success('退出登录成功');
+        }
+    }
+
+    /**
      * 验证码
      * @return \think\Response
      */
