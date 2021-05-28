@@ -35,17 +35,21 @@ class NodeController extends AdminController
      */
     public function index()
     {
-        $authRule = new AuthRule();
-        $count    = $authRule->count();
-        $list     = $authRule->getNodeTreeList();
-        $data     = [
-            'code'  => 0,
-            'msg'   => '',
-            'count' => $count,
-            'data'  => $list,
-        ];
+        if ($this->request->isPost()) {
+            $authRule = new AuthRule();
+            $count    = $authRule->count();
+            $list     = $authRule->getNodeTreeList();
+            $data     = [
+                'code'  => 0,
+                'msg'   => '',
+                'count' => $count,
+                'data'  => $list,
+            ];
 
-        return json($data);
+            return json($data);
+        }
+
+        return $this->fetch();
     }
 
     /**
@@ -83,4 +87,25 @@ class NodeController extends AdminController
         }
         $this->success('节点更新成功');
     }
+
+    /**
+     * @NodeAnotation(title="清除失效节点")
+     */
+    public function clearNode()
+    {
+        $nodeList = (new NodeService())->getNodelist();
+        $authRule = new AuthRule();
+        try {
+            $existNodeList  = $authRule->field('id,node,title,type,is_auth')->select()->toArray();
+            $formatNodeList = array_format_key($nodeList, 'node');
+            foreach ($existNodeList as $vo) {
+                ! isset($formatNodeList[$vo['node']]) && $authRule->where('id', $vo['id'])->delete();
+            }
+            TriggerService::updateNode();
+        } catch (\Exception $e) {
+            $this->error('节点更新失败');
+        }
+        $this->success('节点更新成功');
+    }
+
 }
