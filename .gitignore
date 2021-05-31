@@ -3,7 +3,6 @@
 /vendor
 /runtime
 *.log
-.env
 /config/database.php
 .DS_Store
 /.user.ini
