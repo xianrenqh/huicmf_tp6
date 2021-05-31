@@ -11,7 +11,6 @@ layui.define(["jquery", "miniMenu", "element","miniTab", "miniTheme"], function 
         miniTheme = layui.miniTheme,
         element = layui.element ,
         miniTab = layui.miniTab;
-
     var miniAdmin = {
 
         /**

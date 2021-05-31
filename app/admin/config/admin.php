@@ -33,6 +33,6 @@ return [
     // 不需要验证权限的节点
     'no_auth_node'        => [
         'login/index',
-        'login/out',
+        'login/out'
     ],
 ];

@@ -28,7 +28,8 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
         type: 2,
         title: title,
         content: url,
-        skin: 'skin-layer-hui'
+        skin: 'skin-layer-hui',
+        closeBtn: 11
       });
       layer.full(index);
     });
@@ -81,11 +82,15 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
   /**
    * 提示弹出
    */
-  window.HuiAdminConfirm = function (url, msg = '真的要这样操作么？') {
+  window.HuiAdminConfirm = function (url, msg = '真的要这样操作么？', refresh = 0) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
       $.post(url, function (res) {
         if (res.code === 1) {
-          layer.msg(res.msg, {icon: 1});
+          layer.msg(res.msg, {icon: 1,time:1500}, function () {
+            if (refresh == 1) {
+              window.location.reload();
+            }
+          });
         } else {
           layer.msg(res.msg, {icon: 2});
         }
@@ -94,11 +99,15 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
   }
 
   /*删除弹出提示*/
-  window.HuiAdminDel = function (url, msg = '真的要删除么？') {
+  window.HuiAdminDel = function (url, msg = '真的要删除么？', refresh = 0) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
       $.post(url, function (res) {
         if (res.code === 1) {
-          layer.msg(res.msg, {icon: 1});
+          layer.msg(res.msg, {icon: 1,time:1500}, function () {
+            if (refresh == 1) {
+              window.location.reload();
+            }
+          });
         } else {
           layer.msg(res.msg, {icon: 2});
         }

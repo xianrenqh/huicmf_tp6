@@ -149,4 +149,5 @@ body .skin-layer-hui .layui-layer-title{background:#2c3e50; color:#fff; border: 
 body .skin-layer-hui .layui-layer-btn{border:0px solid #E9E7E7}
 body .skin-layer-hui .layui-layer-btn a{background:#1E9FFF;}
 body .skin-layer-hui .layui-layer-btn .layui-layer-btn1{background:#95a5a6;color:#fff;}
-.layui-table thead th{font-weight: bold;}
+body .layui-table thead th{font-weight: bold;}
+body .layui-layer-close11{background-position:-80px -40px}
