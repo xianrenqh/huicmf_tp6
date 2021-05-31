@@ -2,7 +2,8 @@ HuiCMF v6.0
 ===============
 基于ThinkPHP 6.0开发
 > 运行环境要求PHP7.1+，兼容PHP8.0。
-
+> 
+by:xiaohuihui
 ~~~
 <a href="javascript:;" data-open="{:url('system.node/index')}" data-title="测试">1231232313</a>
 <a href="javascript:;" data-delete="{:url('system.node/index')}" data-title="删除">1231232313</a>
