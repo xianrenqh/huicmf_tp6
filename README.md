@@ -1,6 +1,6 @@
-ThinkPHP 6.0
+HuiCMF v6.0
 ===============
-
+基于ThinkPHP 6.0开发
 > 运行环境要求PHP7.1+，兼容PHP8.0。
 
 ~~~
