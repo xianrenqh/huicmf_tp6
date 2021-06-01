@@ -1,6 +1,7 @@
-layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
+layui.define(['jquery', 'form', 'layer', 'element', 'table'], function (exports) {
   var $ = layui.jquery,
     form = layui.form,
+    table = layui.table,
     layer = layui.layer;
 
   $('.fa-refresh').click(function () {
@@ -20,6 +21,34 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
     HuiAdminDel(url, title);
   });
 
+  /* 监听状态设置开关 */
+  form.on('switch(switchStatus)', function (data) {
+    var that = $(this),
+      status = 0;
+    if (!that.attr('data-href')) {
+      layer.msg('请设置data-href参数');
+      return false;
+    }
+    if (this.checked) {
+      status = 1;
+    }
+    $.post(that.attr('data-href'), {
+      val: status
+    }, function (res) {
+      if (res.code === 1) {
+        layer.msg(res.msg, {time: 1500, icon: 1}, function () {
+          if (res.data.refresh == 1) {
+            window.parent.location.reload();
+          }
+        });
+      } else {
+        layer.msg(res.msg, {time: 1500, icon: 2}, function () {
+          that.trigger('click');
+          form.render('checkbox');
+        });
+      }
+    });
+  });
 
   /*满屏（全屏）打开窗口*/
   window.HuiAdminOpenFull = function (title, url) {
@@ -86,7 +115,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
       $.post(url, function (res) {
         if (res.code === 1) {
-          layer.msg(res.msg, {icon: 1,time:1500}, function () {
+          layer.msg(res.msg, {icon: 1, time: 1500}, function () {
             if (refresh == 1) {
               window.location.reload();
             }
@@ -103,7 +132,7 @@ layui.define(['jquery', 'form', 'layer', 'element'], function (exports) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
       $.post(url, function (res) {
         if (res.code === 1) {
-          layer.msg(res.msg, {icon: 1,time:1500}, function () {
+          layer.msg(res.msg, {icon: 1, time: 1500}, function () {
             if (refresh == 1) {
               window.location.reload();
             }

@@ -10,9 +10,12 @@
 namespace app\admin\controller\system;
 
 use app\admin\model\SystemMenu;
+use app\admin\service\TriggerService;
+use app\common\constants\MenuConstant;
 use app\common\controller\AdminController;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
+use think\App;
 
 /**
  * @ControllerAnnotation(title="菜单管理")
@@ -22,13 +25,24 @@ use app\admin\annotation\NodeAnotation;
 class MenuController extends AdminController
 {
 
+    protected $sort = [
+        'sort' => 'desc',
+        'id'   => 'asc',
+    ];
+
+    public function __construct(App $app)
+    {
+        parent::__construct($app);
+        $this->model = new SystemMenu();
+    }
+
     /**
      * @NodeAnotation(title="菜单列表")
      */
     public function index()
     {
-        if ($this->request->isPost()) {
-            $list  = SystemMenu::select()->toArray();
+        if ($this->request->isAjax()) {
+            $list  = SystemMenu::order($this->sort)->select()->toArray();
             $count = SystemMenu::count();
             $data  = [
                 'code'  => 0,
@@ -38,29 +52,69 @@ class MenuController extends AdminController
             ];
 
             return json($data);
-
-            $data = [
-                'code'  => 1,
-                'msg'   => '',
-                'count' => 1,
-                'data'  => [
-                    [
-                        'id'     => 1,
-                        'title'  => '系统管理',
-                        'sort'   => 1,
-                        'href'   => 'system.menu/index',
-                        'icon'   => 'fa fa-home',
-                        'status' => 1,
-                        'isMenu' => 0,
-                        'pid'    => -1
-                    ]
-                ]
-            ];
-
-            return json($data);
         }
 
         return $this->fetch();
+    }
+
+    /**
+     * @NodeAnotation(title="添加")
+     */
+    public function add()
+    {
+        if ($this->request->isPost()) {
+
+        }
+        $homeId = $this->model->where(['pid' => MenuConstant::HOME_PID,])->value('id');
+        $id     = $this->request->param('id');
+        if ($id == $homeId) {
+            $this->error('首页不能添加子菜单');
+        }
+        dump($id);
+    }
+
+    /**
+     * @NodeAnotation(title="编辑")
+     */
+    public function edit()
+    {
+
+    }
+
+    /**
+     * @NodeAnotation(title="删除")
+     */
+    public function delete()
+    {
+
+    }
+
+    /**
+     * @NodeAnotation(title="属性修改")
+     */
+    public function modify()
+    {
+        $param = $this->request->param();
+        $rule  = [
+            'id|ID'    => 'require',
+            'field|字段' => 'require',
+            'val|值'    => 'require',
+        ];
+        $this->validate($param, $rule);
+        $row = $this->model->find($param['id']);
+        if (empty($row)) {
+            $this->error('数据不存在');
+        }
+        $homeId = $this->model->where([
+            'pid' => MenuConstant::HOME_PID,
+        ])->value('id');
+
+        if ($param['id'] == $homeId && $param['field'] == 'status') {
+            $this->error('首页状态不允许关闭');
+        }
+        $row->save([$param['field'] => $param['val']]);
+        TriggerService::updateMenu();
+        $this->success('保存成功', ['refresh' => 1]);
     }
 
 }

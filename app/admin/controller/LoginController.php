@@ -62,11 +62,10 @@ class LoginController extends AdminController
             $login_failure_retry = Env::get('huiadmin.login_failure_retry');
             $login_failure_times = Env::get('huiadmin.login_failure_times');
             $login_failure_min   = Env::get('huiadmin.login_failure_min');
-            AdminModel::where('username', $param['username'])->inc('login_failure');
+            AdminModel::where('username', $param['username'])->inc('login_failure')->update();
             if ($login_failure_retry && $adminInfo['login_failure'] >= $login_failure_times && (time() - $adminInfo['updatetime']) < $login_failure_min * 60) {
                 $this->error('密码错误次数超过'.$login_failure_times.'次，请'.$login_failure_min.'分钟之后重试！');
             }
-
             $this->error('用户名或密码不正确！！！');
         }
         if ($adminInfo['status'] != 'normal') {
@@ -79,7 +78,7 @@ class LoginController extends AdminController
         $adminInfo->save();
 
         $adminInfo                = $adminInfo->toArray();
-        $adminInfo['expire_time'] = ( ! empty($param['keep_login']) && $param['keep_login'] == 'on') ? true : time() + 7200;
+        $adminInfo['expire_time'] = ( ! empty($param['keep_login']) && $param['keep_login'] == 'on') ? true : time() + 3600 * 2;
         unset($adminInfo['password']);
         session('admin', $adminInfo);
         $this->success('登录成功');

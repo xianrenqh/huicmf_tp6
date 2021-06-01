@@ -35,7 +35,7 @@ class NodeController extends AdminController
      */
     public function index()
     {
-        if ($this->request->isPost()) {
+        if ($this->request->isAjax()) {
             $authRule = new AuthRule();
             $count    = $authRule->count();
             $list     = $authRule->getNodeTreeList();

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>节点列表</title>
+    <title>菜单列表</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -18,16 +18,20 @@
     </div>
 </div>
 <script type="text/html" id="switchTpl">
-    <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="sexDemo" {{ d.status==
+    <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-filter="switchStatus"
+           data-href="{:url('system.menu/modify')}?id={{d.id}}&field=status" lay-text="启用|禁用" {{ d.status==
            1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="iconTpl">
     <i class="{{d.icon}}"></i>
 </script>
 <script type="text/html" id="optionTpl">
-    <a class="layui-btn layui-btn-xs layui-btn-normal" data-open="system.menu/add?id=227" data-title="添加下级" data-full="true">添加下级</a>
-    <a class="layui-btn layui-btn-xs layui-btn-success" data-open="system.menu/edit?id=227" data-title="编辑" data-full="true">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs" data-request="system.menu/delete?id=227" data-title="确定删除？">删除</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" data-open="{:url('system.menu/add')}?id={{d.id}}"
+       data-title="添加下级" data-full="true">添加下级</a>
+    <a class="layui-btn layui-btn-xs layui-btn-success" data-open="{:url('system.menu/edit')}?id={{d.id}}"
+       data-title="编辑" data-full="true">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs"
+       onclick="HuiAdminConfirm('{:url(\'system.menu/delete\')}','确定要删除吗？',1)">删除</a>
 </script>
 
 {include file='footer'/}
@@ -46,7 +50,7 @@
       treeIdName: 'id',
       treePidName: 'pid',
       elem: '#munu-table',
-      method: 'post',
+      method: 'get',
       url: "{:url('system.menu/index')}",
       page: false,
       cols: [[
@@ -64,14 +68,14 @@
               return '<span class="layui-badge layui-bg-blue">首页</span>';
             }
             if (d.pid === 0) {
-              return '<span class="layui-badge layui-bg-gray">模块</span>';
+              return '<span class="layui-badge layui-bg-orange">模块</span>';
             } else {
               return '<span class="layui-badge-rim">菜单</span>';
             }
           }
         },
-        {field: 'status', title: '状态', width: 95, templet: '#switchTpl',align: 'center'},
-        {field: 'sort', width: 80, title: '排序', edit: 'text',align: 'center'},
+        {field: 'status', title: '状态', width: 95, templet: '#switchTpl', align: 'center'},
+        {field: 'sort', width: 80, title: '排序', edit: 'text', align: 'center'},
         {
           width: 200,
           title: '操作',
@@ -84,7 +88,25 @@
       }
     });
 
-    $('#btn-expand').click(function () {
+    /* 监听单元格编辑 */
+    table.on('edit(munu-table)', function (obj) {
+      var value = obj.value
+        , data = obj.data
+        , field = obj.field;
+      $.post("{:url('system.menu/modify')}", {id: data.id, val: value, field: field}, function (res) {
+        if (res.code === 1) {
+          layer.msg(res.msg, {time: 1500, icon: 1}, function () {
+            if (res.data.refresh == 1) {
+              window.parent.location.reload();
+            }
+          });
+        } else {
+          layer.msg(res.msg, {time: 1500, icon: 2});
+        }
+      })
+    });
+
+    /*$('#btn-expand').click(function () {
       treetable.expandAll('#munu-table');
     });
 
@@ -102,7 +124,7 @@
       } else if (layEvent === 'edit') {
         layer.msg('修改' + data.id);
       }
-    });
+    });*/
   });
 </script>
 </body>
