@@ -7,8 +7,8 @@
       miniAdmin = layui.miniAdmin
 
     var options = {
-      iniUrl: "{:url('admin/index/menu_json')}",    // 初始化接口
-      clearUrl: "api/clear.json", // 缓存清理接口
+      iniUrl: "{:__url('index/menu_json')}",    // 初始化接口
+      clearUrl: "{:__url('index/clearCache')}", // 缓存清理接口
       urlHashLocation: true,      // 是否打开hash定位
       bgColorDefault: false,      // 主题默认配置
       multiModule: true,          // 是否开启多模块

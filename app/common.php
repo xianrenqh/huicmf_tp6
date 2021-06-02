@@ -34,6 +34,17 @@ if ( ! function_exists('__url')) {
     function __url(string $url = '', array $vars = [], $suffix = true, $domain = false)
     {
         return url($url, $vars, $suffix, $domain)->build();
+        /*$defalutModule = 'admin';
+        $currentModule = app('http')->getName();
+        $string = (string) url($url, $vars, $suffix, $domain);
+        $hideHomeName = true; // 是否去除url中默认模块名admin/
+        if($hideHomeName && $currentModule == $defalutModule) {
+            #去除url中默认模块名admin
+            $search = '/'.$defalutModule.'/';
+            $pos = stripos($string, $search);
+            $string = substr($string, 0, $pos). '/'. substr($string, $pos + strlen($search));
+        }*/
+        return $string;
     }
 }
 

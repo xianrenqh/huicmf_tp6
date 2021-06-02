@@ -25,7 +25,6 @@ return [
 
     // 不需要验证权限的控制器
     'no_auth_controller'  => [
-        'ajax',
         'login',
         'index',
     ],

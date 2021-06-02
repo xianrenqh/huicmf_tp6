@@ -87,4 +87,14 @@ class IndexController extends AdminController
         return $this->fetch();
     }
 
+
+    /**
+     * 清理缓存接口
+     */
+    public function clearCache()
+    {
+        Cache::clear();
+        $this->success('清理缓存成功');
+    }
+
 }
