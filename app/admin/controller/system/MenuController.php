@@ -63,14 +63,36 @@ class MenuController extends AdminController
     public function add()
     {
         if ($this->request->isPost()) {
-
+            $param = $this->request->param();
+            $rule  = [
+                'pid|上级菜单'   => 'require',
+                'title|菜单名称' => 'require',
+                'icon|菜单图标'  => 'require',
+            ];
+            $this->validate($param, $rule);
+            //查询链接是否已添加
+            $row = $this->model->where('href', $param['href'])->find();
+            if ( ! empty($row)) {
+                $this->error('该链接已被添加过了！');
+            }
+            $save = $this->model->save($param);
+            if ($save) {
+                TriggerService::updateMenu();
+                $this->success('保存成功');
+            } else {
+                $this->error('保存失败');
+            }
         }
         $homeId = $this->model->where(['pid' => MenuConstant::HOME_PID,])->value('id');
         $id     = $this->request->param('id');
         if ($id == $homeId) {
             $this->error('首页不能添加子菜单');
         }
-        dump($id);
+        $pidMenuList = $this->model->getPidMenuList();
+        $this->assign('id', $id);
+        $this->assign('pidMenuList', $pidMenuList);
+
+        return $this->fetch();
     }
 
     /**
@@ -78,7 +100,34 @@ class MenuController extends AdminController
      */
     public function edit()
     {
+        if ($this->request->isPost()) {
+            $param = $this->request->param();
+            $rule  = [
+                'pid|上级菜单'   => 'require',
+                'title|菜单名称' => 'require',
+                'icon|菜单图标'  => 'require',
+            ];
+            $this->validate($param, $rule);
+            $save = $this->model->update($param, ['id' => $param['id']]);
+            if ($save) {
+                TriggerService::updateMenu();
+                $this->success('保存成功');
+            } else {
+                $this->error('保存失败');
+            }
+        }
+        $id   = $this->request->param('id');
+        $data = $this->model->findOrEmpty($id);
+        if ($data->isEmpty()) {
+            $this->error('获取数据失败');
+        }
 
+        $pidMenuList = $this->model->getPidMenuList();
+        $this->assign('id', $id);
+        $this->assign('data', $data);
+        $this->assign('pidMenuList', $pidMenuList);
+
+        return $this->fetch();
     }
 
     /**
@@ -86,7 +135,21 @@ class MenuController extends AdminController
      */
     public function delete()
     {
-
+        $id = $this->request->param('id');
+        if (empty($id)) {
+            $this->error('参数错误');
+        }
+        $row = $this->model->find($id);
+        if (empty($row)) {
+            $this->error('数据不存在');
+        }
+        $save = $row->delete();
+        if ($save) {
+            TriggerService::updateMenu();
+            $this->success('删除成功');
+        } else {
+            $this->error('删除失败');
+        }
     }
 
     /**

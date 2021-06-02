@@ -28,6 +28,6 @@ class MenuConstant
     /**
      * 模块名前缀
      */
-    const MODULE_PREFIX = 'easyadmin_';
+    const MODULE_PREFIX = 'huiAdmin_';
 
 }

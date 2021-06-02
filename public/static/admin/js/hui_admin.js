@@ -1,8 +1,30 @@
-layui.define(['jquery', 'form', 'layer', 'element', 'table'], function (exports) {
+layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], function (exports) {
   var $ = layui.jquery,
     form = layui.form,
     table = layui.table,
-    layer = layui.layer;
+    layer = layui.layer,
+    iconPickerFa = layui.iconPickerFa;
+
+  iconPickerFa.render({
+    // 选择器，推荐使用input
+    elem: '#iconPicker',
+    // fa 图标接口
+    url: "/static/lib/font-awesome-4.7.0/less/variables.less",
+    // 是否开启搜索：true/false，默认true
+    search: true,
+    // 是否开启分页：true/false，默认true
+    page: true,
+    // 每页显示数量，默认16
+    limit: 16,
+    // 点击回调
+    click: function (data) {
+      //console.log(data);
+    },
+    // 渲染成功后的回调
+    success: function (d) {
+      //console.log(d);
+    }
+  });
 
   $('.fa-refresh').click(function () {
     window.location.reload();
@@ -50,6 +72,33 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table'], function (exports)
     });
   });
 
+  /**
+   * 监听表单提交
+   * <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
+   */
+  form.on('submit(doSub)', function (data) {
+    $.ajax({
+      type: 'POST',
+      url: data.form.action,
+      data: data.field,
+      dataType: "json",
+      success: function (res) {
+        if (res.code === 1) {
+          layer.msg(res.msg, {icon: 1, time: 2000}, function () {
+            if (res.url != '') {
+              window.location.href = res.url;
+            } else {
+              window.location.reload();
+            }
+          })
+        } else {
+          layer.msg(res.msg, {icon: 2, time: 2000})
+        }
+      }
+    });
+    return false;
+  });
+
   /*满屏（全屏）打开窗口*/
   window.HuiAdminOpenFull = function (title, url) {
     $.get(url, function (res) {
@@ -58,7 +107,10 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table'], function (exports)
         title: title,
         content: url,
         skin: 'skin-layer-hui',
-        closeBtn: 11
+        closeBtn: 11,
+        end:function (){
+          window.parent.location.reload();
+        }
       });
       layer.full(index);
     });

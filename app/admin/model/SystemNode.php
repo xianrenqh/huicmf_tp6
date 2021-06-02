@@ -9,9 +9,7 @@
 
 namespace app\admin\model;
 
-use think\Model;
-
-class SystemNode extends Model
+class SystemNode extends TimeModel
 {
 
     public function getNodeTreeList()

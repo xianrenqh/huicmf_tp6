@@ -41,6 +41,17 @@ body {
     color: #a29c9c;
 }
 
+.layuimini-form > .layui-form-item .required:after {
+    content: '*';
+    color: red;
+    position: absolute;
+    margin-left: 4px;
+    font-weight: bold;
+    line-height: 1.8em;
+    top: 6px;
+    right: 5px;
+}
+
 /**搜索框*/
 .layuimini-container .table-search-fieldset {
     margin: 0;
