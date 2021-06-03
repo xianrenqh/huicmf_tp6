@@ -11,6 +11,8 @@ namespace app\admin\controller;
 
 use app\common\controller\AdminController;
 use app\common\service\MenuService;
+use think\db\exception\DataNotFoundException;
+use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
 use app\admin\model\Admin as AdminModel;
 use think\facade\Env;
@@ -26,6 +28,10 @@ class IndexController extends AdminController
         return $this->fetch();
     }
 
+    /**
+     * @throws ModelNotFoundException
+     * @throws DataNotFoundException
+     */
     public function menu_json()
     {
         $cacheData = Cache::get('initAdmin_'.session('admin.id'));
