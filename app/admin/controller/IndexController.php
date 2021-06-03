@@ -87,6 +87,26 @@ class IndexController extends AdminController
         return $this->fetch();
     }
 
+    /**
+     * 修改后台登录管理员资料
+     */
+    public function editInfo()
+    {
+        $admin_id = cmf_get_admin_id();
+        $row      = AdminModel::where('id', $admin_id)->withoutField('password')->find();
+        if ($this->request->isPost()) {
+            $param = $this->request->param();
+            $res   = $row->save($param);
+            if ($res) {
+                $this->success('保存成功');
+            } else {
+                $this->error('保存失败');
+            }
+        }
+        $this->assign('data', $row);
+
+        return $this->fetch();
+    }
 
     /**
      * 清理缓存接口

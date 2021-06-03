@@ -54,7 +54,7 @@ body {
 
 /**搜索框*/
 .layuimini-container .table-search-fieldset {
-    margin: 0;
+    margin-bottom: 15px;
     border: 1px solid #e6e6e6;
     padding: 10px 20px 5px 20px;
     color: #6b6b6b;
@@ -156,9 +156,12 @@ body {
     background-color: #1e9fff !important;
 }
 
+body .layuimini-container .hui-form-search{}
+body .layuimini-container .hui-form-search .layui-input, .layui-select{height: 30px;}
 body .skin-layer-hui .layui-layer-title{background:#2c3e50; color:#fff; border: none;}
 body .skin-layer-hui .layui-layer-btn{border:0px solid #E9E7E7}
 body .skin-layer-hui .layui-layer-btn a{background:#1E9FFF;}
 body .skin-layer-hui .layui-layer-btn .layui-layer-btn1{background:#95a5a6;color:#fff;}
 body .layui-table thead th{font-weight: bold;}
 body .layui-layer-close11{background-position:-80px -40px}
+body .readonly_bg{background: #eee;}

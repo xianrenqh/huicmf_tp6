@@ -1,0 +1,41 @@
+{include file='header'/}
+<title>修改个人信息</title>
+<body>
+<div class="layuimini-container">
+  <div class="layuimini-main">
+    <form id="app-form" class="layui-form layuimini-form" action="{:url('index/editInfo')}" method="post">
+
+      <div class="layui-form-item">
+        <label class="layui-form-label required">登录账户</label>
+        <div class="layui-input-block">
+          <input type="text" name="username" class="layui-input readonly_bg" readonly="" value="{$data.username}">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label required">昵称</label>
+        <div class="layui-input-block">
+          <input type="text" name="nickname" class="layui-input" value="{$data.nickname}" lay-verify="required">
+        </div>
+      </div>
+
+      <div class="layui-form-item">
+        <label class="layui-form-label">用户email</label>
+        <div class="layui-input-block">
+          <input type="text" name="email" class="layui-input" lay-reqtext="请输入email" placeholder="请输入email" value="{$data.email}" lay-verify="email">
+          <tip>填写邮箱。</tip>
+        </div>
+      </div>
+
+      <div class="hr-line"></div>
+      <div class="layui-form-item text-center">
+        <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
+        <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+      </div>
+
+    </form>
+  </div>
+</div>
+{include file='footer'/}
+</body>
+</html>
