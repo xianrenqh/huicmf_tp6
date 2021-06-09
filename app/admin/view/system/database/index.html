@@ -1,0 +1,153 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group demoTable">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+            <a class="layui-btn layui-btn-sm" data-type="beifenData">
+                <i class="fa fa-plus"></i> 立即备份</a>
+            <a class="layui-btn layui-btn-normal layui-btn-sm" data-type="youhuaData">优化表</a>
+            <a class="layui-btn layui-btn-zise layui-btn-sm" data-type="xiufuData">修复表</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm" data-type="huanyuanData"
+               data-open="{:url('system.admin/add')}">数据还原</a>
+        </div>
+
+        <table id="database_list" lay-filter="database_list"></table>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-sm" lay-event="youhua">优化</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="xiufu">修复</a>
+            <a class="layui-btn layui-btn-normal layui-btn-sm" data-open="{:url('table_structure')}?table={{d.Name}}">表结构</a>
+            <a class="layui-btn layui-btn-normal layui-btn-sm layui-btn-lvse"
+               data-open="{:url('table_data')}?table={{d.Name}}">表数据</a>
+        </script>
+
+    </div>
+
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table', 'form', 'jquery'], function () {
+    var table = layui.table, $ = layui.jquery, form = layui.form;
+    //第一个实例
+    table.render({
+      elem: '#database_list'
+      , page: false
+      , method: 'get'
+      , url: '{:url('index',['do'=>1])}' //数据接口
+      , done: function (res) { //res 即为原始返回的数据
+        $("#total").html(res.count);
+      }
+      , cols: [[ //表头
+        {type: 'checkbox', LAY_CHECKED: true}
+        , {field: 'Name', title: '表名', width: 200}
+        , {field: 'Engine', title: '类型'}
+        , {field: 'Collation', title: '编码'}
+        , {field: 'Rows', title: '数据量', width: 100}
+        , {field: 'Data_length', title: '数据大小'}
+        , {field: 'Create_time', title: '创建时间'}
+        , {field: 'Data_free', title: '碎片'}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', width: 280, align: 'center'}
+      ]]
+      , id: 'Datalist'
+      , page: false
+      , limit: 10000
+    });
+    //监听行工具事件
+    table.on('tool(database_list)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'youhua') {
+        getevent("{:url('optimize')}", data);
+      } else if (obj.event === 'xiufu') {
+        getevent("{:url('repair')}", data);
+      }
+    });
+
+    var $ = layui.$, active = {
+      youhuaData: function () { //优化表数据
+        var tables = table_get_ids(table);
+        if (tables === false) {
+          return false;
+        }
+        var loading = layer.load();
+        $.post("{:url('optimize')}", {
+          table: tables
+        }, function (res) {
+          layer.close(loading);
+          layer.msg(res.message, {
+            icon: res.icon
+          })
+        })
+
+      }
+      , xiufuData: function () { //修复表数据
+        var tables = table_get_ids(table);
+        if (tables === false) {
+          return false;
+        }
+        var loading = layer.load();
+        $.post("{:url('repair')}", {
+          table: tables
+        }, function (res) {
+          layer.close(loading);
+          layer.msg(res.message, {
+            icon: res.icon
+          })
+        })
+      }
+      , beifenData: function () { //立即备份
+        var loading = layer.load();
+        $.post("{:url('backup')}", {
+          dosubmit: 1,
+        }, function (str) {
+          layer.close(loading);
+          layer.msg(str.message, {time: 1000}, function () {
+            if (str.status == 1) {
+              WeAdminShow("数据还原", "{:url('databack_list')}", '880');
+            }
+          });
+        });
+      }
+      , huanyuanData: function () {//备份数据列表
+        WeAdminShow("数据还原", "{:url('databack_list')}", '880');
+      }
+    };
+    $('.demoTable .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+    function getevent(url, data) {
+      $.get(url, {
+        table: data.Name
+      }, function (res) {
+        layer.msg(res.message, {
+          icon: res.icon
+        })
+      })
+    }
+
+  });
+
+  function table_get_ids(table) {
+    var checkStatus = table.checkStatus('Datalist')
+      , data = checkStatus.data;
+    if (data.length < 1) {
+      layer.msg('你没有选择任何数据', {icon: 2});
+      return false;
+    } else {
+      var ids = [];
+      for (var i = 0; i < data.length; i++) {
+        ids += data[i].Name + ',';
+      }
+      ids = ids.slice(0, -1);
+      var arr = ids.split(',');
+      for (var i in arr) {
+        (arr[i])
+      }
+      return arr;
+    }
+  }
+</script>
+</body>
+</html>

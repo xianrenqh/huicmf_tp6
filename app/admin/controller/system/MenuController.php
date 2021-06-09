@@ -63,7 +63,7 @@ class MenuController extends AdminController
     public function add()
     {
         if ($this->request->isPost()) {
-            $param = $this->request->param();
+            $param = $this->request->post();
             $rule  = [
                 'pid|上级菜单'   => 'require',
                 'title|菜单名称' => 'require',
@@ -101,7 +101,7 @@ class MenuController extends AdminController
     public function edit()
     {
         if ($this->request->isPost()) {
-            $param = $this->request->param();
+            $param = $this->request->post();
             $rule  = [
                 'pid|上级菜单'   => 'require',
                 'title|菜单名称' => 'require',

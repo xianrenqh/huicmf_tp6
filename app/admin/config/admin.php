@@ -34,4 +34,13 @@ return [
         'login/index',
         'login/out'
     ],
+
+    //数据库备份文件夹
+    'backupDir'           => '/databak/',
+
+    //不做备份的数据表
+    //可以是数组也可以是字符串（英文逗号拼接）
+    'backupIgnoreTables'  => [
+        'hui_system_log'
+    ]
 ];

@@ -19,21 +19,21 @@ if ( ! function_exists('cmf_get_admin_id')) {
     }
 }
 
+/**
+ * 构建URL地址
+ *
+ * @param string $url
+ * @param array  $vars
+ * @param bool   $suffix
+ * @param bool   $domain
+ *
+ * @return string
+ */
 if ( ! function_exists('__url')) {
-
-    /**
-     * 构建URL地址
-     *
-     * @param string $url
-     * @param array  $vars
-     * @param bool   $suffix
-     * @param bool   $domain
-     *
-     * @return string
-     */
     function __url(string $url = '', array $vars = [], $suffix = true, $domain = false)
     {
         return url($url, $vars, $suffix, $domain)->build();
+
         /*$defalutModule = 'admin';
         $currentModule = app('http')->getName();
         $string = (string) url($url, $vars, $suffix, $domain);
@@ -44,6 +44,7 @@ if ( ! function_exists('__url')) {
             $pos = stripos($string, $search);
             $string = substr($string, 0, $pos). '/'. substr($string, $pos + strlen($search));
         }*/
+
         return $string;
     }
 }
@@ -103,16 +104,16 @@ if ( ! function_exists('get_config')) {
     }
 }
 
+/**
+ * debug调试
+ *
+ * @param string|array $data   打印信息
+ * @param string       $type   类型
+ * @param string       $suffix 文件后缀名
+ * @param bool         $force
+ * @param null         $file
+ */
 if ( ! function_exists('xdebug')) {
-    /**
-     * debug调试
-     *
-     * @param string|array $data   打印信息
-     * @param string       $type   类型
-     * @param string       $suffix 文件后缀名
-     * @param bool         $force
-     * @param null         $file
-     */
     function xdebug($data, $type = 'xdebug', $suffix = null, $force = false, $file = null)
     {
         ! is_dir(public_path().'xdebug/') && mkdir(public_path().'xdebug/');
@@ -173,16 +174,15 @@ if ( ! function_exists('curl_post')) {
     }
 }
 
+/**
+ * 二位数组重新组合数据
+ *
+ * @param $array
+ * @param $key
+ *
+ * @return array
+ */
 if ( ! function_exists('array_format_key')) {
-
-    /**
-     * 二位数组重新组合数据
-     *
-     * @param $array
-     * @param $key
-     *
-     * @return array
-     */
     function array_format_key($array, $key)
     {
         $newArray = [];
@@ -193,6 +193,30 @@ if ( ! function_exists('array_format_key')) {
         return $newArray;
     }
 
+}
+
+/**
+ * 转换字节数为其他单位
+ *
+ * @param string $filesize 字节大小
+ *
+ * @return    string    返回大小
+ */
+if ( ! function_exists('sizecount')) {
+    function sizecount($filesize)
+    {
+        if ($filesize >= 1073741824) {
+            $filesize = round($filesize / 1073741824 * 100) / 100 .' GB';
+        } elseif ($filesize >= 1048576) {
+            $filesize = round($filesize / 1048576 * 100) / 100 .' MB';
+        } elseif ($filesize >= 1024) {
+            $filesize = round($filesize / 1024 * 100) / 100 .' KB';
+        } else {
+            $filesize = $filesize.' Bytes';
+        }
+
+        return $filesize;
+    }
 }
 
 /**

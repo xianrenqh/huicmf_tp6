@@ -108,7 +108,7 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
         content: url,
         skin: 'skin-layer-hui',
         closeBtn: 11,
-        end:function (){
+        end: function () {
           window.parent.location.reload();
         }
       });
