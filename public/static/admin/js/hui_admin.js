@@ -37,10 +37,18 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
     HuiAdminOpenFull(title, url);
   });
 
+  $('body').on('click', '[data-confirm]', function () {
+    let title = $(this).attr('data-title');
+    let url = $(this).attr('data-confirm');
+    let reload = $(this).attr('data-reload');
+    HuiAdminConfirm(url, title, reload);
+  });
+
   $('body').on('click', '[data-delete]', function () {
     let title = $(this).attr('data-title');
     let url = $(this).attr('data-delete');
-    HuiAdminDel(url, title);
+    let reload = $(this).attr('data-reload');
+    HuiAdminDel(url, title, reload);
   });
 
   /* 监听状态设置开关 */
@@ -165,7 +173,9 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
    */
   window.HuiAdminConfirm = function (url, msg = '真的要这样操作么？', refresh = 0) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
+      var loading = layer.load(0);
       $.post(url, function (res) {
+        layer.close(loading);
         if (res.code === 1) {
           layer.msg(res.msg, {icon: 1, time: 1500}, function () {
             if (refresh == 1) {
@@ -182,7 +192,9 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
   /*删除弹出提示*/
   window.HuiAdminDel = function (url, msg = '真的要删除么？', refresh = 0) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
+      var loading = layer.load(0);
       $.post(url, function (res) {
+        layer.close(loading);
         if (res.code === 1) {
           layer.msg(res.msg, {icon: 1, time: 1500}, function () {
             if (refresh == 1) {

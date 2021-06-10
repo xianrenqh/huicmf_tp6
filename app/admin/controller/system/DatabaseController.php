@@ -17,6 +17,7 @@ use app\admin\library\Backup;
 use think\Exception;
 use think\facade\Db;
 use app\common\traits\DebugTrait;
+use ZipArchive;
 
 /**
  * @ControllerAnnotation(title="数据库管理")
@@ -53,7 +54,7 @@ class DatabaseController extends AdminController
     {
         $DataBase  = config('database');
         $CAdmin    = config('admin');
-        $backupDir = root_path()."public".DS.$CAdmin['backupDir'];;
+        $backupDir = root_path()."public".DS.$CAdmin['backupDir'];
         if ($this->request->isAjax()) {
             try {
                 $backup = new Backup($DataBase['connections']['mysql']['hostname'],
@@ -75,7 +76,59 @@ class DatabaseController extends AdminController
      */
     public function restore()
     {
+        $BackUp    = config('admin');
+        $backupDir = root_path()."public".DS.$BackUp['backupDir'];
+        $file      = $this->request->param('file');
+        if ($file) {
+            try {
+                $dir = public_path().'databak'.DS;
+                if ( ! is_dir($dir)) {
+                    mkdir($dir, 0755);
+                }
+                $file = $backupDir.$file;
+                if (class_exists('ZipArchive')) {
+                    $zip = new ZipArchive;
+                    if ($zip->open($file) !== true) {
+                        throw new Exception('无法打开备份文件');
+                    }
+                    if ( ! $zip->extractTo($dir)) {
+                        $zip->close();
+                        throw new Exception('无法解压备份文件');
+                    }
+                    $zip->close();
+                    $filename = basename($file);
+                    $sqlFile  = $dir.str_replace('.zip', '.sql', $filename);
+                    if ( ! is_file($sqlFile)) {
+                        throw new Exception('未找到SQL文件');
+                    }
+                    $filesize = filesize($sqlFile);
+                    $list     = Db::query('SELECT @@global.max_allowed_packet');
 
+                    if (isset($list[0]['@@global.max_allowed_packet']) && $filesize >= $list[0]['@@global.max_allowed_packet']) {
+                        Db::execute('SET @@global.max_allowed_packet = '.($filesize + 1024));
+                    }
+                    $sql = file_get_contents($sqlFile);
+                    if (preg_match('/.*;$/', trim($sql))) {
+                        try {
+                            $sqlArr = array_filter(explode(";\n\n", trim($sql)));
+                            foreach ($sqlArr as $k => $v) {
+                                $res = Db::execute($v);
+                            }
+                            unlink($sqlFile);
+                            $this->success('还原成功！！！');
+                        } catch (Exception $e) {
+                            $this->error($e->getMessage());
+                        }
+                    } else {
+                        return 0;
+                    }
+                }
+                $this->error('非zip包');
+            } catch (Exception $e) {
+                return json(['code' => 0, 'msg' => $e->getMessage()]);
+            }
+        }
+        $this->error('错错错，是我的错');
     }
 
     /**
@@ -83,7 +136,22 @@ class DatabaseController extends AdminController
      */
     public function databack_list()
     {
+        $BackUp     = config('admin');
+        $backupDir  = root_path()."public".DS.$BackUp['backupDir'];
+        $backuplist = [];
+        foreach (glob($backupDir."*.zip") as $filename) {
+            $time              = filemtime($filename);
+            $backuplist[$time] = [
+                'file' => str_replace($backupDir, '', $filename),
+                'date' => date("Y-m-d H:i:s", $time),
+                'size' => sizecount(filesize($filename))
+            ];
 
+        }
+        krsort($backuplist);
+        $this->assign('data', $backuplist);
+
+        return $this->fetch();
     }
 
     /**
@@ -91,7 +159,16 @@ class DatabaseController extends AdminController
      */
     public function delete()
     {
+        $BackUp    = config('admin');
+        $backupDir = root_path()."public".DS.$BackUp['backupDir'];
+        $file      = $backupDir.input('file');
+        if (file_exists($file)) {
+            unlink($file);
 
+            return json(['msg' => '删除成功', 'code' => 1]);
+        } else {
+            return json(['msg' => '删除失败', 'code' => 0]);
+        }
     }
 
     /**
@@ -99,7 +176,12 @@ class DatabaseController extends AdminController
      */
     public function download()
     {
-
+        $BackUp    = config('admin');
+        $backupDir = root_path()."public".DS.$BackUp['backupDir'];
+        $file      = input('file');
+        if (file_exists($backupDir.$file)) {
+            file_down($backupDir.$file, $file);
+        }
     }
 
     /**

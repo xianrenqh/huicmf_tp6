@@ -6,7 +6,7 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
             <a class="layui-btn layui-btn-normal layui-btn-sm" data-open="{:url('system.menu/add')}">
-            <i class="fa fa-plus"></i> 添加菜单</a>
+                <i class="fa fa-plus"></i> 添加菜单</a>
         </div>
         <table id="munu-table" lay-filter="munu-table"></table>
     </div>
@@ -24,8 +24,8 @@
        data-title="添加下级" data-full="true">添加下级</a>
     <a class="layui-btn layui-btn-xs layui-btn-success" data-open="{:url('system.menu/edit')}?id={{d.id}}"
        data-title="编辑" data-full="true">编辑</a>
-    <a class="layui-btn layui-btn-danger layui-btn-xs"
-       onclick="HuiAdminConfirm('{:url(\'system.menu/delete\')}?id={{d.id}}','确定要删除吗？',1)">删除</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" data-delete="{:url('system.menu/delete')}?id={{d.id}}"
+       data-title="确定要删除吗？" data-reload="1">删除</a>
 </script>
 
 {include file='footer'/}

@@ -5,17 +5,16 @@
     <div class="layuimini-main">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <button class="layui-btn layui-btn-success layui-btn-sm"
-                    onclick="HuiAdminConfirm('{:url(\'system.node/refreshNode\')}','确定要更新节点？',1)"><i
-                    class="fa fa-hourglass"></i> 更新节点
+            <button class="layui-btn layui-btn-success layui-btn-sm" data-confirm="{:url('system.node/refreshNode')}"
+                    data-title="确定要更新节点？" data-reload="1"><i class="fa fa-hourglass"></i> 更新节点
             </button>
             <button class="layui-btn layui-btn-sm layui-btn-normal"
-                    onclick="HuiAdminConfirm('{:url(\'system.node/refreshNode\',[\'force\'=>1])}','确定要强制更新节点？',1)"><i
-                    class="fa fa-hourglass"></i> 强制更新节点
+                    data-confirm="{:url('system.node/refreshNode',['force'=>1])}" data-title="确定要强制更新节点？"
+                    data-reload="1"><i class="fa fa-hourglass"></i> 强制更新节点
             </button>
-            <button class="layui-btn layui-btn-sm layui-btn-danger"
-                    onclick="HuiAdminConfirm('{:url(\'system.node/clearNode\')}','确定清除失效节点？',1)"><i
-                    class="fa fa-trash-o"></i> 清除失效节点
+            <button class="layui-btn layui-btn-sm layui-btn-danger" data-confirm="{:url('system.node/clearNode')}"
+                    data-title="确定清除失效节点？"
+                    data-reload="1"><i class="fa fa-trash-o"></i> 清除失效节点
             </button>
         </div>
         <table class="layui-table">

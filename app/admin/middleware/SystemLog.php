@@ -25,6 +25,11 @@ class SystemLog
 
     public function handle($request, \Closure $next)
     {
+        $expire_time = session('admin.expire_time');
+        $addTimes    = 3600 * 2;
+        if (time() - $expire_time < 300) {
+            session('admin.expire_time', $expire_time + $addTimes);
+        }
         if ($request->isAjax()) {
             $method = strtolower($request->method());
             if (in_array($method, ['post', 'put', 'delete'])) {

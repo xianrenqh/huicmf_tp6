@@ -1,0 +1,68 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group demoTable">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+        </div>
+
+        <table class="layui-table">
+            <thead>
+            <tr class="text-c">
+                <th>ID</th>
+                <th>文件名称</th>
+                <th>文件大小</th>
+                <th>备份时间</th>
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name='data' id='vo' key='k'}
+            <tr class="text-c">
+                <td>{$k}</td>
+                <td>{$vo.file}</td>
+                <td>{$vo.size}</td>
+                <td>{$vo.date}</td>
+                <td class="td-manage" align="center" style="width: 160px">
+                    <a title="还原" href="javascript:;"
+                       class="layui-btn layui-btn-sm layui-btn-normal"
+                       data-confirm="{:url('system.database/restore')}?file={$vo.file}" data-title="确定要还原数据吗？"
+                       data-reload="1">还原</a>
+                    <a title="下载" href="{:url('download',['file'=>$vo.file])}" class="layui-btn layui-btn-sm"
+                       style="text-decoration:none">下载</a>
+                    <a title="删除" href="javascript:;"
+                       class="layui-btn layui-btn-sm layui-btn-danger"
+                       data-delete="{:url('system.database/delete')}?file={$vo.file}" data-title="确定要删除吗？"
+                       data-reload="1">删除</a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{include file='footer'/}
+<script>
+  function databack_import(url, file) {
+    layer.confirm('确定要还原数据吗？', function (index) {
+      var loading = layer.load();
+      $.post(url, {
+        file: file
+      }, function (res) {
+        layer.close(loading);
+        if (res.code == 1) {
+          layer.msg(res.msg, {icon: 1}, function () {
+            parent.parent.location.reload();
+          })
+        } else {
+          layer.msg(res.msg, {icon: 2});
+        }
+      })
+    });
+  }
+</script>
+</body>
+</html>
