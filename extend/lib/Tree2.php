@@ -36,7 +36,7 @@ class Tree2
 
     public function __construct($options = [])
     {
-        if ($config = Config::get('tree.')) {
+        if ($config = Config::get('tree')) {
             $this->options = array_merge($this->config, $config);
         }
         $this->options = array_merge($this->config, $options);

@@ -305,3 +305,28 @@ if ( ! function_exists('file_ext')) {
         return strtolower(trim(substr(strrchr($filename, '.'), 1, 10)));
     }
 }
+
+/**
+ * 数组层级缩进转换
+ *
+ * @param array $array 源数组
+ * @param int   $pid
+ * @param int   $level
+ *
+ * @return array
+ */
+if ( ! function_exists('array2level')) {
+    function array2level($array, $pid = 0, $level = 1)
+    {
+        static $list = [];
+        foreach ($array as $v) {
+            if ($v['pid'] == $pid) {
+                $v['level'] = $level;
+                $list[]     = $v;
+                array2level($array, $v['id'], $level + 1);
+            }
+        }
+
+        return $list;
+    }
+}

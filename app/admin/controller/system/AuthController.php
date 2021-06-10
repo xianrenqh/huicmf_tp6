@@ -9,10 +9,16 @@
 
 namespace app\admin\controller\system;
 
+use app\admin\library\LibAuthService;
+use app\admin\model\AuthGroup;
+use app\admin\model\AuthRule;
 use app\common\controller\AdminController;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
+use app\common\service\AuthService;
+use lib\tree;
 use think\App;
+use lib\Tree2;
 
 /**
  * @ControllerAnnotation(title="角色组管理")
@@ -35,7 +41,39 @@ class AuthController extends AdminController
      */
     public function add()
     {
+        $tree    = new Tree();
+        $libAuth = new LibAuthService();
+        $uid     = cmf_get_admin_id();
 
+        if ($this->request->isPost()) {
+            $param = $this->request->post();
+            $rule  = [
+                'name|角色名称'  => 'require',
+                'rules|权限节点' => 'require'
+            ];
+            $this->validate($param, $rule);
+            AuthGroup::create($param);
+            $this->success('添加成功');
+        }
+        $pid     = $this->request->param('pid', 0);
+        $array   = [];
+        $str     = "<option value='\$id' \$selected> \$spacer \$title</option>";
+        $role_id = $libAuth->getChildrenGroupIds(true);
+        $data    = AuthGroup::where('id', 'in', $role_id)->select()->toArray();
+
+        foreach ($data as $v) {
+            $v['selected'] = $v['id'] == $pid ? 'selected' : '';
+            $v['parentid'] = $v['pid'];
+            $v['title']    = $v['name'];
+            $array[]       = $v;
+        }
+
+        $group_data = AuthService::instance()->getGroups($uid);
+        $tree->init($array);
+        $select_menus = $tree->get_tree($group_data[0]['pid'], $str);
+        $this->assign('select_menus', $select_menus);
+
+        return $this->fetch();
     }
 
     /**
@@ -52,6 +90,23 @@ class AuthController extends AdminController
     public function delete()
     {
 
+    }
+
+    /**
+     * @NodeAnotation(title="授权节点")
+     */
+    public function authorize()
+    {
+        $id  = $this->request->get('id');
+        $row = AuthGroup::find($id);
+        empty($row) && $this->error('数据不存在');
+        if ($this->request->isAjax()) {
+            $list = AuthRule::getAuthorizeNodeListByAdminId($id);
+            $this->success('获取成功', $list);
+        }
+        $this->assign('row', $row);
+
+        return $this->fetch();
     }
 
 }

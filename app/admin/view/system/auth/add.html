@@ -1,0 +1,118 @@
+{include file='header'/}
+<title>添加角色组</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item" style="display: none">
+                <label class="layui-form-label">
+                    <span class="we-red">*</span>父级
+                </label>
+                <div class="layui-input-block">
+                    <select name="pid" lay-filter="parent_menu" id="pid">
+                        {$select_menus|raw}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="name" class="layui-form-label">
+                    <span class="we-red">*</span>名称
+                </label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">选择权限</label>
+                <div class="layui-input-block">
+                    <div id="node_ids" class="demo-tree-more"></div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label for="status" class="layui-form-label">状态</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="normal" title="启用" checked>
+                    <input type="radio" name="status" value="hidden" title="禁用">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery', 'layer'], function () {
+    var form = layui.form, $ = layui.jquery, layer = layui.layer, tree = layui.tree;
+    load_tree(1);
+    form.on('select(parent_menu)', function (data) {
+      load_tree(data.value);
+    });
+
+    function load_tree(id = 1) {
+      $.ajax({
+        url: "{:url('authorize')}?id=" + id,
+        dataType: 'json',
+        success: function (res) {
+          res.data = res.data || [];
+          tree.render({
+            elem: '#node_ids',
+            data: res.data,
+            showCheckbox: true,
+            id: 'nodeDataId',
+          });
+        }
+      });
+    }
+
+    window.dosub = function (obj) {
+      let pid = $('#pid').val();
+      let name = $('#name').val();
+      let status = $("input[name='status']").val()
+      var checkedData = tree.getChecked('nodeDataId');
+      var ids = '';
+      $.each(checkedData, function (i, v) {
+        ids+=(v.id)+',';
+        if (v.children !== undefined && v.children.length > 0) {
+          $.each(v.children, function (ii, vv) {
+            ids+=(vv.id)+',';
+          });
+        }
+      });
+      if (name == '') {
+        layer.msg('名称不能为空', {icon: 2});
+        return false;
+      }
+      if (ids.length < 1) {
+        layer.msg('请选择权限节点', {icon: 2});
+        return false;
+      }
+      ids=ids.substring(0,ids.length-1);
+      $.post("{:url('system.auth/add')}", {
+        pid:0,
+        name: name,
+        rules: ids,
+        status:status
+      }, function (res) {
+        if(res.code===1){
+          layer.msg(res.msg,{icon:1},function (){
+            parent.location.reload();
+          });
+        }else{
+          layer.msg(res.msg,{icon:2})
+        }
+      })
+    }
+  });
+
+
+</script>
+</body>
+</html>
