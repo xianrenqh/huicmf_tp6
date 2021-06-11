@@ -13,6 +13,7 @@ namespace app\admin\controller\system;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\service\AuthService;
+use lib\Random;
 use think\App;
 use app\admin\model\Admin as AdminModel;
 use app\admin\model\AuthGroupAccess;
@@ -30,10 +31,11 @@ class AdminController extends \app\common\controller\AdminController
     {
         parent::__construct($app);
         $this->model = new AdminModel();
+        $this->assign('auth_list', $this->model->getAuthList());
     }
 
     /**
-     * @NodeAnotation(title="管理员列表",auth=true)
+     * @NodeAnotation(title="管理员列表")
      */
     public function index()
     {
@@ -82,5 +84,89 @@ class AdminController extends \app\common\controller\AdminController
         }
 
         return $this->fetch();
+    }
+
+    /**
+     * @NodeAnotation(title="添加管理员")
+     */
+    public function add()
+    {
+        if ($this->request->isPost()) {
+            $param = $this->request->post();
+            $rule  = [
+                'username|登录名称' => 'require',
+                'password|登录密码' => 'require',
+                'auth_ids|角色组'  => 'require',
+                'nickname|昵称'   => 'require'
+            ];
+            $this->validate($param, $rule);
+
+            //查询用户名是否存在
+            $findAdmin = $this->model->where('username', $param['username'])->find();
+            if ( ! empty($findAdmin)) {
+                $this->error('已存在此登录名，请更换');
+            }
+            //写入管理员表
+            $salt       = Random::alnum();
+            $insertData = [
+                'username' => $param['username'],
+                'salt'     => $salt,
+                'password' => cmf_password($param['password'], $salt),
+                'nickname' => $param['nickname'],
+                'status'   => $param['status']
+            ];
+            $insertId   = $this->model->insertGetId($insertData);
+            //写入角色对应表
+            $authIdsArr = array_filter(array_keys($param['auth_ids']));
+            foreach ($authIdsArr as $k => $v) {
+                $data2[] = ['uid' => $insertId, 'group_id' => $v];
+            }
+            AuthGroupAccess::insertAll($data2);
+            $this->success('添加成功');
+        }
+
+        return $this->fetch();
+    }
+
+    /**
+     * @NodeAnotation(title="编辑管理员")
+     */
+    public function edit()
+    {
+        $id = $this->request->param('id');
+        if (empty($id)) {
+            $this->error('id不能为空');
+        }
+        $find = $this->model->find($id);
+        if (empty($find)) {
+            $this->error('管理员信息不存在');
+        }
+        if ($this->request->isPost()) {
+            $param = $this->request->post();
+            halt($param);
+        }
+        $this->assign('data', $find);
+
+        return $this->fetch();
+    }
+
+    /**
+     * @NodeAnotation(title="删除管理员")
+     */
+    public function delete()
+    {
+        $id = $this->request->param('id');
+        if (empty($id)) {
+            $this->error('id不能为空');
+        }
+        if ($id == 1) {
+            $this->error('不能删除id为1的管理员');
+        }
+        $find = $this->model->where('id', $id)->find();
+        if (empty($find)) {
+            $this->error('管理员信息不存在');
+        }
+        $find->delete(true);
+        $this->success('删除成功');
     }
 }

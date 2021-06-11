@@ -8,7 +8,7 @@
 
 namespace lib;
 
-class tree
+class Tree
 {
 
     /**

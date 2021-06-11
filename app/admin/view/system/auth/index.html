@@ -1,0 +1,71 @@
+{include file='header'/}
+<title>角色組列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm" data-open-full="{:url('system.auth/add')}" data-title="添加角色组">
+                <i class="fa fa-plus"></i> 添加角色组</a>
+        </div>
+
+        <table class="layui-table">
+            <thead>
+            <tr class="text-c">
+                <th>ID</th>
+                <th>角色名称</th>
+                <th>状态</th>
+                <th>添加时间</th>
+                <th width="200">操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name='list' id='vo' key='k'}
+            <tr class="text-c">
+                <td>{$k}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.status}</td>
+                <td>{$vo.create_time}</td>
+                <td class="td-manage" align="center" style="width: 160px">
+                    {if ($vo.id neq 1)}
+                    <a title="还原" href="javascript:;"
+                       class="layui-btn layui-btn-sm layui-btn-normal"
+                       data-open="{:url('system.auth/edit')}?id={$vo.id}" data-open-full="编辑"
+                       data-reload="1">编辑</a>
+                    <a title="删除" href="javascript:;"
+                       class="layui-btn layui-btn-sm layui-btn-danger"
+                       data-delete="{:url('system.auth/delete')}?id={$vo.id}" data-title="确定要删除吗？"
+                       data-reload="1">删除</a>
+                    {/if}
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+
+{include file='footer'/}
+<script>
+  function databack_import(url, file) {
+    layer.confirm('确定要还原数据吗？', function (index) {
+      var loading = layer.load();
+      $.post(url, {
+        file: file
+      }, function (res) {
+        layer.close(loading);
+        if (res.code == 1) {
+          layer.msg(res.msg, {icon: 1}, function () {
+            parent.parent.location.reload();
+          })
+        } else {
+          layer.msg(res.msg, {icon: 2});
+        }
+      })
+    });
+  }
+</script>
+</body>
+</html>

@@ -95,7 +95,7 @@ class DatabaseController extends AdminController
                         $zip->close();
                         throw new Exception('无法解压备份文件');
                     }
-                    $zip->close();
+
                     $filename = basename($file);
                     $sqlFile  = $dir.str_replace('.zip', '.sql', $filename);
                     if ( ! is_file($sqlFile)) {
@@ -108,6 +108,7 @@ class DatabaseController extends AdminController
                         Db::execute('SET @@global.max_allowed_packet = '.($filesize + 1024));
                     }
                     $sql = file_get_contents($sqlFile);
+
                     if (preg_match('/.*;$/', trim($sql))) {
                         try {
                             $sqlArr = array_filter(explode(";\n\n", trim($sql)));

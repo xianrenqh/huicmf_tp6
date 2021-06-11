@@ -9,11 +9,17 @@
 
 namespace app\admin\model;
 
+use app\admin\controller\system\Auth;
+use think\Model;
+
 class Admin extends TimeModel
 {
 
-    public function getInfo($adminId)
+    public function getAuthList()
     {
+        $list = (new AuthGroup())->where('status', 'normal')->column('name', 'id');
 
+        return $list;
     }
+
 }

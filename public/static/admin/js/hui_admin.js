@@ -34,6 +34,12 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
   $('body').on('click', '[data-open]', function () {
     let title = $(this).attr('data-title');
     let url = $(this).attr('data-open');
+    HuiAdminShow(title, url);
+  });
+
+  $('body').on('click', '[data-open-full]', function () {
+    let title = $(this).attr('data-title');
+    let url = $(this).attr('data-open-full');
     HuiAdminOpenFull(title, url);
   });
 
@@ -106,6 +112,28 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
     });
     return false;
   });
+
+  window.HuiDoSub = function (data,url){
+    $.ajax({
+      type: 'POST',
+      url: url,
+      data: data,
+      dataType: "json",
+      success: function (res) {
+        if (res.code === 1) {
+          layer.msg(res.msg, {icon: 1, time: 2000}, function () {
+            if (res.url != '') {
+              window.location.href = res.url;
+            } else {
+              window.location.reload();
+            }
+          })
+        } else {
+          layer.msg(res.msg, {icon: 2, time: 2000})
+        }
+      }
+    });
+  }
 
   /*满屏（全屏）打开窗口*/
   window.HuiAdminOpenFull = function (title, url) {

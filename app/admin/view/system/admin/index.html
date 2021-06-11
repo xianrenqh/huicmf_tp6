@@ -45,7 +45,8 @@
 
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <a class="layui-btn layui-btn-normal layui-btn-sm" data-open="{:url('system.admin/add')}">
+            <a class="layui-btn layui-btn-normal layui-btn-sm" data-open="{:url('system.admin/add')}"
+               data-title="添加管理员">
                 <i class="fa fa-plus"></i> 添加管理员</a>
         </div>
 
@@ -59,8 +60,10 @@
             {{#  } }}
         </script>
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-sm layui-btn-normal" lay-event="edit">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="del">删除</a>
+            <a class="layui-btn layui-btn-sm layui-btn-normal" data-open="{:url('system.admin/edit')}?id={{d.id}}"
+               data-title="编辑管理">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm" data-delete="{:url('system.admin/delete')}?id={{d.id}}"
+               data-title="删除管理员" date-reload="1">删除</a>
         </script>
 
     </div>
@@ -86,6 +89,7 @@
         , {field: 'user_group', title: '所属组别'}
         , {field: 'logintime', title: '上次登录时间', width: 170}
         , {field: 'loginip', title: '上次登录IP', width: 170}
+        , {field: 'create_time', title: '添加时间', width: 170}
         , {field: 'status', title: '状态', sort: true, templet: '#status', align: 'center', width: 90}
         , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 150}
       ]]

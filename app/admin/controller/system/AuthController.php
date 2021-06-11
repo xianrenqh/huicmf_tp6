@@ -16,8 +16,8 @@ use app\common\controller\AdminController;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\service\AuthService;
-use lib\tree;
 use think\App;
+use lib\Tree;
 use lib\Tree2;
 
 /**
@@ -33,7 +33,15 @@ class AuthController extends AdminController
      */
     public function index()
     {
+        $list  = AuthGroup::select();
+        $list1 = [];
+        foreach ($list as $v) {
+            $v['create_time'] = date('Y-m-d H:i:s', $v['createtime']);
+            $list1[]          = $v;
+        }
+        $this->assign('list', $list1);
 
+        return $this->fetch();
     }
 
     /**
@@ -52,6 +60,8 @@ class AuthController extends AdminController
                 'rules|权限节点' => 'require'
             ];
             $this->validate($param, $rule);
+            $param['create_time'] = time();
+            $param['update_time'] = time();
             AuthGroup::create($param);
             $this->success('添加成功');
         }
@@ -81,7 +91,25 @@ class AuthController extends AdminController
      */
     public function edit()
     {
+        $id   = $this->request->param('id');
+        $data = AuthGroup::where('id', $id)->find();
+        if ($this->request->isPost()) {
+            $param = $this->request->post();
+            $rule  = [
+                'name|角色名称'  => 'require',
+                'rules|权限节点' => 'require'
+            ];
+            $this->validate($param, $rule);
+            if ($param['id'] == 1) {
+                $this->error('禁止更改超级管理员');
+            }
+            $param['update_time'] = time();
+            $data->save($param);
+            $this->success('修改成功');
+        }
+        $this->assign('data', $data);
 
+        return $this->fetch();
     }
 
     /**
@@ -89,7 +117,16 @@ class AuthController extends AdminController
      */
     public function delete()
     {
-
+        $id   = $this->request->param('id');
+        $data = AuthGroup::where('id', $id)->find();
+        if (empty($data)) {
+            $this->error('获取数据失败');
+        }
+        if ($data['id'] == 1) {
+            $this->error('禁止删除超级管理员');
+        }
+        $data->delete(true);
+        $this->success('删除成功');
     }
 
     /**

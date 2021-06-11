@@ -1,0 +1,90 @@
+{include file='header'/}
+<title>添加管理员</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">登录名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="username" name="username" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="登录名称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">昵称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="nickname" name="nickname" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="昵称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">新密码</label>
+                <div class="layui-input-block">
+                    <input type="password" id="password" name="password" value="" lay-verify="required|newPwd"
+                           autocomplete="off" lay-reqtext="密码不能为空"
+                           class="layui-input" placeholder="为空则不修改密码">
+                    <tip>为空则不修改密码，密码长度：6-15位</tip>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">确认密码</label>
+                <div class="layui-input-block">
+                    <input type="password" id="password2" name="password2" value="" lay-verify="required|regPwd"
+                           autocomplete="off" lay-reqtext="确认密码不能为空"
+                           class="layui-input" placeholder="为空则不修改密码">
+                    <tip>为空则不修改密码，密码长度：6-15位</tip>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">角色权限</label>
+                <div class="layui-input-block">
+                    {foreach auth_list as $key=>$val}
+                    <input type="checkbox" id="auth_ids" name="auth_ids[{$key}]" lay-skin="primary" title="{$val}"
+                           lay-verify="required|authRequired">
+                    {/foreach}
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">状态</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="normal" title="启用" checked>
+                    <input type="radio" name="status" value="hidden" title="禁用">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery'], function () {
+    var form = layui.form, $ = layui.jquery;
+    form.render();
+    form.verify({
+      newPwd: [
+        /^[\S]{6,15}$/
+        , '密码必须6到15位，且不能出现空格'
+      ],
+      regPwd: function (value) {
+        if ($("#password").val() != value) {
+          return "两次输入密码不一致，请重新输入！";
+        }
+      }
+    });
+    window.dosub = function (obj) {
+      HuiDoSub($(obj).serialize(), "{:url('system.admin/add')}");
+    }
+  });
+
+</script>
+</body>
+</html>
