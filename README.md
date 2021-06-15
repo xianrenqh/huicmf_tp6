@@ -117,4 +117,7 @@ public function index()
 
 * Jquery：[https://github.com/jquery/jquery](https://github.com/jquery/jquery)
 
+* NKeditor：[https://gitee.com/blackfox/NKeditor](https://gitee.com/blackfox/NKeditor)
+
 * CKEditor：[https://github.com/ckeditor/ckeditor4](https://github.com/ckeditor/ckeditor4)
+
