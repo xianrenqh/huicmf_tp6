@@ -1,9 +1,11 @@
-layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], function (exports) {
+layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'iceEditor', 'wangEditor'], function (exports) {
   var $ = layui.jquery,
     form = layui.form,
     table = layui.table,
     layer = layui.layer,
-    iconPickerFa = layui.iconPickerFa;
+    iconPickerFa = layui.iconPickerFa,
+    iceEditor = layui.iceEditor,
+    wangEditor = layui.wangEditor;
 
   iconPickerFa.render({
     // 选择器，推荐使用input
@@ -113,7 +115,7 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
     return false;
   });
 
-  window.HuiDoSub = function (data,url){
+  window.HuiDoSub = function (data, url) {
     $.ajax({
       type: 'POST',
       url: url,
@@ -235,5 +237,45 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
       })
     });
   }
+
+  /**
+   * iceEditor编辑器
+   * @type {layui.iceEditor}
+   */
+  /*iceEd = new iceEditor("editor");
+  iceEd.create();*/
+
+  wangEd = new wangEditor('#editor_wang');
+  wangEd.customConfig.uploadImgServer = "../api/upload.json";
+  wangEd.customConfig.uploadFileName = 'image';
+  wangEd.customConfig.pasteFilterStyle = false;
+  wangEd.customConfig.uploadImgMaxLength = 5;
+  wangEd.customConfig.uploadImgHooks = {
+    // 上传超时
+    timeout: function (xhr, wangEd) {
+      layer.msg('上传超时！')
+    },
+    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
+    customInsert: function (insertImg, result, wangEd) {
+      console.log(result);
+      if (result.code == 1) {
+        var url = result.data.url;
+        url.forEach(function (e) {
+          insertImg(e);
+        })
+      } else {
+        layer.msg(result.msg);
+      }
+    }
+  };
+  var $text1 = $('#editor')
+  wangEd.customConfig.onchange = function (html) {
+    // 监控变化，同步更新到 textarea
+    $text1.val(html)
+  }
+  wangEd.create()
+  // 初始化 textarea 的值
+  $text1.val(wangEd.txt.html())
+
 
 });

@@ -1,0 +1,41 @@
+{include file='header'/}
+<title>添加内容</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="{:url('content.article/add')}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">标题</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title" name="title" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="标题不能为空">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容</label>
+                <div class="layui-input-block">
+                    <div id="editor_wang"></div>
+                    <textarea name="content" id="editor" cols="30" class="layui-textarea layui-hide"></textarea>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery'], function () {
+    let form = layui.form, $ = layui.jquery;
+  });
+</script>
+<!--<script src="__LIB__/iceEditor/iceEditor.min.js" charset="utf-8"></script>-->
+
+</body>
+</html>
