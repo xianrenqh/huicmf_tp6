@@ -53,11 +53,11 @@ class LoginController extends AdminController
             $this->error('验证码不能为空');
         }
 
-        $password  = cmf_password($param['password']);
         $adminInfo = AdminModel::where('username', $param['username'])->find();
         if (empty($adminInfo)) {
             $this->error('用户名或密码不正确！');
         }
+        $password = cmf_password($param['password'], $adminInfo['salt']);
         if ($password != $adminInfo['password']) {
             $login_failure_retry = Env::get('huiadmin.login_failure_retry');
             $login_failure_times = Env::get('huiadmin.login_failure_times');

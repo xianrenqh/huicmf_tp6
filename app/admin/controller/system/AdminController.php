@@ -90,8 +90,8 @@ class AdminController extends \app\common\controller\AdminController
         $pid   = $this->request->param('pid', 0);
         $array = [];
 
-        $role_id = $libAuth->getChildrenGroupIds(true);
-        $data    = AuthGroup::where('id', 'in', $role_id)->select()->toArray();
+        //$role_id = $libAuth->getChildrenGroupIds(true);
+        $data = AuthGroup::where('status', 'normal')->select()->toArray();
         foreach ($data as $v) {
             $v['selected'] = $v['id'] == $pid ? 'selected' : '';
             $v['parentid'] = $v['pid'];

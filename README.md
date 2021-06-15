@@ -1,12 +1,23 @@
 HuiCMF v6.0
 ===============
 基于ThinkPHP 6.0开发
-**【参考EasyAdmin学习重构开发，推荐支持EasyAdmin】**
+**【参考EasyAdmin重构开发，后台非VUE，推荐支持EasyAdmin】**
+
+**仅用于学习使用**
 > 运行环境要求PHP7.1+，兼容PHP8.0。
 >
 by:xiaohuihui
 
-###
+## 安装
+
+- 首先：git clone 获取数据
+- 然后：composer update 更新数据
+- 接着访问： http://你的域名/install
+- 执行安装程序
+- 最后访问后台：http://你的域名/admin
+- 默认后台账号密码： admin admin888
+
+## 使用说明
 
 1、后台控制器都需要继承：AdminController
 
@@ -66,6 +77,28 @@ class MenuController extends AdminController
 public function index()
 {
 }
+~~~
+
+## 后台前端问题
+
+### 前端auth权限验证
+
+> 为什么前端也做权限认证，权限认证不应该是后端做的吗？ 这里的权限认证指的是前端判断是否有权限查看的数据（例如：添加、删除、编辑之类的按钮），这些只有在点击到对应的url之后，后端才会进行权限认证。 为了避免用户困扰，可以在此用上前端的权限认证，判断是否显示还是隐藏
+
+**第一种示例, 通过php的auth()方法生成layui-hide样式属性。**
+
+~~~
+<a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:url('system.admin/edit')}?id={{d.id}}"
+               data-title="编辑管理">编辑</a>
+~~~
+
+**第二种, 通过php的auth()方法判断, 是否显示html**
+
+~~~
+{if check_auth('system.admin/edit')}
+<a class="layui-btn layui-btn-sm layui-btn-normal " data-open="{:url('system.admin/edit')}?id={{d.id}}"
+               data-title="编辑管理">编辑</a>
+{/if}
 ~~~
 
 ## 特别感谢

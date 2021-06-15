@@ -1,6 +1,7 @@
 <?php
 // 应用公共文件
 use think\Db;
+use app\common\service\AuthService;
 
 /**
  * 返回带协议的域名
@@ -16,6 +17,18 @@ if ( ! function_exists('cmf_get_admin_id')) {
     function cmf_get_admin_id()
     {
         return session('admin.id');
+    }
+}
+
+/**
+ * 按钮权限验证
+ */
+if ( ! function_exists('check_auth')) {
+    function check_auth($rule_name = '')
+    {
+        $Auth = AuthService::instance();
+
+        return $Auth->check($rule_name, cmf_get_admin_id());
     }
 }
 

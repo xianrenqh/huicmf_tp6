@@ -41,7 +41,7 @@
 
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <a class="layui-btn layui-btn-normal layui-btn-sm" data-open="{:url('system.admin/add')}"
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.admin/add')}layui-hide{/if}" data-open="{:url('system.admin/add')}"
                data-title="添加管理员">
                 <i class="fa fa-plus"></i> 添加管理员</a>
         </div>
@@ -57,9 +57,9 @@
         </script>
         <script type="text/html" id="barDemo">
             {{#  if(d.id !==1){ }}
-            <a class="layui-btn layui-btn-sm layui-btn-normal" data-open="{:url('system.admin/edit')}?id={{d.id}}"
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:url('system.admin/edit')}?id={{d.id}}"
                data-title="编辑管理">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-sm" data-delete="{:url('system.admin/delete')}?id={{d.id}}"
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.admin/delete')}layui-hide{/if}" data-delete="{:url('system.admin/delete')}?id={{d.id}}"
                data-title="删除管理员" date-reload="1">删除</a>
             {{#  } }}
         </script>

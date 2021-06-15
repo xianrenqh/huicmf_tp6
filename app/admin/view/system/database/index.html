@@ -4,20 +4,20 @@
     <div class="layuimini-main">
         <div class="layui-btn-group demoTable">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <a class="layui-btn layui-btn-sm" data-type="beifenData">
+            <a class="layui-btn layui-btn-sm {if !check_auth('system.database/backup')}layui-hide{/if}" data-type="beifenData">
                 <i class="fa fa-plus"></i> 立即备份</a>
-            <a class="layui-btn layui-btn-normal layui-btn-sm" data-type="youhuaData">优化表</a>
-            <a class="layui-btn layui-btn-zise layui-btn-sm" data-type="xiufuData">修复表</a>
-            <a class="layui-btn layui-btn-danger layui-btn-sm" data-type="huanyuanData"
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.database/optimize')}layui-hide{/if}" data-type="youhuaData">优化表</a>
+            <a class="layui-btn layui-btn-zise layui-btn-sm {if !check_auth('system.database/repair')}layui-hide{/if}" data-type="xiufuData">修复表</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.database/databack_list')}layui-hide{/if}" data-type="huanyuanData"
                data-open="{:url('system.database/databack_list')}" data-title="备份列表">数据还原</a>
         </div>
 
         <table id="database_list" lay-filter="database_list"></table>
         <script type="text/html" id="barDemo">
-            <a class="layui-btn layui-btn-sm" lay-event="youhua">优化</a>
-            <a class="layui-btn layui-btn-danger layui-btn-sm" lay-event="xiufu">修复</a>
-            <a class="layui-btn layui-btn-normal layui-btn-sm" data-open="{:url('table_structure')}?table={{d.Name}}" data-title="表结构">表结构</a>
-            <a class="layui-btn layui-btn-normal layui-btn-sm layui-btn-lvse"
+            <a class="layui-btn layui-btn-sm {if !check_auth('system.database/optimize')}layui-hide{/if}" lay-event="youhua">优化</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.database/repair')}layui-hide{/if}" lay-event="xiufu">修复</a>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.database/table_structure')}layui-hide{/if}" data-open="{:url('table_structure')}?table={{d.Name}}" data-title="表结构">表结构</a>
+            <a class="layui-btn layui-btn-normal layui-btn-sm layui-btn-lvse {if !check_auth('system.database/table_data')}layui-hide{/if}"
                data-open="{:url('table_data')}?table={{d.Name}}" data-title="表数据">表数据</a>
         </script>
 
