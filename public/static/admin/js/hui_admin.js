@@ -1,11 +1,9 @@
-layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'iceEditor', 'wangEditor'], function (exports) {
+layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], function (exports) {
   var $ = layui.jquery,
     form = layui.form,
     table = layui.table,
     layer = layui.layer,
-    iconPickerFa = layui.iconPickerFa,
-    iceEditor = layui.iceEditor,
-    wangEditor = layui.wangEditor;
+    iconPickerFa = layui.iconPickerFa;
 
   iconPickerFa.render({
     // 选择器，推荐使用input
@@ -245,7 +243,7 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'ic
   /*iceEd = new iceEditor("editor");
   iceEd.create();*/
 
-  wangEd = new wangEditor('#editor_wang');
+  /*wangEd = new wangEditor('#editor_wang');
   wangEd.customConfig.uploadImgServer = "../api/upload.json";
   wangEd.customConfig.uploadFileName = 'image';
   wangEd.customConfig.pasteFilterStyle = false;
@@ -275,7 +273,7 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'ic
   }
   wangEd.create()
   // 初始化 textarea 的值
-  $text1.val(wangEd.txt.html())
+  $text1.val(wangEd.txt.html())*/
 
 
 });

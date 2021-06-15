@@ -16,7 +16,8 @@
                 <label class="layui-form-label">内容</label>
                 <div class="layui-input-block">
                     <div id="editor_wang"></div>
-                    <textarea name="content" id="editor" cols="30" class="layui-textarea layui-hide"></textarea>
+                    <!--<textarea name="content" id="editor" cols="30" class="layui-textarea layui-hide"></textarea>-->
+                    {php}echo lib\Form::editor('content',$val='', 'width:100%;height:400px');{/php}
                 </div>
             </div>
 
