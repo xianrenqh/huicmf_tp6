@@ -12,8 +12,10 @@ namespace app\admin\controller\system;
 
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
+use app\admin\model\AuthGroup;
 use app\common\service\AuthService;
 use lib\Random;
+use lib\Tree;
 use think\App;
 use app\admin\model\Admin as AdminModel;
 use app\admin\model\AuthGroupAccess;
@@ -39,6 +41,8 @@ class AdminController extends \app\common\controller\AdminController
      */
     public function index()
     {
+        $tree    = new Tree();
+        $libAuth = new LibAuthService();
         if ($this->request->isAjax()) {
             $page    = (int)$this->request->param('page', 1);
             $limit   = (int)$this->request->param('limit', 10);
@@ -82,6 +86,25 @@ class AdminController extends \app\common\controller\AdminController
 
             return json($data);
         }
+        $uid   = cmf_get_admin_id();
+        $pid   = $this->request->param('pid', 0);
+        $array = [];
+
+        $role_id = $libAuth->getChildrenGroupIds(true);
+        $data    = AuthGroup::where('id', 'in', $role_id)->select()->toArray();
+        foreach ($data as $v) {
+            $v['selected'] = $v['id'] == $pid ? 'selected' : '';
+            $v['parentid'] = $v['pid'];
+            $v['title']    = $v['name'];
+            $array[]       = $v;
+        }
+
+        $str = "<option value='\$id' \$selected> \$spacer \$title</option>";
+        $tree->init($array);
+        $group_data        = AuthService::instance()->getGroups($uid);
+        $select_auth_group = $tree->get_tree($group_data[0]['pid'], $str);
+
+        $this->assign('select_auth_group', $select_auth_group);
 
         return $this->fetch();
     }
@@ -143,9 +166,39 @@ class AdminController extends \app\common\controller\AdminController
         }
         if ($this->request->isPost()) {
             $param = $this->request->post();
-            halt($param);
+            $rule  = [
+                'id|id'         => 'require',
+                'username|登录名称' => 'require',
+                'auth_ids|角色组'  => 'require',
+                'nickname|昵称'   => 'require'
+            ];
+            $this->validate($param, $rule);
+            $updateData = [
+                'id'       => $param['id'],
+                'nickname' => $param['nickname'],
+                'status'   => $param['status']
+            ];
+            if ( ! empty($param['password'])) {
+                $salt                   = Random::alnum();
+                $updateData['salt']     = $salt;
+                $updateData['password'] = cmf_password($param['password'], $salt);
+            } else {
+                unset($param['password']);
+            }
+            $updateRow = $find->update($updateData);
+            //写入角色对应表
+            AuthGroupAccess::where('uid', $id)->delete(true);
+            $authIdsArr = array_filter(array_keys($param['auth_ids']));
+            foreach ($authIdsArr as $k => $v) {
+                $data2[] = ['uid' => $id, 'group_id' => $v];
+            }
+            AuthGroupAccess::insertAll($data2);
+            $this->success('修改成功');
+
         }
+        $authGroupAccess = AuthGroupAccess::where('uid', $id)->column('group_id');
         $this->assign('data', $find);
+        $this->assign('group_access', $authGroupAccess);
 
         return $this->fetch();
     }
@@ -169,4 +222,5 @@ class AdminController extends \app\common\controller\AdminController
         $find->delete(true);
         $this->success('删除成功');
     }
+
 }

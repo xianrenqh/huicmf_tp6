@@ -1,10 +1,80 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{include file='header'/}
+<title>添加管理员</title>
 <body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">登录名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="username" name="username" value="{$data.username}" lay-verify="required" autocomplete="off"
+                           class="layui-input readonly-bg" lay-reqtext="登录名称不能为空" readonly="readonly">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">昵称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="nickname" name="nickname" value="{$data.nickname}" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="昵称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">新密码</label>
+                <div class="layui-input-block">
+                    <input type="password" id="password" name="password" value="" autocomplete="off" class="layui-input" placeholder="为空则不修改密码">
+                    <tip>为空则不修改密码，密码长度：6-15位</tip>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">确认密码</label>
+                <div class="layui-input-block">
+                    <input type="password" id="password2" name="password2" value=""
+                           autocomplete="off" class="layui-input" placeholder="为空则不修改密码">
+                    <tip>为空则不修改密码，密码长度：6-15位</tip>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">角色权限</label>
+                <div class="layui-input-block">
+                    {foreach auth_list as $key=>$val}
+                    <input type="checkbox" id="auth_ids" name="auth_ids[{$key}]" lay-skin="primary" title="{$val}"
+                           lay-verify="required|authRequired" {if (in_array($key,$group_access))}checked{/if} >
+                    {/foreach}
+                </div>
+            </div>
 
+            <div class="layui-form-item">
+                <label class="layui-form-label required">状态</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="normal" title="启用" {if ($data.status) eq 'normal'}checked{/if}>
+                    <input type="radio" name="status" value="hidden" title="禁用" {if ($data.status) eq 'hidden'}checked{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <input type="hidden" id="id" name="id" value="{$data.id}">
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery'], function () {
+    var form = layui.form, $ = layui.jquery;
+    form.render();
+    window.dosub = function (obj) {
+      HuiDoSub($(obj).serialize(), "{:url('system.admin/edit')}");
+    }
+  });
+
+</script>
 </body>
 </html>
