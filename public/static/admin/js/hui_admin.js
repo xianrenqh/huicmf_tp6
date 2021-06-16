@@ -1,8 +1,9 @@
-layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], function (exports) {
+layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upload'], function (exports) {
   var $ = layui.jquery,
     form = layui.form,
     table = layui.table,
     layer = layui.layer,
+    upload = layui.upload,
     iconPickerFa = layui.iconPickerFa;
 
   iconPickerFa.render({
@@ -277,3 +278,22 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa'], fu
 
 
 });
+
+//图片预览
+function hui_img_preview(id, src) {
+  if (src == '') return;
+  layer.tips('<img src="' + htmlspecialchars(src) + '" height="100">', '#' + id, {
+    tips: [1, '#fff']
+  });
+}
+
+
+//html实体转换
+window.htmlspecialchars = function (str) {
+  str = str.replace(/&/g, '&amp;');
+  str = str.replace(/</g, '&lt;');
+  str = str.replace(/>/g, '&gt;');
+  str = str.replace(/"/g, '&quot;');
+  str = str.replace(/'/g, '&#039;');
+  return str;
+}

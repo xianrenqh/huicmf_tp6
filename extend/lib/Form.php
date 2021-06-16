@@ -21,7 +21,7 @@ class Form
      */
     public static function editor($name = 'content', $val = '', $style = '', $isload = true)
     {
-        $editorType = 'wangEditor';
+        $editorType = 'iceEditor';
         switch ($editorType) {
             case 'iceEditor';
                 $res = self::editor_iceEditor($name, $val, $isload);
@@ -46,35 +46,59 @@ class Form
             $string .= '<script type="text/javascript" charset="utf-8" src="'.$libDir.'"></script>';
         }
         $string .= '<textarea id="editor" name="'.$name.'">'.$val.'</textarea>';
-        $string .= '<script>iceEditor = new ice.editor("editor");iceEditor.create();</script>';
+        $string .= '<script>
+                iceEditor = new ice.editor("editor");
+                iceEditor.uploadUrl="'.url('upload/index', ['editor_type' => 'iceEditor']).'";
+                iceEditor.create();
+                </script>
+                ';
 
         return $string;
     }
 
     private static function editor_wangEditor($name, $val, $isLoad)
     {
+        $css1   = DS.'static'.DS.'lib'.DS.'wangEditor-4.7.3'.DS.'css'.DS.'monokai_sublime.min.css';
         $jquyer = DS.'static'.DS.'lib'.DS.'jquery-3.4.1'.DS.'jquery-3.4.1.min.js';
         $libDir = DS.'static'.DS.'lib'.DS.'wangEditor-4.7.3'.DS.'wangEditor.js';
+        $hljs   = DS.'static'.DS.'lib'.DS.'wangEditor-4.7.3'.DS.'highlight.min.js';
         $string = '';
         if ($isLoad) {
+            $string .= '<link href="'.$css1.'" rel="stylesheet">';
             $string .= '<script type="text/javascript" charset="utf-8" src="'.$jquyer.'"></script>';
             $string .= '<script type="text/javascript" charset="utf-8" src="'.$libDir.'"></script>';
+            $string .= '<script type="text/javascript" charset="utf-8" src="'.$hljs.'"></script>';
         }
-        $string .= '<div id="editor"></div>';
-        $string .= '<textarea name="content" id="editor_text" cols="30" class="layui-textarea "></textarea>';
+        $string .= '<div id="editor"><pre type="JavaScript"></pre></div>';
+        $string .= '<textarea name="content" id="editor_text" cols="30" class="layui-textarea layui-hide"></textarea>';
         $string .= "";
-        $string .= <<<eof
-<script type="text/javascript">
+        $string .= "
+<script type=\"text/javascript\">
         var E = window.wangEditor
         var editor = new E('#editor')
         var text1 = $('#editor_text')
-        editor.customConfig.onchange = function (html) {
+        editor.config.onchange = function (html) {
             text1.val(html)
         }
+        editor.config.uploadImgServer = '".url('upload/index')."';
+        editor.config.uploadImgHooks = {
+            before: function(xhr) {},
+            success: function(xhr) {},
+            fail: function(xhr, editor, resData) {},
+            error: function(xhr, editor, resData) {},
+            timeout: function(xhr) {}    
+        }
+        editor.config.uploadFileName = 'file'
+        editor.config.uploadImgParams = {
+            'editor_type':'wangEditor'
+        };
+        editor.config.uploadImgAccept = []
+        editor.config.codeDefaultLang = 'php';
+        editor.highlight = hljs;
         editor.create()
         text1.val(editor.txt.html())
     </script>
-eof;
+    ";
 
         return $string;
     }

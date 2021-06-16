@@ -27,6 +27,7 @@ return [
     'no_auth_controller'  => [
         'login',
         'index',
+        'upload'
     ],
 
     // 不需要验证权限的节点

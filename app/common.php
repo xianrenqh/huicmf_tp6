@@ -1,6 +1,6 @@
 <?php
 // 应用公共文件
-use think\Db;
+use think\facade\Db;
 use app\common\service\AuthService;
 
 /**

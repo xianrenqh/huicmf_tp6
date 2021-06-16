@@ -156,6 +156,73 @@ body {
     background-color: #1e9fff !important;
 }
 
+/**
+多图上传
+ */
+.layui-upload-drag-self {
+    background-color: #fbfdff;
+    border: 1px dashed #c0ccda;
+    border-radius: 6px;
+    box-sizing: border-box;
+    width: 148px;
+    height: 148px;
+    line-height: 148px;
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    outline: 0;
+    margin-right: 13px;
+    float: left;
+}
+
+.layui-input-inlines-self {
+    position: relative;
+    margin-left: 90px;
+    min-height: 36px;
+    text-align: left;
+}
+
+.layui-upload-drag-self .layui-icon {
+    font-size: 28px;
+    color: #8c939d
+}
+.layui-upload-drag-self .img {
+    position:relative;
+    height: 148px;
+    width: 148px;
+}
+
+.layui-upload-img {
+    width: 148px;
+    height: 148px;
+    border-radius: 6px;
+    margin-top: -3px;
+    margin-left: -2px;
+}
+
+
+.handle {
+    position: absolute;
+    width: 148px;
+    height: 100%;
+    z-index: 100;
+    border-radius: 6px;
+    top: 0;
+    background: rgba(59, 60, 61, 0.6);
+    text-align: center;
+}
+
+.handle .icon-myself {
+    z-index: 999;
+    transition: all .3s;
+    cursor: pointer;
+    font-size: 25px;
+    width: 25px;
+    color: rgba(255, 255, 255, 0.91);
+    margin: 0 4px;
+}
+
 body .layuimini-container .hui-form-search{}
 body .layuimini-container .hui-form-search .layui-input, .layui-select{height: 30px;}
 body .skin-layer-hui .layui-layer-title{background:#2c3e50; color:#fff; border: none;}
