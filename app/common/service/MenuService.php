@@ -95,7 +95,7 @@ class MenuService
             ['status', '=', '1'],
             ['pid', '<>', MenuConstant::HOME_PID],
         ])->order([
-            'sort' => 'desc',
+            'sort' => 'asc',
             'id'   => 'asc',
         ])->select();
 

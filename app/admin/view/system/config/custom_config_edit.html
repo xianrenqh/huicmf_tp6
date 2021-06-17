@@ -1,0 +1,140 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" value="{$data.name}" lay-verify="required"
+                           autocomplete="off" class="layui-input readonly-bg" lay-reqtext="配置名称不能为空" readonly="readonly">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置类型</label>
+                <div class="layui-input-inline">
+                    <select name="fieldtype" class="select" style="width:230px" lay-filter="fieldtype" disabled>
+                        <option value="textarea" {if($data.fieldtype=='textarea')}selected{/if}>文本类型</option>
+                        <option value="image" {if($data.fieldtype=='image')}selected{/if}>图片上传</option>
+                        <option value="attachment" {if($data.fieldtype=='attachment')}selected{/if}>附件上传</option>
+                        <option value="radio" {if($data.fieldtype=='radio')}selected{/if}>radio选项卡</option>
+                        <option value="select" {if($data.fieldtype=='select')}selected{/if}>option下拉框</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置值</label>
+                <div class="layui-input-block">
+                    {if($data.fieldtype=='textarea')}
+                    <div class="upload_mode mode_textarea span_input {if($data.fieldtype!='textarea')}layui-hide{/if}"
+                         id="config_show">
+                    <textarea name="value[textarea]" class="layui-textarea "
+                              placeholder="例如：123456789">{$data.value}</textarea>
+                    </div>
+                    {/if}
+
+                    {if($data.fieldtype=='image')}
+                    <div class="upload_mode mode_image {if($data.fieldtype!='image')}layui-hide{/if}">
+                        <div class="layui-input-inline" style="width: 60%">
+                            <input type="text" name="value" value="{$data.value}" onmouseover="hui_img_preview('upload_pic', this.value)" onmouseout="layer.closeAll();" id="upload_pic"   autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline" style="width: 120px">
+                            <button type="button" class="layui-btn" id="upload_pic1" ><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                        </div>
+                    </div>
+                    {/if}
+                    {if($data.fieldtype=='attachment')}
+                    <div class="upload_mode mode_attachment {if($data.fieldtype!='attachment')}layui-hide{/if}">
+                        <div class="layui-input-inline" style="width: 60%">
+                            <input type="text" name="value[attachment]" value="{$data.value}"
+                                   onmouseover="hui_img_preview('value', this.value)" onmouseout="layer.closeAll();"
+                                   id="upload_file" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline" style="width: 120px">
+                            <button type="button" class="layui-btn" id="upload_file1"><i class="layui-icon">&#xe67c;</i>上传附件
+                            </button>
+                        </div>
+                    </div>
+                    {/if}
+                    {if($data.fieldtype=='radio')}
+                    <div class="upload_mode mode_radio {if($data.fieldtype!='radio')}layui-hide{/if}">
+                        {$setting_data|raw}
+                    </div>
+                    {/if}
+                    {if($data.fieldtype=='select')}
+                    <div class="upload_mode mode_select {if($data.fieldtype!='select')}layui-hide{/if}">
+                        <select name="value" class="select">
+                            {$setting_data|raw}
+                        </select>
+                    </div>
+                    {/if}
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">简洁说明</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title" name="title" value="{$data.title}" autocomplete="off"
+                           class="layui-input" placeholder="例如：这个是站点QQ">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否启用</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="1" title="启用" {if ($data.status==1)}checked{/if}>
+                    <input type="radio" name="status" value="0" title="禁用" {if ($data.status==0)}checked{/if}>
+                </div>
+            </div>
+            <input type="hidden" name="id" value="{$data.id}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['layer', 'jquery', 'form', 'upload'], function () {
+    var layer = layui.layer,
+      $ = layui.jquery,
+      form = layui.form,
+      upload = layui.upload;
+    form.on('select(fieldtype)', function (data) {
+      $('.upload_mode').hide();
+      $('.mode_' + data.value).show();
+    });
+    upload.render({
+      elem: '#upload_pic1'
+      , url: "{:url('upload/index')}"
+      , accept: 'images'
+      , done: function (res) {
+        if (res.code === 1) {
+          $("#upload_pic").val(res.url);
+        }
+      }
+    });
+    upload.render({
+      elem: '#upload_file1'
+      , url: "{:url('upload/index')}"
+      , accept: 'file'
+      , done: function (res) {
+        if (res.code === 1) {
+          $("#upload_file").val(res.url);
+        }
+      }
+    })
+    //保存
+    window.dosub = function (obj) {
+      var reg = /^[A-Za-z0-9_]+$/;
+      if ($("input[name='name']").val() == '' || !reg.test($("input[name='name']").val())) {
+        layer.msg('配置名称必须为英文拼音数字_！');
+        return false;
+      }
+      HuiDoSub($(obj).serialize(), "{:url('system.config/custom_config_edit')}");
+    }
+  });
+</script>
+</body>
+</html>

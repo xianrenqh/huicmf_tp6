@@ -26,7 +26,7 @@ class MenuController extends AdminController
 {
 
     protected $sort = [
-        'sort' => 'desc',
+        'sort' => 'asc',
         'id'   => 'asc',
     ];
 

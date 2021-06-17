@@ -54,6 +54,31 @@ abstract class BaseController
     // 初始化
     protected function initialize()
     {
+        $this->check_ip();
+    }
+
+    //后台IP禁止判断
+    final private function check_ip()
+    {
+        $ip                = get_client_ip();
+        $admin_prohibit_ip = get_config('admin_prohibit_ip');
+        if (empty($admin_prohibit_ip)) {
+            return true;
+        }
+        $arr = explode(',', $admin_prohibit_ip);
+        foreach ($arr as $val) {
+            //是否是IP段
+            if (strpos($val, '*')) {
+                if (strpos($ip, str_replace('.*', '', $val)) !== false) {
+                    $this->return_json(['code' => 0, 'msg' => '你在IP禁止段内,禁止访问！~~~']);
+                }
+            } else {
+                //不是IP段,用绝对匹配
+                if ($ip == $val) {
+                    $this->return_json(['code' => 0, 'msg' => 'IP地址绝对匹配,禁止访问！~~~']);
+                }
+            }
+        }
     }
 
     /**
@@ -93,6 +118,19 @@ abstract class BaseController
         }
 
         return $v->failException(true)->check($data);
+    }
+
+    /**
+     * 返回json数组
+     *
+     * @param $arr
+     *
+     * @return string
+     */
+    function return_json($arr = [])
+    {
+        header('Content-Type:application/json; charset=utf-8');
+        die(json_encode($arr));
     }
 
 }

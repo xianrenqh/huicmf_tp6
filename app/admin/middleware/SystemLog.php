@@ -42,7 +42,7 @@ class SystemLog
                 foreach ($params as $key => $val) {
                     in_array($key, $this->sensitiveParams) && $params[$key] = cmf_password($val);
                 }
-                $data = [
+                $data              = [
                     'admin_id'    => cmf_get_admin_id(),
                     'url'         => $url,
                     'method'      => $method,
@@ -51,7 +51,10 @@ class SystemLog
                     'useragent'   => $_SERVER['HTTP_USER_AGENT'],
                     'create_time' => time(),
                 ];
-                SystemLogService::instance()->save($data);
+                $admin_log_setting = get_config('admin_log');
+                if ($admin_log_setting == 1) {
+                    SystemLogService::instance()->save($data);
+                }
             }
         }
 

@@ -57,7 +57,11 @@ class NodeController extends AdminController
      */
     public function refreshNode($force = 0)
     {
-        $nodeList = (new NodeService())->getNodelist();
+        try {
+            $nodeList = (new NodeService())->getNodelist();
+        } catch (\Exception $e) {
+            $this->error("节点更新失败，查看是否有控制器没有引用：Annotations或者注释写错了<br>".$e->getMessage());
+        }
         empty($nodeList) && $this->error('暂无需要更新的系统节点');
         $authRule = new AuthRule();
         try {
@@ -83,7 +87,7 @@ class NodeController extends AdminController
             $authRule->saveAll($nodeList);
             TriggerService::updateNode();
         } catch (\Exception $e) {
-            $this->error('节点更新失败');
+            $this->error('节点更新失败<br>'.$e->getMessage());
         }
         $this->success('节点更新成功');
     }

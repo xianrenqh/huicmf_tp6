@@ -1,0 +1,136 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="配置名称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置类型</label>
+                <div class="layui-input-inline">
+                    <select name="fieldtype" class="select" style="width:230px" lay-filter="fieldtype">
+                        <option value="textarea" selected>文本类型</option>
+                        <option value="image">图片上传</option>
+                        <option value="attachment">附件上传</option>
+                        <option value="radio">radio选项卡</option>
+                        <option value="select">option下拉框</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置值</label>
+                <div class="layui-input-block">
+                    <div class="upload_mode mode_textarea span_input" id="config_show">
+                        <textarea name="value[textarea]" class="layui-textarea" placeholder="例如：214243830"></textarea>
+                    </div>
+                    <div class="upload_mode mode_image" style="display:none">
+                        <div class="layui-input-inline" style="width: 60%">
+                            <input type="text" name="value[image]"
+                                   onmouseover="hui_img_preview('upload_pic', this.value)"
+                                   onmouseout="layer.closeAll();" id="upload_pic" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-input-inline" style="width: 120px">
+                            <button type="button" class="layui-btn" id="upload_pic1"><i class="layui-icon">&#xe67c;</i>上传图片
+                            </button>
+                        </div>
+                    </div>
+                    <div class="upload_mode mode_attachment" style="display:none">
+                        <div class="layui-input-inline" style="width: 60%">
+                            <input type="text" name="value[attachment]"
+                                   onmouseover="hui_img_preview('value', this.value)" onmouseout="layer.closeAll();"
+                                   id="upload_file" autocomplete="off" class="layui-input">
+                        </div>
+                        <div class="layui-input-inline" style="width: 120px">
+                            <button type="button" class="layui-btn" id="upload_file1"><i class="layui-icon">&#xe67c;</i>上传附件
+                            </button>
+                        </div>
+                    </div>
+                    <div class="upload_mode mode_radio" style="display:none">
+                        <textarea name="setting[radio]" class="layui-textarea"
+                                  placeholder="选项用“|”分开，如“男|女|人妖”"></textarea>&nbsp;
+                        <input type="text" name="value[radio]" class="layui-input" style="width:180px"
+                               placeholder="默认值用配置值填写">
+                    </div>
+                    <div class="upload_mode mode_select" style="display:none">
+                        <textarea name="setting[select]" class="layui-textarea"
+                                  placeholder="选项用“|”分开，如“男|女|人妖”"></textarea>&nbsp;
+                        <input type="text" name="value[select]" class="layui-input" style="width:180px"
+                               placeholder="默认值用配置值填写">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">简洁说明</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title" name="title" autocomplete="off" class="layui-input"
+                           placeholder="例如：这个是站点QQ">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否启用</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="1" title="启用" checked>
+                    <input type="radio" name="status" value="0" title="禁用">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['layer', 'jquery', 'form', 'upload'], function () {
+    var layer = layui.layer,
+      $ = layui.jquery,
+      form = layui.form,
+      upload = layui.upload;
+    form.on('select(fieldtype)', function (data) {
+      $('.upload_mode').hide();
+      $('.mode_' + data.value).show();
+    });
+    upload.render({
+      elem: '#upload_pic1'
+      , url: "{:url('upload/index')}"
+      , accept: 'images'
+      , done: function (res) {
+        if (res.code === 1) {
+          $("#upload_pic").val(res.url);
+        }
+      }
+    });
+    upload.render({
+      elem: '#upload_file1'
+      , url: "{:url('upload/index')}"
+      , accept: 'file'
+      , done: function (res) {
+        if (res.code === 1) {
+          $("#upload_file").val(res.url);
+        }
+      }
+    })
+    //保存
+    window.dosub = function (obj) {
+      var reg = /^[A-Za-z0-9_]+$/;
+      if ($("input[name='name']").val() == '' || !reg.test($("input[name='name']").val())) {
+        layer.msg('配置名称必须为英文拼音数字_！');
+        return false;
+      }
+      HuiDoSub($(obj).serialize(), "{:url('system.config/custom_config_add')}");
+    }
+  });
+</script>
+</body>
+</html>

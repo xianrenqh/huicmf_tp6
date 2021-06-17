@@ -49,8 +49,8 @@ class UploadController
                 try {
                     validate([
                         'imgFile' => [
-                            'fileSize' => '12345006',
-                            'fileExt'  => 'png,jpeg,bmp,jpg,gif,webp',
+                            'fileSize' => intval(get_config('upload_maxsize')) * 1000,
+                            'fileExt'  => get_config('upload_types')
                         ]
                     ])->check(['imgFile' => $file]);
                     //上传图片到本地服务器
@@ -164,7 +164,7 @@ class UploadController
         $arr['uploadtime']  = time();
         $arr['storage']     = 'local';
         $arr['sha1']        = $file->hash('sha1');
-        //Db::name('attachment')->data($arr)->insert();
+        Db::name('attachment')->data($arr)->insert();
     }
 
     /**

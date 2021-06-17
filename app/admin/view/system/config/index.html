@@ -1,0 +1,258 @@
+{include file='header'/}
+<title>系统设置</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form" action="javascript:;" onsubmit="return dosub(this)">
+            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                <ul class="layui-tab-title">
+                    <li class="layui-this">基本设置</li>
+                    <li>安全设置</li>
+                    <li>附件设置</li>
+                </ul>
+                <div class="layui-tab-content" style="margin-top: 10px;">
+                    <div class="layui-tab-item layui-show">
+                        <table class="layui-table" width="100%">
+                            <thead>
+                            <tr>
+                                <th width="15%">名称</th>
+                                <th>变量值</th>
+                                <th width="12%">变量名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>站点名称</td>
+                                <td>
+                                    <input type="text" name="site_name" value="{$data.site_name}" lay-verify="required"
+                                           autocomplete="off" class="layui-input" lay-reqtext="站点名称不能为空">
+                                </td>
+                                <td>site_name</td>
+                            </tr>
+                            <tr>
+                                <td>站点根网址</td>
+                                <td>
+                                    <input type="text" name="site_url" value="{$data.site_url}" lay-verify="required"
+                                           autocomplete="off" class="layui-input" lay-reqtext="站点根网址不能为空">
+                                </td>
+                                <td>site_url</td>
+                            </tr>
+                            <tr>
+                                <td>网站关键词</td>
+                                <td>
+                                    <input type="text" name="site_keyword" value="{$data.site_keyword}"
+                                           autocomplete="off" class="layui-input">
+                                </td>
+                                <td>site_keyword</td>
+                            </tr>
+                            <tr>
+                                <td>网站版权信息</td>
+                                <td>
+                                    <input type="text" name="site_copyright" value="{$data.site_copyright}"
+                                           autocomplete="off" class="layui-input">
+                                </td>
+                                <td>site_copyright</td>
+                            </tr>
+                            <tr>
+                                <td>网站备案号</td>
+                                <td>
+                                    <input type="text" name="site_beian" value="{$data.site_beian}" autocomplete="off"
+                                           class="layui-input">
+                                </td>
+                                <td>site_beian</td>
+                            </tr>
+                            <tr>
+                                <td>网站描述</td>
+                                <td>
+                                    <textarea placeholder="统计代码" class="layui-textarea" id="site_description"
+                                              name="site_code">{$data.site_description}</textarea>
+                                </td>
+                                <td>site_description</td>
+                            </tr>
+                            <tr>
+                                <td>统计代码</td>
+                                <td>
+                                    <textarea placeholder="统计代码" class="layui-textarea" id="site_code" name="site_code">{$data.site_code}</textarea>
+                                </td>
+                                <td>site_code</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th width="15%">站点名称</th>
+                                <th>变量值</th>
+                                <th width="12%">变量名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>此ip禁止访问网站</td>
+                                <td>
+                                    <textarea class="layui-textarea" name="admin_prohibit_ip"
+                                              placeholder="匹配IP段用“*”占位，如192.168.*.*，多个IP地址请用英文逗号“,”分割">{$data.admin_prohibit_ip}</textarea>
+                                    <tip>匹配IP段用“*”占位多个IP用“,”分割</tip>
+                                </td>
+                                <td>admin_prohibit_ip</td>
+                            </tr>
+                            <tr>
+                                <td>启用后台管理操作日志</td>
+                                <td>
+                                    <input type="radio" name="admin_log" value="1" title="启用" {if
+                                           ($data.admin_log==1)}checked{/if}>
+                                    <input type="radio" name="admin_log" value="0" title="禁用" {if
+                                           ($data.admin_log==0)}checked{/if}>
+                                </td>
+                                <td>admin_log</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="layui-tab-item">
+                        <table class="layui-table">
+                            <thead>
+                            <tr>
+                                <th width="15%">站点名称</th>
+                                <th>变量值</th>
+                                <th width="12%">变量名</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>允许上传附件大小（KB）</td>
+                                <td>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="upload_maxsize" value="{$data.upload_maxsize}"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                    [最大限制不能超过服务器“upload_max_filesize”配置]
+                                </td>
+                                <td>upload_maxsize</td>
+                            </tr>
+                            <tr>
+                                <td>允许上传附件类型</td>
+                                <td>
+                                    <input type="text" name="upload_types" value="{$data.upload_types}"
+                                           autocomplete="off" class="layui-input">
+                                </td>
+                                <td>upload_types</td>
+                            </tr>
+                            <tr>
+                                <td>是否开启图片水印</td>
+                                <td>
+                                    <input type="radio" name="watermark_enable" value="1" title="开启" {if
+                                           ($data.watermark_enable==1)}checked{/if}>
+                                    <input type="radio" name="watermark_enable" value="0" title="关闭" {if
+                                           ($data.watermark_enable==0)}checked{/if}>
+                                </td>
+                                <td>watermark_enable</td>
+                            </tr>
+                            <tr>
+                                <td>水印图片名称</td>
+                                <td>
+                                    <div class="layui-input-inline">
+                                        <input type="text" name="watermark_name" value="{$data.watermark_name}"
+                                               autocomplete="off" class="layui-input">
+                                    </div>
+                                    [水印存放路径:public/static/water]
+                                </td>
+                                <td>watermark_name</td>
+                            </tr>
+                            <tr>
+                                <td>水印的位置</td>
+                                <td>
+                                    <input type="radio" name="watermark_position" value="1" title="顶部居左" {if
+                                           ($data.watermark_position==1)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="2" title="顶部居中" {if
+                                           ($data.watermark_position==2)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="3" title="顶部居右" {if
+                                           ($data.watermark_position==3)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="4" title="中部居左" {if
+                                           ($data.watermark_position==4)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="5" title="中部居中" {if
+                                           ($data.watermark_position==5)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="6" title="中部居右" {if
+                                           ($data.watermark_position==6)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="7" title="顶部居左" {if
+                                           ($data.watermark_position==7)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="8" title="底部居中" {if
+                                           ($data.watermark_position==8)}checked{/if}>
+                                    <input type="radio" name="watermark_position" value="9" title="底部居右" {if
+                                           ($data.watermark_position==9)}checked{/if}>
+                                </td>
+                                <td>watermark_position</td>
+                            </tr>
+                            <tr>
+                                <td>水印透明度</td>
+                                <td>
+                                    <div class="layui-input-inline" style="width:65%;margin:18px 0;">
+                                        <div id="slideTest2" class="demo-slider"></div>
+                                        <input type="hidden" name="watermark_touming" id="watermark_touming">
+                                    </div>
+                                    [水印透明度设置]
+                                </td>
+                                <td>watermark_touming</td>
+                            </tr>
+                            <tr>
+                                <td>保存方式</td>
+                                <td>
+                                    <div class="layui-input-inline">
+                                        <select name="upload_mode" lay-filter="upload_mode">
+                                            <option value="local" {if ($data.upload_mode=='local')}selected{/if}>本地保存
+                                            </option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>upload_mode</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item ">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-inline" style="width: 80%">
+                    <input class="layui-btn" type="submit" value="立即保存" lay-submit="">
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'element', 'slider', 'jquery'], function () {
+    var $ = layui.jquery
+      , slider = layui.slider
+      , form = layui.form
+      , element = layui.element
+      , $ = layui.jquery;
+    slider.render({
+      elem: '#slideTest2'
+      , value: '{$data.watermark_touming}'
+      , theme: '#FF5722' //主题色
+      , input: true //输入框
+    });
+
+    //保存
+    window.dosub = function (obj) {
+      var watermark_touming = $(".layui-slider-tips").text() || "{$data.watermark_touming}";
+      $("#watermark_touming").val(watermark_touming);
+      HuiDoSub($(obj).serialize(), "{:url('system.config/save')}");
+    }
+
+  });
+
+
+</script>
+</body>
+</html>
