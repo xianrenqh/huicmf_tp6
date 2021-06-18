@@ -60,7 +60,7 @@
             <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:url('system.admin/edit')}?id={{d.id}}"
                data-title="编辑管理">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.admin/delete')}layui-hide{/if}" data-delete="{:url('system.admin/delete')}?id={{d.id}}"
-               data-title="删除管理员" date-reload="1">删除</a>
+               data-title="删除管理员" data-reload="1">删除</a>
             {{#  } }}
         </script>
 

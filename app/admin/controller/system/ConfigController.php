@@ -56,11 +56,9 @@ class ConfigController extends AdminController
      */
     public function custom_config()
     {
-        $data  = ConfigModel::where('type', '99')->paginate(10);
-        $total = ConfigModel::where('type', '99')->count();
+        $data = ConfigModel::where('type', '99')->paginate(10);
         $this->assign('data', $data);
-        $this->assign('total', $total);
-        dump($data);
+
         return $this->fetch();
 
     }
@@ -110,7 +108,7 @@ class ConfigController extends AdminController
         $id   = $this->request->param('id');
         $data = ConfigModel::where('id', $id)->where('type', 99)->find();
         if (empty($data)) {
-            $this->error('获取数据失败');
+            return json(['code'=>0,'msg'=>'获取数据失败']);
         }
         if ($this->request->isPost()) {
             $param = $this->request->post();

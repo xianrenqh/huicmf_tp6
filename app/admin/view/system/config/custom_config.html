@@ -1,0 +1,54 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.config/custom_config_add')}layui-hide{/if}"
+               data-open="{:url('system.config/custom_config_add')}" data-reload="1" data-title="添加配置">
+                <i class="fa fa-plus"></i> 添加配置</a>
+        </div>
+        <table class="layui-table">
+            <thead>
+            <tr class="text-c">
+                <th width="50">id</th>
+                <th>配置名称</th>
+                <th>配置类型</th>
+                <th>配置值</th>
+                <th>简洁说明</th>
+                <th>状态</th>
+                <th width="120">操作</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            {volist name="data" id="vo"}
+            <tr class="text-c">
+                <td>{$vo.id}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.fieldtype}</td>
+                <td>{:str_cut(htmlspecialchars($vo.value),100)}</td>
+                <td>{$vo.title}</td>
+                <td>{$vo.status}</td>
+                <td>
+                    <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.config/custom_config_edit')}layui-hide{/if}"
+                       data-open="{:url('system.config/custom_config_edit',['id'=>$vo.id])}"
+                       data-title="编辑配置" data-reload="1">编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.config/custom_config_delete')}layui-hide{/if}"
+                       data-delete="{:url('system.config/custom_config_delete',['id'=>$vo.id])}"
+                       data-title="确定要删除此配置吗？" data-reload="1">删除</a>
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div class="mws-panel-content">
+            <div class="list-page page">
+                {$data->render()|raw}
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='footer'/}
+</body>
+</html>

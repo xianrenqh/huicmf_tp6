@@ -1,4 +1,4 @@
-layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upload'], function (exports) {
+layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'upload'], function (exports) {
   var $ = layui.jquery,
     form = layui.form,
     table = layui.table,
@@ -35,13 +35,15 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upl
   $('body').on('click', '[data-open]', function () {
     let title = $(this).attr('data-title');
     let url = $(this).attr('data-open');
-    HuiAdminShow(title, url);
+    let reload = $(this).attr('data-reload');
+    HuiAdminShow(title, url, '', '', reload);
   });
 
   $('body').on('click', '[data-open-full]', function () {
     let title = $(this).attr('data-title');
     let url = $(this).attr('data-open-full');
-    HuiAdminOpenFull(title, url);
+    let reload = $(this).attr('data-reload');
+    HuiAdminOpenFull(title, url, reload);
   });
 
   $('body').on('click', '[data-confirm]', function () {
@@ -137,7 +139,7 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upl
   }
 
   /*满屏（全屏）打开窗口*/
-  window.HuiAdminOpenFull = function (title, url) {
+  window.HuiAdminOpenFull = function (title, url, reload = 0) {
     $.get(url, function (res) {
       var index = layer.open({
         type: 2,
@@ -146,7 +148,9 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upl
         skin: 'skin-layer-hui',
         closeBtn: 11,
         end: function () {
-          window.parent.location.reload();
+          if (reload == 1) {
+            window.parent.location.reload();
+          }
         }
       });
       layer.full(index);
@@ -166,23 +170,19 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upl
       w       弹出层宽度（缺省调默认值）
       h       弹出层高度（缺省调默认值）
   */
-  window.HuiAdminShow = function (title, url, w, h) {
+  window.HuiAdminShow = function (title, url, w, h, reload = 0) {
     if (title == null || title == '') {
       title = false;
     }
-    ;
     if (url == null || url == '') {
       url = "404.html";
     }
-    ;
     if (w == null || w == '') {
       w = ($(window).width() * 0.9);
     }
-    ;
     if (h == null || h == '') {
       h = ($(window).height() * 0.8);
     }
-    ;
     $.get(url, function (res) {
       layer.open({
         type: 2,
@@ -192,7 +192,12 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upl
         shadeClose: true,
         shade: 0.4,
         title: title,
-        content: url
+        content: url,
+        end: function () {
+          if (reload == 1) {
+            window.parent.location.reload();
+          }
+        }
       });
     });
 
@@ -237,63 +242,22 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa','upl
     });
   }
 
-  /**
-   * iceEditor编辑器
-   * @type {layui.iceEditor}
-   */
-  /*iceEd = new iceEditor("editor");
-  iceEd.create();*/
-
-  /*wangEd = new wangEditor('#editor_wang');
-  wangEd.customConfig.uploadImgServer = "../api/upload.json";
-  wangEd.customConfig.uploadFileName = 'image';
-  wangEd.customConfig.pasteFilterStyle = false;
-  wangEd.customConfig.uploadImgMaxLength = 5;
-  wangEd.customConfig.uploadImgHooks = {
-    // 上传超时
-    timeout: function (xhr, wangEd) {
-      layer.msg('上传超时！')
-    },
-    // 如果服务器端返回的不是 {errno:0, data: [...]} 这种格式，可使用该配置
-    customInsert: function (insertImg, result, wangEd) {
-      console.log(result);
-      if (result.code == 1) {
-        var url = result.data.url;
-        url.forEach(function (e) {
-          insertImg(e);
-        })
-      } else {
-        layer.msg(result.msg);
-      }
-    }
-  };
-  var $text1 = $('#editor')
-  wangEd.customConfig.onchange = function (html) {
-    // 监控变化，同步更新到 textarea
-    $text1.val(html)
-  }
-  wangEd.create()
-  // 初始化 textarea 的值
-  $text1.val(wangEd.txt.html())*/
-
-
-});
-
 //图片预览
-function hui_img_preview(id, src) {
-  if (src == '') return;
-  layer.tips('<img src="' + htmlspecialchars(src) + '" height="100">', '#' + id, {
-    tips: [1, '#fff']
-  });
-}
+  window.hui_img_preview = function (id, src) {
+    if (src == '') return;
+    layer.tips('<img src="' + htmlspecialchars(src) + '" height="100">', '#' + id, {
+      tips: [1, '#fff']
+    });
+  }
 
 
 //html实体转换
-window.htmlspecialchars = function (str) {
-  str = str.replace(/&/g, '&amp;');
-  str = str.replace(/</g, '&lt;');
-  str = str.replace(/>/g, '&gt;');
-  str = str.replace(/"/g, '&quot;');
-  str = str.replace(/'/g, '&#039;');
-  return str;
-}
+  window.htmlspecialchars = function (str) {
+    str = str.replace(/&/g, '&amp;');
+    str = str.replace(/</g, '&lt;');
+    str = str.replace(/>/g, '&gt;');
+    str = str.replace(/"/g, '&quot;');
+    str = str.replace(/'/g, '&#039;');
+    return str;
+  }
+});
