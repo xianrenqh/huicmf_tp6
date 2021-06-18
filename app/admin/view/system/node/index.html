@@ -38,7 +38,7 @@
 <script>
   layui.use(['form', 'jquery'], function () {
     var form = layui.form, $ = layui.jquery, layer = layui.layer;
-    $.post("{:url('system.node/index')}", function (res) {
+    $.get("{:url('system.node/index')}", function (res) {
       let str = '';
       $.each(res.data, function (index, obj) {
         str += '<tr>';

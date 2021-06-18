@@ -73,7 +73,7 @@
     var table = layui.table;
     table.render({
       elem: '#admin_table'
-      , method: 'post'
+      , method: 'get'
       , url: "{:url('index')}"
       , done: function (res) {
         $("#total").html(res.count);
