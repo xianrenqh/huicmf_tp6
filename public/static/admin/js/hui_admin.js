@@ -242,11 +242,32 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
     });
   }
 
-//图片预览
+  //图片预览
   window.hui_img_preview = function (id, src) {
     if (src == '') return;
     layer.tips('<img src="' + htmlspecialchars(src) + '" height="100">', '#' + id, {
       tips: [1, '#fff']
+    });
+  }
+
+
+  //图像裁剪
+  window.hui_img_cropper = function (cid, url) {
+    var str = $('#' + cid).val();
+    if (str == '') {
+      layer.msg('请先上传或选择图片！');
+      return false;
+    }
+    if (url.indexOf('?') != -1) {
+      url = url + '&f=' + window.btoa(unescape(encodeURIComponent(str))) + '&cid=' + cid;
+    } else {
+      url = url + '?f=' + window.btoa(unescape(encodeURIComponent(str))) + '&cid=' + cid;
+    }
+    layer.open({
+      type: 2,
+      title: '图像裁剪',
+      area: ['750px', '510px'],
+      content: url
     });
   }
 
