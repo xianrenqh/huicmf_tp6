@@ -60,7 +60,7 @@ if (is_file($lockFile)) {
                     $errInfo = '当前权限不足，无法写入配置文件application/database.php<br>';
                 }
             } else {
-                $result = @file_put_contents($lockFile, 1);
+                //$result = @file_put_contents($lockFile, 1);
             }
         }
     }
