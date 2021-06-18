@@ -37,7 +37,11 @@ class UploadController
         $editor_type         = Request::param('editor_type', '');
         switch ($this->upload_mode) {
             case 'local':
-                $up_file = request()->file('file');
+                try {
+                    $up_file = request()->file('file');
+                } catch (\think\Exception $e) {
+                    return json(['code' => 0, 'msg' => $this->_languageChange($e->getMessage())]);
+                }
                 switch ($editor_type) {
                     case "iceEditor":
                         $file = $up_file[0];
@@ -211,6 +215,25 @@ class UploadController
         }
 
         return $arr;
+    }
+
+    /**
+     * 英文转为中文
+     */
+    private function _languageChange($msg)
+    {
+        $data = [
+            // 上传错误信息
+            'unknown upload error'                       => '未知上传错误！',
+            'file write error'                           => '文件写入失败！',
+            'upload temp dir not found'                  => '找不到临时文件夹！',
+            'no file to uploaded'                        => '没有文件被上传！',
+            'only the portion of file is uploaded'       => '文件只有部分被上传！',
+            'upload File size exceeds the maximum value' => '上传文件大小超过了最大值！',
+            'upload write error'                         => '文件上传保存错误！',
+        ];
+
+        return $data[$msg] ?? $msg;
     }
 
 }
