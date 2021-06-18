@@ -29,6 +29,7 @@ class LogController extends AdminController
     public function index()
     {
         $data = SystemLog::order('id desc')->paginate(10);
+
         $this->assign('data', $data);
 
         return $this->fetch();

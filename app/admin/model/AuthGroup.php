@@ -11,5 +11,5 @@ namespace app\admin\model;
 
 class AuthGroup extends TimeModel
 {
-
+    
 }

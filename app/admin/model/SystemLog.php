@@ -12,4 +12,8 @@ namespace app\admin\model;
 class SystemLog extends TimeModel
 {
 
+    public function admin()
+    {
+        return $this->belongsTo('app\admin\model\Admin', 'admin_id', 'id');
+    }
 }
