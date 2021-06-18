@@ -1,4 +1,5 @@
 body {
+    width: 100%;
     margin: 15px 15px 15px 15px;
     background: #f2f2f2;
 }
@@ -187,8 +188,9 @@ body {
     font-size: 28px;
     color: #8c939d
 }
+
 .layui-upload-drag-self .img {
-    position:relative;
+    position: relative;
     height: 148px;
     width: 148px;
 }
@@ -222,24 +224,100 @@ body {
     color: rgba(255, 255, 255, 0.91);
     margin: 0 4px;
 }
-/*分页*/
-.page{margin-top:20px; text-align:center;}
-.page a{display:inline-block; background:#fff 0 0 no-repeat; color:#888; padding:10px; min-width:15px; border:1px solid #E2E2E2;}
-.page span{display:inline-block; padding:10px; min-width:15px; border:1px solid #E2E2E2;}
-.page span.current{display:inline-block; background:#009688 0 0 no-repeat; color:#fff; padding:10px; min-width:15px; border:1px solid #009688;}
-.page .pagination li{display:inline-block; margin-right:5px; text-align:center;}
-.page .pagination li.active span{background:#009688 0 0 no-repeat; color:#fff; border:1px solid #009688;}
 
-body .layuimini-container .hui-form-search{}
-body .layuimini-container .hui-form-search .layui-input, .layui-select{height: 30px;}
-body .skin-layer-hui .layui-layer-title{background:#2c3e50; color:#fff; border: none;}
-body .skin-layer-hui .layui-layer-btn{border:0px solid #E9E7E7}
-body .skin-layer-hui .layui-layer-btn a{background:#1E9FFF;}
-body .skin-layer-hui .layui-layer-btn .layui-layer-btn1{background:#95a5a6;color:#fff;}
-body .layui-table thead th{font-weight: bold;}
-body .layui-layer-close11{background-position:-80px -40px}
-body .readonly_bg{background: #eee;}
-body .layui-btn-zise{background-color: #d773e6;}
-body .layui-btn-fense{background-color: rgba(245, 131, 163, 0.91);}
-body .layui-btn-lvse{background-color: #87bc3f;}
-body .readonly-bg{background: rgba(238, 238, 238, 0.76);}
+/*分页*/
+.page {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.page a {
+    display: inline-block;
+    background: #fff 0 0 no-repeat;
+    color: #888;
+    padding: 10px;
+    min-width: 15px;
+    border: 1px solid #E2E2E2;
+}
+
+.page span {
+    display: inline-block;
+    padding: 10px;
+    min-width: 15px;
+    border: 1px solid #E2E2E2;
+}
+
+.page span.current {
+    display: inline-block;
+    background: #009688 0 0 no-repeat;
+    color: #fff;
+    padding: 10px;
+    min-width: 15px;
+    border: 1px solid #009688;
+}
+
+.page .pagination li {
+    display: inline-block;
+    margin-right: 5px;
+    text-align: center;
+}
+
+.page .pagination li.active span {
+    background: #009688 0 0 no-repeat;
+    color: #fff;
+    border: 1px solid #009688;
+}
+
+body .layuimini-container .hui-form-search {
+}
+
+body .layuimini-container .hui-form-search .layui-input, .layui-select {
+    height: 30px;
+}
+
+body .skin-layer-hui .layui-layer-title {
+    background: #2c3e50;
+    color: #fff;
+    border: none;
+}
+
+body .skin-layer-hui .layui-layer-btn {
+    border: 0px solid #E9E7E7
+}
+
+body .skin-layer-hui .layui-layer-btn a {
+    background: #1E9FFF;
+}
+
+body .skin-layer-hui .layui-layer-btn .layui-layer-btn1 {
+    background: #95a5a6;
+    color: #fff;
+}
+
+body .layui-table thead th {
+    font-weight: bold;
+}
+
+body .layui-layer-close11 {
+    background-position: -80px -40px
+}
+
+body .readonly_bg {
+    background: #eee;
+}
+
+body .layui-btn-zise {
+    background-color: #d773e6;
+}
+
+body .layui-btn-fense {
+    background-color: rgba(245, 131, 163, 0.91);
+}
+
+body .layui-btn-lvse {
+    background-color: #87bc3f;
+}
+
+body .readonly-bg {
+    background: rgba(238, 238, 238, 0.76);
+}

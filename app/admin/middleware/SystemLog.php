@@ -9,6 +9,7 @@
 
 namespace app\admin\middleware;
 
+use app\admin\model\AuthRule;
 use app\admin\service\SystemLogService;
 
 class SystemLog
@@ -42,9 +43,13 @@ class SystemLog
                 foreach ($params as $key => $val) {
                     in_array($key, $this->sensitiveParams) && $params[$key] = cmf_password($val);
                 }
+                $node              = explode('.html', $url)[0];
+                $node              = str_replace("/admin/", "", $node);
+                $title             = AuthRule::where('node', $node)->value('title');
                 $data              = [
                     'admin_id'    => cmf_get_admin_id(),
                     'url'         => $url,
+                    'title'       => $title,
                     'method'      => $method,
                     'ip'          => $ip,
                     'content'     => json_encode($params, JSON_UNESCAPED_UNICODE),
