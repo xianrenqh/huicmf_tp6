@@ -9,16 +9,16 @@
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.database/optimize')}layui-hide{/if}" data-type="youhuaData">优化表</a>
             <a class="layui-btn layui-btn-zise layui-btn-sm {if !check_auth('system.database/repair')}layui-hide{/if}" data-type="xiufuData">修复表</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.database/databack_list')}layui-hide{/if}" data-type="huanyuanData"
-               data-open="{:url('system.database/databack_list')}" data-title="备份列表">数据还原</a>
+               data-open="{:__url('system.database/databack_list')}" data-title="备份列表">数据还原</a>
         </div>
 
         <table id="database_list" lay-filter="database_list"></table>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-sm {if !check_auth('system.database/optimize')}layui-hide{/if}" lay-event="youhua">优化</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.database/repair')}layui-hide{/if}" lay-event="xiufu">修复</a>
-            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.database/table_structure')}layui-hide{/if}" data-open="{:url('table_structure')}?table={{d.Name}}" data-title="表结构">表结构</a>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.database/table_structure')}layui-hide{/if}" data-open="{:__url('table_structure')}?table={{d.Name}}" data-title="表结构">表结构</a>
             <a class="layui-btn layui-btn-normal layui-btn-sm layui-btn-lvse {if !check_auth('system.database/table_data')}layui-hide{/if}"
-               data-open="{:url('table_data')}?table={{d.Name}}" data-title="表数据">表数据</a>
+               data-open="{:__url('table_data')}?table={{d.Name}}" data-title="表数据">表数据</a>
         </script>
 
     </div>
@@ -34,7 +34,7 @@
       elem: '#database_list'
       , page: false
       , method: 'get'
-      , url: '{:url('index',['do'=>1])}' //数据接口
+      , url: '{:__url('index',['do'=>1])}' //数据接口
       , done: function (res) { //res 即为原始返回的数据
         $("#total").html(res.count);
       }
@@ -57,9 +57,9 @@
     table.on('tool(database_list)', function (obj) {
       var data = obj.data;
       if (obj.event === 'youhua') {
-        getevent("{:url('optimize')}", data);
+        getevent("{:__url('optimize')}", data);
       } else if (obj.event === 'xiufu') {
-        getevent("{:url('repair')}", data);
+        getevent("{:__url('repair')}", data);
       }
     });
 
@@ -70,7 +70,7 @@
           return false;
         }
         var loading = layer.load();
-        $.post("{:url('optimize')}", {
+        $.post("{:__url('optimize')}", {
           table: tables
         }, function (res) {
           layer.close(loading);
@@ -86,7 +86,7 @@
           return false;
         }
         var loading = layer.load();
-        $.post("{:url('repair')}", {
+        $.post("{:__url('repair')}", {
           table: tables
         }, function (res) {
           layer.close(loading);
@@ -97,19 +97,19 @@
       }
       , beifenData: function () { //立即备份
         var loading = layer.load();
-        $.post("{:url('backup')}", {
+        $.post("{:__url('backup')}", {
           dosubmit: 1,
         }, function (str) {
           layer.close(loading);
           layer.msg(str.message, {time: 1000}, function () {
             if (str.status == 1) {
-              WeAdminShow("数据还原", "{:url('databack_list')}", '880');
+              WeAdminShow("数据还原", "{:__url('databack_list')}", '880');
             }
           });
         });
       }
       , huanyuanData: function () {//备份数据列表
-        WeAdminShow("数据还原", "{:url('databack_list')}", '880');
+        WeAdminShow("数据还原", "{:__url('databack_list')}", '880');
       }
     };
     $('.demoTable .layui-btn').on('click', function () {

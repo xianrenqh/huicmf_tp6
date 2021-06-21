@@ -107,7 +107,7 @@
     });
     upload.render({
       elem: '#upload_pic1'
-      , url: "{:url('upload/index')}"
+      , url: "{:__url('upload/index')}"
       , accept: 'images'
       , done: function (res) {
         if (res.code === 1) {
@@ -117,7 +117,7 @@
     });
     upload.render({
       elem: '#upload_file1'
-      , url: "{:url('upload/index')}"
+      , url: "{:__url('upload/index')}"
       , accept: 'file'
       , done: function (res) {
         if (res.code === 1) {
@@ -132,7 +132,7 @@
         layer.msg('配置名称必须为英文拼音数字_！');
         return false;
       }
-      HuiDoSub($(obj).serialize(), "{:url('system.config/custom_config_edit')}");
+      HuiDoSub($(obj).serialize(), "{:__url('system.config/custom_config_edit')}");
     }
   });
 </script>

@@ -3,7 +3,7 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form layuimini-form" action="{:url('content.article/add')}" method="post">
+        <form class="layui-form layuimini-form" action="{:__url('content.article/add')}" method="post">
             <div class="layui-form-item">
                 <label class="layui-form-label required">标题</label>
                 <div class="layui-input-block">
@@ -25,13 +25,13 @@
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-normal"
-                                onclick="WeAdminShow('选择图片','{:url('general.attachment/select',[\'id\'=>\'demo1\'])}','800')">
+                                onclick="WeAdminShow('选择图片','{:__url('general.attachment/select',[\'id\'=>\'demo1\'])}','800')">
                             <i class="layui-icon">&#xe605;</i>选择图片
                         </button>
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
-                                onclick="hui_img_cropper('demo1','{:url(\'upload/img_cropper\')}')"><i
+                                onclick="hui_img_cropper('demo1','{:__url(\'upload/img_cropper\')}')"><i
                                 class="layui-icon layui-icon-picture"></i>裁剪图片
                         </button>
                     </div>
@@ -153,7 +153,7 @@
     upload.render({
       elem: '#importModel'
       , multiple: true
-      , url: "{:url('upload/index',['save_path'=>'images'])}"
+      , url: "{:__url('upload/index',['save_path'=>'images'])}"
       , before: function (obj) {
         obj.preview(function (index, file, result) {
 

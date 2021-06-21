@@ -49,7 +49,7 @@
 
     function load_tree(id = 1) {
       $.ajax({
-        url: "{:url('authorize')}?id=" + id,
+        url: "{:__url('authorize')}?id=" + id,
         dataType: 'json',
         success: function (res) {
           res.data = res.data || [];
@@ -87,7 +87,7 @@
         return false;
       }
       ids=ids.substring(0,ids.length-1);
-      $.post("{:url('system.auth/edit')}", {
+      $.post("{:__url('system.auth/edit')}", {
         id:id,
         pid:0,
         name: name,

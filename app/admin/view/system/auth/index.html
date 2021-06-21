@@ -5,7 +5,7 @@
     <div class="layuimini-main">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.auth/add')}layui-hide{/if}" data-open-full="{:url('system.auth/add')}" data-title="添加角色组">
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.auth/add')}layui-hide{/if}" data-open-full="{:__url('system.auth/add')}" data-title="添加角色组">
                 <i class="fa fa-plus"></i> 添加角色组</a>
         </div>
 
@@ -30,11 +30,11 @@
                     {if ($vo.id neq 1)}
                     <a href="javascript:;"
                        class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.auth/edit')}layui-hide{/if}"
-                       data-open="{:url('system.auth/edit')}?id={$vo.id}" data-open-full="编辑"
+                       data-open="{:__url('system.auth/edit')}?id={$vo.id}" data-open-full="编辑"
                        data-reload="1" data-title="编辑">编辑</a>
                     <a href="javascript:;"
                        class="layui-btn layui-btn-sm layui-btn-danger {if !check_auth('system.auth/delete')}layui-hide{/if}"
-                       data-delete="{:url('system.auth/delete')}?id={$vo.id}" data-title="确定要删除吗？"
+                       data-delete="{:__url('system.auth/delete')}?id={$vo.id}" data-title="确定要删除吗？"
                        data-reload="1">删除</a>
                     {/if}
                 </td>

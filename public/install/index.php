@@ -35,7 +35,7 @@ $errInfo = '';
 //数据库配置文件
 $dbConfigFile = CONFIG_PATH.'database.php';
 //后台入口文件
-$adminFile = ROOT_PATH.'public'.DS.'index.php/admin';
+$adminFile = ROOT_PATH.'public'.DS.'admin.php';
 
 // 锁定的文件
 $lockFile = ROOT_PATH.DS."public".DS.'install.lock';
@@ -168,12 +168,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $times       = time();
         $pdo->query("UPDATE {$mysqlPrefix}admin SET username = '{$adminUsername}', email = '{$adminEmail}',password = '{$newPassword}', salt = '{$newSalt}',createtime ='{$times}' WHERE username = 'admin'");
         //$adminName = 'admin.php';
-        /* if (is_file($adminFile)) {
-             $x         = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-             $adminName = substr(str_shuffle(str_repeat($x, ceil(10 / strlen($x)))), 1, 10).'.php';
-             rename($adminFile, ROOT_PATH.'public'.DS.$adminName);
-         }
-         echo "success|{$adminName}";*/
+        if (is_file($adminFile)) {
+            $x         = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $adminName = substr(str_shuffle(str_repeat($x, ceil(10 / strlen($x)))), 1, 10).'.php';
+            rename($adminFile, ROOT_PATH.'public'.DS.$adminName);
+        }
+        echo "success|{$adminName}";
         echo "success";
     } catch (PDOException $e) {
         $err = $e->getMessage();

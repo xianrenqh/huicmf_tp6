@@ -247,7 +247,7 @@
     window.dosub = function (obj) {
       var watermark_touming = $(".layui-slider-tips").text() || "{$data.watermark_touming}";
       $("#watermark_touming").val(watermark_touming);
-      HuiDoSub($(obj).serialize(), "{:url('system.config/save')}");
+      HuiDoSub($(obj).serialize(), "{:__url('system.config/save')}");
     }
 
   });

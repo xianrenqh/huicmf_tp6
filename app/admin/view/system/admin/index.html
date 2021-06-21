@@ -41,7 +41,7 @@
 
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.admin/add')}layui-hide{/if}" data-open="{:url('system.admin/add')}"
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.admin/add')}layui-hide{/if}" data-open="{:__url('system.admin/add')}"
                data-title="添加管理员">
                 <i class="fa fa-plus"></i> 添加管理员</a>
         </div>
@@ -57,9 +57,9 @@
         </script>
         <script type="text/html" id="barDemo">
             {{#  if(d.id !==1){ }}
-            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:url('system.admin/edit')}?id={{d.id}}"
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:__url('system.admin/edit')}?id={{d.id}}"
                data-title="编辑管理">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.admin/delete')}layui-hide{/if}" data-delete="{:url('system.admin/delete')}?id={{d.id}}"
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.admin/delete')}layui-hide{/if}" data-delete="{:__url('system.admin/delete')}?id={{d.id}}"
                data-title="删除管理员" data-reload="1">删除</a>
             {{#  } }}
         </script>
@@ -74,7 +74,7 @@
     table.render({
       elem: '#admin_table'
       , method: 'get'
-      , url: "{:url('index')}"
+      , url: "{:__url('index')}"
       , done: function (res) {
         $("#total").html(res.count);
       }
@@ -137,10 +137,10 @@
           btn: ['确定', '取消'] //按钮
         }, function () {
           var postdata = {ids: data.id};
-          posttips("{:url('admin_delete')}", postdata);
+          posttips("{:__url('admin_delete')}", postdata);
         });
       } else if (obj.event === 'edit') {
-        WeAdminShow("编辑", "{:url('admin_edit')}?id=" + data.id, '800');
+        WeAdminShow("编辑", "{:__url('admin_edit')}?id=" + data.id, '800');
       }
     });
   });

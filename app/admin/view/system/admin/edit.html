@@ -71,7 +71,7 @@
     var form = layui.form, $ = layui.jquery;
     form.render();
     window.dosub = function (obj) {
-      HuiDoSub($(obj).serialize(), "{:url('system.admin/edit')}");
+      HuiDoSub($(obj).serialize(), "{:__url('system.admin/edit')}");
     }
   });
 

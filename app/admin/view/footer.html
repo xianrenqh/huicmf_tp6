@@ -7,8 +7,8 @@
       miniAdmin = layui.miniAdmin
 
     var options = {
-      iniUrl: "{:url('index/menu_json')}",    // 初始化接口
-      clearUrl: "{:url('index/clearCache')}", // 缓存清理接口
+      iniUrl: "{:__url('index/menu_json')}",    // 初始化接口
+      clearUrl: "{:__url('index/clearCache')}", // 缓存清理接口
       urlHashLocation: true,      // 是否打开hash定位
       bgColorDefault: false,      // 主题默认配置
       multiModule: true,          // 是否开启多模块
@@ -23,10 +23,10 @@
       layer.confirm('您确定要退出登录吗？', {
         btn: ['确定', '取消']
       }, function () {
-        $.post("{:url('login/out')}", {}, function (res) {
+        $.post("{:__url('login/out')}", {}, function (res) {
           if (res.code == 1) {
             layer.msg(res.msg, {time: 1000}, function () {
-              window.location = "{:url('login/index')}";
+              window.location = "{:__url('login/index')}";
             })
           }
         })

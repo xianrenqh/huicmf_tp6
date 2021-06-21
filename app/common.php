@@ -34,6 +34,7 @@ if ( ! function_exists('check_auth')) {
 
 /**
  * 构建URL地址
+ * 重写url 助手函数
  *
  * @param string $url
  * @param array  $vars
@@ -43,20 +44,20 @@ if ( ! function_exists('check_auth')) {
  * @return string
  */
 if ( ! function_exists('__url')) {
-    function __url(string $url = '', array $vars = [], $suffix = true, $domain = false)
+    function __url($url = '', array $vars = [], $suffix = true, $domain = false)
     {
-        return url($url, $vars, $suffix, $domain)->build();
+        //return url($url, $vars, $suffix, $domain)->build();
 
-        /*$defalutModule = 'admin';
+        $defalutModule = 'admin';
         $currentModule = app('http')->getName();
-        $string = (string) url($url, $vars, $suffix, $domain);
-        $hideHomeName = true; // 是否去除url中默认模块名admin/
-        if($hideHomeName && $currentModule == $defalutModule) {
+        $string        = (string)url($url, $vars, $suffix, $domain);
+        $hideHomeName  = true; // 是否去除url中默认模块名admin/
+        if ($hideHomeName && $currentModule == $defalutModule) {
             #去除url中默认模块名admin
             $search = '/'.$defalutModule.'/';
-            $pos = stripos($string, $search);
-            $string = substr($string, 0, $pos). '/'. substr($string, $pos + strlen($search));
-        }*/
+            $pos    = stripos($string, $search);
+            $string = substr($string, 0, $pos).'/'.substr($string, $pos + strlen($search));
+        }
 
         return $string;
     }

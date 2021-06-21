@@ -25,9 +25,9 @@ by:xiaohuihui
 
 ~~~
 //弹出层打开
-<a href="javascript:;" data-open="{:url('system.node/index')}" data-title="测试">1231232313</a>
+<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试">1231232313</a>
 //删除询问对话框
-<a href="javascript:;" data-delete="{:url('system.node/index')}" data-title="删除">1231232313</a>
+<a href="javascript:;" data-delete="{:__url('system.node/index')}" data-title="删除">1231232313</a>
 ~~~
 
 # 注解权限
@@ -79,6 +79,14 @@ public function index()
 }
 ~~~
 
+### 3、方法中重写了url()，为__url()
+
+所有原方法中的url()不要使用，要使用__url()方法来处理路由。
+
+目的：隐藏模块名（admin）、后台入口。
+
+更改为：http://你的域名/admin.php (admin.php可以自定义)
+
 ## 后台前端问题
 
 ### 前端auth权限验证
@@ -88,7 +96,7 @@ public function index()
 **第一种示例, 通过php的auth()方法生成layui-hide样式属性。**
 
 ~~~
-<a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:url('system.admin/edit')}?id={{d.id}}"
+<a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.admin/edit')}layui-hide{/if}" data-open="{:__url('system.admin/edit')}?id={{d.id}}"
                data-title="编辑管理">编辑</a>
 ~~~
 
@@ -96,7 +104,7 @@ public function index()
 
 ~~~
 {if check_auth('system.admin/edit')}
-<a class="layui-btn layui-btn-sm layui-btn-normal " data-open="{:url('system.admin/edit')}?id={{d.id}}"
+<a class="layui-btn layui-btn-sm layui-btn-normal " data-open="{:__url('system.admin/edit')}?id={{d.id}}"
                data-title="编辑管理">编辑</a>
 {/if}
 ~~~

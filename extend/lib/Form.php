@@ -48,7 +48,7 @@ class Form
         $string .= '<textarea id="editor" name="'.$name.'">'.$val.'</textarea>';
         $string .= '<script>
                 iceEditor = new ice.editor("editor");
-                iceEditor.uploadUrl="'.url('upload/index', ['editor_type' => 'iceEditor']).'";
+                iceEditor.uploadUrl="'.__url('upload/index', ['editor_type' => 'iceEditor']).'";
                 iceEditor.create();
                 </script>
                 ';
@@ -80,7 +80,7 @@ class Form
         editor.config.onchange = function (html) {
             text1.val(html)
         }
-        editor.config.uploadImgServer = '".url('upload/index')."';
+        editor.config.uploadImgServer = '".__url('upload/index')."';
         editor.config.uploadImgHooks = {
             before: function(xhr) {},
             success: function(xhr) {},

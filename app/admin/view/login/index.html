@@ -323,8 +323,8 @@
 
                 <div id="validatePanel" class="item" style="width: 137px;">
                     <input type="text" name="captcha" placeholder="请输入验证码" maxlength="4">
-                    <img id="refreshCaptcha" class="validateImg" src="{:url('login/captcha')}"
-                         onclick="this.src='{:url(\'login/captcha\')}?seed='+Math.random()">
+                    <img id="refreshCaptcha" class="validateImg" src="{:__url('login/captcha')}"
+                         onclick="this.src='{:__url(\'login/captcha\')}?seed='+Math.random()">
                 </div>
                 <div class="tip">
                     <input type="checkbox" name="keep_login" lay-skin="primary" title="保持登录" >
@@ -383,7 +383,7 @@
         layer.msg('验证码不能为空');
         return false;
       }
-      $.post("{:url('check_login')}", {
+      $.post("{:__url('check_login')}", {
         username: data.username,
         password: data.password,
         captcha: data.captcha,
@@ -391,10 +391,10 @@
       }, function (res) {
         if (res.code == 1) {
           layer.msg(res.msg,{icon:1});
-          window.location ="{:url('admin/index/index')}";
+          window.location ="{:__url('admin/index/index')}";
         } else {
           layer.msg(res.msg, {icon: 2});
-          $('#refreshCaptcha').attr("src", "{:url('login/captcha')}" + "?" + Math.random());
+          $('#refreshCaptcha').attr("src", "{:__url('login/captcha')}" + "?" + Math.random());
         }
       });
       /*layer.msg('登录成功', function () {

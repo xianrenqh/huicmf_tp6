@@ -24,7 +24,7 @@ class LoginController extends AdminController
         parent::initialize();
         $action = $this->request->action();
         if ( ! empty(session('admin')) && ! in_array($action, ['out'])) {
-            $this->success('您已登录，无需再次登录', [], url('admin/index/index'));
+            $this->success('您已登录，无需再次登录', [], __url('admin/index/index'));
         }
     }
 
