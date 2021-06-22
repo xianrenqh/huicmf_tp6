@@ -34,7 +34,7 @@ class SystemLog
         if ($request->isAjax()) {
             $method = strtolower($request->method());
             if (in_array($method, ['post', 'put', 'delete'])) {
-                $url    = $request->__url();
+                $url    = $request->url();
                 $ip     = get_client_ip();
                 $params = $request->param();
                 if (isset($params['s'])) {
