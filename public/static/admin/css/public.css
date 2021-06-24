@@ -34,6 +34,14 @@ body {
     margin-left: 150px !important;
 }
 
+.layuimini-form > .layui-form-item .layui-input-inline > tip {
+    display: inline-block;
+    margin-top: 10px;
+    line-height: 10px;
+    font-size: 10px;
+    color: #a29c9c;
+}
+
 .layuimini-form > .layui-form-item > .layui-input-block > tip {
     display: inline-block;
     margin-top: 10px;

@@ -3,7 +3,7 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form layuimini-form" action="{:__url('content.article/add')}" method="post">
+        <form class="layui-form layuimini-form" action="javascript:;" onsubmit="return dosub(this)" method="post">
             <div class="layui-form-item">
                 <label class="layui-form-label required">标题</label>
                 <div class="layui-input-block">
@@ -13,11 +13,31 @@
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">属性</label>
+                <div class="layui-input-block">
+                    <input type="checkbox" name="flag[]" value="1" title="置顶[1]">
+                    <input type="checkbox" name="flag[]" value="2" title="头条[2]">
+                    <input type="checkbox" name="flag[]" value="3" title="特荐[3]">
+                    <input type="checkbox" name="flag[]" value="4" title="推荐[4]">
+                    <input type="checkbox" name="flag[]" value="5" title="热点[5]">
+                    <input type="checkbox" name="flag[]" value="6" title="幻灯[6]">
+                    <input type="checkbox" name="flag[]" value="7" title="跳转[7]" lay-filter="flag">
+                </div>
+            </div>
+
+            <div class="layui-form-item" id="jumpUrl" style="display: none">
+                <label class="layui-form-label">跳转url</label>
+                <div class="layui-input-block">
+                    <input type="text" id="jump_url" name="jump_url" value="" autocomplete="off" class="layui-input">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">缩略图</label>
                 <div class="layui-input-block">
                     <div class="layui-input-inline" style="width: 50%">
-                        <input type="text" name="demo1" value="" onmouseover="hui_img_preview('demo1',this.value)"
-                               onmouseout="layer.closeAll();" id="demo1" autocomplete="off" class="layui-input">
+                        <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
+                               onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片
@@ -25,18 +45,19 @@
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-normal"
-                                onclick="WeAdminShow('选择图片','{:__url('general.attachment/select',[\'id\'=>\'demo1\'])}','800')">
+                                onclick="WeAdminShow('选择图片','{:__url('general.attachment/select',[\'id\'=>\'image\'])}','800')">
                             <i class="layui-icon">&#xe605;</i>选择图片
                         </button>
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
-                                onclick="hui_img_cropper('demo1','{:__url(\'upload/img_cropper\')}')"><i
+                                onclick="hui_img_cropper('image','{:__url(\'upload/img_cropper\')}')"><i
                                 class="layui-icon layui-icon-picture"></i>裁剪图片
                         </button>
                     </div>
                 </div>
             </div>
+
 
             <div class="layui-form-item" id="imgItem">
                 <label class="layui-form-label">上传图片：</label>
@@ -58,6 +79,40 @@
             </div>
 
             <div class="layui-form-item">
+                <label class="layui-form-label">缩略图</label>
+                <div class="layui-input-block">
+                    <input class="layui-input" type="" id="thumbs" name="thumbs">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">点击量</label>
+                    <div class="layui-input-inline">
+                        <input type="number" id="click" name="click" value="{$click}" autocomplete="off"
+                               class="layui-input">
+                        <tip>默认随机100以内</tip>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">权重</label>
+                    <div class="layui-input-inline">
+                        <input type="number" id="weight" name="weight" value="0" autocomplete="off" class="layui-input">
+                        <tip>越大排序越靠前</tip>
+                    </div>
+                </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">编辑昵称</label>
+                    <div class="layui-input-inline">
+                        <input type="text" id="nickname" name="nickname"
+                               value="{php}echo session('admin.nickname')?session('admin.nickname'):'管理员'{/php}"
+                               autocomplete="off" class="layui-input">
+                        <tip>默认管理员昵称</tip>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
                 <label class="layui-form-label">内容</label>
                 <div class="layui-input-block">
                     {php}echo lib\Form::editor('content',$val='', 'width:100%;height:400px');{/php}
@@ -66,13 +121,23 @@
             <div class="layui-form-item">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="auto_thum" value="1" title="提取内容第一张图片为缩略图" lay-skin="primary">
+                    <input type="checkbox" name="auto_image" value="1" title="提取内容第一张图片为缩略图" lay-skin="primary">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-hide">
+                <label class="layui-form-label required">状态</label>
+                <div class="layui-input-block">
+                    <input type="hidden" name="status" value="1">
                 </div>
             </div>
 
             <div class="layui-form-item">
                 <div class="layui-input-block">
-                    <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
+                    <button class="layui-btn layui-btn-sm" onclick="set_status(1)">立即提交
+                    </button>
+                    <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="set_status(0)"> 保存草稿
+                    </button>
                     <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
                 </div>
             </div>
@@ -109,6 +174,15 @@
         empt.remove();
       }
       return false;
+    });
+
+    form.on('checkbox(flag)', function (obj) {
+      var check = obj.elem.checked;
+      if (check) {
+        $('#jumpUrl').show();
+      } else {
+        $('#jumpUrl').hide();
+      }
     });
 
     //图片预览
@@ -181,8 +255,32 @@
         count++;
       }
     });
-
-  });
+    window.set_status = function (s) {
+      $("input[name='status']").val(s);
+    }
+    window.dosub = function (obj) {
+      let jump_url = $('#jump_url').val();
+      if (jump_url != '') {
+        var strReg = "^((https|http|ftp|rtsp|mms)?://)";
+        var re = new RegExp(strReg);
+        if (!re.test(jump_url)) {
+          layer.msg('不是有效的url地址', {icon: 2});
+          return false;
+        }
+      }
+      var imgs = $('[id^=imgs]');
+      var imgArray = '';
+      imgs.each(function () {
+        var url = $(this).attr('src');
+        if (url) {
+          imgArray += url + ',';
+        }
+      });
+      $('#thumbs').val(imgArray);
+      HuiDoSub($(obj).serialize(), "{:__url('content.Article/add')}");
+    }
+  })
+  ;
 </script>
 
 </body>

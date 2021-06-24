@@ -1,0 +1,138 @@
+{include file='header'/}
+<title>管理员列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="javascript:;" id="form_admin_search">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" name="title" id="title" placeholder="请输入文章标题" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-inline">
+                            <select name="status" id="isuse">
+                                <option value="99">==是否发布==</option>
+                                <option value="1">发布</option>
+                                <option value="hidden">草稿</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-sm reset" type="reset"><i
+                                    class="layui-icon">&#xe63f;</i>清空
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('content.article/add')}layui-hide{/if}"
+               data-open="{:__url('content.article/add')}"
+               data-title="添加文章">
+                <i class="fa fa-plus"></i> 添加文章</a>
+        </div>
+
+        <table id="article_table" lay-filter="article_table"></table>
+
+        <script type="text/html" id="image">
+            {{#  if(d.image !=''){ }}
+            <img src="{{d.image}}" onmouseover="hui_img_preview('image2','{{d.image}}')" onmouseout="layer.closeAll();"
+                 id="image2" width="60">
+            {{#  } }}
+        </script>
+        <script type="text/html" id="status">
+            {{#  if(d.status =='1'){ }}
+            <span class="layui-badge layui-bg-green"> 已发布 </span>
+            {{#  } else { }}
+            <span class="layui-badge layui-bg-danger"> 草稿箱 </span>
+            {{#  } }}
+        </script>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('content.article/edit')}layui-hide{/if}"
+               data-open="{:__url('content.article/edit')}?id={{d.id}}"
+               data-title="编辑管理">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('content.article/delete')}layui-hide{/if}"
+               data-delete="{:__url('content.article/delete')}?id={{d.id}}"
+               data-title="删除管理员" data-reload="1">删除</a>
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table'], function () {
+    var table = layui.table;
+    table.render({
+      elem: '#article_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      , cellMinWidth: 100
+      , cols: [[
+        {field: 'id', title: 'ID', width: 60, align: 'center'}
+        , {field: 'title', title: '标题'}
+        , {field: 'image', title: '缩略图', width: 100, align: 'center', templet: '#image'}
+        , {field: 'click', title: '点击量', width: 100,align: 'center'}
+        , {field: 'nickname', title: '发布人', width: 110}
+        , {field: 'create_time', title: '添加时间', width: 170,align: 'center'}
+        , {field: 'status', title: '状态',templet: '#status', align: 'center', width: 90}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 150}
+      ]]
+      , id: 'testReload'
+      , page: true
+      , limit: 10
+    });
+    var $ = layui.$, active = {
+      reload: function () {
+        //执行重载
+        table.reload('testReload', {
+          page: {curr: 1},
+          where: {
+            key: {
+              title: $('#title').val(),
+              status: $('#isuse').val(),
+            }
+          }
+        });
+      }
+    };
+
+    $('.hui-form-search .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .reset').on('click', function () {
+      window.location.reload();
+    });
+
+    //监听行工具事件
+    table.on('tool(role_list)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'del') {
+        layer.confirm('你确定要删除吗？', {
+          btn: ['确定', '取消'] //按钮
+        }, function () {
+          var postdata = {ids: data.id};
+          posttips("{:__url('admin_delete')}", postdata);
+        });
+      } else if (obj.event === 'edit') {
+        WeAdminShow("编辑", "{:__url('admin_edit')}?id=" + data.id, '800');
+      }
+    });
+
+  });
+</script>
+</body>
+</html>
