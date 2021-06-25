@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 18/06/2021 16:53:55
+ Date: 25/06/2021 11:53:59
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,36 @@ CREATE TABLE `hui_admin`  (
 -- ----------------------------
 -- Records of hui_admin
 -- ----------------------------
-INSERT INTO `hui_admin` VALUES (1, 'admin', '超级管理', 'a34c93785fc102733fb645ab6e2873cb', 'hui_cmf6', '', 'admin@admin.com', 1, 1624001350, '125.47.73.141', 44, 0, 1624001350, '', 'normal');
+INSERT INTO `hui_admin` VALUES (1, 'admin', '超级管理', 'a34c93785fc102733fb645ab6e2873cb', 'hui_cmf6', '', 'admin@admin.com', 1, 1624583736, '127.0.0.1', 52, 0, 1624583736, '', 'normal');
+
+-- ----------------------------
+-- Table structure for hui_article
+-- ----------------------------
+DROP TABLE IF EXISTS `hui_article`;
+CREATE TABLE `hui_article`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文章标题',
+  `admin_id` int(5) NOT NULL DEFAULT 0 COMMENT '添加人id',
+  `nickname` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '编辑昵称',
+  `type_id` int(5) NOT NULL DEFAULT 0 COMMENT '分类id',
+  `image` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '图片',
+  `thumbs` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL COMMENT '图集（json）',
+  `flag` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '1置顶,2头条,3特荐,4推荐,5热点,6幻灯,7跳转',
+  `is_top` int(1) NOT NULL DEFAULT 0 COMMENT '置顶（根据flag=1来判断）',
+  `jump_url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '跳转链接',
+  `click` int(10) NOT NULL DEFAULT 0 COMMENT '点击量',
+  `weight` int(10) NOT NULL DEFAULT 0 COMMENT '排序（数字越大越靠前）',
+  `status` int(1) NOT NULL DEFAULT 0 COMMENT '状态',
+  `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `create_time` int(10) NOT NULL DEFAULT 0,
+  `update_time` int(10) NOT NULL DEFAULT 0,
+  `delete_time` int(10) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hui_article
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for hui_attachment
@@ -68,11 +97,18 @@ CREATE TABLE `hui_attachment`  (
   `storage` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'local' COMMENT '存储位置',
   `sha1` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件表' ROW_FORMAT = COMPACT;
+) ENGINE = MyISAM AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of hui_attachment
 -- ----------------------------
+INSERT INTO `hui_attachment` VALUES (1, 1, 0, '/uploads/images/20210624/0479eed27360bc313c628117854090a9.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524481, 1624524481, 1624524481, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
+INSERT INTO `hui_attachment` VALUES (2, 1, 0, '/uploads/images/20210624/1b21769fce0fc903cfde070c4674b45f.jpg', '1200', '1200', 'jpeg', 0, 103210, 'image/jpeg', '{\"name\":\"timg_\\u770b\\u56fe\\u738b.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524738, 1624524738, 1624524738, 'local', '36e9c99308cfda0d75508ac964226148c52c18aa');
+INSERT INTO `hui_attachment` VALUES (3, 1, 0, '/uploads/images/20210624/53fd474ac8f8da2e84d5949e7970e101.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524946, 1624524946, 1624524946, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
+INSERT INTO `hui_attachment` VALUES (4, 1, 0, '/uploads/images/20210624/5314f9528aaabbcd392e98965708dbc8.jpg', '1200', '1200', 'jpeg', 0, 103210, 'image/jpeg', '{\"name\":\"timg_\\u770b\\u56fe\\u738b.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524972, 1624524972, 1624524972, 'local', '36e9c99308cfda0d75508ac964226148c52c18aa');
+INSERT INTO `hui_attachment` VALUES (5, 1, 0, '/uploads/images/20210624/2d7e164c9ecdac98c105ffbbc7862108.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624525290, 1624525290, 1624525290, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
+INSERT INTO `hui_attachment` VALUES (6, 1, 0, '/uploads/images/20210625/a7e2a695f2aacdd74075ef9cfa478a7a.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624586187, 1624586187, 1624586187, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
+INSERT INTO `hui_attachment` VALUES (7, 1, 0, '/uploads/images/20210625/787d75e05fe0eddd8c0cdc3995a221a2.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624586371, 1624586371, 1624586371, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
 
 -- ----------------------------
 -- Table structure for hui_auth_group
