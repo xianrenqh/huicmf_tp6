@@ -11,5 +11,6 @@ namespace app\admin\model;
 
 class Article extends TimeModel
 {
+    protected $deleteTime = 'delete_time';
 
 }

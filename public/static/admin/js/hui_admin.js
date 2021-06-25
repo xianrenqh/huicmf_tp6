@@ -117,12 +117,14 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
   });
 
   window.HuiDoSub = function (data, url) {
+    var loading = layer.load(0);
     $.ajax({
       type: 'POST',
       url: url,
       data: data,
       dataType: "json",
       success: function (res) {
+        layer.close(loading);
         if (res.code === 1) {
           layer.msg(res.msg, {icon: 1, time: 2000}, function () {
             if (res.url != '') {

@@ -23,13 +23,6 @@ by:xiaohuihui
 
 2、使用了注解权限：
 
-~~~
-//弹出层打开
-<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试">1231232313</a>
-//删除询问对话框
-<a href="javascript:;" data-delete="{:__url('system.node/index')}" data-title="删除">1231232313</a>
-~~~
-
 # 注解权限
 
 > 注解权限只能获取后台的控制器，也就是该app/admin/controller下
@@ -89,7 +82,7 @@ public function index()
 
 ## 后台前端问题
 
-### 前端auth权限验证
+### 1、前端auth权限验证
 
 > 为什么前端也做权限认证，权限认证不应该是后端做的吗？ 这里的权限认证指的是前端判断是否有权限查看的数据（例如：添加、删除、编辑之类的按钮），这些只有在点击到对应的url之后，后端才会进行权限认证。 为了避免用户困扰，可以在此用上前端的权限认证，判断是否显示还是隐藏
 
@@ -107,6 +100,35 @@ public function index()
 <a class="layui-btn layui-btn-sm layui-btn-normal " data-open="{:__url('system.admin/edit')}?id={{d.id}}"
                data-title="编辑管理">编辑</a>
 {/if}
+~~~
+
+### 2、按钮属性
+
+data-open：弹出层打开:width:90%，height:80%
+
+data-open-full：弹出层打开全屏:width:100%，height:100%
+
+data-confirm：普通询问对话框
+
+data-delete：删除询问对话框
+
+data-reload="1"  刷新当前页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在列表页（父级）页面刷新。默认不写或者 data-reload="0"为不刷新】
+
+【实例：】
+
+~~~
+//弹出层打开:width:90%，height:80%
+<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试编辑打开" data-reload="1">编辑</a>
+
+//弹出层打开全屏:width:100%，height:100%
+<a href="javascript:;" data-open-full="{:__url('system.node/index')}" data-title="测试添加打开">添加</a>
+
+//删除询问对话框
+<a href="javascript:;" data-delete="{:__url('system.node/index')}" data-title="您确定要删除吗？">1231232313</a>
+
+//普通询问对话框
+<a href="javascript:;" data-confirm="{:__url('system.node/index')}" data-title="您确定要取消收藏吗？">1231232313</a>
+
 ~~~
 
 ## 特别感谢

@@ -14,9 +14,9 @@
                         </div>
                         <div class="layui-inline">
                             <select name="status" id="isuse">
-                                <option value="99">==是否发布==</option>
+                                <option value="0">==是否发布==</option>
                                 <option value="1">发布</option>
-                                <option value="hidden">草稿</option>
+                                <option value="2">草稿</option>
                             </select>
                         </div>
                         <div class="layui-inline">
@@ -36,8 +36,8 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('content.article/add')}layui-hide{/if}"
-               data-open="{:__url('content.article/add')}"
-               data-title="添加文章">
+               data-open-full="{:__url('content.article/add')}"
+               data-title="添加内容">
                 <i class="fa fa-plus"></i> 添加文章</a>
         </div>
 
@@ -58,11 +58,11 @@
         </script>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('content.article/edit')}layui-hide{/if}"
-               data-open="{:__url('content.article/edit')}?id={{d.id}}"
-               data-title="编辑管理">编辑</a>
+               data-open-full="{:__url('content.article/edit')}?id={{d.id}}"
+               data-title="编辑内容" data-reload="1">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('content.article/delete')}layui-hide{/if}"
                data-delete="{:__url('content.article/delete')}?id={{d.id}}"
-               data-title="删除管理员" data-reload="1">删除</a>
+               data-title="您确定要删除吗？删除之后可以在回收站里查找哦" data-reload="1">删除</a>
         </script>
 
     </div>
@@ -84,10 +84,10 @@
         {field: 'id', title: 'ID', width: 60, align: 'center'}
         , {field: 'title', title: '标题'}
         , {field: 'image', title: '缩略图', width: 100, align: 'center', templet: '#image'}
-        , {field: 'click', title: '点击量', width: 100,align: 'center'}
+        , {field: 'click', title: '点击量', width: 100, align: 'center'}
         , {field: 'nickname', title: '发布人', width: 110}
-        , {field: 'create_time', title: '添加时间', width: 170,align: 'center'}
-        , {field: 'status', title: '状态',templet: '#status', align: 'center', width: 90}
+        , {field: 'create_time', title: '添加时间', width: 170, align: 'center'}
+        , {field: 'status', title: '状态', templet: '#status', align: 'center', width: 90}
         , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 150}
       ]]
       , id: 'testReload'

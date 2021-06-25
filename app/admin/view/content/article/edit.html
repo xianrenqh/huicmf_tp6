@@ -1,5 +1,5 @@
 {include file='header'/}
-<title>添加内容</title>
+<title>编辑内容</title>
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
@@ -7,7 +7,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label required">标题</label>
                 <div class="layui-input-block">
-                    <input type="text" id="title" name="title" value="" lay-verify="required" autocomplete="off"
+                    <input type="text" id="title" name="title" value="{$data.title}" lay-verify="required"
+                           autocomplete="off"
                            class="layui-input" lay-reqtext="标题不能为空">
                 </div>
             </div>
@@ -15,21 +16,22 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">属性</label>
                 <div class="layui-input-block">
-                    <input type="checkbox" name="flag[]" value="1" title="置顶[1]">
-                    <input type="checkbox" name="flag[]" value="2" title="头条[2]">
-                    <input type="checkbox" name="flag[]" value="3" title="特荐[3]">
-                    <input type="checkbox" name="flag[]" value="4" title="推荐[4]">
-                    <input type="checkbox" name="flag[]" value="5" title="热点[5]">
-                    <input type="checkbox" name="flag[]" value="6" title="幻灯[6]">
-                    <input type="checkbox" name="flag[]" value="7" title="跳转[7]" lay-filter="flag">
+                    <input type="checkbox" name="flag[]" value="1" title="置顶[1]" {if in_array(1,$data.flag)}checked{/if}>
+                    <input type="checkbox" name="flag[]" value="2" title="头条[2]" {if in_array(2,$data.flag)}checked{/if}>
+                    <input type="checkbox" name="flag[]" value="3" title="特荐[3]" {if in_array(3,$data.flag)}checked{/if}>
+                    <input type="checkbox" name="flag[]" value="4" title="推荐[4]" {if in_array(4,$data.flag)}checked{/if}>
+                    <input type="checkbox" name="flag[]" value="5" title="热点[5]" {if in_array(5,$data.flag)}checked{/if}>
+                    <input type="checkbox" name="flag[]" value="6" title="幻灯[6]" {if in_array(6,$data.flag)}checked{/if}>
+                    <input type="checkbox" name="flag[]" value="7" title="跳转[7]" lay-filter="flag" {if
+                           in_array(7,$data.flag)}checked{/if} >
                 </div>
             </div>
 
-            <div class="layui-form-item layui-hide" id="jumpUrl">
+            <div class="layui-form-item {if !in_array(7,$data.flag)}layui-hide{/if}" id="jumpUrl">
                 <label class="layui-form-label required">跳转url</label>
                 <div class="layui-input-block">
-                    <input type="text" id="jump_url" name="jump_url" value="" autocomplete="off" class="layui-input"
-                           data-s='0'>
+                    <input type="text" id="jump_url" name="jump_url" value="{$data.jump_url}" autocomplete="off"
+                           class="layui-input" data-s="{if in_array(7,$data.flag)}1{else/}0{/if}">
                 </div>
             </div>
 
@@ -37,7 +39,8 @@
                 <label class="layui-form-label">缩略图</label>
                 <div class="layui-input-block">
                     <div class="layui-input-inline" style="width: 50%">
-                        <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
+                        <input type="text" name="image" value="{$data.image}"
+                               onmouseover="hui_img_preview('image',this.value)"
                                onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
@@ -64,15 +67,33 @@
                 <label class="layui-form-label">上传图片：</label>
                 <button type="button" id="importModel" class="layui-hide">图片导入</button>
                 <div class="layui-input-inlines-self" id="imgItemInfo">
-                    <div class="layui-upload-drag-self" id="importImg0">
-                        <div id="imgDivs0">
-                            <i class="layui-icon" id="uploadIcon0"> &#xe624; </i>
+
+                    {foreach name="data.thumbs" item="vo" key="k"}
+                    <div class="layui-upload-drag-self" id="importImg{$k}">
+                        <div id="imgDivs{$k} layui-hide">
+                            <i class="layui-icon layui-hide" id="uploadIcon{$k}"></i>
                         </div>
-                        <div class="img layui-hide" id="uploadDemoView0">
-                            <img class="layui-upload-img" id="imgs0" src="">
-                            <div class="handle layui-hide" id="handle0">
-                                <i class="layui-icon layui-icon-picture-fine" id="preImg0" style="color:#fff"></i>
-                                <i class="layui-icon layui-icon-delete" id="delImg0" style="color:#fff"></i>
+                        <div class="img" id="uploadDemoView{$k}">
+                            <img class="layui-upload-img" id="imgs{$k}" src="{$vo}">
+                            <div class="handle layui-hide" id="handle{$k}">
+                                <i class="layui-icon layui-icon-picture-fine" id="preImg{$k}" style="color:#fff"></i>
+                                <i class="layui-icon layui-icon-delete" id="delImg{$k}" style="color:#fff"></i>
+                            </div>
+                        </div>
+                    </div>
+                    {/foreach}
+
+                    <div class="layui-upload-drag-self" id="importImg{$data.thumbs_count}">
+                        <div id="imgDivs{$data.thumbs_count}">
+                            <i class="layui-icon" id="uploadIcon{$data.thumbs_count}"> &#xe624; </i>
+                        </div>
+                        <div class="img layui-hide" id="uploadDemoView{$data.thumbs_count}">
+                            <img class="layui-upload-img" id="imgs{$data.thumbs_count}" src="">
+                            <div class="handle layui-hide" id="handle{$data.thumbs_count}">
+                                <i class="layui-icon layui-icon-picture-fine" id="preImg{$data.thumbs_count}"
+                                   style="color:#fff"></i>
+                                <i class="layui-icon layui-icon-delete" id="delImg{$data.thumbs_count}"
+                                   style="color:#fff"></i>
                             </div>
                         </div>
                     </div>
@@ -82,7 +103,7 @@
             <div class="layui-form-item layui-hide">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="" id="thumbs" name="thumbs">
+                    <input class="layui-input" type="text" id="thumbs" name="thumbs">
                 </div>
             </div>
 
@@ -90,7 +111,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">点击量</label>
                     <div class="layui-input-inline">
-                        <input type="number" id="click" name="click" value="{$click}" autocomplete="off"
+                        <input type="number" id="click" name="click" value="{$data.click}" autocomplete="off"
                                class="layui-input">
                         <tip>默认随机100以内</tip>
                     </div>
@@ -98,7 +119,8 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">权重</label>
                     <div class="layui-input-inline">
-                        <input type="number" id="weight" name="weight" value="0" autocomplete="off" class="layui-input">
+                        <input type="number" id="weight" name="weight" value="{$data.weight}" autocomplete="off"
+                               class="layui-input">
                         <tip>越大排序越靠前</tip>
                     </div>
                 </div>
@@ -106,7 +128,7 @@
                     <label class="layui-form-label">编辑昵称</label>
                     <div class="layui-input-inline">
                         <input type="text" id="nickname" name="nickname"
-                               value="{php}echo session('admin.nickname')?session('admin.nickname'):'管理员'{/php}"
+                               value="{$data.nickname}"
                                autocomplete="off" class="layui-input">
                         <tip>默认管理员昵称</tip>
                     </div>
@@ -116,7 +138,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">内容</label>
                 <div class="layui-input-block">
-                    {php}echo lib\Form::editor('content',$val='', 'width:100%;height:400px');{/php}
+                    {php}echo lib\Form::editor('content',$val=$data['content'], 'width:100%;height:400px');{/php}
                 </div>
             </div>
             <div class="layui-form-item">
@@ -129,7 +151,8 @@
             <div class="layui-form-item layui-hide">
                 <label class="layui-form-label required">状态</label>
                 <div class="layui-input-block">
-                    <input type="hidden" name="status" value="1">
+                    <input type="hidden" name="id" value="{$data.id}">
+                    <input type="hidden" name="status" value="{$data.status}">
                 </div>
             </div>
 
@@ -139,7 +162,6 @@
                     </button>
                     <button class="layui-btn layui-btn-normal layui-btn-sm" onclick="set_status(0)"> 保存草稿
                     </button>
-                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
                 </div>
             </div>
         </form>
@@ -157,21 +179,16 @@
       var nextImgSrc = $(this).parent().parent().parent().next().find('img').attr('src');//src
       //判断当前DIV后面的div的url是否为空
       if (!nextImgSrc) {
-        //判断是否为第一个
         if (importImgF.attr('id') === empt.attr('id')) {
-          //-是 ，清空第一个 最后面的删除
-          //图片url清空
           empt.find('img').attr('src', '');
           $(this).parent().parent().addClass('layui-hide');
           importImgF.find('i:first').removeClass('layui-hide');
           count--;
           $('#' + 'importImg' + count).remove();
         } else {
-          // -否，删除当前
           empt.remove();
         }
       } else {
-        //如果有值删除当前div
         empt.remove();
       }
       return false;
@@ -286,7 +303,7 @@
         }
       });
       $('#thumbs').val(imgArray);
-      HuiDoSub($(obj).serialize(), "{:__url('content.Article/add')}");
+      HuiDoSub($(obj).serialize(), "{:__url('content.Article/edit')}");
     }
   })
   ;

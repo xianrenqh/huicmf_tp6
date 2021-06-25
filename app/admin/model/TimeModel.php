@@ -38,6 +38,8 @@ class TimeModel extends Model
      */
     use SoftDelete;
 
+    protected $defaultSoftDelete = 0;
+
     protected $deleteTime = false;
 
 }
