@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3cb586843e056374b597daa02aa3b974",
+    "content-hash": "7c581412c18c0d366e5e1f00411118c1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -912,42 +912,6 @@
                 "source": "https://github.com/top-think/think-view/tree/v1.0.14"
             },
             "time": "2019-11-06T11:40:13+00:00"
-        },
-        {
-            "name": "xianrenqh/api-doc-php",
-            "version": "1.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xianrenqh/api-doc-php.git",
-                "reference": "976079f790b65d89f916f6ea395598bfb2440bb2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xianrenqh/api-doc-php/zipball/976079f790b65d89f916f6ea395598bfb2440bb2",
-                "reference": "976079f790b65d89f916f6ea395598bfb2440bb2",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.6.0"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "xianrenqh\\apidoc\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "xiaohuihui",
-                    "email": "762229008@qq.com"
-                }
-            ],
-            "description": "api-doc-php",
-            "time": "2021-01-25T03:17:41+00:00"
         }
     ],
     "packages-dev": [
