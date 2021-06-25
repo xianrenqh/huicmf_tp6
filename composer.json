@@ -1,22 +1,19 @@
 {
-  "name": "topthink/think",
-  "description": "the new thinkphp framework",
+  "name": "xianrenqh/huicmf_tp6",
+  "description": "HuiCMF6.0 By ThinkPHP6.0",
   "type": "project",
   "keywords": [
-    "framework",
+    "huicmf",
     "thinkphp",
-    "ORM"
+    "cmf",
+    "phpcmf"
   ],
-  "homepage": "https://huicmf6.xiaohuihui.net/",
+  "homepage": "https://xiaohuihui.net.cn/",
   "license": "Apache-2.0",
   "authors": [
     {
-      "name": "liu21st",
-      "email": "liu21st@gmail.com"
-    },
-    {
-      "name": "yunwuxin",
-      "email": "448901948@qq.com"
+      "name": "xiaohuihui",
+      "email": "762229008@qq.com"
     }
   ],
   "require": {
