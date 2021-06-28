@@ -1,0 +1,52 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+        </div>
+        {php}
+            $status=array("1"=>'开启',"0"=>'禁用',"3"=>'未安装');
+        {/php}
+        <table class="layui-table" width="100%" style="table-layout:fixed">
+            <thead>
+            <tr>
+                <th>插件名称</th>
+                <th>插件标识</th>
+                <th>描述</th>
+                <th>作者</th>
+                <th>版本号</th>
+                <th>状态</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="plugins" id="vo"}
+            <tr>
+                <td>{$vo.title}</td>
+                <td>{$vo.name}</td>
+                <td>{$vo.description}</td>
+                <td>{$vo.author}</td>
+                <td>{$vo.version}</td>
+                <td>{$status[$vo.status]}</td>
+                <td>
+                    {if condition="$vo['status']==3"}
+                    <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/install')}layui-hide{/if}"
+                       data-confirm="{:__url('plugin.plugin/install',['name'=>$vo['name']])}"
+                       data-title="确定安装该插件吗？">安装</a>
+                    {else/}
+
+                    {/if}
+
+                </td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+{include file='footer'/}
+</body>
+</html>

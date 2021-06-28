@@ -125,9 +125,8 @@ class NodeService
                 $controllerFormat = str_replace("_controller", "", $controllerFormat);
                 // 获取类和方法的注释信息
                 $reflectionClass = new \ReflectionClass($controller);
-                
-                $methods    = $reflectionClass->getMethods();
-                $actionList = [];
+                $methods         = $reflectionClass->getMethods();
+                $actionList      = [];
                 // 遍历读取所有方法的注释的参数信息
                 foreach ($methods as $method) {
                     // 读取NodeAnotation的注解

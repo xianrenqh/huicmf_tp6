@@ -32,6 +32,10 @@ class ArticleController extends AdminController
         $this->model = new ArticleModel();
     }
 
+    public function test()
+    {
+    }
+
     /**
      * @NodeAnotation(title="内容列表")
      */

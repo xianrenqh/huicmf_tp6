@@ -32,7 +32,9 @@
   },
   "autoload": {
     "psr-4": {
-      "app\\": "app"
+      "app\\": "app",
+      "plugins\\": "public/plugins",
+      "themes\\": "public/plugins"
     },
     "psr-0": {
       "": "extend/"

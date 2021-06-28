@@ -143,6 +143,7 @@ if ( ! function_exists('xdebug')) {
         $force ? file_put_contents($file, $str) : file_put_contents($file, $str, FILE_APPEND);
     }
 }
+
 if ( ! function_exists('get_url')) {
     function get_url($url)
     {
@@ -254,6 +255,191 @@ function camelize($uncamelized_words, $separator = '_')
 function uncamelize($camelCaps, $separator = '_')
 {
     return strtolower(preg_replace('/([a-z])([A-Z])/', "$1".$separator."$2", $camelCaps));
+}
+
+/**
+ * 获取网站根目录
+ * @return string 网站根目录
+ */
+function cmf_get_root()
+{
+    $root = "";
+
+    /*$root = str_replace("//", '/', $root);
+    $root = str_replace('/index.php', '', $root);
+    if (defined('APP_NAMESPACE') && APP_NAMESPACE == 'api') {
+        $root = preg_replace('/\/api(.php)$/', '', $root);
+    }
+    $root = rtrim($root, '/');*/
+
+    return $root;
+}
+
+/**
+ * 添加钩子
+ *
+ * @param string $hook   钩子名称
+ * @param mixed  $params 传入参数
+ * @param bool   $once
+ *
+ * @return mixed
+ */
+function hook($hook, $params = null, $once = false)
+{
+    $hook = cmf_parse_name($hook, 1);
+
+    return \think\facade\Event::trigger($hook, $params, $once);
+}
+
+/**
+ * 添加钩子,只执行一个
+ *
+ * @param string $hook   钩子名称
+ * @param mixed  $params 传入参数
+ *
+ * @return mixed
+ */
+function hook_one($hook, $params = null)
+{
+    $hook = cmf_parse_name($hook, 1);
+
+    return \think\facade\Event::trigger($hook, $params, true);
+}
+
+/**
+ * 获取插件类名
+ *
+ * @param string $name 插件名
+ *
+ * @return string
+ *
+ */
+function cmf_get_plugin_class($name)
+{
+    $name      = ucwords($name);
+    $pluginDir = cmf_parse_name($name);
+    $class     = "plugins\\{$pluginDir}\\{$name}Plugin";
+
+    return $class;
+}
+
+/**
+ * 获取插件配置
+ *
+ * @param string $name 插件名，大驼峰格式
+ *
+ * @return array
+ */
+function cmf_get_plugin_config($name)
+{
+    $class = cmf_get_plugin_class($name);
+    if (class_exists($class)) {
+        $plugin = new $class();
+
+        return $plugin->getConfig();
+    } else {
+        return [];
+    }
+}
+
+/**
+ * 字符串命名风格转换
+ * type 0 将Java风格转换为C的风格 1 将C风格转换为Java的风格
+ *
+ * @param string  $name    字符串
+ * @param integer $type    转换类型
+ * @param bool    $ucfirst 首字母是否大写（驼峰规则）
+ *
+ * @return string
+ */
+function cmf_parse_name($name, $type = 0, $ucfirst = true)
+{
+    if ($type) {
+        $name = preg_replace_callback('/_([a-zA-Z])/', function ($match) {
+            return strtoupper($match[1]);
+        }, $name);
+
+        return $ucfirst ? ucfirst($name) : lcfirst($name);
+    }
+
+    return strtolower(trim(preg_replace("/[A-Z]/", "_\\0", $name), "_"));
+}
+
+/**
+ * 替代scan_dir的方法
+ *
+ * @param string $pattern 检索模式 搜索模式 *.txt,*.doc; (同glog方法)
+ * @param int    $flags
+ * @param        $pattern
+ *
+ * @return array
+ */
+function cmf_scan_dir($pattern, $flags = null)
+{
+    $files = glob($pattern, $flags);
+    if (empty($files)) {
+        $files = [];
+    } else {
+        $files = array_map('basename', $files);
+    }
+
+    return $files;
+}
+
+/**
+ * 生成访问插件的url
+ *
+ * @param string $url    url格式：插件名://控制器名/方法
+ * @param array  $vars   参数
+ * @param bool   $domain 是否显示域名 或者直接传入域名
+ *
+ * @return string
+ */
+function cmf_plugin_url($url, $vars = [], $domain = false)
+{
+    /*global $CMF_GV_routes;
+
+    if (empty($CMF_GV_routes)) {
+        $routeModel    = new \app\admin\model\RouteModel();
+        $CMF_GV_routes = $routeModel->getRoutes();
+    }*/
+
+    $url              = parse_url($url);
+    $case_insensitive = true;
+    $plugin           = $case_insensitive ? cmf_parse_name($url['scheme']) : $url['scheme'];
+    $controller       = $case_insensitive ? cmf_parse_name($url['host']) : $url['host'];
+    $action           = trim($case_insensitive ? strtolower($url['path']) : $url['path'], '/');
+
+    /* 解析URL带的参数 */
+    if (isset($url['query'])) {
+        parse_str($url['query'], $query);
+        $vars = array_merge($query, $vars);
+    }
+
+    /* 基础参数 */
+    $params = [
+        '_plugin'     => $plugin,
+        '_controller' => $controller,
+        '_action'     => $action,
+    ];
+
+    $pluginUrl = '\\cmf\\controller\\PluginController@index?'.http_build_query($params);
+
+    if ( ! empty($vars) && ! empty($CMF_GV_routes[$pluginUrl])) {
+
+        foreach ($CMF_GV_routes[$pluginUrl] as $actionRoute) {
+            $sameVars = array_intersect_assoc($vars, $actionRoute['vars']);
+
+            if (count($sameVars) == count($actionRoute['vars'])) {
+                ksort($sameVars);
+                $pluginUrl = $pluginUrl.'&'.http_build_query($sameVars);
+                $vars      = array_diff_assoc($vars, $sameVars);
+                break;
+            }
+        }
+    }
+
+    return url($pluginUrl, $vars, true, $domain);
 }
 
 /**
