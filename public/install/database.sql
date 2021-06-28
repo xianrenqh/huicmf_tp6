@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 25/06/2021 16:29:47
+ Date: 28/06/2021 18:43:32
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,7 @@ CREATE TABLE `hui_admin`  (
 -- ----------------------------
 -- Records of hui_admin
 -- ----------------------------
-INSERT INTO `hui_admin` VALUES (1, 'admin', '超级管理', 'a34c93785fc102733fb645ab6e2873cb', 'hui_cmf6', '', 'admin@admin.com', 1, 1624583736, '127.0.0.1', 52, 0, 1624583736, '', 'normal');
+INSERT INTO `hui_admin` VALUES (1, 'admin', '超级管理', 'a34c93785fc102733fb645ab6e2873cb', 'hui_cmf6', '', 'admin@admin.com', 1, 1624847925, '127.0.0.1', 53, 0, 1624847925, '', 'normal');
 
 -- ----------------------------
 -- Table structure for hui_article
@@ -97,18 +97,11 @@ CREATE TABLE `hui_attachment`  (
   `storage` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'local' COMMENT '存储位置',
   `sha1` varchar(40) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '附件表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of hui_attachment
 -- ----------------------------
-INSERT INTO `hui_attachment` VALUES (1, 1, 0, '/uploads/images/20210624/0479eed27360bc313c628117854090a9.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524481, 1624524481, 1624524481, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
-INSERT INTO `hui_attachment` VALUES (2, 1, 0, '/uploads/images/20210624/1b21769fce0fc903cfde070c4674b45f.jpg', '1200', '1200', 'jpeg', 0, 103210, 'image/jpeg', '{\"name\":\"timg_\\u770b\\u56fe\\u738b.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524738, 1624524738, 1624524738, 'local', '36e9c99308cfda0d75508ac964226148c52c18aa');
-INSERT INTO `hui_attachment` VALUES (3, 1, 0, '/uploads/images/20210624/53fd474ac8f8da2e84d5949e7970e101.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524946, 1624524946, 1624524946, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
-INSERT INTO `hui_attachment` VALUES (4, 1, 0, '/uploads/images/20210624/5314f9528aaabbcd392e98965708dbc8.jpg', '1200', '1200', 'jpeg', 0, 103210, 'image/jpeg', '{\"name\":\"timg_\\u770b\\u56fe\\u738b.jpg\",\"mime\":\"image\\/jpeg\"}', 1624524972, 1624524972, 1624524972, 'local', '36e9c99308cfda0d75508ac964226148c52c18aa');
-INSERT INTO `hui_attachment` VALUES (5, 1, 0, '/uploads/images/20210624/2d7e164c9ecdac98c105ffbbc7862108.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624525290, 1624525290, 1624525290, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
-INSERT INTO `hui_attachment` VALUES (6, 1, 0, '/uploads/images/20210625/a7e2a695f2aacdd74075ef9cfa478a7a.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624586187, 1624586187, 1624586187, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
-INSERT INTO `hui_attachment` VALUES (7, 1, 0, '/uploads/images/20210625/787d75e05fe0eddd8c0cdc3995a221a2.jpg', '300', '204', 'jpeg', 0, 9659, 'image/jpeg', '{\"name\":\"\\u5fae\\u4fe1\\u56fe\\u7247_20200822104642.jpg\",\"mime\":\"image\\/jpeg\"}', 1624586371, 1624586371, 1624586371, 'local', '5d256748f24a415ae5ef618d5c9ea6890299f28d');
 
 -- ----------------------------
 -- Table structure for hui_auth_group
@@ -164,7 +157,7 @@ CREATE TABLE `hui_auth_rule`  (
   `update_time` int(10) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`node`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '节点表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '节点表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of hui_auth_rule
@@ -215,6 +208,12 @@ INSERT INTO `hui_auth_rule` VALUES (43, 2, 'content.article/edit', '修改内容
 INSERT INTO `hui_auth_rule` VALUES (44, 2, 'content.article/delete', '删除内容', 1, '', 1623983126, 1623983126);
 INSERT INTO `hui_auth_rule` VALUES (45, 1, 'system.log', '系统日志', 1, '', 1623997395, 1623997395);
 INSERT INTO `hui_auth_rule` VALUES (46, 2, 'system.log/index', '日志列表', 1, '', 1623997395, 1623997395);
+INSERT INTO `hui_auth_rule` VALUES (47, 1, 'plugin.plugin', '插件管理', 1, '', 1624863982, 1624863982);
+INSERT INTO `hui_auth_rule` VALUES (48, 2, 'plugin.plugin/index', '插件列表', 1, '', 1624863982, 1624863982);
+INSERT INTO `hui_auth_rule` VALUES (49, 2, 'plugin.plugin/install', '插件安装', 1, '', 1624863982, 1624863982);
+INSERT INTO `hui_auth_rule` VALUES (51, 1, 'content.recycle_bin', '回收站管理', 1, '', 1624876870, 1624876870);
+INSERT INTO `hui_auth_rule` VALUES (52, 2, 'content.recycle_bin/index', '回收站列表', 1, '', 1624876870, 1624876870);
+INSERT INTO `hui_auth_rule` VALUES (53, 2, 'content.recycle_bin/delete', '回收站删除', 1, '', 1624876870, 1624876870);
 
 -- ----------------------------
 -- Table structure for hui_config
@@ -261,6 +260,73 @@ INSERT INTO `hui_config` VALUES (20, 'upload_types', 2, '允许上传类型', 'j
 INSERT INTO `hui_config` VALUES (21, 'upload_mode', 2, '图片上传方式', 'local', 'string', '', 1, '');
 
 -- ----------------------------
+-- Table structure for hui_hook
+-- ----------------------------
+DROP TABLE IF EXISTS `hui_hook`;
+CREATE TABLE `hui_hook`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `type` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
+  `once` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否只允许一个插件运行(0:多个;1:一个)',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '钩子名称',
+  `hook` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '钩子',
+  `app` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '应用名(只有应用钩子才用)',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统钩子表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hui_hook
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for hui_hook_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `hui_hook_plugin`;
+CREATE TABLE `hui_hook_plugin`  (
+  `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `list_order` float NOT NULL DEFAULT 10000 COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT 1 COMMENT '状态(0:禁用,1:启用)',
+  `hook` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '钩子名',
+  `plugin` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '插件',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '系统钩子插件表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hui_hook_plugin
+-- ----------------------------
+INSERT INTO `hui_hook_plugin` VALUES (1, 10000, 1, 'footer_start', 'Demo');
+INSERT INTO `hui_hook_plugin` VALUES (2, 10000, 1, 'footer_start', 'Demo');
+INSERT INTO `hui_hook_plugin` VALUES (3, 10000, 1, 'footer_start', 'Demo');
+INSERT INTO `hui_hook_plugin` VALUES (4, 10000, 1, 'footer_start', 'Demo');
+
+-- ----------------------------
+-- Table structure for hui_plugin
+-- ----------------------------
+DROP TABLE IF EXISTS `hui_plugin`;
+CREATE TABLE `hui_plugin`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `type` tinyint(3) UNSIGNED NOT NULL DEFAULT 1 COMMENT '插件类型;1:网站;8:微信',
+  `has_admin` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否有后台管理,0:没有;1:有',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT 1 COMMENT '状态;1:开启;0:禁用',
+  `create_time` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '插件安装时间',
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '插件标识名,英文字母(惟一)',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件名称',
+  `demo_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '演示地址，带协议',
+  `hooks` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '实现的钩子;以“,”分隔',
+  `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件作者',
+  `author_url` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '作者网站链接',
+  `version` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '插件版本号',
+  `description` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '插件描述',
+  `config` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '插件配置',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '插件表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hui_plugin
+-- ----------------------------
+INSERT INTO `hui_plugin` VALUES (7, 1, 1, 1, 1624862689, 'Demo', '插件演示', 'http://demo.thinkcmf.com', '', 'ThinkCMF', 'http://www.thinkcmf.com', '1.0.2', '插件演示', '{\"custom_config\":\"0\",\"text\":\"hello,ThinkCMF!\",\"password\":\"\",\"number\":\"1.0\",\"select\":\"1\",\"checkbox\":1,\"radio\":\"1\",\"radio2\":\"1\",\"textarea\":\"\\u8fd9\\u91cc\\u662f\\u4f60\\u8981\\u586b\\u5199\\u7684\\u5185\\u5bb9\",\"date\":\"2017-05-20\",\"datetime\":\"2017-05-20\",\"color\":\"#103633\",\"image\":\"\",\"file\":\"\",\"location\":\"\"}');
+
+-- ----------------------------
 -- Table structure for hui_system_log
 -- ----------------------------
 DROP TABLE IF EXISTS `hui_system_log`;
@@ -302,7 +368,7 @@ CREATE TABLE `hui_system_menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `title`(`title`) USING BTREE,
   INDEX `href`(`href`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of hui_system_menu
@@ -319,5 +385,6 @@ INSERT INTO `hui_system_menu` VALUES (9, 2, '数据库管理', 'fa-database', 's
 INSERT INTO `hui_system_menu` VALUES (10, 2, '系统设置', 'fa-cogs', 'system.config/index', '', '_self', 0, 1, '', 1623913925, 1623913959, 0);
 INSERT INTO `hui_system_menu` VALUES (11, 2, '自定义设置', 'fa-cog', 'system.config/custom_config', '', '_self', 0, 1, '', 1623920740, 1623920740, 0);
 INSERT INTO `hui_system_menu` VALUES (12, 2, '系统日志', 'fa-book', 'system.log/index', '', '_self', 50, 1, '', 1624000849, 1624000871, 0);
+INSERT INTO `hui_system_menu` VALUES (13, 7, '回收站管理', 'fa-drupal', 'content.recycle_bin/index', '', '_self', 0, 1, '', 1624876985, 1624876985, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
