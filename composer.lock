@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fed97ea649dbfd2994b0f89223828282",
+    "content-hash": "77a0a08109f81cc39276e3fc005e6603",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -169,6 +169,83 @@
                 }
             ],
             "time": "2020-05-25T17:44:05+00:00"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "2.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "2edbc73a4687d9085c8f20f398eebade844e8424"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/2edbc73a4687d9085c8f20f398eebade844e8424",
+                "reference": "2edbc73a4687d9085c8f20f398eebade844e8424",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": "^5.5.9 || ^7.0 || ^8.0",
+                "psr/log": "^1.0.1"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9 || ^1.0",
+                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20 || ^8.5.8 || ^9.3.3",
+                "symfony/var-dumper": "^2.6 || ^3.0 || ^4.0 || ^5.0"
+            },
+            "suggest": {
+                "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
+                "whoops/soap": "Formats errors as SOAP responses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Whoops\\": "src/Whoops/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://filp.github.io/whoops/",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "throwable",
+                "whoops"
+            ],
+            "support": {
+                "issues": "https://github.com/filp/whoops/issues",
+                "source": "https://github.com/filp/whoops/tree/2.13.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/denis-sokolov",
+                    "type": "github"
+                }
+            ],
+            "time": "2021-06-04T12:00:00+00:00"
         },
         {
             "name": "league/flysystem",
@@ -1048,6 +1125,69 @@
                 "source": "https://github.com/top-think/think-view/tree/v1.0.14"
             },
             "time": "2019-11-06T11:40:13+00:00"
+        },
+        {
+            "name": "xiaodi/think-whoops",
+            "version": "v1.1.8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/friendsofthinkphp/think-whoops.git",
+                "reference": "0c16dce4703e529910b81b27e4119f7feb55e64a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/friendsofthinkphp/think-whoops/zipball/0c16dce4703e529910b81b27e4119f7feb55e64a",
+                "reference": "0c16dce4703e529910b81b27e4119f7feb55e64a",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "filp/whoops": "^2.4",
+                "php": ">=7.1.0",
+                "topthink/framework": "6.0.*"
+            },
+            "type": "library",
+            "extra": {
+                "think": {
+                    "services": [
+                        "think\\Whoops\\WhoopsService"
+                    ],
+                    "config": {
+                        "whoops": "config/config.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "think\\Whoops\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "xiaodi",
+                    "email": "liangjinbiao@live.com"
+                }
+            ],
+            "description": "A debug service for ThinkPHP.",
+            "keywords": [
+                "php",
+                "thinkphp",
+                "whoops"
+            ],
+            "support": {
+                "issues": "https://github.com/friendsofthinkphp/think-whoops/issues",
+                "source": "https://github.com/friendsofthinkphp/think-whoops/tree/v1.1.8"
+            },
+            "time": "2020-07-06T11:29:44+00:00"
         }
     ],
     "packages-dev": [
