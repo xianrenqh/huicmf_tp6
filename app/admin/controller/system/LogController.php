@@ -14,6 +14,7 @@ use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use think\Exception;
 use app\admin\model\SystemLog;
+use app\admin\model\LoginLog;
 
 /**
  * @ControllerAnnotation(title="系统日志")
@@ -24,7 +25,7 @@ class LogController extends AdminController
 {
 
     /**
-     * @NodeAnotation(title="日志列表")
+     * @NodeAnotation(title="操作日志")
      */
     public function index()
     {
@@ -34,4 +35,19 @@ class LogController extends AdminController
 
         return $this->fetch();
     }
+
+    /**
+     * @NodeAnotation(title="登陆日志")
+     */
+    public function login_log()
+    {
+        $data = LoginLog::order('id desc')->paginate(10)->each(function ($item){
+            $item['desc']= explode("{",$item['desc'])[0];
+        });
+
+        $this->assign('data', $data);
+
+        return $this->fetch();
+    }
+
 }

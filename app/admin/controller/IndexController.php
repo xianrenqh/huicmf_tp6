@@ -123,4 +123,39 @@ class IndexController extends AdminController
         $this->success('清理缓存成功');
     }
 
+    function determinebrowser($Agent)
+    {
+        $browseragent   = ""; //浏览器
+        $browserversion = ""; //浏览器的版本
+        if (ereg('MSIE ([0-9].[0-9]{1,2})', $Agent, $version)) {
+            $browserversion = $version[1];
+            $browseragent   = "Internet Explorer";
+        } else {
+            if (ereg('Opera/([0-9]{1,2}.[0-9]{1,2})', $Agent, $version)) {
+                $browserversion = $version[1];
+                $browseragent   = "Opera";
+            } else {
+                if (ereg('Firefox/([0-9.]{1,5})', $Agent, $version)) {
+                    $browserversion = $version[1];
+                    $browseragent   = "Firefox";
+                } else {
+                    if (ereg('Chrome/([0-9.]{1,3})', $Agent, $version)) {
+                        $browserversion = $version[1];
+                        $browseragent   = "Chrome";
+                    } else {
+                        if (ereg('Safari/([0-9.]{1,3})', $Agent, $version)) {
+                            $browseragent   = "Safari";
+                            $browserversion = "";
+                        } else {
+                            $browserversion = "";
+                            $browseragent   = "Unknown";
+                        }
+                    }
+                }
+            }
+        }
+
+        return $browseragent." ".$browserversion;
+    }
+
 }

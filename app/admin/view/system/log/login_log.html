@@ -1,0 +1,50 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+        </div>
+        <table class="layui-table" width="100%" style="table-layout:fixed">
+            <thead>
+            <tr>
+                <th width="50">id</th>
+                <th>管理员id</th>
+                <th>管理员name</th>
+                <th>操作系统</th>
+                <th>浏览器</th>
+                <th>IP地址</th>
+                <th>地区</th>
+                <th>网络</th>
+                <th>描述</th>
+                <th>create_time</th>
+            </tr>
+            </thead>
+            <tbody>
+            {volist name="data" id="vo"}
+            <tr>
+                <td>{$vo.id}</td>
+                <td>{$vo.user_id}</td>
+                <td>{$vo.user_name}</td>
+                <td>{$vo.os} {$vo.os_ver}</td>
+                <td>{$vo.browser} {$vo.browser_ver}</td>
+                <td>{$vo.ip_address}</td>
+                <td>{$vo.country} {$vo.area} {$vo.city}</td>
+                <td>{$vo.isp}</td>
+                <td>{$vo.desc}</td>
+                <td>{$vo.create_time}</td>
+            </tr>
+            {/volist}
+            </tbody>
+        </table>
+        <div class="mws-panel-content">
+            <div class="list-page page">
+                {$data->render()|raw}
+            </div>
+        </div>
+    </div>
+</div>
+
+{include file='footer'/}
+</body>
+</html>
