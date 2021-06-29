@@ -423,7 +423,7 @@ function cmf_plugin_url($url, $vars = [], $domain = false)
         '_action'     => $action,
     ];
 
-    $pluginUrl = '\\cmf\\controller\\PluginController@index?'.http_build_query($params);
+    $pluginUrl = '\\app\\index\\controller\\PluginController@index?'.http_build_query($params);
 
     if ( ! empty($vars) && ! empty($CMF_GV_routes[$pluginUrl])) {
 
@@ -439,7 +439,7 @@ function cmf_plugin_url($url, $vars = [], $domain = false)
         }
     }
 
-    return url($pluginUrl, $vars, true, $domain);
+    return __url($pluginUrl, $vars, true, $domain);
 }
 
 /**
