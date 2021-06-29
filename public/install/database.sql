@@ -11,7 +11,7 @@
  Target Server Version : 50733
  File Encoding         : 65001
 
- Date: 28/06/2021 18:43:32
+ Date: 29/06/2021 16:53:45
 */
 
 SET NAMES utf8mb4;
@@ -44,7 +44,7 @@ CREATE TABLE `hui_admin`  (
 -- ----------------------------
 -- Records of hui_admin
 -- ----------------------------
-INSERT INTO `hui_admin` VALUES (1, 'admin', '超级管理', 'a34c93785fc102733fb645ab6e2873cb', 'hui_cmf6', '', 'admin@admin.com', 1, 1624847925, '127.0.0.1', 53, 0, 1624847925, '', 'normal');
+INSERT INTO `hui_admin` VALUES (1, 'admin', '超级管理员', 'a34c93785fc102733fb645ab6e2873cb', 'hui_cmf6', '', 'admin@admin.com', 2, 1624955895, '127.0.0.1', 60, 0, 1624955895, '', 'normal');
 
 -- ----------------------------
 -- Table structure for hui_article
@@ -157,7 +157,7 @@ CREATE TABLE `hui_auth_rule`  (
   `update_time` int(10) NOT NULL DEFAULT 0 COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `name`(`node`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 54 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '节点表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 55 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '节点表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of hui_auth_rule
@@ -207,13 +207,14 @@ INSERT INTO `hui_auth_rule` VALUES (42, 2, 'content.article/add', '添加内容'
 INSERT INTO `hui_auth_rule` VALUES (43, 2, 'content.article/edit', '修改内容', 1, '', 1623983125, 1623983125);
 INSERT INTO `hui_auth_rule` VALUES (44, 2, 'content.article/delete', '删除内容', 1, '', 1623983126, 1623983126);
 INSERT INTO `hui_auth_rule` VALUES (45, 1, 'system.log', '系统日志', 1, '', 1623997395, 1623997395);
-INSERT INTO `hui_auth_rule` VALUES (46, 2, 'system.log/index', '日志列表', 1, '', 1623997395, 1623997395);
+INSERT INTO `hui_auth_rule` VALUES (46, 2, 'system.log/index', '操作日志', 1, '', 1623997395, 1623997395);
 INSERT INTO `hui_auth_rule` VALUES (47, 1, 'plugin.plugin', '插件管理', 1, '', 1624863982, 1624863982);
 INSERT INTO `hui_auth_rule` VALUES (48, 2, 'plugin.plugin/index', '插件列表', 1, '', 1624863982, 1624863982);
 INSERT INTO `hui_auth_rule` VALUES (49, 2, 'plugin.plugin/install', '插件安装', 1, '', 1624863982, 1624863982);
 INSERT INTO `hui_auth_rule` VALUES (51, 1, 'content.recycle_bin', '回收站管理', 1, '', 1624876870, 1624876870);
 INSERT INTO `hui_auth_rule` VALUES (52, 2, 'content.recycle_bin/index', '回收站列表', 1, '', 1624876870, 1624876870);
 INSERT INTO `hui_auth_rule` VALUES (53, 2, 'content.recycle_bin/delete', '回收站删除', 1, '', 1624876870, 1624876870);
+INSERT INTO `hui_auth_rule` VALUES (54, 2, 'system.log/login_log', '登陆日志', 1, '', 1624956151, 1624956151);
 
 -- ----------------------------
 -- Table structure for hui_config
@@ -300,6 +301,34 @@ INSERT INTO `hui_hook_plugin` VALUES (3, 10000, 1, 'footer_start', 'Demo');
 INSERT INTO `hui_hook_plugin` VALUES (4, 10000, 1, 'footer_start', 'Demo');
 
 -- ----------------------------
+-- Table structure for hui_login_log
+-- ----------------------------
+DROP TABLE IF EXISTS `hui_login_log`;
+CREATE TABLE `hui_login_log`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL DEFAULT 0 COMMENT '用户id',
+  `user_name` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '用户名',
+  `browser` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '浏览器名',
+  `browser_ver` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '浏览器版本',
+  `os` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作系统',
+  `os_ver` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '操作系统版本',
+  `ip_address` varchar(60) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT 'ip地址',
+  `country` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '国家',
+  `area` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '省',
+  `city` char(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '市',
+  `isp` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '' COMMENT '网络：【电信、联通】',
+  `desc` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '',
+  `create_time` int(10) NOT NULL DEFAULT 0 COMMENT '创建时间',
+  `update_time` int(10) NOT NULL DEFAULT 0 COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `user`(`user_id`) USING BTREE
+) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '后台登录记录表' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Records of hui_login_log
+-- ----------------------------
+
+-- ----------------------------
 -- Table structure for hui_plugin
 -- ----------------------------
 DROP TABLE IF EXISTS `hui_plugin`;
@@ -368,7 +397,7 @@ CREATE TABLE `hui_system_menu`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `title`(`title`) USING BTREE,
   INDEX `href`(`href`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单表' ROW_FORMAT = COMPACT;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '系统菜单表' ROW_FORMAT = COMPACT;
 
 -- ----------------------------
 -- Records of hui_system_menu
@@ -381,10 +410,11 @@ INSERT INTO `hui_system_menu` VALUES (5, 2, '角色管理', 'fa-asl-interpreting
 INSERT INTO `hui_system_menu` VALUES (6, 2, '节点管理', 'fa-list', 'system.node/index', '', '_self', 51, 1, '', 0, 1623920758, 0);
 INSERT INTO `hui_system_menu` VALUES (7, 0, '内容管理', '', '', '', '_self', 0, 1, '', 0, 1622515479, 0);
 INSERT INTO `hui_system_menu` VALUES (8, 7, '文章管理', 'fa-align-justify', 'content.article/index', '', '_self', 0, 1, '', 0, 1623727177, 0);
-INSERT INTO `hui_system_menu` VALUES (9, 2, '数据库管理', 'fa-database', 'system.database/index', '', '_self', 52, 1, '数据库管理', 1623230461, 1623920765, 0);
+INSERT INTO `hui_system_menu` VALUES (9, 2, '数据库管理', 'fa-database', 'system.database/index', '', '_self', 52, 1, '数据库管理', 1623230461, 1624933860, 0);
 INSERT INTO `hui_system_menu` VALUES (10, 2, '系统设置', 'fa-cogs', 'system.config/index', '', '_self', 0, 1, '', 1623913925, 1623913959, 0);
 INSERT INTO `hui_system_menu` VALUES (11, 2, '自定义设置', 'fa-cog', 'system.config/custom_config', '', '_self', 0, 1, '', 1623920740, 1623920740, 0);
 INSERT INTO `hui_system_menu` VALUES (12, 2, '系统日志', 'fa-book', 'system.log/index', '', '_self', 50, 1, '', 1624000849, 1624000871, 0);
 INSERT INTO `hui_system_menu` VALUES (13, 7, '回收站管理', 'fa-drupal', 'content.recycle_bin/index', '', '_self', 0, 1, '', 1624876985, 1624876985, 0);
+INSERT INTO `hui_system_menu` VALUES (14, 2, '登陆日志', 'fa-flag', 'system.log/login_log', '', '_self', 45, 1, '', 1624956129, 1624956129, 0);
 
 SET FOREIGN_KEY_CHECKS = 1;
