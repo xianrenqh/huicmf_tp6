@@ -9,6 +9,8 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\LoginLog;
+use app\admin\model\SystemLog;
 use app\common\controller\AdminController;
 use app\common\service\MenuService;
 use think\db\exception\DataNotFoundException;
@@ -109,7 +111,13 @@ class IndexController extends AdminController
                 $this->error('保存失败');
             }
         }
+        $data_login  = LoginLog::where('user_id', $admin_id)->order('id desc')->paginate(10)->each(function ($item) {
+            $item['desc'] = explode("{", $item['desc'])[0];
+        });
+        $data_system = SystemLog::where('admin_id', $admin_id)->order('id desc')->paginate(10);
         $this->assign('data', $row);
+        $this->assign('data_login', $data_login);
+        $this->assign('data_system', $data_system);
 
         return $this->fetch();
     }

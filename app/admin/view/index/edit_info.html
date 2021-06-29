@@ -2,39 +2,117 @@
 <title>修改个人信息</title>
 <body>
 <div class="layuimini-container">
-  <div class="layuimini-main">
-    <form id="app-form" class="layui-form layuimini-form" action="{:__url('index/editInfo')}" method="post">
+    <div class="layuimini-main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-md3">
+                <form id="app-form" class="layui-form layuimini-form" action="{:__url('index/editInfo')}" method="post">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">登录账户</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="username" class="layui-input readonly_bg" readonly=""
+                                   value="{$data.username}">
+                        </div>
+                    </div>
 
-      <div class="layui-form-item">
-        <label class="layui-form-label required">登录账户</label>
-        <div class="layui-input-block">
-          <input type="text" name="username" class="layui-input readonly_bg" readonly="" value="{$data.username}">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label required">昵称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="nickname" class="layui-input" value="{$data.nickname}"
+                                   lay-verify="required">
+                        </div>
+                    </div>
+
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">用户email</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="email" class="layui-input" lay-reqtext="请输入email"
+                                   placeholder="请输入email" value="{$data.email}" lay-verify="email">
+                            <tip>填写邮箱。</tip>
+                        </div>
+                    </div>
+
+                    <div class="hr-line"></div>
+                    <div class="layui-form-item text-center">
+                        <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
+                        <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                    </div>
+                </form>
+            </div>
+            <div class="layui-col-md9">
+                <div class="layui-tab layui-tab-brief" lay-filter="tab">
+                    <ul class="layui-tab-title">
+                        <li class="layui-this">登录日志</li>
+                        <li class="">操作日志</li>
+                    </ul>
+                    <div class="layui-tab-content">
+                        <div class="layui-tab-item layui-show">
+                            <table class="layui-table" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>管理员name</th>
+                                    <th>操作系统</th>
+                                    <th>浏览器</th>
+                                    <th>IP地址</th>
+                                    <th>地区</th>
+                                    <th>网络</th>
+                                    <th>create_time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="data_login" id="vo"}
+                                <tr>
+                                    <td>{$vo.user_name}</td>
+                                    <td>{$vo.os} {$vo.os_ver}</td>
+                                    <td>{$vo.browser} {$vo.browser_ver}</td>
+                                    <td>{$vo.ip_address}</td>
+                                    <td>{$vo.country} {$vo.area} {$vo.city}</td>
+                                    <td>{$vo.isp}</td>
+                                    <td>{$vo.create_time}</td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                            <div class="mws-panel-content">
+                                <div class="list-page page">
+                                    {$data_login->render()|raw}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-tab-item">
+                            <table class="layui-table" width="100%">
+                                <thead>
+                                <tr>
+                                    <th>操作地址</th>
+                                    <th>操作内容</th>
+                                    <th>ip</th>
+                                    <th>useragent</th>
+                                    <th>create_time</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {volist name="data_system" id="vo"}
+                                <tr>
+                                    <td>{$vo.url}</td>
+                                    <td>{$vo.content}</td>
+                                    <td>{$vo.ip}</td>
+                                    <td>{$vo.useragent}</td>
+                                    <td>{$vo.create_time}</td>
+                                </tr>
+                                {/volist}
+                                </tbody>
+                            </table>
+                            <div class="mws-panel-content">
+                                <div class="list-page page">
+                                    {$data_system->render()|raw}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="layui-form-item">
-        <label class="layui-form-label required">昵称</label>
-        <div class="layui-input-block">
-          <input type="text" name="nickname" class="layui-input" value="{$data.nickname}" lay-verify="required">
-        </div>
-      </div>
-
-      <div class="layui-form-item">
-        <label class="layui-form-label">用户email</label>
-        <div class="layui-input-block">
-          <input type="text" name="email" class="layui-input" lay-reqtext="请输入email" placeholder="请输入email" value="{$data.email}" lay-verify="email">
-          <tip>填写邮箱。</tip>
-        </div>
-      </div>
-
-      <div class="hr-line"></div>
-      <div class="layui-form-item text-center">
-        <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
-        <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
-      </div>
-
-    </form>
-  </div>
+    </div>
 </div>
 {include file='footer'/}
 </body>

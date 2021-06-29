@@ -1,3 +1,272 @@
 {include file='header'/}
-这是welcome页面
+<link rel="stylesheet" href="__STATIC_ADMIN__/css/dashboard.css" media="all">
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-row layui-col-space15">
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-md6">
+                    <div class="layui-card shortcut">
+                        <div class="layui-card-header">
+                            <a href="/run/Shortcut/index.html" class="action new_tab"
+                               data-title="快捷方式"><span class="hui-circle-icon blue"><i
+                                    class="layui-icon layui-icon-chat"></i></span>快捷方式</a></div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel admin-carousel admin-shortcut" data-height="194"
+                                 lay-anim="default" lay-indicator="inside" lay-arrow="none"
+                                 style="width: 100%; height: 194px;">
+                                <div carousel-item="">
+                                    <ul class="grid quick-link layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs3">
+                                            <a href="" class="javascript"
+                                               rel="simple_clear">
+                                                <i class="layui-icon layui-icon-fonts-clear"></i>
+                                                <span>清除缓存</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="" class="javascript"
+                                               rel="simple_clear">
+                                                <i class="layui-icon layui-icon-delete"></i>
+                                                <span>临时文件</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="" class="new_tab" data-title="系统配置">
+                                                <i class="layui-icon layui-icon-set-sm"></i>
+                                                <span>系统配置</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="" class="new_tab" data-title="个人信息">
+                                                <i class="layui-icon layui-icon-username"></i>
+                                                <span>个人信息</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="https://www.xiaohuihui.club/" class="" target="_blank">
+                                                <i class="layui-icon layui-icon-website"></i>
+                                                <span>系统官网</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href=""
+                                               class="" target="_blank">
+                                                <i class="layui-icon layui-icon-service"></i>
+                                                <span>联系客服</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href=""
+                                               class="" target="_blank">
+                                                <i class="layui-icon layui-icon-login-qq"></i>
+                                                <span>加入群聊</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs3">
+                                            <a href="" class="new_tab" data-title="开发手册">
+                                                <i class="layui-icon layui-icon-survey"></i>
+                                                <span>开发手册</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="layui-carousel-ind">
+                                    <ul>
+                                        <li class="layui-this"></li>
+                                    </ul>
+                                </div>
+                                <button class="layui-icon layui-carousel-arrow" lay-type="sub"></button>
+                                <button class="layui-icon layui-carousel-arrow" lay-type="add"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card mcount">
+                        <div class="layui-card-header">
+                            <a href=""
+                               class="action new_tab"><span
+                                    class="hui-circle-icon green"><i class="layui-icon layui-icon-list"></i></span>数据统计</a>
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel admin-carousel admin-mcount" data-height="194"
+                                 lay-anim="default" lay-indicator="inside" lay-arrow="none"
+                                 style="width: 100%; height: 194px;">
+                                <div carousel-item="">
+                                    <ul class="grid layui-row layui-col-space10 layui-this">
+                                        <li class="layui-col-xs6">
+                                            <a href="" class="new_tab" data-title="管理列表">
+                                                <h2>管理</h2>
+                                                <span class="number-timer">0</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a href="" class="new_tab" data-title="会员列表">
+                                                <h2>会员</h2>
+                                                <span class="number-timer">3</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="new_tab" data-title="文章列表">
+                                                <h2>文章</h2>
+                                                <span class="number-timer">88</span>
+                                            </a>
+                                        </li>
+                                        <li class="layui-col-xs6">
+                                            <a href="javascript:;" class="new_tab" data-title="商品列表">
+                                                <h2>商品</h2>
+                                                <span class="number-timer">66</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="layui-carousel-ind">
+                                    <ul>
+                                        <li class="layui-this"></li>
+                                    </ul>
+                                </div>
+                                <button class="layui-icon layui-carousel-arrow" lay-type="sub"></button>
+                                <button class="layui-icon layui-carousel-arrow" lay-type="add"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card userinfo">
+                        <div class="layui-card-header"><span class="hui-circle-icon lime"><i
+                                class="layui-icon layui-icon-username"></i></span>个人信息
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="admin_user">
+                                <div class="admin_user_rght">
+                                    <div class="headimg">
+                                        <i></i>
+                                        <a href="/run/admin/home.html?id=2" data-title="个人主页" class="new_tab"><img
+                                                src="/uploads/thumb/a2fb51faca3d2d841794aa2184725cca.jpeg"
+                                                alt="test123"></a>
+                                    </div>
+                                    <div class="welcome en-font">
+                                        您好！<span>测试者</span>
+                                    </div>
+                                </div>
+                                <div class="admin_user_left">
+                                    <ul class="list">
+                                        <li>登录名称：<span class="c">admin</span></li>
+                                        <li>昵&emsp;&emsp;称：<span class="c">张三</span></li>
+                                        <li>角色组名：<span class="c">超级管理</span></li>
+                                        <li>邮箱地址：<span class="c">admin@admin.com</span></li>
+                                        <li>登录地址：<span class="c">1.193.56.195</span></li>
+                                        <li>登录时间：<span class="c">2021-06-29 17:28:11</span></li>
+                                    </ul>
+                                    <div class="user_link">
+                                        <a href="/run/Admin/home.html?id=2"
+                                           class="layui-btn layui-btn-primary layui-border-green layui-btn-radius new_tab"
+                                           data-title="个人信息">
+                                            <i class="layui-icon layui-icon-username"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-col-md6">
+                    <div class="layui-card env">
+                        <div class="layui-card-header"><span class="hui-circle-icon purple"><i
+                                class="layui-icon layui-icon-engine"></i></span>运行环境
+                        </div>
+                        <div class="layui-card-body">
+                            <div class="layui-carousel admin-carousel admin-env" data-interval="10000" data-anim="fade"
+                                 data-height="244" lay-anim="fade" lay-indicator="inside" lay-arrow="none"
+                                 style="width: 100%; height: 244px;">
+                                <div carousel-item="">
+                                    <div class="layui-this">
+                                        <table class="layui-table">
+                                            <colgroup>
+                                                <col width="33.33%">
+                                                <col width="33.33%">
+                                                <col width="33.33%">
+                                            </colgroup>
+                                            <tbody>
+                                            <tr>
+                                                <th>配额限制</th>
+                                                <th>空间使用</th>
+                                                <th>域名到期</th>
+                                            </tr>
+                                            <tr>
+                                                <td>-</td>
+                                                <td><a href="/run/tool/getSiteSize.html" class="javascript link"
+                                                       rel="get_site_size"><span id="showSiteSize" class="layui-badge">0KB</span></a>
+                                                </td>
+                                                <td>-</td>
+                                            </tr>
+                                            <tr>
+                                                <th>操作系统</th>
+                                                <th>服务器</th>
+                                                <th>服务器IP</th>
+                                            </tr>
+                                            <tr>
+                                                <td>Linux</td>
+                                                <td>nginx</td>
+                                                <td>172.26.223.216</td>
+                                            </tr>
+                                            <tr>
+                                                <th>上传限制</th>
+                                                <th>PHP</th>
+                                                <th>MYSQL</th>
+                                            </tr>
+                                            <tr>
+                                                <td>50M</td>
+                                                <td>8.0.6</td>
+                                                <td>5.7.31-log</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 {include file='footer'/}
+<script>
+  layui.use(['element', 'carousel', 'layer', 'jquery', 'miniCountUp'], function () {
+    var $ = layui.jquery;
+    var element = layui.element;
+    var carousel = layui.carousel;
+    var countUp = layui.miniCountUp;
+    layer = layui.layer;
+
+    var winWidth = $(window).width();
+    var winHight = $(window).height();
+
+    $('.admin-carousel').each(function () {
+      carousel.render({
+        elem: this
+        , width: '100%'
+        , height: $(this).data('height') + 'px'
+        , arrow: $(this).data('arrow') ? $(this).data('arrow') : 'none'
+        , anim: $(this).data('anim') ? $(this).data('anim') : 'default'
+        , trigger: $(this).data('trigger') ? $(this).data('trigger') : 'mouseover'
+        , autoplay: $(this).data('autoplay') ? true : false
+        , interval: $(this).data('interval') ? $(this).data('interval') : 3000
+      });
+    })
+    var count_up = new countUp({
+      target: $('.number-timer'),
+      startVal: 5, //目标开始的值，默认值为0
+      endVal: 1000, //到达目标值,默认值为元素的值
+      decimals: 0, //小数位数，默认值为0
+      duration: 2, //动画持续时间为秒，默认值为2
+    });
+    count_up.start();
+
+  })
+</script>
