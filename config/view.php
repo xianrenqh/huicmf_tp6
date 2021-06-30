@@ -27,7 +27,7 @@ return [
     // 模板缓存
     'display_cache'      => false,
     // 预先加载的标签库
-    'taglib_pre_load'    => 'Cx,app\common\taglib\Hui',
+    'taglib_pre_load'    => 'app\common\taglib\Hui',
 
     // 字符替换
     'tpl_replace_string' => [

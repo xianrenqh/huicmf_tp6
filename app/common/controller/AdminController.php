@@ -16,7 +16,6 @@ use think\Model;
 class AdminController extends BaseController
 {
 
-    use \app\common\traits\JumpTrait;
 
     /**
      * 当前模型

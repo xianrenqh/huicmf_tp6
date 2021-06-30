@@ -21,7 +21,6 @@ class IndexController extends BaseController
 
     public function test()
     {
-        $this->assign('demo_time', time());
         return $this->fetch();
     }
 }

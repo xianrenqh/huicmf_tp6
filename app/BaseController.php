@@ -12,6 +12,8 @@ use think\Validate;
 abstract class BaseController
 {
 
+    use \app\common\traits\JumpTrait;
+
     /**
      * Request实例
      * @var \think\Request
