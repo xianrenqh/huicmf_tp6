@@ -51,19 +51,21 @@
 <div class="copyright" style="display:none">
   <p>Powered by <a href="javascript:;">HuiCmf</a></p>
 </div>
-{if $url}
+<?php
+if(!empty($url)){
+?>
 <script type="text/javascript">
   (function () {
     var wait = document.getElementById('wait');
     var interval = setInterval(function () {
       var time = --wait.innerHTML;
       if (time <= 0) {
-        location.href = history.length <= 1 ? "/" : "{$url}";
+        location.href = history.length <= 1 ? "/" : "<?php echo($url);?>";
         clearInterval(interval);
       }
     }, 1000);
   })();
 </script>
-{/if}
+<?php } ?>
 </body>
 </html>
