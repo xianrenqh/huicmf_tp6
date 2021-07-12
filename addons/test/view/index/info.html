@@ -1,0 +1,41 @@
+<div class="span12">
+  <div class="columns-mod">
+    <div class="hd cf">
+      <h5>1234667</h5>
+      <div class="title-opt">
+      </div>
+    </div>
+    <div class="bd">
+      <div class="sys-info">
+        <table>
+          <tr>
+            <th>jingling版本</th>
+            <td>{$Think.JINGLING_VERSION}&nbsp;&nbsp;&nbsp;
+            </td>
+          </tr>
+          <tr>
+            <th>服务器操作系统</th>
+            <td>{$Think.const.PHP_OS}</td>
+          </tr>
+          <tr>
+            <th>ThinkPHP版本</th>
+            <td>{$Think.VERSION}</td>
+          </tr>
+          <tr>
+            <th>运行环境</th>
+            <td>{$_SERVER['SERVER_SOFTWARE']}</td>
+          </tr>
+          <tr>
+            <th>MYSQL版本</th>
+
+            <td></td>
+          </tr>
+          <tr>
+            <th>上传限制</th>
+            <td>{:ini_get('upload_max_filesize')}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -256,7 +256,7 @@ function uncamelize($camelCaps, $separator = '_')
 {
     return strtolower(preg_replace('/([a-z])([A-Z])/', "$1".$separator."$2", $camelCaps));
 }
-
+/*
 /**
  * 获取网站根目录
  * @return string 网站根目录
@@ -284,12 +284,12 @@ function cmf_get_root()
  *
  * @return mixed
  */
-function hook($hook, $params = null, $once = false)
+/*function hook($hook, $params = null, $once = false)
 {
     $hook = cmf_parse_name($hook, 1);
 
     return \think\facade\Event::trigger($hook, $params, $once);
-}
+}*/
 
 /**
  * 添加钩子,只执行一个
@@ -299,12 +299,12 @@ function hook($hook, $params = null, $once = false)
  *
  * @return mixed
  */
-function hook_one($hook, $params = null)
+/*function hook_one($hook, $params = null)
 {
     $hook = cmf_parse_name($hook, 1);
 
     return \think\facade\Event::trigger($hook, $params, true);
-}
+}*/
 
 /**
  * 获取插件类名
@@ -314,14 +314,14 @@ function hook_one($hook, $params = null)
  * @return string
  *
  */
-function cmf_get_plugin_class($name)
+/*function cmf_get_plugin_class($name)
 {
     $name      = ucwords($name);
     $pluginDir = cmf_parse_name($name);
     $class     = "plugins\\{$pluginDir}\\{$name}Plugin";
 
     return $class;
-}
+}*/
 
 /**
  * 获取插件配置
