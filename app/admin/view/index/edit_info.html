@@ -6,6 +6,17 @@
         <div class="layui-row layui-col-space15">
             <div class="layui-col-md3">
                 <form id="app-form" class="layui-form layuimini-form" action="{:__url('index/editInfo')}" method="post">
+                    <div class="layui-form-item hui-home-show" style="margin-top:20px">
+                        <div class="avatar hui-upload-avatar">
+                            <i></i>
+                            <input type="hidden" value="http://demo2.wooadmin.cn/uploads/admin/20210524/36e9451b1032cbd3a7f5300b9e1b9134.jpeg" name="avatar" class="layui-input layui-input-disabled">
+                            <img src="http://demo2.wooadmin.cn/uploads/admin/20210524/36e9451b1032cbd3a7f5300b9e1b9134.jpeg">
+                            <div class="cover">点击编辑</div>
+                        </div>
+                        <div class="username">test123</div>
+                        <div class="email">12345678@qq.com</div>
+                    </div>
+
                     <div class="layui-form-item">
                         <label class="layui-form-label required">登录账户</label>
                         <div class="layui-input-block">
@@ -115,5 +126,24 @@
     </div>
 </div>
 {include file='footer'/}
+<script>
+  layui.use(['upload','jquery'], function () {
+    var layuiUpload = layui.upload,$ = layui.jquery;
+    layuiUpload.render({
+      elem: '.hui-upload-avatar'
+      , url: "{:__url('upload/index',['save_path'=>'avatars'])}"
+      , before: function (obj) {
+        console.log(obj);
+        obj.preview(function (index, file, result) {
+
+        });
+      }
+      ,done: function(res){
+        layer.msg('上传成功');
+        $('.hui-upload-avatar img').attr('src',res.url);
+      }
+    });
+  });
+</script>
 </body>
 </html>
