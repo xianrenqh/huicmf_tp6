@@ -1,30 +1,31 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: 投实科技
+ * Date: 2021-07-12
+ * Time: 17:22:16
+ * Info:
+ */
 
-namespace addons\test;
+namespace addons\login_bg;
 
 // 注意命名空间规范
 
 use think\Addons;
 
-/**
- * 插件测试
- * @author byron sampson
- */
-class Plugin extends Addons    // 需继承think\Addons类
+class Plugin extends Addons
 {
-
-    public function __construct()
-    {
+    public function __construct(){
 
     }
 
-    // 该插件的基础信息
+// 该插件的基础信息
     public $info = [
-        'name'        => 'test',    // 插件标识
-        'title'       => '插件测试',    // 插件名称
-        'description' => 'thinkph6插件测试',    // 插件简介
+        'name'        => 'login_bg',    // 插件标识
+        'title'       => '后台登录背景图',    // 插件名称
+        'description' => '后台登录背景图',    // 插件简介
         'status'      => 0,    // 状态
-        'author'      => 'byron sampson',
+        'author'      => 'huihui',
         'version'     => '0.1'
     ];
 
@@ -50,10 +51,9 @@ class Plugin extends Addons    // 需继承think\Addons类
      * 实现的testhook钩子方法
      * @return mixed
      */
-    public function testhook($param)
+    public function hook_login_bg()
     {
-
-        return $this->fetch('info');
+        return 1;
     }
 
 }

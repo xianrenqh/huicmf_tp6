@@ -370,7 +370,6 @@
     // 进行登录操作
     form.on('submit(login)', function (data) {
       data = data.field;
-      console.log(data);
       if (data.username == '') {
         layer.msg('用户名不能为空');
         return false;
@@ -383,12 +382,14 @@
         layer.msg('验证码不能为空');
         return false;
       }
+      let layerIndex = layer.load();
       $.post("{:__url('check_login')}", {
         username: data.username,
         password: data.password,
         captcha: data.captcha,
         keep_login:data.keep_login
       }, function (res) {
+        layer.close(layerIndex);
         if (res.code == 1) {
           layer.msg(res.msg,{icon:1});
           window.location ="{:__url('admin/index/index')}";
@@ -397,9 +398,6 @@
           $('#refreshCaptcha').attr("src", "{:__url('login/captcha')}" + "?" + Math.random());
         }
       });
-      /*layer.msg('登录成功', function () {
-        window.location = '../index.html';
-      });*/
       return false;
     });
   });

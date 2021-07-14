@@ -256,6 +256,7 @@ function uncamelize($camelCaps, $separator = '_')
 {
     return strtolower(preg_replace('/([a-z])([A-Z])/', "$1".$separator."$2", $camelCaps));
 }
+
 /*
 /**
  * 获取网站根目录
@@ -314,14 +315,20 @@ function cmf_get_root()
  * @return string
  *
  */
-/*function cmf_get_plugin_class($name)
+function cmf_get_plugin_class($name, $type = 'hook', $class = null)
 {
-    $name      = ucwords($name);
-    $pluginDir = cmf_parse_name($name);
-    $class     = "plugins\\{$pluginDir}\\{$name}Plugin";
+    $name  = cmf_parse_name($name);
+    $class = cmf_parse_name(is_null($class) ? $name : $class, 1);
+    switch ($type) {
+        case 'controller':
+            $namespace = "\\addons\\".$name."\\controller\\".$class;
+            break;
+        default:
+            $namespace = "\\addons\\".$name."\\Plugin";
+    }
 
-    return $class;
-}*/
+    return class_exists($namespace) ? $namespace : '';
+}
 
 /**
  * 获取插件配置
@@ -650,6 +657,7 @@ if ( ! function_exists('str_cut')) {
 
 /**
  * 获取客户端操作系统
+ * php_uname()
  *
  * @param $agent //$_SERVER['HTTP_USER_AGENT']
  *
@@ -659,7 +667,11 @@ if ( ! function_exists('str_cut')) {
  */
 function getClientOS($agent = '')
 {
+    $os        = '';
+    $equipment = '';
+    $os_ver    = php_uname();
     //window系统
+    $agent = strtolower($agent);
     if (stripos($agent, 'window')) {
         $os        = 'Windows';
         $equipment = '电脑';
@@ -829,3 +841,42 @@ function getIpToArea($clientIP)
     return $return;
 }
 
+/**
+ * 对查询结果集进行排序
+ * @access public
+ *
+ * @param array  $list   查询结果
+ * @param string $field  排序的字段名
+ * @param array  $sortby 排序类型
+ *                       asc正向排序 desc逆向排序 nat自然排序
+ *
+ * @return array
+ * @author wapai 邮箱:wapai@foxmail.com
+ */
+function list_sort_by($list, $field, $sortby = 'asc')
+{
+    if (is_array($list)) {
+        $refer = $resultSet = array();
+        foreach ($list as $i => $data) {
+            $refer[$i] = &$data[$field];
+        }
+        switch ($sortby) {
+            case 'asc': // 正向排序
+                asort($refer);
+                break;
+            case 'desc':// 逆向排序
+                arsort($refer);
+                break;
+            case 'nat': // 自然排序
+                natcasesort($refer);
+                break;
+        }
+        foreach ($refer as $key => $val) {
+            $resultSet[] = &$list[$key];
+        }
+
+        return $resultSet;
+    }
+
+    return false;
+}

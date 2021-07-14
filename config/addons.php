@@ -12,8 +12,8 @@
 return [
     'autoload' => true,
     'hooks'    => [
-        //'AdminIndex' => 'systeminfo',
-        'testhook'=>'test'
+        'testhook'      => 'test',
+        'hook_login_bg' => 'login_bg'
     ],
     'route'    => [],
     'service'  => [],

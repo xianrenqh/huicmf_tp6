@@ -16,6 +16,9 @@ require __DIR__.'/../vendor/autoload.php';
 
 // 定义目录分隔符
 define('DS', DIRECTORY_SEPARATOR);
+define('ROOT_PATH', __DIR__.DS.'..'.DS);
+define('HUICMF_VERSION', '1.0');
+define('HUICMF_ADDON_PATH', ROOT_PATH.'/addons/');
 
 // 执行HTTP应用并响应
 $http     = (new  App())->http;
