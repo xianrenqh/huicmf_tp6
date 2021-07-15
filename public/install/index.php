@@ -164,7 +164,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         $newSalt     = substr(md5(uniqid(true)), 0, 6);
-        $newPassword = md5(md5($adminPassword).$newSalt);
+        $newPassword = md5('###'.md5($adminPassword).$newSalt);
         $times       = time();
         $pdo->query("UPDATE {$mysqlPrefix}admin SET username = '{$adminUsername}', email = '{$adminEmail}',password = '{$newPassword}', salt = '{$newSalt}',create_time ='{$times}' WHERE username = 'admin'");
         //$adminName = 'admin.php';
