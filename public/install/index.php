@@ -107,7 +107,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         if ( ! $sql) {
             throw new Exception("无法读取public/install/database.sql文件，请检查是否有读权限");
         }
-        $sql = str_replace("`cmf_", "`{$mysqlPrefix}", $sql);
+        $sql = str_replace("`hui_", "`{$mysqlPrefix}", $sql);
         $pdo = new PDO("mysql:host={$mysqlHostname};port={$mysqlHostport}", $mysqlUsername, $mysqlPassword, array(
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
@@ -167,14 +167,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $newPassword = md5('###'.md5($adminPassword).$newSalt);
         $times       = time();
         $pdo->query("UPDATE {$mysqlPrefix}admin SET username = '{$adminUsername}', email = '{$adminEmail}',password = '{$newPassword}', salt = '{$newSalt}',create_time ='{$times}' WHERE username = 'admin'");
-        //$adminName = 'admin.php';
         if (is_file($adminFile)) {
             $x         = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
             $adminName = substr(str_shuffle(str_repeat($x, ceil(10 / strlen($x)))), 1, 10).'.php';
             rename($adminFile, ROOT_PATH.'public'.DS.$adminName);
         }
-        echo PHP_EOL."success|{$adminName}";
-        echo PHP_EOL."success";
+        echo "success|{$adminName}";
     } catch (PDOException $e) {
         $err = $e->getMessage();
     } catch (Exception $e) {
