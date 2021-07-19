@@ -71,7 +71,7 @@ class MenuController extends AdminController
             ];
             $this->validate($param, $rule);
             //查询链接是否已添加
-            $row = $this->model->where('href', $param['href'])->find();
+            $row = $this->model->where('href', '<>', '')->where('href', $param['href'])->find();
             if ( ! empty($row)) {
                 $this->error('该链接已被添加过了！');
             }

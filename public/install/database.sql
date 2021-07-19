@@ -140,7 +140,6 @@ CREATE TABLE `hui_auth_group_access`  (
 -- Records of hui_auth_group_access
 -- ----------------------------
 INSERT INTO `hui_auth_group_access` VALUES (1, 1);
-INSERT INTO `hui_auth_group_access` VALUES (2, 2);
 
 -- ----------------------------
 -- Table structure for hui_auth_rule
