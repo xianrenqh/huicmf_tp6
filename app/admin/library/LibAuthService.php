@@ -1,7 +1,7 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: 小灰灰
+ * User: ***
  * Date: 2021-06-09
  * Time: 16:06:39
  * Info:
@@ -12,6 +12,7 @@ namespace app\admin\library;
 use lib\Tree2;
 use app\admin\model\Admin as AdminModel;
 use app\admin\model\AuthGroup as AuthGroupModel;
+use app\admin\model\AuthGroupAccess as AuthGroupAccessModel;
 use app\common\service\AuthService;
 
 class LibAuthService extends AuthService
@@ -57,20 +58,16 @@ class LibAuthService extends AuthService
      */
     public function getChildrenAdminIds($withself = false)
     {
-        /*$childrenAdminIds = [];
+        $childrenAdminIds = [];
         if ( ! $this->isSuperAdmin()) {
-            halt(1);
-            $groupIds      = $this->getChildrenGroupIds(false);
-            $authGroupList = \app\admin\model\AuthGroupAccess::
-            field('uid,group_id')->where('group_id', 'in', $groupIds)->select();
+            $groupIds      = $this->getChildrenGroupIds(true);
+            $authGroupList = AuthGroupAccessModel::field('uid,group_id')->where('group_id', 'in', $groupIds)->select();
             foreach ($authGroupList as $k => $v) {
                 $childrenAdminIds[] = $v['uid'];
             }
         } else {
             $childrenAdminIds = AdminModel::column('id');
         }
-        halt($childrenAdminIds);
-
         if ($withself) {
             if ( ! in_array($this->uid, $childrenAdminIds)) {
                 $childrenAdminIds[] = $this->uid;
@@ -78,8 +75,9 @@ class LibAuthService extends AuthService
         } else {
             $childrenAdminIds = array_diff($childrenAdminIds, [$this->uid]);
         }
+        $childrenAdminIds = array_values(array_unique($childrenAdminIds));
 
-        return $childrenAdminIds;*/
+        return $childrenAdminIds;
 
     }
 

@@ -2,6 +2,7 @@
 // 应用公共文件
 use think\facade\Db;
 use app\common\service\AuthService;
+use app\admin\library\LibAuthService;
 
 /**
  * 返回带协议的域名
@@ -17,6 +18,27 @@ if ( ! function_exists('cmf_get_admin_id')) {
     function cmf_get_admin_id()
     {
         return session('admin.id');
+    }
+}
+
+if ( ! function_exists('cmf_get_admin_username')) {
+    function cmf_get_admin_username()
+    {
+        return session('admin.username');
+    }
+}
+
+/**
+ * 获取当前登录的管理员角色id
+ * @return int
+ */
+if ( ! function_exists('cmf_get_admin_role_id')) {
+    function cmf_get_admin_role_id()
+    {
+        $libAuth = new LibAuthService();
+        $roleId  = $libAuth->getChildrenGroupIds(true);
+
+        return $roleId;
     }
 }
 

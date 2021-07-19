@@ -151,12 +151,12 @@
                                 </div>
                                 <div class="admin_user_left">
                                     <ul class="list">
-                                        <li>登录名称：<span class="c">admin</span></li>
-                                        <li>昵&emsp;&emsp;称：<span class="c">张三</span></li>
-                                        <li>角色组名：<span class="c">超级管理</span></li>
-                                        <li>邮箱地址：<span class="c">admin@admin.com</span></li>
-                                        <li>登录地址：<span class="c">1.193.56.195</span></li>
-                                        <li>登录时间：<span class="c">2021-06-29 17:28:11</span></li>
+                                        <li>登录名称：<span class="c">{$admin_info.username}</span></li>
+                                        <li>昵&emsp;&emsp;称：<span class="c">{$admin_info.nickname}</span></li>
+                                        <li>角色组名：<span class="c">{$admin_info.role_name}</span></li>
+                                        <li>邮箱地址：<span class="c">{$admin_info.email}</span></li>
+                                        <li>登录地址：<span class="c">{$admin_info.loginip}</span></li>
+                                        <li>登录时间：<span class="c">{$admin_info.logintime|date="Y-m-d H:i:s"}</span></li>
                                     </ul>
                                     <div class="user_link">
                                         <a href="/run/Admin/home.html?id=2"

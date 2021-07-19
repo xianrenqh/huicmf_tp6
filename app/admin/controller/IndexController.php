@@ -9,6 +9,7 @@
 
 namespace app\admin\controller;
 
+use app\admin\model\AuthGroup;
 use app\admin\model\LoginLog;
 use app\admin\model\SystemLog;
 use app\common\controller\AdminController;
@@ -58,6 +59,17 @@ class IndexController extends AdminController
 
     public function welcome()
     {
+        $adminId   = cmf_get_admin_id();
+        $roleId    = cmf_get_admin_role_id();
+        $roleName  = AuthGroup::whereIn('id', $roleId)->column('name');
+        $adminInfo = AdminModel::where('id', $adminId)->find();
+
+        $adminInfo['role_name'] = '';
+        if ( ! empty($roleName)) {
+            $adminInfo['role_name'] = implode(',', $roleName);
+        }
+        $this->assign('admin_info', $adminInfo);
+
         return $this->fetch();
     }
 
