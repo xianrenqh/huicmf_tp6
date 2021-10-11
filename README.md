@@ -14,7 +14,7 @@ by:xiaohuihui
 - 然后：composer update 更新数据
 - 接着访问： http://你的域名/install
 - 执行安装程序
-- 最后访问后台：http://你的域名/admin
+- 最后访问后台：http://你的域名/admin.php
 - 默认后台账号密码： admin admin888
 
 ## 使用说明
