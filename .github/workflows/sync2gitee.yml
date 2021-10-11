@@ -1,4 +1,4 @@
-name: 'GitHub Actions Mirror'
+name: 'GitHub Actions Mirror a'
 
 on: [push, delete]
 
