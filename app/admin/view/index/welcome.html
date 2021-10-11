@@ -2,6 +2,25 @@
 <link rel="stylesheet" href="__STATIC_ADMIN__/css/dashboard.css" media="all">
 <div class="layuimini-container">
     <div class="layuimini-main">
+        <div class="alert alert-danger-light">
+            {if ($is_file_admin==false) }
+            <blockquote class="layui-elem-quote layui-bg-red">
+                <i class="iconfont icon-warnfill"></i>&emsp;安全提示：你正在使用默认的后台登录入口，为了你的网站安全，强烈建议你修改后台登录入口，
+                <a href="javascript:;" onclick="welcome_xiugai()" style="color:#fff;"><b>点击查看修改方法</b></a>
+            </blockquote>
+            {/if}
+            {if env('app_debug')}
+            <blockquote class="layui-elem-quote layui-bg-red">
+                <i class="iconfont icon-warnfill"></i>&emsp;安全提示：当前网站【调试模式】开启中，强烈建议在正式部署后关闭调试模式
+            </blockquote>
+            {/if}
+            {if env('app_trace')}
+            <blockquote class="layui-elem-quote layui-bg-red">
+                安全提示：当前网站【Trace调试】开启中，强烈建议在正式部署后关闭Trace调试
+            </blockquote>
+            {/if}
+        </div>
+
         <div class="layui-row layui-col-space15">
             <div class="layui-row layui-col-space15">
                 <div class="layui-col-md6">
@@ -188,37 +207,32 @@
                                                 <col width="33.33%">
                                             </colgroup>
                                             <tbody>
+
                                             <tr>
-                                                <th>配额限制</th>
-                                                <th>空间使用</th>
-                                                <th>域名到期</th>
+                                                <th colspan="3"><b>服务器环境</b></th>
                                             </tr>
                                             <tr>
-                                                <td>-</td>
-                                                <td><a href="/run/tool/getSiteSize.html" class="javascript link"
-                                                       rel="get_site_size"><span id="showSiteSize" class="layui-badge">0KB</span></a>
-                                                </td>
-                                                <td>-</td>
+                                                <td colspan="3">{$sys_info.web_server}</td>
                                             </tr>
                                             <tr>
-                                                <th>操作系统</th>
-                                                <th>服务器</th>
-                                                <th>服务器IP</th>
+                                                <th><b>上传限制</b></th>
+                                                <th><b>PHP版本</b></th>
+                                                <th><b>数据库版本</b></th>
                                             </tr>
                                             <tr>
-                                                <td>Linux</td>
-                                                <td>nginx</td>
-                                                <td>172.26.223.216</td>
+                                                <td>{$sys_info.fileupload}</td>
+                                                <td>{$sys_info.phpv}</td>
+                                                <td>{$sys_info.mysql_version}</td>
                                             </tr>
                                             <tr>
-                                                <th>上传限制</th>
-                                                <th>PHP</th>
-                                                <th>MYSQL</th>
+                                                <th><b>服务器域名/IP</b></th>
+                                                <th><b>服务器时间</b></th>
+                                                <th><b>剩余空间</b></th>
                                             </tr>
                                             <tr>
-                                                <td>50M</td>
-                                                <td>8.0.6</td>
-                                                <td>5.7.31-log</td>
+                                                <td>{$sys_info.domain} [ {$sys_info.ip} ]</td>
+                                                <td>{$sys_info.time}</td>
+                                                <td>{$sys_info.remaining_space}</td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -269,4 +283,15 @@
     count_up.start();
 
   })
+
+  function welcome_xiugai() {
+    layer_index = layer.open({
+      type: 2,
+      //offset:'50px',
+      area: ['850px', '85%'],
+      title: '隐藏后台登录入口地址的方法',
+      shadeClose: true, //开启遮罩关闭
+      content: "{:__url('welcome_xiugai')}"
+    });
+  }
 </script>

@@ -211,6 +211,18 @@ if ( ! function_exists('curl_post')) {
     }
 }
 
+if ( ! function_exists('is_file')) {
+    function is_file($file)
+    {
+        if (is_file($file) !== false) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+}
+
 /**
  * 二位数组重新组合数据
  *
