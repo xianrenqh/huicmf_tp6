@@ -5,6 +5,7 @@ HuiCMF v6.0
 
 **仅用于学习使用**
 > 运行环境要求PHP7.1+，兼容PHP8.0。
+> 
 > 数据库要求：mysql5.5+，推荐5.7。
 >
 by:xiaohuihui
