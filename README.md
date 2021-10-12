@@ -152,7 +152,7 @@ data-reload="1"  刷新当前页面【例如点击编辑按钮弹出窗口后保
 
 * CKEditor：[https://github.com/ckeditor/ckeditor4](https://github.com/ckeditor/ckeditor4)
 
-免## 免责声明
+## 免责声明
 
 >任何用户在使用`HuiCMF`后台框架前，请您仔细阅读并透彻理解本声明。您可以选择不使用`HuiCMF`后台框架，若您一旦使用`HuiCMF`后台框架，您的使用行为即被视为对本声明全部内容的认可和接受。
 
