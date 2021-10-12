@@ -3,7 +3,7 @@ return [
     // 文档标题
     'title'           => 'APi接口文档',
     // 版权申明
-    'copyright'       => 'Powered By YznCMS',
+    'copyright'       => 'Powered By HuiCMF',
     //生成文档的控制器
     'controllers'     => [
         'api\\controller\\IndexController',
@@ -14,8 +14,8 @@ return [
     'versions'        => [
         ['title' => 'V2.0', 'folder' => ''],
     ],
-    //走着
-    'author'=>'灰灰',
+    //作者
+    'author'          => '灰灰',
     // 控制器分组列表
     'groups'          => [],
     // 是否开启缓存

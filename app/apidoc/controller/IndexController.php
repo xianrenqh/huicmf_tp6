@@ -10,7 +10,7 @@ class IndexController extends BaseController
 
     protected $config = [
         'title'           => 'APi接口文档',
-        'copyright'       => 'Powered By YznCMS',
+        'copyright'       => 'Powered By HuiCMF',
         'controllers'     => [],
         'versions'        => [],
         'groups'          => [],
@@ -27,7 +27,7 @@ class IndexController extends BaseController
             'auth_password' => "123456",
             'headers_key'   => "apidocToken",
         ],
-        'definitions'     => "hg\apidoc\Definitions",
+        'definitions'     => "app\apidoc\library\Definitions",
         'filter_method'   => [
             '_empty',
         ],
