@@ -1,0 +1,78 @@
+{include file='header'/}
+<title>添加菜单</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="{:__url('content.category/edit')}" method="post">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">上级栏目</label>
+                <div class="layui-input-block">
+                    <select name="parent_id">
+                        <option value="0" {if $data.parent_id==0}selected=""{/if}>顶级栏目</option>
+                        {foreach $pidMenuList as $vo}
+                        <option value="{$vo.id}" {if $data.parent_id==$vo.id}selected=""{/if}>{$vo.cate_name|raw}
+                        </option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">栏目名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="cate_name" autocomplete="off" lay-reqtext="请输入栏目名称" placeholder="请输入栏目名称"
+                           class="layui-input xv_hanzi" lay-verify="required" value="{$data.cate_name|default=''}">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">栏目名称(en)</label>
+                <div class="layui-input-block">
+                    <input type="text" name="cate_en" autocomplete="off" placeholder="请输入栏目名称(en)"
+                           class="layui-input xv_pinyin" lay-verify="required" value="{$data.cate_en|default=''}">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">是否导航显示</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="show_in_nav" value="1" title="显示" {if $data.show_in_nav==1}checked=""{/if}>
+                    <input type="radio" name="show_in_nav" value="0" title="不显示" {if $data.show_in_nav==0}checked=""{/if}>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">栏目排序</label>
+                <div class="layui-input-block">
+                    <input type="number" name="sort_order" autocomplete="off" placeholder="请输入栏目排序"
+                           class="layui-input" lay-verify="required" value="{$data.sort_order|default='0'}">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">栏目关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" name="keywords" autocomplete="off" lay-reqtext="请输入栏目关键词" placeholder="请输入栏目关键词"
+                           class="layui-input" value="{$data.keywords|default=''}">
+                </div>
+            </div>
+
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label">栏目描述</label>
+                <div class="layui-input-block">
+                    <textarea name="cat_desc" class="layui-textarea" placeholder="栏目描述">{$data.cat_desc|default=''}</textarea>
+                </div>
+            </div>
+            <input type="hidden" id="id" name="id" value="{$data.id}">
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-filter="doSub" lay-submit>立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+{include file='footer'/}
+</body>
+</html>

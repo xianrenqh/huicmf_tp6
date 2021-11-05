@@ -4,13 +4,14 @@
  * version:2.0
  * description:layuimini 主体框架扩展
  */
-layui.define(["jquery", "miniMenu", "element","miniTab", "miniTheme"], function (exports) {
+layui.define(["jquery", "miniMenu", "element","miniTab", "miniTheme","miniPinyin"], function (exports) {
     var $ = layui.$,
         layer = layui.layer,
         miniMenu = layui.miniMenu,
         miniTheme = layui.miniTheme,
         element = layui.element ,
-        miniTab = layui.miniTab;
+        miniTab = layui.miniTab,
+        miniPinyin = layui.miniPinyin;
     var miniAdmin = {
 
         /**

@@ -18,13 +18,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/annotations/zipball/5b668aef16090008790395c02c893b1ba13f7e08",
                 "reference": "5b668aef16090008790395c02c893b1ba13f7e08",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "doctrine/lexer": "1.*",
@@ -78,6 +72,10 @@
                 "docblock",
                 "parser"
             ],
+            "support": {
+                "issues": "https://github.com/doctrine/annotations/issues",
+                "source": "https://github.com/doctrine/annotations/tree/1.13.2"
+            },
             "time": "2021-08-05T19:00:23+00:00"
         },
         {
@@ -92,13 +90,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/lexer/zipball/e864bbf5904cb8f5bb334f99209b48018522f042",
                 "reference": "e864bbf5904cb8f5bb334f99209b48018522f042",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": "^7.2 || ^8.0"
@@ -178,13 +170,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/filp/whoops/zipball/f056f1fe935d9ed86e698905a957334029899895",
                 "reference": "f056f1fe935d9ed86e698905a957334029899895",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": "^5.5.9 || ^7.0 || ^8.0",
@@ -231,6 +217,10 @@
                 "throwable",
                 "whoops"
             ],
+            "support": {
+                "issues": "https://github.com/filp/whoops/issues",
+                "source": "https://github.com/filp/whoops/tree/2.14.4"
+            },
             "funding": [
                 {
                     "url": "https://github.com/denis-sokolov",
@@ -251,13 +241,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/18634df356bfd4119fe3d6156bdb990c414c14ea",
                 "reference": "18634df356bfd4119fe3d6156bdb990c414c14ea",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -327,6 +311,10 @@
                 "sftp",
                 "storage"
             ],
+            "support": {
+                "issues": "https://github.com/thephpleague/flysystem/issues",
+                "source": "https://github.com/thephpleague/flysystem/tree/1.1.5"
+            },
             "funding": [
                 {
                     "url": "https://offset.earth/frankdejonge",
@@ -347,13 +335,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/thephpleague/flysystem-cached-adapter/zipball/d1925efb2207ac4be3ad0c40b8277175f99ffaff",
                 "reference": "d1925efb2207ac4be3ad0c40b8277175f99ffaff",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "league/flysystem": "~1.0",
@@ -386,6 +368,10 @@
                 }
             ],
             "description": "An adapter decorator to enable meta-data caching.",
+            "support": {
+                "issues": "https://github.com/thephpleague/flysystem-cached-adapter/issues",
+                "source": "https://github.com/thephpleague/flysystem-cached-adapter/tree/master"
+            },
             "time": "2020-07-25T15:56:04+00:00"
         },
         {
@@ -400,13 +386,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/thephpleague/mime-type-detection/zipball/b38b25d7b372e9fddb00335400467b223349fd7e",
                 "reference": "b38b25d7b372e9fddb00335400467b223349fd7e",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-fileinfo": "*",
@@ -434,6 +414,10 @@
                 }
             ],
             "description": "Mime-type detection for Flysystem",
+            "support": {
+                "issues": "https://github.com/thephpleague/mime-type-detection/issues",
+                "source": "https://github.com/thephpleague/mime-type-detection/tree/1.8.0"
+            },
             "funding": [
                 {
                     "url": "https://github.com/frankdejonge",
@@ -458,13 +442,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
                 "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
@@ -496,6 +474,9 @@
                 "psr",
                 "psr-6"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/cache/tree/master"
+            },
             "time": "2016-08-06T20:24:11+00:00"
         },
         {
@@ -510,13 +491,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
                 "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.2.0"
@@ -546,6 +521,10 @@
                 "container-interop",
                 "psr"
             ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/1.1.1"
+            },
             "time": "2021-03-05T17:36:06+00:00"
         },
         {
@@ -560,13 +539,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/log/zipball/d49695b909c3b7628b6289db5479a1c204601f11",
                 "reference": "d49695b909c3b7628b6289db5479a1c204601f11",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
@@ -616,13 +589,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
                 "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=5.3.0"
@@ -656,6 +623,9 @@
                 "psr-16",
                 "simple-cache"
             ],
+            "support": {
+                "source": "https://github.com/php-fig/simple-cache/tree/master"
+            },
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
@@ -670,13 +640,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/framework/zipball/0b5fb453f0e533de3af3a1ab6a202510b61be617",
                 "reference": "0b5fb453f0e533de3af3a1ab6a202510b61be617",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
@@ -723,6 +687,10 @@
                 "orm",
                 "thinkphp"
             ],
+            "support": {
+                "issues": "https://github.com/top-think/framework/issues",
+                "source": "https://github.com/top-think/framework/tree/v6.0.9"
+            },
             "time": "2021-07-22T03:24:49+00:00"
         },
         {
@@ -737,13 +705,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-captcha/zipball/1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55",
                 "reference": "1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "topthink/framework": "^6.0.0"
@@ -796,13 +758,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-helper/zipball/f98e3ad44acd27ae85a4d923b1bdfd16c6d8d905",
                 "reference": "f98e3ad44acd27ae85a4d923b1bdfd16c6d8d905",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.0"
@@ -827,6 +783,10 @@
                 }
             ],
             "description": "The ThinkPHP6 Helper Package",
+            "support": {
+                "issues": "https://github.com/top-think/think-helper/issues",
+                "source": "https://github.com/top-think/think-helper/tree/v3.1.5"
+            },
             "time": "2021-06-21T06:17:31+00:00"
         },
         {
@@ -841,13 +801,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-image/zipball/8586cf47f117481c6d415b20f7dedf62e79d5512",
                 "reference": "8586cf47f117481c6d415b20f7dedf62e79d5512",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-gd": "*"
@@ -873,6 +827,10 @@
                 }
             ],
             "description": "The ThinkPHP5 Image Package",
+            "support": {
+                "issues": "https://github.com/top-think/think-image/issues",
+                "source": "https://github.com/top-think/think-image/tree/master"
+            },
             "time": "2016-09-29T06:05:43+00:00"
         },
         {
@@ -887,13 +845,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-multi-app/zipball/ccaad7c2d33f42cb1cc2a78d6610aaec02cea4c3",
                 "reference": "ccaad7c2d33f42cb1cc2a78d6610aaec02cea4c3",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.0",
@@ -923,6 +875,10 @@
                 }
             ],
             "description": "thinkphp6 multi app support",
+            "support": {
+                "issues": "https://github.com/top-think/think-multi-app/issues",
+                "source": "https://github.com/top-think/think-multi-app/tree/master"
+            },
             "time": "2020-07-12T13:50:37+00:00"
         },
         {
@@ -937,13 +893,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-orm/zipball/5d3d5c1ebf8bfccf34bacd90edb42989b16ea409",
                 "reference": "5d3d5c1ebf8bfccf34bacd90edb42989b16ea409",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "ext-json": "*",
@@ -980,6 +930,10 @@
                 "database",
                 "orm"
             ],
+            "support": {
+                "issues": "https://github.com/top-think/think-orm/issues",
+                "source": "https://github.com/top-think/think-orm/tree/v2.0.44"
+            },
             "time": "2021-07-21T02:22:31+00:00"
         },
         {
@@ -994,13 +948,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-template/zipball/abfc293f74f9ef5127b5c416310a01fe42e59368",
                 "reference": "abfc293f74f9ef5127b5c416310a01fe42e59368",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.0",
@@ -1041,13 +989,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-view/zipball/edce0ae2c9551ab65f9e94a222604b0dead3576d",
                 "reference": "edce0ae2c9551ab65f9e94a222604b0dead3576d",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.0",
@@ -1088,13 +1030,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/friendsofthinkphp/think-whoops/zipball/0c16dce4703e529910b81b27e4119f7feb55e64a",
                 "reference": "0c16dce4703e529910b81b27e4119f7feb55e64a",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "filp/whoops": "^2.4",
@@ -1153,13 +1089,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/9174a3d80210dca8daa7f31fec659150bbeabfc6",
                 "reference": "9174a3d80210dca8daa7f31fec659150bbeabfc6",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
@@ -1208,6 +1138,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.23.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1236,13 +1169,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php72/zipball/9a142215a36a3888e30d0a9eeea9766764e96976",
                 "reference": "9a142215a36a3888e30d0a9eeea9766764e96976",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
@@ -1287,6 +1214,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php72/tree/v1.23.0"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1315,13 +1245,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/polyfill-php80/zipball/1100343ed1a92e3a38f9ae122fc0eb21602547be",
                 "reference": "1100343ed1a92e3a38f9ae122fc0eb21602547be",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1"
@@ -1373,6 +1297,9 @@
                 "portable",
                 "shim"
             ],
+            "support": {
+                "source": "https://github.com/symfony/polyfill-php80/tree/v1.23.1"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1391,23 +1318,17 @@
         },
         {
             "name": "symfony/var-dumper",
-            "version": "v4.4.31",
+            "version": "v4.4.33",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/var-dumper.git",
-                "reference": "1f12cc0c2e880a5f39575c19af81438464717839"
+                "reference": "50286e2b7189bfb4f419c0731e86632cddf7c5ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/1f12cc0c2e880a5f39575c19af81438464717839",
-                "reference": "1f12cc0c2e880a5f39575c19af81438464717839",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/50286e2b7189bfb4f419c0731e86632cddf7c5ee",
+                "reference": "50286e2b7189bfb4f419c0731e86632cddf7c5ee",
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
@@ -1465,6 +1386,9 @@
                 "debug",
                 "dump"
             ],
+            "support": {
+                "source": "https://github.com/symfony/var-dumper/tree/v4.4.33"
+            },
             "funding": [
                 {
                     "url": "https://symfony.com/sponsor",
@@ -1479,7 +1403,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-09-24T15:30:11+00:00"
+            "time": "2021-10-25T20:24:58+00:00"
         },
         {
             "name": "topthink/think-trace",
@@ -1493,13 +1417,7 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/top-think/think-trace/zipball/9a9fa8f767b6c66c5a133ad21ca1bc96ad329444",
                 "reference": "9a9fa8f767b6c66c5a133ad21ca1bc96ad329444",
-                "shasum": "",
-                "mirrors": [
-                    {
-                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
-                        "preferred": true
-                    }
-                ]
+                "shasum": ""
             },
             "require": {
                 "php": ">=7.1.0",
@@ -1532,6 +1450,10 @@
                 }
             ],
             "description": "thinkphp debug trace",
+            "support": {
+                "issues": "https://github.com/top-think/think-trace/issues",
+                "source": "https://github.com/top-think/think-trace/tree/v1.4"
+            },
             "time": "2020-06-29T05:27:28+00:00"
         }
     ],
@@ -1544,5 +1466,5 @@
         "php": ">=7.1.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.0.0"
 }

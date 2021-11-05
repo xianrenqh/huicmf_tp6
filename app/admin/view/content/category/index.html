@@ -1,0 +1,88 @@
+{include file='header'/}
+<title>菜单列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('content.category/add')}layui-hide{/if}" data-open="{:__url('content.category/add')}" data-title="添加栏目">
+                <i class="fa fa-plus"></i> 添加栏目</a>
+        </div>
+        <table id="munu-table" lay-filter="munu-table"></table>
+    </div>
+</div>
+<script type="text/html" id="switchTpl">
+    <input type="checkbox" name="show_in_nav" value="{{d.show_in_nav}}" lay-skin="switch" lay-filter="switchStatus"
+           data-href="{:__url('content.category/modify')}?id={{d.id}}&field=show_in_nav" lay-text="显示|不显示" {{ d.show_in_nav== 1 ? 'checked' : '' }}>
+</script>
+<script type="text/html" id="iconTpl">
+    <i class="fa {{d.icon}}"></i>
+</script>
+<script type="text/html" id="optionTpl">
+    <a class="layui-btn layui-btn-xs layui-btn-normal {if !check_auth('content.category/add')}layui-hide{/if}" data-open="{:__url('content.category/add')}?id={{d.id}}"
+       data-title="添加下级" data-full="true">添加下级</a>
+    <a class="layui-btn layui-btn-xs layui-btn-success {if !check_auth('content.category/edit')}layui-hide{/if}" data-open="{:__url('content.category/edit')}?id={{d.id}}"
+       data-title="编辑" data-full="true">编辑</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs {if !check_auth('content.category/delete')}layui-hide{/if}" data-delete="{:__url('content.category/delete')}?id={{d.id}}"
+       data-title="确定要删除吗？" data-reload="1">删除</a>
+</script>
+
+{include file='footer'/}
+<script>
+  layui.use(['table', 'treetable'], function () {
+    var $ = layui.jquery;
+    var table = layui.table;
+    var treetable = layui.treetable;
+
+    // 渲染表格
+    layer.load(2);
+    treetable.render({
+      treeColIndex: 1,
+      treeSpid: 0,
+      treeIdName: 'id',
+      treePidName: 'parent_id',
+      elem: '#munu-table',
+      method: 'get',
+      url: "{:__url('content.category/index')}",
+      page: false,
+      cols: [[
+        {field: 'id', width: 100, title: 'id'},
+        {field: 'cate_name', minWidth: 200, title: '栏目名称'},
+        {field: 'cate_en', minWidth: 200, title: '栏目名称en'},
+        {field: 'status', title: '导航显示', width: 120, templet: '#switchTpl', align: 'center'},
+        {field: 'sort_order', width: 100, title: '排序', edit: 'text', align: 'center'},
+        {
+          width: 200,
+          title: '操作',
+          templet: '#optionTpl',
+          align: 'center',
+        }
+      ]],
+      done: function () {
+        layer.closeAll('loading');
+      }
+    });
+
+    /* 监听单元格编辑 */
+    table.on('edit(munu-table)', function (obj) {
+      console.log(obj);
+      var value = obj.value
+        , data = obj.data
+        , field = obj.field;
+      $.post("{:__url('content.category/modify')}", {id: data.id, val: value, field: field}, function (res) {
+        if (res.code === 1) {
+          layer.msg(res.msg, {time: 1500, icon: 1}, function () {
+            if (res.data.refresh == 1) {
+              window.parent.location.reload();
+            }
+          });
+        } else {
+          layer.msg(res.msg, {time: 1500, icon: 2});
+        }
+      })
+    });
+
+  });
+</script>
+</body>
+</html>

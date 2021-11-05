@@ -19,7 +19,8 @@ layui.config({
   miniTab: "layuimini/miniTab", // layuimini tab扩展
   miniTheme: "layuimini/miniTheme", // layuimini 主题扩展
   miniCountUp: "layuimini/miniCountUp", // 让数字动起来
-  //miniTongji: "layuimini/miniTongji", // layuimini 统计扩展
+  miniPinyin: "layuimini/miniPinyin", // 汉字转拼音
+  miniTongji: "layuimini/miniTongji", // layuimini 统计扩展
   step: 'step-lay/step', // 分步表单扩展
   treetable: 'treetable-lay/treetable', //table树形扩展
   tableSelect: 'tableSelect/tableSelect', // table选择扩展

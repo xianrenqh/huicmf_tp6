@@ -91,6 +91,7 @@ class UploadController
                     }
 
                 } catch (\think\exception\ValidateException $e) {
+                    halt($editor_type);
                     switch ($editor_type) {
                         case "iceEditor":
                             return json([

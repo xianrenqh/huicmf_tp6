@@ -16,6 +16,7 @@ use think\captcha\facade\Captcha;
 use app\admin\model\Admin as AdminModel;
 use app\admin\model\LoginLog as LoginLogModel;
 use think\facade\Session;
+use function GuzzleHttp\Psr7\str;
 
 class LoginController extends AdminController
 {
@@ -130,7 +131,6 @@ class LoginController extends AdminController
             ]);
         $loginDevice['user_id']   = $adminInfo['id'];
         $loginDevice['user_name'] = $adminInfo['username'];
-
         LoginLogModel::addRecord($loginDevice);
 
         $this->success('登录成功');

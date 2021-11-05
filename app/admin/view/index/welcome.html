@@ -160,12 +160,12 @@
                                 <div class="admin_user_rght">
                                     <div class="headimg">
                                         <i></i>
-                                        <a href="/run/admin/home.html?id=2" data-title="个人主页" class="new_tab"><img
-                                                src="/uploads/thumb/a2fb51faca3d2d841794aa2184725cca.jpeg"
-                                                alt="test123"></a>
+                                        <a href="{:__url('index/editInfo')}" data-title="个人主页" class="new_tab"><img
+                                                src="{$admin_info.avatar}"
+                                                alt="{$admin_info.username}"></a>
                                     </div>
                                     <div class="welcome en-font">
-                                        您好！<span>测试者</span>
+                                        您好！<span>{$admin_info.username}</span>
                                     </div>
                                 </div>
                                 <div class="admin_user_left">
@@ -178,7 +178,7 @@
                                         <li>登录时间：<span class="c">{$admin_info.logintime|date="Y-m-d H:i:s"}</span></li>
                                     </ul>
                                     <div class="user_link">
-                                        <a href="/run/Admin/home.html?id=2"
+                                        <a href="{:__url('index/editInfo')}"
                                            class="layui-btn layui-btn-primary layui-border-green layui-btn-radius new_tab"
                                            data-title="个人信息">
                                             <i class="layui-icon layui-icon-username"></i>

@@ -150,6 +150,17 @@
   layui.use(['form', 'jquery', 'upload'], function () {
     let form = layui.form, $ = layui.jquery, upload = layui.upload;
     form.render();
+    //普通图片上传
+    var uploadInst = upload.render({
+      elem: '#test1'
+      , url: "{:__url('upload/index',['save_path'=>'images'])}"
+      ,done: function(res){
+        console.log(res.src)
+        if(res.status==1){
+          $("#demo1").val(res.src);
+        }
+      }
+    })
 
     $(document).on('click', '[id^=delImg]', function () {
       var importImgF = $('#imgItemInfo').find('div:first');//importImg0、importImg1、importImg2

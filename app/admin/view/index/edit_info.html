@@ -9,12 +9,13 @@
                     <div class="layui-form-item hui-home-show" style="margin-top:20px">
                         <div class="avatar hui-upload-avatar">
                             <i></i>
-                            <input type="hidden" value="http://demo2.wooadmin.cn/uploads/admin/20210524/36e9451b1032cbd3a7f5300b9e1b9134.jpeg" name="avatar" class="layui-input layui-input-disabled">
-                            <img src="http://demo2.wooadmin.cn/uploads/admin/20210524/36e9451b1032cbd3a7f5300b9e1b9134.jpeg">
+                            <input type="hidden" value="{$data.avatar}" name="avatar" class="layui-input layui-input-disabled"
+                                   id="avatar">
+                            <img src="{$data.avatar}">
                             <div class="cover">点击编辑</div>
                         </div>
-                        <div class="username">test123</div>
-                        <div class="email">12345678@qq.com</div>
+                        <div class="username">{$data.username}</div>
+                        <div class="email">{$data.email}</div>
                     </div>
 
                     <div class="layui-form-item">
@@ -127,8 +128,8 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['upload','jquery'], function () {
-    var layuiUpload = layui.upload,$ = layui.jquery;
+  layui.use(['upload', 'jquery'], function () {
+    var layuiUpload = layui.upload, $ = layui.jquery;
     layuiUpload.render({
       elem: '.hui-upload-avatar'
       , url: "{:__url('upload/index',['save_path'=>'avatars'])}"
@@ -138,9 +139,14 @@
 
         });
       }
-      ,done: function(res){
+      , done: function (res) {
         layer.msg('上传成功');
-        $('.hui-upload-avatar img').attr('src',res.url);
+        $('.hui-upload-avatar img').attr('src', res.url);
+        $('.avatar').val(res.url);
+        //修改头像
+        $.post("{:__url('index/editInfo')}", {avatar: res.url}, function () {
+          console.log(res);
+        })
       }
     });
   });

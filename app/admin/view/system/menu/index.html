@@ -13,8 +13,7 @@
 </div>
 <script type="text/html" id="switchTpl">
     <input type="checkbox" name="status" value="{{d.status}}" lay-skin="switch" lay-filter="switchStatus"
-           data-href="{:__url('system.menu/modify')}?id={{d.id}}&field=status" lay-text="启用|禁用" {{ d.status==
-           1 ? 'checked' : '' }}>
+           data-href="{:__url('system.menu/modify')}?id={{d.id}}&field=status" lay-text="启用|禁用" {{ d.status== 1 ? 'checked' : '' }}>
 </script>
 <script type="text/html" id="iconTpl">
     <i class="fa {{d.icon}}"></i>
