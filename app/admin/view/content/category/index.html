@@ -5,7 +5,7 @@
     <div class="layuimini-main">
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
-            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('content.category/add')}layui-hide{/if}" data-open="{:__url('content.category/add')}" data-title="添加栏目">
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('content.category/add')}layui-hide{/if}" data-open="{:__url('content.category/add')}" data-title="添加栏目" data-reload="1">
                 <i class="fa fa-plus"></i> 添加栏目</a>
         </div>
         <table id="munu-table" lay-filter="munu-table"></table>
@@ -20,9 +20,9 @@
 </script>
 <script type="text/html" id="optionTpl">
     <a class="layui-btn layui-btn-xs layui-btn-normal {if !check_auth('content.category/add')}layui-hide{/if}" data-open="{:__url('content.category/add')}?id={{d.id}}"
-       data-title="添加下级" data-full="true">添加下级</a>
+       data-title="添加下级" data-full="true" data-reload="1">添加下级</a>
     <a class="layui-btn layui-btn-xs layui-btn-success {if !check_auth('content.category/edit')}layui-hide{/if}" data-open="{:__url('content.category/edit')}?id={{d.id}}"
-       data-title="编辑" data-full="true">编辑</a>
+       data-title="编辑" data-full="true" data-reload="1">编辑</a>
     <a class="layui-btn layui-btn-danger layui-btn-xs {if !check_auth('content.category/delete')}layui-hide{/if}" data-delete="{:__url('content.category/delete')}?id={{d.id}}"
        data-title="确定要删除吗？" data-reload="1">删除</a>
 </script>

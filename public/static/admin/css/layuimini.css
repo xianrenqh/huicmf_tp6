@@ -998,4 +998,19 @@
     color: #333;
 }
 
+.textarea-numberbar{position:absolute;right:20px;bottom:5px;z-index:1;margin-bottom:0;color:#e76c02}
+.textarea-length{font-style:normal}
+/*tag标签*/
+.Huitags-editor{ margin-top:8px;}
+.Huitags-editor i{float:left;
+    -webkit-transform:rotate(270deg);
+    -moz-transform:rotate(270deg);
+    -o-transform:rotate(270deg);
+    -ms-transform:rotate(270deg);
+    transform:rotate(270deg);
+}
+.Hui-tags-token, .Huitags-token{color:#df038b;float:left;font-size:14px;height:20px;line-height:20px;margin-left:10px;padding:0 1px;white-space:nowrap;cursor:pointer;}
+.Hui-tags-token:before, .Huitags-token:before{content:"#";}
+.cl:after, .clearfix:after{content:"\20";display:block;height:0;clear:both;visibility:hidden;}
+.Huitags-token:hover{text-decoration:line-through;color:#7a034d;}
 

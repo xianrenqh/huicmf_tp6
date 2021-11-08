@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 05/11/2021 14:46:59
+ Date: 08/11/2021 17:48:30
 */
 
 SET NAMES utf8mb4;
@@ -22,30 +22,30 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_admin`;
 CREATE TABLE `cmf_admin` (
-                             `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-                             `username` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
-                             `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',
-                             `password` varchar(32) NOT NULL DEFAULT '' COMMENT '密码',
-                             `salt` varchar(30) NOT NULL DEFAULT '' COMMENT '密码盐',
-                             `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
-                             `email` varchar(100) NOT NULL DEFAULT '' COMMENT '电子邮箱',
-                             `login_failure` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '失败次数',
-                             `logintime` int(10) NOT NULL DEFAULT '0' COMMENT '登录时间',
-                             `loginip` varchar(50) NOT NULL DEFAULT '0' COMMENT '登录IP',
-                             `login_num` int(11) NOT NULL DEFAULT '0' COMMENT '登录成功次数',
-                             `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
-                             `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-                             `token` varchar(59) NOT NULL DEFAULT '' COMMENT 'Session标识',
-                             `status` varchar(30) NOT NULL DEFAULT 'normal' COMMENT '状态',
-                             PRIMARY KEY (`id`) USING BTREE,
-                             UNIQUE KEY `username` (`username`) USING BTREE
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `username` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
+  `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',
+  `password` varchar(32) NOT NULL DEFAULT '' COMMENT '密码',
+  `salt` varchar(30) NOT NULL DEFAULT '' COMMENT '密码盐',
+  `avatar` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
+  `email` varchar(100) NOT NULL DEFAULT '' COMMENT '电子邮箱',
+  `login_failure` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '失败次数',
+  `logintime` int(10) NOT NULL DEFAULT '0' COMMENT '登录时间',
+  `loginip` varchar(50) NOT NULL DEFAULT '0' COMMENT '登录IP',
+  `login_num` int(11) NOT NULL DEFAULT '0' COMMENT '登录成功次数',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `token` varchar(59) NOT NULL DEFAULT '' COMMENT 'Session标识',
+  `status` varchar(30) NOT NULL DEFAULT 'normal' COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of cmf_admin
 -- ----------------------------
 BEGIN;
-INSERT INTO `cmf_admin` VALUES (1, 'admin', '超级管理员', '3296135c44983633d8b1254dd62c6ff1', 'abedf7', '/uploads/avatars/20211105/0783bcd626c8895f2cd082cf7ce502bd.jpg', 'admin@admin.com', 2, 1636093648, '127.0.0.1', 74, 1635759162, 1636093648, '', 'normal');
+INSERT INTO `cmf_admin` VALUES (1, 'admin', '超级管理员', '3296135c44983633d8b1254dd62c6ff1', 'abedf7', '/uploads/avatars/20211105/0783bcd626c8895f2cd082cf7ce502bd.jpg', 'admin@admin.com', 2, 1636342207, '127.0.0.1', 75, 1635759162, 1636342207, '', 'normal');
 COMMIT;
 
 -- ----------------------------
@@ -53,24 +53,26 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_article`;
 CREATE TABLE `cmf_article` (
-                               `id` int(11) NOT NULL AUTO_INCREMENT,
-                               `title` varchar(150) NOT NULL DEFAULT '' COMMENT '文章标题',
-                               `admin_id` int(5) NOT NULL DEFAULT '0' COMMENT '添加人id',
-                               `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '编辑昵称',
-                               `type_id` int(5) NOT NULL DEFAULT '0' COMMENT '分类id',
-                               `image` varchar(255) NOT NULL DEFAULT '' COMMENT '图片',
-                               `thumbs` text COMMENT '图集（json）',
-                               `flag` varchar(30) NOT NULL DEFAULT '' COMMENT '1置顶,2头条,3特荐,4推荐,5热点,6幻灯,7跳转',
-                               `is_top` int(1) NOT NULL DEFAULT '0' COMMENT '置顶（根据flag=1来判断）',
-                               `jump_url` varchar(255) NOT NULL DEFAULT '' COMMENT '跳转链接',
-                               `click` int(10) NOT NULL DEFAULT '0' COMMENT '点击量',
-                               `weight` int(10) NOT NULL DEFAULT '0' COMMENT '排序（数字越大越靠前）',
-                               `status` int(1) NOT NULL DEFAULT '0' COMMENT '状态',
-                               `content` text,
-                               `create_time` int(10) NOT NULL DEFAULT '0',
-                               `update_time` int(10) NOT NULL DEFAULT '0',
-                               `delete_time` int(10) NOT NULL DEFAULT '0',
-                               PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `title` varchar(150) NOT NULL DEFAULT '' COMMENT '文章标题',
+  `admin_id` int(5) NOT NULL DEFAULT '0' COMMENT '添加人id',
+  `nickname` varchar(100) NOT NULL DEFAULT '' COMMENT '编辑昵称',
+  `type_id` int(5) NOT NULL DEFAULT '0' COMMENT '分类id',
+  `image` varchar(255) NOT NULL DEFAULT '' COMMENT '图片',
+  `thumbs` text COMMENT '图集（json）',
+  `flag` varchar(30) NOT NULL DEFAULT '' COMMENT '1置顶,2头条,3特荐,4推荐,5热点,6幻灯,7跳转',
+  `is_top` int(1) NOT NULL DEFAULT '0' COMMENT '置顶（根据flag=1来判断）',
+  `jump_url` varchar(255) NOT NULL DEFAULT '' COMMENT '跳转链接',
+  `click` int(10) NOT NULL DEFAULT '0' COMMENT '点击量',
+  `weight` int(10) NOT NULL DEFAULT '0' COMMENT '排序（数字越大越靠前）',
+  `status` int(1) NOT NULL DEFAULT '0' COMMENT '状态',
+  `keywords` varchar(250) NOT NULL DEFAULT '' COMMENT '关键词',
+  `description` varchar(500) NOT NULL DEFAULT '' COMMENT '描述',
+  `content` text,
+  `create_time` int(10) NOT NULL DEFAULT '0',
+  `update_time` int(10) NOT NULL DEFAULT '0',
+  `delete_time` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
@@ -84,23 +86,23 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_attachment`;
 CREATE TABLE `cmf_attachment` (
-                                  `id` int(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-                                  `admin_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理员ID',
-                                  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
-                                  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '物理路径',
-                                  `imagewidth` varchar(30) NOT NULL DEFAULT '' COMMENT '宽度',
-                                  `imageheight` varchar(30) NOT NULL DEFAULT '' COMMENT '高度',
-                                  `imagetype` varchar(30) NOT NULL DEFAULT '' COMMENT '图片类型',
-                                  `imageframes` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '图片帧数',
-                                  `filesize` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
-                                  `mimetype` varchar(100) NOT NULL DEFAULT '' COMMENT 'mime类型',
-                                  `extparam` varchar(255) NOT NULL DEFAULT '' COMMENT '透传数据',
-                                  `createtime` int(10) NOT NULL DEFAULT '0' COMMENT '创建日期',
-                                  `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-                                  `uploadtime` int(10) NOT NULL DEFAULT '0' COMMENT '上传时间',
-                                  `storage` varchar(100) NOT NULL DEFAULT 'local' COMMENT '存储位置',
-                                  `sha1` varchar(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
-                                  PRIMARY KEY (`id`) USING BTREE
+  `id` int(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `admin_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理员ID',
+  `user_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
+  `url` varchar(255) NOT NULL DEFAULT '' COMMENT '物理路径',
+  `imagewidth` varchar(30) NOT NULL DEFAULT '' COMMENT '宽度',
+  `imageheight` varchar(30) NOT NULL DEFAULT '' COMMENT '高度',
+  `imagetype` varchar(30) NOT NULL DEFAULT '' COMMENT '图片类型',
+  `imageframes` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '图片帧数',
+  `filesize` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '文件大小',
+  `mimetype` varchar(100) NOT NULL DEFAULT '' COMMENT 'mime类型',
+  `extparam` varchar(255) NOT NULL DEFAULT '' COMMENT '透传数据',
+  `createtime` int(10) NOT NULL DEFAULT '0' COMMENT '创建日期',
+  `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `uploadtime` int(10) NOT NULL DEFAULT '0' COMMENT '上传时间',
+  `storage` varchar(100) NOT NULL DEFAULT 'local' COMMENT '存储位置',
+  `sha1` varchar(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='附件表';
 
 -- ----------------------------
@@ -114,14 +116,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_auth_group`;
 CREATE TABLE `cmf_auth_group` (
-                                  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                                  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父组别',
-                                  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '组名',
-                                  `rules` text NOT NULL COMMENT '规则ID',
-                                  `createtime` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
-                                  `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-                                  `status` varchar(30) NOT NULL DEFAULT '' COMMENT '状态',
-                                  PRIMARY KEY (`id`) USING BTREE
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父组别',
+  `name` varchar(100) NOT NULL DEFAULT '' COMMENT '组名',
+  `rules` text NOT NULL COMMENT '规则ID',
+  `createtime` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `status` varchar(30) NOT NULL DEFAULT '' COMMENT '状态',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='分组表';
 
 -- ----------------------------
@@ -137,11 +139,11 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_auth_group_access`;
 CREATE TABLE `cmf_auth_group_access` (
-                                         `uid` int(10) unsigned NOT NULL COMMENT '会员ID',
-                                         `group_id` int(10) unsigned NOT NULL COMMENT '级别ID',
-                                         UNIQUE KEY `uid_group_id` (`uid`,`group_id`) USING BTREE,
-                                         KEY `uid` (`uid`) USING BTREE,
-                                         KEY `group_id` (`group_id`) USING BTREE
+  `uid` int(10) unsigned NOT NULL COMMENT '会员ID',
+  `group_id` int(10) unsigned NOT NULL COMMENT '级别ID',
+  UNIQUE KEY `uid_group_id` (`uid`,`group_id`) USING BTREE,
+  KEY `uid` (`uid`) USING BTREE,
+  KEY `group_id` (`group_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='权限分组表';
 
 -- ----------------------------
@@ -156,16 +158,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_auth_rule`;
 CREATE TABLE `cmf_auth_rule` (
-                                 `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                                 `type` tinyint(1) NOT NULL DEFAULT '3' COMMENT '节点类型（1：控制器，2：节点）',
-                                 `node` varchar(100) NOT NULL DEFAULT '' COMMENT '规则名称',
-                                 `title` varchar(50) NOT NULL DEFAULT '' COMMENT '规则名称',
-                                 `is_auth` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启动RBAC权限控制',
-                                 `condition` varchar(255) NOT NULL DEFAULT '' COMMENT '条件',
-                                 `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
-                                 `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-                                 PRIMARY KEY (`id`) USING BTREE,
-                                 UNIQUE KEY `name` (`node`) USING BTREE
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) NOT NULL DEFAULT '3' COMMENT '节点类型（1：控制器，2：节点）',
+  `node` varchar(100) NOT NULL DEFAULT '' COMMENT '规则名称',
+  `title` varchar(50) NOT NULL DEFAULT '' COMMENT '规则名称',
+  `is_auth` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否启动RBAC权限控制',
+  `condition` varchar(255) NOT NULL DEFAULT '' COMMENT '条件',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `name` (`node`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=61 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='节点表';
 
 -- ----------------------------
@@ -238,17 +240,17 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_category`;
 CREATE TABLE `cmf_category` (
-                                `id` int(11) NOT NULL AUTO_INCREMENT,
-                                `cate_name` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
-                                `cate_en` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目名称（en）',
-                                `parent_id` smallint(6) NOT NULL DEFAULT '0' COMMENT '父级ID',
-                                `show_in_nav` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否导航显示',
-                                `sort_order` smallint(6) NOT NULL DEFAULT '50' COMMENT '排序',
-                                `cat_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目描述',
-                                `keywords` varchar(30) NOT NULL DEFAULT '',
-                                `create_time` int(10) NOT NULL DEFAULT '0',
-                                `update_time` int(10) NOT NULL DEFAULT '0',
-                                PRIMARY KEY (`id`)
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cate_name` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
+  `cate_en` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目名称（en）',
+  `parent_id` smallint(6) NOT NULL DEFAULT '0' COMMENT '父级ID',
+  `show_in_nav` tinyint(1) NOT NULL DEFAULT '1' COMMENT '是否导航显示',
+  `sort_order` smallint(6) NOT NULL DEFAULT '50' COMMENT '排序',
+  `cat_desc` varchar(255) NOT NULL DEFAULT '' COMMENT '栏目描述',
+  `keywords` varchar(30) NOT NULL DEFAULT '',
+  `create_time` int(10) NOT NULL DEFAULT '0',
+  `update_time` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
@@ -262,19 +264,19 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_config`;
 CREATE TABLE `cmf_config` (
-                              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                              `name` varchar(60) NOT NULL DEFAULT '' COMMENT '配置名称',
-                              `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置类型',
-                              `title` varchar(60) NOT NULL DEFAULT '' COMMENT '配置说明',
-                              `value` text NOT NULL COMMENT '配置值',
-                              `fieldtype` varchar(20) NOT NULL DEFAULT '' COMMENT '字段类型',
-                              `setting` text NOT NULL COMMENT '字段设置',
-                              `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
-                              `tips` varchar(255) NOT NULL DEFAULT '',
-                              PRIMARY KEY (`id`) USING BTREE,
-                              UNIQUE KEY `name` (`name`) USING BTREE,
-                              KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL DEFAULT '' COMMENT '配置名称',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '配置类型',
+  `title` varchar(60) NOT NULL DEFAULT '' COMMENT '配置说明',
+  `value` text NOT NULL COMMENT '配置值',
+  `fieldtype` varchar(20) NOT NULL DEFAULT '' COMMENT '字段类型',
+  `setting` text NOT NULL COMMENT '字段设置',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态',
+  `tips` varchar(255) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `name` (`name`) USING BTREE,
+  KEY `type` (`type`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
 
 -- ----------------------------
 -- Records of cmf_config
@@ -301,6 +303,7 @@ INSERT INTO `cmf_config` VALUES (18, 'watermark_position', 2, '水印的位置',
 INSERT INTO `cmf_config` VALUES (19, 'watermark_touming', 2, '水印透明度', '80', 'string', '', 1, '');
 INSERT INTO `cmf_config` VALUES (20, 'upload_types', 2, '允许上传类型', 'jpg,jpeg,png,gif,bmp', 'string', '', 1, '');
 INSERT INTO `cmf_config` VALUES (21, 'upload_mode', 2, '图片上传方式', 'local', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (22, 'site_editor', 1, '文本编辑器', 'uEditorMini', 'string', ' ', 1, '');
 COMMIT;
 
 -- ----------------------------
@@ -308,14 +311,14 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_hook`;
 CREATE TABLE `cmf_hook` (
-                            `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                            `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
-                            `once` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否只允许一个插件运行(0:多个;1:一个)',
-                            `name` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名称',
-                            `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子',
-                            `app` varchar(15) NOT NULL DEFAULT '' COMMENT '应用名(只有应用钩子才用)',
-                            `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
-                            PRIMARY KEY (`id`) USING BTREE
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
+  `once` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否只允许一个插件运行(0:多个;1:一个)',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名称',
+  `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子',
+  `app` varchar(15) NOT NULL DEFAULT '' COMMENT '应用名(只有应用钩子才用)',
+  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统钩子表';
 
 -- ----------------------------
@@ -329,12 +332,12 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_hook_plugin`;
 CREATE TABLE `cmf_hook_plugin` (
-                                   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-                                   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-                                   `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
-                                   `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名',
-                                   `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件',
-                                   PRIMARY KEY (`id`) USING BTREE
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
+  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
+  `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名',
+  `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统钩子插件表';
 
 -- ----------------------------
@@ -352,23 +355,23 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_login_log`;
 CREATE TABLE `cmf_login_log` (
-                                 `id` bigint(20) NOT NULL AUTO_INCREMENT,
-                                 `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户id',
-                                 `user_name` varchar(60) NOT NULL DEFAULT '' COMMENT '用户名',
-                                 `browser` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器名',
-                                 `browser_ver` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器版本',
-                                 `os` varchar(100) NOT NULL DEFAULT '' COMMENT '操作系统',
-                                 `os_ver` varchar(500) NOT NULL DEFAULT '' COMMENT '操作系统版本',
-                                 `ip_address` varchar(100) NOT NULL DEFAULT '' COMMENT 'ip地址',
-                                 `country` char(100) NOT NULL DEFAULT '' COMMENT '国家',
-                                 `area` char(100) NOT NULL DEFAULT '' COMMENT '省',
-                                 `city` char(100) NOT NULL DEFAULT '' COMMENT '市',
-                                 `isp` varchar(255) NOT NULL DEFAULT '' COMMENT '网络：【电信、联通】',
-                                 `desc` varchar(255) NOT NULL DEFAULT '',
-                                 `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
-                                 `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-                                 PRIMARY KEY (`id`) USING BTREE,
-                                 KEY `user` (`user_id`) USING BTREE
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户id',
+  `user_name` varchar(60) NOT NULL DEFAULT '' COMMENT '用户名',
+  `browser` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器名',
+  `browser_ver` varchar(100) NOT NULL DEFAULT '' COMMENT '浏览器版本',
+  `os` varchar(100) NOT NULL DEFAULT '' COMMENT '操作系统',
+  `os_ver` varchar(500) NOT NULL DEFAULT '' COMMENT '操作系统版本',
+  `ip_address` varchar(100) NOT NULL DEFAULT '' COMMENT 'ip地址',
+  `country` char(100) NOT NULL DEFAULT '' COMMENT '国家',
+  `area` char(100) NOT NULL DEFAULT '' COMMENT '省',
+  `city` char(100) NOT NULL DEFAULT '' COMMENT '市',
+  `isp` varchar(255) NOT NULL DEFAULT '' COMMENT '网络：【电信、联通】',
+  `desc` varchar(255) NOT NULL DEFAULT '',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `user` (`user_id`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='后台登录记录表';
 
 -- ----------------------------
@@ -382,21 +385,21 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_plugin`;
 CREATE TABLE `cmf_plugin` (
-                              `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
-                              `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '插件类型;1:网站;8:微信',
-                              `has_admin` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否有后台管理,0:没有;1:有',
-                              `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:开启;0:禁用',
-                              `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
-                              `name` varchar(50) NOT NULL DEFAULT '' COMMENT '插件标识名,英文字母(惟一)',
-                              `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件名称',
-                              `demo_url` varchar(50) NOT NULL DEFAULT '' COMMENT '演示地址，带协议',
-                              `hooks` varchar(255) NOT NULL DEFAULT '' COMMENT '实现的钩子;以“,”分隔',
-                              `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件作者',
-                              `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
-                              `version` varchar(20) NOT NULL DEFAULT '' COMMENT '插件版本号',
-                              `description` varchar(255) NOT NULL COMMENT '插件描述',
-                              `config` text COMMENT '插件配置',
-                              PRIMARY KEY (`id`) USING BTREE
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '插件类型;1:网站;8:微信',
+  `has_admin` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否有后台管理,0:没有;1:有',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:开启;0:禁用',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '插件标识名,英文字母(惟一)',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件名称',
+  `demo_url` varchar(50) NOT NULL DEFAULT '' COMMENT '演示地址，带协议',
+  `hooks` varchar(255) NOT NULL DEFAULT '' COMMENT '实现的钩子;以“,”分隔',
+  `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件作者',
+  `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
+  `version` varchar(20) NOT NULL DEFAULT '' COMMENT '插件版本号',
+  `description` varchar(255) NOT NULL COMMENT '插件描述',
+  `config` text COMMENT '插件配置',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='插件表';
 
 -- ----------------------------
@@ -411,16 +414,16 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_system_log`;
 CREATE TABLE `cmf_system_log` (
-                                  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
-                                  `admin_id` int(10) unsigned DEFAULT '0' COMMENT '管理员ID',
-                                  `url` varchar(1500) NOT NULL DEFAULT '' COMMENT '操作页面',
-                                  `method` varchar(50) NOT NULL COMMENT '请求方法',
-                                  `title` varchar(100) DEFAULT '' COMMENT '日志标题',
-                                  `content` text NOT NULL COMMENT '内容',
-                                  `ip` varchar(50) NOT NULL DEFAULT '' COMMENT 'IP',
-                                  `useragent` varchar(255) DEFAULT '' COMMENT 'User-Agent',
-                                  `create_time` int(10) DEFAULT NULL COMMENT '操作时间',
-                                  PRIMARY KEY (`id`) USING BTREE
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `admin_id` int(10) unsigned DEFAULT '0' COMMENT '管理员ID',
+  `url` varchar(1500) NOT NULL DEFAULT '' COMMENT '操作页面',
+  `method` varchar(50) NOT NULL COMMENT '请求方法',
+  `title` varchar(100) DEFAULT '' COMMENT '日志标题',
+  `content` text NOT NULL COMMENT '内容',
+  `ip` varchar(50) NOT NULL DEFAULT '' COMMENT 'IP',
+  `useragent` varchar(255) DEFAULT '' COMMENT 'User-Agent',
+  `create_time` int(10) DEFAULT NULL COMMENT '操作时间',
+  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202106';
 
 -- ----------------------------
@@ -434,22 +437,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_system_menu`;
 CREATE TABLE `cmf_system_menu` (
-                                   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-                                   `pid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
-                                   `title` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
-                                   `icon` varchar(100) NOT NULL DEFAULT '' COMMENT '菜单图标',
-                                   `href` varchar(100) NOT NULL DEFAULT '' COMMENT '链接',
-                                   `params` varchar(500) NOT NULL DEFAULT '' COMMENT '链接参数',
-                                   `target` varchar(20) NOT NULL DEFAULT '_self' COMMENT '链接打开方式',
-                                   `sort` int(11) NOT NULL DEFAULT '0' COMMENT '菜单排序',
-                                   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
-                                   `remark` varchar(255) NOT NULL DEFAULT '',
-                                   `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
-                                   `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
-                                   `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '删除时间',
-                                   PRIMARY KEY (`id`) USING BTREE,
-                                   KEY `title` (`title`) USING BTREE,
-                                   KEY `href` (`href`) USING BTREE
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `pid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
+  `title` varchar(100) NOT NULL DEFAULT '' COMMENT '名称',
+  `icon` varchar(100) NOT NULL DEFAULT '' COMMENT '菜单图标',
+  `href` varchar(100) NOT NULL DEFAULT '' COMMENT '链接',
+  `params` varchar(500) NOT NULL DEFAULT '' COMMENT '链接参数',
+  `target` varchar(20) NOT NULL DEFAULT '_self' COMMENT '链接打开方式',
+  `sort` int(11) NOT NULL DEFAULT '0' COMMENT '菜单排序',
+  `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
+  `remark` varchar(255) NOT NULL DEFAULT '',
+  `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+  `delete_time` int(10) NOT NULL DEFAULT '0' COMMENT '删除时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `title` (`title`) USING BTREE,
+  KEY `href` (`href`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 -- ----------------------------
@@ -471,6 +474,45 @@ INSERT INTO `cmf_system_menu` VALUES (12, 2, '系统日志', 'fa-book', 'system.
 INSERT INTO `cmf_system_menu` VALUES (13, 7, '回收站管理', 'fa-drupal', 'content.recycle_bin/index', '', '_self', 0, 1, '', 1624876985, 1624876985, 0);
 INSERT INTO `cmf_system_menu` VALUES (14, 2, '登陆日志', 'fa-flag', 'system.log/login_log', '', '_self', 45, 1, '', 1624956129, 1624956129, 0);
 INSERT INTO `cmf_system_menu` VALUES (15, 7, '栏目管理', 'fa-certificate', 'content.category/index', '', '_self', 0, 1, '', 1635761077, 1635836956, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for cmf_tag
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_tag`;
+CREATE TABLE `cmf_tag` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tag` varchar(50) NOT NULL DEFAULT '',
+  `total` mediumint(9) unsigned NOT NULL DEFAULT '0' COMMENT '文章总数',
+  `times` int(10) NOT NULL DEFAULT '0' COMMENT '次数',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE KEY `tag` (`tag`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of cmf_tag
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for cmf_tag_content
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_tag_content`;
+CREATE TABLE `cmf_tag_content` (
+  `modelid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `aid` int(10) unsigned NOT NULL DEFAULT '0',
+  `tagid` int(10) unsigned NOT NULL DEFAULT '0',
+  KEY `tag_index` (`modelid`,`aid`) USING BTREE,
+  KEY `tagid_index` (`tagid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Records of cmf_tag_content
+-- ----------------------------
+BEGIN;
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

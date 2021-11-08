@@ -3,6 +3,9 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
+        <blockquote class="layui-elem-quote">
+            取值方式： get_config(); 例如，取站点名称：get_config('site_name')
+        </blockquote>
         <form class="layui-form" action="javascript:;" onsubmit="return dosub(this)">
             <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
                 <ul class="layui-tab-title">
@@ -107,6 +110,19 @@
                                            ($data.admin_log==0)}checked{/if}>
                                 </td>
                                 <td>admin_log</td>
+                            </tr>
+                            <tr>
+                                <td>文本编辑器</td>
+                                <td>
+                                    <div class="layui-input-inline">
+                                        <select name="site_editor">
+                                            <option value="uEditor" {if ($data.site_editor=='uEditor')}selected{/if}>uEditor</option>
+                                            <option value="uEditorMini" {if ($data.site_editor=='uEditorMini')}selected{/if}>uEditorMini</option>
+                                            <option value="iceEditor" {if ($data.site_editor=='iceEditor')}selected{/if}>iceEditor</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td>site_editor</td>
                             </tr>
                             </tbody>
                         </table>

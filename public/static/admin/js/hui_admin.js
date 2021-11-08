@@ -283,4 +283,22 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
     str = str.replace(/'/g, '&#039;');
     return str;
   }
+
+  /*textarea 字数限制*/
+  window.textarealength = function (obj, maxlength) {
+    var v = $(obj).val();
+    var l = v.length;
+    if (l > maxlength) {
+      v = v.substring(0, maxlength);
+      $(obj).val(v);
+    }
+    $(obj).parent().find(".textarea-length").text(v.length);
+  }
+
+  //关闭弹出层
+  window.hui_close = function () {
+    var index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
+  }
+
 });

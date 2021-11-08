@@ -21,16 +21,20 @@ class Form
      */
     public static function editor($name = 'content', $val = '', $style = '', $isload = true)
     {
-        $editorType = 'iceEditor';
+        $val = htmlspecialchars_decode($val);
+        $editorType = get_config('site_editor');
         switch ($editorType) {
+            case 'uEditor';
+                $res = self::editor_uEditor($name, $val, $isload);
+                break;
+            case 'uEditorMini';
+                $res = self::editor_uEditorMini($name, $val, $isload);
+                break;
             case 'iceEditor';
                 $res = self::editor_iceEditor($name, $val, $isload);
                 break;
-            case 'wangEditor';
-                $res = self::editor_wangEditor($name, $val, $isload);
-                break;
             default:
-                $res = self::editor_iceEditor($name, $val, $isload);
+                $res = self::editor_uEditorMini($name, $val, $isload);
                 break;
         }
 
@@ -38,11 +42,59 @@ class Form
 
     }
 
+    /**
+     * 百度编辑器
+     *
+     * @param $name
+     * @param $val
+     * @param $isLoad
+     */
+    private static function editor_uEditor($name, $val, $isLoad)
+    {
+        $configJs = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.config.js';
+        $Js2      = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.all.js';
+        $style    = 'width:100%;height:400px';
+        $string   = '';
+        $string   .= '<script id="container" name="content" type="text/plain" style="'.$style.'" >'.$val.'</script>';
+        $string   .= '<script type="text/javascript" src="'.$configJs.'"></script>';
+        $string   .= '<script type="text/javascript" src="'.$Js2.'"></script>';
+        $string   .= '<script type="text/javascript">';
+        $string   .= "var ue = UE.getEditor('container');";
+        $string   .= '</script>';
+
+        return $string;
+    }
+
+    private static function editor_uEditorMini($name, $val, $isLoad)
+    {
+        $configJs = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.config.js';
+        $Js2      = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.all.js';
+        $style    = 'width:100%;height:400px';
+        $string   = '';
+        $string   .= '<script id="container" name="content" type="text/plain" style="'.$style.'" >'.$val.'</script>';
+        $string   .= '<script type="text/javascript" src="'.$configJs.'"></script>';
+        $string   .= '<script type="text/javascript" src="'.$Js2.'"></script>';
+        $string   .= '
+			<script type="text/javascript"> var ue = UE.getEditor("container",{
+            toolbars:[[ "fullscreen","source","|","bold","italic","underline","blockquote","forecolor","|",
+            "removeformat", "formatmatch", "autotypeset","fontfamily","fontsize","|",
+            "simpleupload","insertimage","insertcode","|","link","unlink","emotion","date","time","drafts","|",
+            "preview", "searchreplace", "help"]],
+            //关闭elementPath
+            elementPathEnabled:false,
+            //serverUrl :\''.url("ueditor/index").'\'
+        }); </script>';
+
+        return $string;
+    }
+
     private static function editor_iceEditor($name, $val, $isLoad)
     {
-        $libDir = DS.'static'.DS.'lib'.DS.'iceEditor'.DS.'iceEditor.min.js';
-        $string = '';
+        $Codecss = DS.'static'.DS.'lib'.DS.'iceEditor'.DS.'iceCode.css';
+        $libDir  = DS.'static'.DS.'lib'.DS.'iceEditor'.DS.'iceEditor.min.js';
+        $string  = '';
         if ($isLoad) {
+            $string .= '<link href="'.$Codecss.'" rel="stylesheet">';
             $string .= '<script type="text/javascript" charset="utf-8" src="'.$libDir.'"></script>';
         }
         $string .= '<textarea id="editor" name="'.$name.'">'.$val.'</textarea>';
@@ -52,53 +104,6 @@ class Form
                 iceEditor.create();
                 </script>
                 ';
-
-        return $string;
-    }
-
-    private static function editor_wangEditor($name, $val, $isLoad)
-    {
-        $css1   = DS.'static'.DS.'lib'.DS.'wangEditor-4.7.3'.DS.'css'.DS.'monokai_sublime.min.css';
-        $jquyer = DS.'static'.DS.'lib'.DS.'jquery-3.4.1'.DS.'jquery-3.4.1.min.js';
-        $libDir = DS.'static'.DS.'lib'.DS.'wangEditor-4.7.3'.DS.'wangEditor.js';
-        $hljs   = DS.'static'.DS.'lib'.DS.'wangEditor-4.7.3'.DS.'highlight.min.js';
-        $string = '';
-        if ($isLoad) {
-            $string .= '<link href="'.$css1.'" rel="stylesheet">';
-            $string .= '<script type="text/javascript" charset="utf-8" src="'.$jquyer.'"></script>';
-            $string .= '<script type="text/javascript" charset="utf-8" src="'.$libDir.'"></script>';
-            $string .= '<script type="text/javascript" charset="utf-8" src="'.$hljs.'"></script>';
-        }
-        $string .= '<div id="editor"><pre type="JavaScript"></pre></div>';
-        $string .= '<textarea name="content" id="editor_text" cols="30" class="layui-textarea layui-hide"></textarea>';
-        $string .= "";
-        $string .= "
-<script type=\"text/javascript\">
-        var E = window.wangEditor
-        var editor = new E('#editor')
-        var text1 = $('#editor_text')
-        editor.config.onchange = function (html) {
-            text1.val(html)
-        }
-        editor.config.uploadImgServer = '".__url('upload/index')."';
-        editor.config.uploadImgHooks = {
-            before: function(xhr) {},
-            success: function(xhr) {},
-            fail: function(xhr, editor, resData) {},
-            error: function(xhr, editor, resData) {},
-            timeout: function(xhr) {}    
-        }
-        editor.config.uploadFileName = 'file'
-        editor.config.uploadImgParams = {
-            'editor_type':'wangEditor'
-        };
-        editor.config.uploadImgAccept = []
-        editor.config.codeDefaultLang = 'php';
-        editor.highlight = hljs;
-        editor.create()
-        text1.val(editor.txt.html())
-    </script>
-    ";
 
         return $string;
     }

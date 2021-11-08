@@ -26,7 +26,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">栏目名称(en)</label>
                 <div class="layui-input-block">
-                    <input type="text" name="cate_en" autocomplete="off" placeholder="请输入栏目名称(en)" class="layui-input xv_pinyin" lay-verify="required">
+                    <input type="text" name="cate_en" autocomplete="off" placeholder="请输入栏目名称(en)"
+                           class="layui-input xv_pinyin" lay-verify="required">
                 </div>
             </div>
 
@@ -34,7 +35,7 @@
                 <label class="layui-form-label required">是否导航显示</label>
                 <div class="layui-input-block">
                     <input type="radio" name="show_in_nav" value="1" title="显示" checked="">
-                    <input type="radio" name="show_in_nav" value="0" title="不显示" >
+                    <input type="radio" name="show_in_nav" value="0" title="不显示">
                 </div>
             </div>
 
@@ -72,5 +73,9 @@
     </div>
 </div>
 {include file='footer'/}
+<script>
+  layui.use(['miniPinyin'], function () {
+  });
+</script>
 </body>
 </html>

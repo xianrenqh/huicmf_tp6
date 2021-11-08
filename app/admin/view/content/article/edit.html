@@ -5,6 +5,16 @@
     <div class="layuimini-main">
         <form class="layui-form layuimini-form" action="javascript:;" onsubmit="return dosub(this)" method="post">
             <div class="layui-form-item">
+                <label class="layui-form-label required">所属栏目</label>
+                <div class="layui-input-block">
+                    <select name="type_id">
+                        {foreach $pidMenuList as $vo}
+                        <option value="{$vo.id}" {if $vo.id==$data.type_id}selected=""{/if}>{$vo.cate_name|raw}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label required">标题</label>
                 <div class="layui-input-block">
                     <input type="text" id="title" name="title" value="{$data.title}" lay-verify="required"
@@ -22,8 +32,7 @@
                     <input type="checkbox" name="flag[]" value="4" title="推荐[4]" {if in_array(4,$data.flag)}checked{/if}>
                     <input type="checkbox" name="flag[]" value="5" title="热点[5]" {if in_array(5,$data.flag)}checked{/if}>
                     <input type="checkbox" name="flag[]" value="6" title="幻灯[6]" {if in_array(6,$data.flag)}checked{/if}>
-                    <input type="checkbox" name="flag[]" value="7" title="跳转[7]" lay-filter="flag" {if
-                           in_array(7,$data.flag)}checked{/if} >
+                    <input type="checkbox" name="flag[]" value="7" title="跳转[7]" lay-filter="flag" {if in_array(7,$data.flag)}checked{/if} >
                 </div>
             </div>
 
@@ -47,12 +56,7 @@
                         <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片
                         </button>
                     </div>
-                    <div class="layui-input-inline" style="width: 120px">
-                        <button type="button" class="layui-btn layui-btn-normal"
-                                onclick="WeAdminShow('选择图片','{:__url('general.attachment/select',[\'id\'=>\'image\'])}','800')">
-                            <i class="layui-icon">&#xe605;</i>选择图片
-                        </button>
-                    </div>
+
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
                                 onclick="hui_img_cropper('image','{:__url(\'upload/img_cropper\')}')"><i
@@ -103,7 +107,7 @@
             <div class="layui-form-item layui-hide">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="text" id="thumbs" name="thumbs">
+                    <input class="layui-input" type="text" id="thumbs" name="thumbs" value="{$data.thumbs|raw}">
                 </div>
             </div>
 
@@ -132,6 +136,29 @@
                                autocomplete="off" class="layui-input">
                         <tip>默认管理员昵称</tip>
                     </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">TAG：</label>
+                <div class="layui-input-inline block" style="width: 50%;">
+                    <div id="Huitags-demo1"></div>
+                </div>
+                <a class="layui-btn layui-btn-normal {if !check_auth('content.tag/select')}layui-hide{/if}"
+                   data-open="{:__url('content.tag/select')}"
+                   data-title="TAG标签选择" data-reload="0">选择</a>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" id="keywords" name="keywords" value="{$data.keywords}" autocomplete="off" class="layui-input" placeholder="每个关键字之间用“,”分割">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容摘要</label>
+                <div class="layui-input-block">
+                    <textarea name="description" class="layui-textarea"  placeholder="如不填写，则自动提取文章前200字符" datatype="*10-300" dragonfly="true" nullmsg="文章摘要不能为空！" onKeyUp="textarealength(this,300)">{$data.description}</textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">{$description_length}</em>/300</p>
                 </div>
             </div>
 
@@ -169,9 +196,17 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['form', 'jquery', 'upload'], function () {
-    let form = layui.form, $ = layui.jquery, upload = layui.upload;
+  layui.use(['form', 'jquery', 'upload','miniHuitags'], function () {
+    let form = layui.form, $ = layui.jquery, upload = layui.upload, miniHuitags = layui.miniHuitags;
     form.render();
+    let tags = "{$tags}".split(',');
+    $("#Huitags-demo1").Huitags(
+      {
+        maxlength : 20,
+        number : 10,
+        value : tags
+      }
+    );
 
     $(document).on('click', '[id^=delImg]', function () {
       var importImgF = $('#imgItemInfo').find('div:first');//importImg0、importImg1、importImg2

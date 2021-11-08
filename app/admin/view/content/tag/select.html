@@ -1,0 +1,140 @@
+{include file='header'/}
+<style>
+    .yzm_tags {
+        margin-top: 12px;
+        margin-bottom: 23px;
+    }
+
+    .yzm_tags a {
+        color: #ee7b1d;
+        margin-right: 10px;
+        cursor: pointer;
+    }
+
+    .yzm_tags a:hover {
+        color: #f00
+    }
+</style>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索标签</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="javascript:;" id="form_tag_search">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" name="keyword" id="keyword" placeholder="请输入关键词" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search"
+                                    onclick="search()">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-sm reset" type="reset"
+                                    data-type="reload" lay-submit=""
+                                    onclick="reset_key()"><i class="layui-icon">&#xe63f;</i>清空
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+        <form class="layui-form" action="javascript:;" method="post">
+            <fieldset class="table-search-fieldset">
+                <legend>标签</legend>
+                <div class="layui-input-inline">
+                    <div class="yzm_tags"></div>
+                </div>
+            </fieldset>
+
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">
+                    已选的TAG
+                </label>
+                <div class="layui-input-block">
+                    <input type="text" id="tags" name="tags" value="" autocomplete="off" class="layui-input"
+                           lay-verify="required">
+                </div>
+            </div>
+        </form>
+        <div style="position: fixed;bottom: 20px;right: 10px;z-index: 99;">
+            <button onclick="dosub()" name="dosubmit" class="layui-btn" type="submit">&nbsp;&nbsp;确定&nbsp;&nbsp;
+            </button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button onclick="hui_close()" class="layui-btn layui-btn-normal" type="button">&nbsp;&nbsp;关闭&nbsp;&nbsp;
+            </button>
+        </div>
+
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery'], function () {
+    var form = layui.form, $ = layui.jquery;
+    form.render();
+    post_data();
+
+    window.dosub = function (obj) {
+      var v = $("#tags").val();
+      if (v == '') {
+        layer.msg('请选择TAG！', {icon: 2});
+        return false;
+      }
+      var str = '';
+      var strs = new Array();
+      strs = v.split(",");
+      for (i = 0; i < strs.length; i++) {
+        str += '<span class="Huitags-token">' + strs[i] + '</span>';
+      }
+      var index = parent.layer.getFrameIndex(window.name);
+      parent.layui.$(".Huitags-editor").append(str);
+
+      var taglist = parent.layui.$(".Huitags-val").val();
+      if (taglist != "" && taglist != undefined) {
+        var valObj = taglist.split(",");
+        parent.layui.$(".Huitags-val").val(parent.layui.$(".Huitags-val").val() + "," + v);
+      } else {
+        parent.layui.$(".Huitags-val").val(v);
+      }
+      parent.layer.close(index);
+    }
+
+    function post_data() {
+      $.post("{:__url('select')}", function (res) {
+        $(".yzm_tags").html(res.data);
+      })
+    }
+
+    window.set_val = function (val) {
+      var v = $("#tags").val();
+      v = v ? v + ',' + val : val;
+      $("#tags").val(v);
+    }
+
+    window.reset_key = function () {
+      $("#keyword").val()
+      $.post("{:__url('select')}", function (res) {
+        $(".yzm_tags").html(res.data);
+      })
+    }
+
+    window.search = function () {
+      var key = $("#keyword").val();
+      if (key == '') {
+        layer.msg('搜索关键词不能为空');
+        return false;
+      }
+      $.post("{:__url('select')}", {
+        dosearch: 1,
+        key: key
+      }, function (res) {
+        $(".yzm_tags").html(res.data);
+      })
+    }
+  });
+</script>
+</body>
+</html>

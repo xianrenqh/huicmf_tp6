@@ -5,6 +5,16 @@
     <div class="layuimini-main">
         <form class="layui-form layuimini-form" action="javascript:;" onsubmit="return dosub(this)" method="post">
             <div class="layui-form-item">
+                <label class="layui-form-label required">所属栏目</label>
+                <div class="layui-input-block">
+                    <select name="type_id">
+                        {foreach $pidMenuList as $vo}
+                        <option value="{$vo.id}">{$vo.cate_name|raw}</option>
+                        {/foreach}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label required">标题</label>
                 <div class="layui-input-block">
                     <input type="text" id="title" name="title" value="" lay-verify="required" autocomplete="off"
@@ -45,12 +55,6 @@
                         </button>
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
-                        <button type="button" class="layui-btn layui-btn-normal"
-                                onclick="WeAdminShow('选择图片','{:__url('general.attachment/select',[\'id\'=>\'image\'])}','800')">
-                            <i class="layui-icon">&#xe605;</i>选择图片
-                        </button>
-                    </div>
-                    <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
                                 onclick="hui_img_cropper('image','{:__url(\'upload/img_cropper\')}')"><i
                                 class="layui-icon layui-icon-picture"></i>裁剪图片
@@ -61,7 +65,7 @@
 
 
             <div class="layui-form-item" id="imgItem">
-                <label class="layui-form-label">上传图片：</label>
+                <label class="layui-form-label">上传多图：</label>
                 <button type="button" id="importModel" class="layui-hide">图片导入</button>
                 <div class="layui-input-inlines-self" id="imgItemInfo">
                     <div class="layui-upload-drag-self" id="importImg0">
@@ -112,6 +116,29 @@
                     </div>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">TAG：</label>
+                <div class="layui-input-inline block" style="width: 50%;">
+                    <div id="Huitags-demo1"></div>
+                </div>
+                <a class="layui-btn layui-btn-normal {if !check_auth('content.tag/select')}layui-hide{/if}"
+                   data-open="{:__url('content.tag/select')}"
+                   data-title="TAG标签选择" data-reload="0">选择</a>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">关键词</label>
+                <div class="layui-input-block">
+                    <input type="text" id="keywords" name="keywords" value="" autocomplete="off" class="layui-input" placeholder="每个关键字之间用“,”分割">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">内容摘要</label>
+                <div class="layui-input-block">
+                    <textarea name="description" class="layui-textarea"  placeholder="如不填写，则自动提取文章前200字符" datatype="*10-300" dragonfly="true" nullmsg="文章摘要不能为空！" onKeyUp="textarealength(this,300)"></textarea>
+                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/300</p>
+                </div>
+            </div>
 
             <div class="layui-form-item">
                 <label class="layui-form-label">内容</label>
@@ -147,9 +174,16 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['form', 'jquery', 'upload'], function () {
-    let form = layui.form, $ = layui.jquery, upload = layui.upload;
+  layui.use(['form', 'jquery', 'upload','miniHuitags'], function () {
+    let form = layui.form, $ = layui.jquery, upload = layui.upload,miniHuitags = layui.miniHuitags;
     form.render();
+    $("#Huitags-demo1").Huitags(
+      {
+        maxlength : 20,
+        number : 10,
+      }
+    );
+
     //普通图片上传
     var uploadInst = upload.render({
       elem: '#test1'
