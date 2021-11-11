@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 08/11/2021 17:48:30
+ Date: 11/11/2021 14:13:03
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ CREATE TABLE `cmf_admin` (
 -- Records of cmf_admin
 -- ----------------------------
 BEGIN;
-INSERT INTO `cmf_admin` VALUES (1, 'admin', '超级管理员', '3296135c44983633d8b1254dd62c6ff1', 'abedf7', '/uploads/avatars/20211105/0783bcd626c8895f2cd082cf7ce502bd.jpg', 'admin@admin.com', 2, 1636342207, '127.0.0.1', 75, 1635759162, 1636342207, '', 'normal');
+INSERT INTO `cmf_admin` VALUES (1, 'admin', '超级管理员', '3296135c44983633d8b1254dd62c6ff1', 'abedf7', '/uploads/avatars/20211105/0783bcd626c8895f2cd082cf7ce502bd.jpg', 'admin@admin.com', 2, 1636593503, '127.0.0.1', 76, 1635759162, 1636593503, '', 'normal');
 COMMIT;
 
 -- ----------------------------
@@ -65,6 +65,7 @@ CREATE TABLE `cmf_article` (
   `jump_url` varchar(255) NOT NULL DEFAULT '' COMMENT '跳转链接',
   `click` int(10) NOT NULL DEFAULT '0' COMMENT '点击量',
   `weight` int(10) NOT NULL DEFAULT '0' COMMENT '排序（数字越大越靠前）',
+  `editor` int(1) NOT NULL DEFAULT '1' COMMENT '内容编辑器：1=富文本编辑器；2=MD编辑器',
   `status` int(1) NOT NULL DEFAULT '0' COMMENT '状态',
   `keywords` varchar(250) NOT NULL DEFAULT '' COMMENT '关键词',
   `description` varchar(500) NOT NULL DEFAULT '' COMMENT '描述',
@@ -251,12 +252,13 @@ CREATE TABLE `cmf_category` (
   `create_time` int(10) NOT NULL DEFAULT '0',
   `update_time` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmf_category
 -- ----------------------------
 BEGIN;
+INSERT INTO `cmf_category` VALUES (1, '测试栏目1', 'ceshilanmu1', 0, 1, 0, '', '', 1636594719, 1636594719);
 COMMIT;
 
 -- ----------------------------
