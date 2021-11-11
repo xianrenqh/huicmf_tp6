@@ -29,6 +29,10 @@ class UploadController
         $this->upload_mode = 'local';
     }
 
+    /**
+     * 普通图片上蔡
+     * @return \think\response\Json|void
+     */
     public function index()
     {
         $option              = [];
@@ -38,13 +42,21 @@ class UploadController
         switch ($this->upload_mode) {
             case 'local':
                 try {
-                    $up_file = request()->file('file');
+                    if ($editor_type === 'editorMd') {
+                        $up_file = request()->file();
+
+                    } else {
+                        $up_file = request()->file('file');
+                    }
                 } catch (\think\Exception $e) {
                     return json(['code' => 0, 'msg' => $this->_languageChange($e->getMessage())]);
                 }
                 switch ($editor_type) {
                     case "iceEditor":
                         $file = $up_file[0];
+                        break;
+                    case "editorMd";
+                        $file = $up_file['editormd-image-file'];
                         break;
                     default:
                         $file = $up_file;
@@ -58,7 +70,11 @@ class UploadController
                         ]
                     ])->check(['imgFile' => $file]);
                     //上传图片到本地服务器
-                    $saveName = \think\facade\Filesystem::disk('public')->putFile($save_path, $file);
+                    try {
+                        $saveName = \think\facade\Filesystem::disk('public')->putFile($save_path, $file);
+                    } catch (\think\exception\ValidateException $e) {
+                        return json($e->getMessage());
+                    }
                     if ( ! $saveName) {
                         return json(['code' => 0, 'msg' => '上传图片失败']);
                     }
@@ -77,8 +93,11 @@ class UploadController
                         case "wangEditor":
                             return json([
                                 'errno' => 0,
-                                'data'  => [['url' => $savePath, 'alt' => $saveName, 'href' => '']]
+                                'data'  => ['url' => $savePath, 'alt' => $saveName, 'href' => '']
                             ]);
+                            break;
+                        case "editorMd";
+                            return json(['url' => $savePath, 'message' => '上传成功', 'success' => 1]);
                             break;
                         default:
                             return json([
@@ -91,7 +110,6 @@ class UploadController
                     }
 
                 } catch (\think\exception\ValidateException $e) {
-                    halt($editor_type);
                     switch ($editor_type) {
                         case "iceEditor":
                             return json([
@@ -104,6 +122,9 @@ class UploadController
                             break;
                         case "wangEditor":
                             return json(['errno' => '1', 'msg' => $e->getMessage()]);
+                            break;
+                        case "editorMd";
+                            return json(['url' => '', 'message' => $e->getMessage(), 'success' => 0]);
                             break;
                         default:
                             return json(['code' => 0, 'msg' => $e->getMessage()]);

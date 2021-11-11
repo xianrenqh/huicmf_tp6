@@ -13,33 +13,71 @@ class Form
 {
 
     /**
-     * 编辑器
+     * 富文本编辑器
      *
      * @param $name   name
      * @param $style  样式
      * @param $isload 是否加载js,当该页面加载过编辑器js后，无需重复加载
      */
-    public static function editor($name = 'content', $val = '', $style = '', $isload = true)
+    public static function editor($name = 'content', $val = '', $style = '', $isload = true): string
     {
-        $val = htmlspecialchars_decode($val);
+        $val        = htmlspecialchars_decode($val);
         $editorType = get_config('site_editor');
         switch ($editorType) {
             case 'uEditor';
-                $res = self::editor_uEditor($name, $val, $isload);
+                $res = self::editor_uEditor($name, $val, $isload, $style);
                 break;
             case 'uEditorMini';
-                $res = self::editor_uEditorMini($name, $val, $isload);
+                $res = self::editor_uEditorMini($name, $val, $isload, $style);
                 break;
             case 'iceEditor';
-                $res = self::editor_iceEditor($name, $val, $isload);
+                $res = self::editor_iceEditor($name, $val, $isload, $style);
                 break;
             default:
-                $res = self::editor_uEditorMini($name, $val, $isload);
+                $res = self::editor_uEditorMini($name, $val, $isload, $style);
                 break;
         }
 
         return $res;
 
+    }
+
+    /**
+     * MD编辑器
+     *
+     * @param string $name
+     * @param string $val
+     *
+     * @return string
+     */
+    public static function editorMd($name = 'content', $val = '')
+    {
+        $css1     = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'css'.DS.'editormd.min.css';
+        $jquery   = DS.'static'.DS.'lib'.DS.'jquery-3.4.1'.DS.'jquery-3.4.1.min.js';
+        $editormd = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'editormd.min.js';
+        $libPath  = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'lib'.DS;
+        $string   = '';
+        $string   .= '<link href="'.$css1.'" rel="stylesheet">';
+        $string   .= '<div id="test-editor">';
+        $string   .= '<textarea style="display:none;" name="'.$name.'">'.$val.'</textarea>';
+        $string   .= '</div>';
+        $string   .= '<script type="text/javascript" charset="utf-8" src="'.$jquery.'"></script>';
+        $string   .= '<script type="text/javascript" charset="utf-8" src="'.$editormd.'"></script>';
+        $string   .= '<script type="text/javascript">';
+        $string   .= '$(function() {
+            var editor = editormd("test-editor", {
+            path   : "'.$libPath.'",
+            height : "500px",
+            imageUpload : true,
+            //theme : "dark",
+            imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+            imageUploadURL : "'.__url('upload/index', ['editor_type' => 'editorMd']).'",
+            saveHTMLToTextarea : true, // 保存 HTML 到 Textarea
+        });
+        })';
+        $string   .= '</script>';
+
+        return $string;
     }
 
     /**
@@ -49,13 +87,12 @@ class Form
      * @param $val
      * @param $isLoad
      */
-    private static function editor_uEditor($name, $val, $isLoad)
+    private static function editor_uEditor($name, $val, $isLoad, $style = '')
     {
         $configJs = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.config.js';
         $Js2      = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.all.js';
-        $style    = 'width:100%;height:400px';
         $string   = '';
-        $string   .= '<script id="container" name="content" type="text/plain" style="'.$style.'" >'.$val.'</script>';
+        $string   .= '<script id="container" name="'.$name.'" type="text/plain" style="'.$style.'" >'.$val.'</script>';
         $string   .= '<script type="text/javascript" src="'.$configJs.'"></script>';
         $string   .= '<script type="text/javascript" src="'.$Js2.'"></script>';
         $string   .= '<script type="text/javascript">';
@@ -65,13 +102,12 @@ class Form
         return $string;
     }
 
-    private static function editor_uEditorMini($name, $val, $isLoad)
+    private static function editor_uEditorMini($name, $val, $isLoad, $style = '')
     {
         $configJs = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.config.js';
         $Js2      = DS.'static'.DS.'lib'.DS.'ueditor-1.4.3.3'.DS.'ueditor.all.js';
-        $style    = 'width:100%;height:400px';
         $string   = '';
-        $string   .= '<script id="container" name="content" type="text/plain" style="'.$style.'" >'.$val.'</script>';
+        $string   .= '<script id="container" name="'.$name.'" type="text/plain" style="'.$style.'" >'.$val.'</script>';
         $string   .= '<script type="text/javascript" src="'.$configJs.'"></script>';
         $string   .= '<script type="text/javascript" src="'.$Js2.'"></script>';
         $string   .= '
@@ -82,13 +118,13 @@ class Form
             "preview", "searchreplace", "help"]],
             //关闭elementPath
             elementPathEnabled:false,
-            //serverUrl :\''.url("ueditor/index").'\'
+            //serverUrl :\''.__url('upload/index', ['editor_type' => 'iceEditor']).'\'
         }); </script>';
 
         return $string;
     }
 
-    private static function editor_iceEditor($name, $val, $isLoad)
+    private static function editor_iceEditor($name, $val, $isLoad, $style = '')
     {
         $Codecss = DS.'static'.DS.'lib'.DS.'iceEditor'.DS.'iceCode.css';
         $libDir  = DS.'static'.DS.'lib'.DS.'iceEditor'.DS.'iceEditor.min.js';

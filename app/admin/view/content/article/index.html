@@ -36,9 +36,13 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary"><i class="fa fa-refresh"></i></button>
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('content.article/add')}layui-hide{/if}"
-               data-open-full="{:__url('content.article/add')}"
-               data-title="添加内容">
+               data-open-full="{:__url('content.article/add',['editor'=>1])}"
+               data-title="添加文章" data-reload="2">
                 <i class="fa fa-plus"></i> 添加文章</a>
+            <a class="layui-btn layui-btn-success layui-btn-sm {if !check_auth('content.article/add')}layui-hide{/if}"
+               data-open-full="{:__url('content.article/add',['editor'=>2])}"
+               data-title="添加MarkDown文章" data-reload="2">
+                <i class="fa fa-plus"></i> 添加MarkDown文章</a>
         </div>
 
         <table id="article_table" lay-filter="article_table"></table>
@@ -58,11 +62,11 @@
         </script>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('content.article/edit')}layui-hide{/if}"
-               data-open-full="{:__url('content.article/edit')}?id={{d.id}}"
-               data-title="编辑内容" data-reload="1">编辑</a>
+               data-open-full="{:__url('content.article/edit')}?id={{d.id}}&editor={{d.editor}}"
+               data-title="编辑内容" data-reload="2">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('content.article/delete')}layui-hide{/if}"
                data-delete="{:__url('content.article/delete')}?id={{d.id}}"
-               data-title="您确定要删除吗？删除之后可以在回收站里查找哦" data-reload="1">删除</a>
+               data-title="您确定要删除吗？删除之后可以在回收站里查找哦" data-reload="2">删除</a>
         </script>
 
     </div>

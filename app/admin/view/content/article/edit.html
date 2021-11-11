@@ -164,9 +164,15 @@
 
             <div class="layui-form-item">
                 <label class="layui-form-label">内容</label>
-                <div class="layui-input-block">
+                {if($editor eq 1)}
+                <div class="layui-input-block" id="contentEditorHtml" style="z-index: 0">
                     {php}echo lib\Form::editor('content',$val=$data['content'], 'width:100%;height:400px');{/php}
                 </div>
+                {else}
+                <div class="layui-input-block" id="contentEditorMD">
+                    {php}echo lib\Form::editorMd('content',$val=$data['content']);{/php}
+                </div>
+                {/if}
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"></label>

@@ -3,22 +3,27 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form layuimini-form" action="javascript:;" onsubmit="return dosub(this)" method="post">
+        <form class="layui-form layuimini-form" action="javascript:" onsubmit="return dosub(this)" method="post">
             <div class="layui-form-item">
                 <label class="layui-form-label required">所属栏目</label>
                 <div class="layui-input-block">
-                    <select name="type_id">
-                        {foreach $pidMenuList as $vo}
-                        <option value="{$vo.id}">{$vo.cate_name|raw}</option>
-                        {/foreach}
-                    </select>
+                    <label>
+                        <select name="type_id" lay-verify="required" lay-reqtext="请先选择栏目">
+                            <option value="">请选择栏目</option>
+                            {foreach $pidMenuList as $vo}
+                            <option value="{$vo.id}">{$vo.cate_name|raw}</option>
+                            {/foreach}
+                        </select>
+                    </label>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">标题</label>
                 <div class="layui-input-block">
-                    <input type="text" id="title" name="title" value="" lay-verify="required" autocomplete="off"
-                           class="layui-input" lay-reqtext="标题不能为空">
+                    <label for="title">
+                        <input type="text" id="title" name="title" value="" lay-verify="required" autocomplete="off"
+                               class="layui-input" lay-reqtext="标题不能为空">
+                    </label>
                 </div>
             </div>
 
@@ -38,8 +43,10 @@
             <div class="layui-form-item layui-hide" id="jumpUrl">
                 <label class="layui-form-label required">跳转url</label>
                 <div class="layui-input-block">
-                    <input type="text" id="jump_url" name="jump_url" value="" autocomplete="off" class="layui-input"
-                           data-s='0'>
+                    <label for="jump_url">
+                        <input type="text" id="jump_url" name="jump_url" value="" autocomplete="off" class="layui-input"
+                               data-s='0'>
+                    </label>
                 </div>
             </div>
 
@@ -47,8 +54,10 @@
                 <label class="layui-form-label">缩略图</label>
                 <div class="layui-input-block">
                     <div class="layui-input-inline" style="width: 50%">
-                        <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
-                               onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
+                        <label for="image">
+                            <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
+                                   onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
+                        </label>
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片
@@ -73,7 +82,7 @@
                             <i class="layui-icon" id="uploadIcon0"> &#xe624; </i>
                         </div>
                         <div class="img layui-hide" id="uploadDemoView0">
-                            <img class="layui-upload-img" id="imgs0" src="">
+                            <img class="layui-upload-img" id="imgs0" src="" alt="">
                             <div class="handle layui-hide" id="handle0">
                                 <i class="layui-icon layui-icon-picture-fine" id="preImg0" style="color:#fff"></i>
                                 <i class="layui-icon layui-icon-delete" id="delImg0" style="color:#fff"></i>
@@ -86,7 +95,9 @@
             <div class="layui-form-item layui-hide">
                 <label class="layui-form-label"></label>
                 <div class="layui-input-block">
-                    <input class="layui-input" type="" id="thumbs" name="thumbs">
+                    <label for="thumbs">
+                        <input class="layui-input" type="text" id="thumbs" name="thumbs">
+                    </label>
                 </div>
             </div>
 
@@ -94,24 +105,32 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">点击量</label>
                     <div class="layui-input-inline">
-                        <input type="number" id="click" name="click" value="{$click}" autocomplete="off"
-                               class="layui-input">
+                        <label for="click">
+                            <input type="number" id="click" name="click" value="{$click}" autocomplete="off"
+                                   class="layui-input">
+                        </label>
                         <tip>默认随机100以内</tip>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">权重</label>
                     <div class="layui-input-inline">
-                        <input type="number" id="weight" name="weight" value="0" autocomplete="off" class="layui-input">
+                        <label for="weight">
+                            <input type="number" id="weight" name="weight" value="0" autocomplete="off"
+                                   class="layui-input">
+                        </label>
                         <tip>越大排序越靠前</tip>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">编辑昵称</label>
                     <div class="layui-input-inline">
-                        <input type="text" id="nickname" name="nickname"
-                               value="{php}echo session('admin.nickname')?session('admin.nickname'):'管理员'{/php}"
-                               autocomplete="off" class="layui-input">
+                        <label for="nickname">
+                            <input type="text" id="nickname" name="nickname"
+                                   value="{php}echo session('admin.nickname')?session('admin.nickname'):'管理员'{/php}"
+                                   autocomplete="off" class="layui-input">
+                        </label>
+
                         <tip>默认管理员昵称</tip>
                     </div>
                 </div>
@@ -129,22 +148,34 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">关键词</label>
                 <div class="layui-input-block">
-                    <input type="text" id="keywords" name="keywords" value="" autocomplete="off" class="layui-input" placeholder="每个关键字之间用“,”分割">
+                    <label for="keywords">
+                        <input type="text" id="keywords" name="keywords" value="" autocomplete="off" class="layui-input"
+                               placeholder="每个关键字之间用“,”分割">
+                    </label>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">内容摘要</label>
                 <div class="layui-input-block">
-                    <textarea name="description" class="layui-textarea"  placeholder="如不填写，则自动提取文章前200字符" datatype="*10-300" dragonfly="true" nullmsg="文章摘要不能为空！" onKeyUp="textarealength(this,300)"></textarea>
-                    <p class="textarea-numberbar"><em class="textarea-length">0</em>/300</p>
+                    <label>
+                        <textarea name="description" class="layui-textarea" placeholder="如不填写，则自动提取文章前200字符"
+                                  datatype="*10-300" dragonfly="true" nullmsg="文章摘要不能为空！"
+                                  onKeyUp="textarealength(this,300)"></textarea>
+                        <span class="textarea-numberbar"><em class="textarea-length">0</em>/300</span>
+                    </label>
                 </div>
             </div>
-
             <div class="layui-form-item">
                 <label class="layui-form-label">内容</label>
-                <div class="layui-input-block">
+                {if($editor eq 1)}
+                <div class="layui-input-block" id="contentEditorHtml" style="z-index: 0">
                     {php}echo lib\Form::editor('content',$val='', 'width:100%;height:400px');{/php}
                 </div>
+                {else}
+                <div class="layui-input-block" id="contentEditorMD">
+                    {php}echo lib\Form::editorMd('content',$val='');{/php}
+                </div>
+                {/if}
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label"></label>
@@ -156,6 +187,7 @@
             <div class="layui-form-item layui-hide">
                 <label class="layui-form-label required">状态</label>
                 <div class="layui-input-block">
+                    <input type="hidden" name="editor" value="{$editor}">
                     <input type="hidden" name="status" value="1">
                 </div>
             </div>
@@ -174,32 +206,32 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['form', 'jquery', 'upload','miniHuitags'], function () {
-    let form = layui.form, $ = layui.jquery, upload = layui.upload,miniHuitags = layui.miniHuitags;
+  layui.use(['form', 'jquery', 'upload', 'miniHuitags'], function () {
+    let form = layui.form, $ = layui.jquery, upload = layui.upload;
     form.render();
     $("#Huitags-demo1").Huitags(
       {
-        maxlength : 20,
-        number : 10,
+        maxlength: 20,
+        number: 10,
       }
     );
 
     //普通图片上传
-    var uploadInst = upload.render({
+    upload.render({
       elem: '#test1'
       , url: "{:__url('upload/index',['save_path'=>'images'])}"
-      ,done: function(res){
+      , done: function (res) {
         console.log(res.src)
-        if(res.status==1){
+        if (res.status === 1) {
           $("#demo1").val(res.src);
         }
       }
     })
 
     $(document).on('click', '[id^=delImg]', function () {
-      var importImgF = $('#imgItemInfo').find('div:first');//importImg0、importImg1、importImg2
-      var empt = $(this).parent().parent().parent();//importImg0、importImg1、importImg2
-      var nextImgSrc = $(this).parent().parent().parent().next().find('img').attr('src');//src
+      let importImgF = $('#imgItemInfo').find('div:first');//importImg0、importImg1、importImg2
+      let empt = $(this).parent().parent().parent();//importImg0、importImg1、importImg2
+      let nextImgSrc = $(this).parent().parent().parent().next().find('img').attr('src');//src
       //判断当前DIV后面的div的url是否为空
       if (!nextImgSrc) {
         //判断是否为第一个
@@ -221,9 +253,8 @@
       }
       return false;
     });
-
     form.on('checkbox(flag)', function (obj) {
-      var check = obj.elem.checked;
+      let check = obj.elem.checked;
       if (check) {
         $('#jumpUrl').removeClass('layui-hide');
         $("#jumpUrl>div>input").attr('data-s', '1');
@@ -235,7 +266,7 @@
 
     //图片预览
     $(document).on('click', '[id^=preImg]', function () {
-      var iHtml = "<img src='" + $(this).parent().parent().find('img:first').attr('src') + "' style='width: 100%; height: 100%;'/>";
+      let iHtml = "<img src='" + $(this).parent().parent().find('img:first').attr('src') + "' style='width: 100%; height: 100%;' alt=''/>";
       layer.open({
         type: 1,
         shade: false,
@@ -255,10 +286,10 @@
       $(this).find('div:first').addClass('layui-hide');
     });
 
-    var imgsId,
+    let imgsId,
       uploadDemoViewId,
       uploadIconId;
-    var count = 1;
+    let count = 1;
 
     $(document).on('click', '[id^=imgDivs]', function () {
       if (count > 5) {
@@ -294,7 +325,7 @@
           '<i class="layui-icon" id="uploadIcon' + count + '"> &#xe624; </i>' +
           '</div>' +
           '<div class="img layui-hide" id="uploadDemoView' + count + '">' +
-          '<img class="layui-upload-img" id="imgs' + count + '" src="">' +
+          '<img class="layui-upload-img" id="imgs' + count + '" src="" alt="">' +
           '<div class="handle layui-hide" id="handle' + count + '">' +
           '<i class="layui-icon layui-icon-picture-fine" id="preImg' + count + '" style="color:#fff"></i>' +
           '<i class="layui-icon layui-icon-delete" id="delImg' + count + '" style="color:#fff"></i>' +
@@ -306,26 +337,27 @@
     window.set_status = function (s) {
       $("input[name='status']").val(s);
     }
+
     window.dosub = function (obj) {
       let jump_url = $('#jump_url').val();
       let jumpCheck = $("#jumpUrl>div>input").attr('data-s');
 
-      if (jumpCheck == 1 && jump_url == '') {
+      if (jumpCheck === 1 && jump_url === '') {
         layer.msg('跳转url地址不能为空', {icon: 2});
         return false;
       }
-      if (jump_url != '') {
-        var strReg = "^((https|http|ftp|rtsp|mms)?://)";
-        var re = new RegExp(strReg);
+      if (jump_url !== '') {
+        let strReg = "^((https|http|ftp|rtsp|mms)?://)";
+        let re = new RegExp(strReg);
         if (!re.test(jump_url)) {
           layer.msg('不是有效的url地址', {icon: 2});
           return false;
         }
       }
-      var imgs = $('[id^=imgs]');
-      var imgArray = '';
+      let imgs = $('[id^=imgs]');
+      let imgArray = '';
       imgs.each(function () {
-        var url = $(this).attr('src');
+        let url = $(this).attr('src');
         if (url) {
           imgArray += url + ',';
         }

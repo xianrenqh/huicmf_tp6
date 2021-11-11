@@ -48,10 +48,10 @@
     <script type="text/html" id="barDemo">
       <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('content.article/edit')}layui-hide{/if}"
          data-open-full="{:__url('content.article/edit')}?id={{d.id}}"
-         data-title="编辑内容" data-reload="1">编辑还原</a>
+         data-title="编辑内容" data-reload="2">编辑还原</a>
       <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('content.recycle_bin/delete')}layui-hide{/if}"
          data-delete="{:__url('content.recycle_bin/delete')}?id={{d.id}}"
-         data-title="您确定要永久删除吗？" data-reload="1">永久删除</a>
+         data-title="您确定要永久删除吗？" data-reload="2">永久删除</a>
     </script>
 
   </div>

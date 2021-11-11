@@ -31,11 +31,11 @@
                     <a href="javascript:;"
                        class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.auth/edit')}layui-hide{/if}"
                        data-open="{:__url('system.auth/edit')}?id={$vo.id}" data-open-full="编辑"
-                       data-reload="1" data-title="编辑">编辑</a>
+                       data-reload="2" data-title="编辑">编辑</a>
                     <a href="javascript:;"
                        class="layui-btn layui-btn-sm layui-btn-danger {if !check_auth('system.auth/delete')}layui-hide{/if}"
                        data-delete="{:__url('system.auth/delete')}?id={$vo.id}" data-title="确定要删除吗？"
-                       data-reload="1">删除</a>
+                       data-reload="2">删除</a>
                     {/if}
                 </td>
             </tr>

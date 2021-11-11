@@ -33,7 +33,7 @@
                     <a title="删除" href="javascript:;"
                        class="layui-btn layui-btn-sm layui-btn-danger {if !check_auth('system.database/delete')}layui-hide{/if}"
                        data-delete="{:__url('system.database/delete')}?file={$vo.file}" data-title="确定要删除吗？"
-                       data-reload="1">删除</a>
+                       data-reload="2">删除</a>
                 </td>
             </tr>
             {/volist}

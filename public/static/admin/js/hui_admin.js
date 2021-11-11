@@ -78,6 +78,8 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
         layer.msg(res.msg, {time: 1500, icon: 1}, function () {
           if (res.data.refresh == 1) {
             window.parent.location.reload();
+          } else if (res.data.refresh == 2) {
+            window.location.reload();
           }
         });
       } else {
@@ -152,6 +154,8 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
         end: function () {
           if (reload == 1) {
             window.parent.location.reload();
+          } else if (reload == 2) {
+            window.location.reload();
           }
         }
       });
@@ -198,6 +202,8 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
         end: function () {
           if (reload == 1) {
             window.parent.location.reload();
+          } else if (reload == 2) {
+            window.location.reload();
           }
         }
       });

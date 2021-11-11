@@ -998,7 +998,7 @@
     color: #333;
 }
 
-.textarea-numberbar{position:absolute;right:20px;bottom:5px;z-index:1;margin-bottom:0;color:#e76c02}
+.textarea-numberbar{position:absolute;right:20px;bottom:5px;z-index:0;margin-bottom:0;color:#e76c02}
 .textarea-length{font-style:normal}
 /*tag标签*/
 .Huitags-editor{ margin-top:8px;}

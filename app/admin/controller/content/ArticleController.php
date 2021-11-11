@@ -20,6 +20,7 @@ use think\App;
 use lib\Random;
 use lib\GetImgSrc;
 use think\facade\Db;
+use think\response\Json;
 
 /**
  * @ControllerAnnotation(title="文章管理")
@@ -42,7 +43,7 @@ class ArticleController extends AdminController
     /**
      * @NodeAnotation(title="内容列表")
      */
-    public function index()
+    public function index(): Json|string
     {
         if ($this->request->isAjax()) {
             $page  = (int)$this->request->param('page', 1);
@@ -82,12 +83,13 @@ class ArticleController extends AdminController
     /**
      * @NodeAnotation(title="添加内容")
      */
-    public function add()
+    public function add(): string
     {
         $CategoryModel = new CategoryModel();
         if ($this->request->isAjax()) {
             $param = $this->request->param();
             $rule  = [
+                'type_id|栏目' => 'require',
                 'title|标题'   => 'require',
                 'content|内容' => 'require'
             ];
@@ -100,7 +102,7 @@ class ArticleController extends AdminController
             $param['admin_id'] = cmf_get_admin_id();
             //自动提取缩略图
             if (isset($param['auto_image']) && $param['image'] == '') {
-                $param['image'] = GetImgSrc::src($param['content'], 1);
+                $param['image'] = GetImgSrc::src($param['content']);
                 $param['image'] = ! empty($param['image']) ? $param['image'] : '';
             }
             $param['description'] = empty($param['description']) ? str_cut(strip_tags($param['content']),
@@ -126,6 +128,8 @@ class ArticleController extends AdminController
         }
         $click       = Random::numeric(2);
         $pidMenuList = $CategoryModel->getPidMenuList();
+        $editor      = $this->request->param('editor', 1);
+        $this->assign('editor', $editor);
         $this->assign('click', $click);
         $this->assign('pidMenuList', $pidMenuList);
 
@@ -135,7 +139,7 @@ class ArticleController extends AdminController
     /**
      * @NodeAnotation(title="修改内容")
      */
-    public function edit()
+    public function edit(): string
     {
         $CategoryModel = new CategoryModel();
 
@@ -154,6 +158,7 @@ class ArticleController extends AdminController
         if ($this->request->isAjax()) {
             $param = $this->request->param();
             $rule  = [
+                'type_id|栏目' => 'require',
                 'title|标题'   => 'require',
                 'content|内容' => 'require'
             ];
@@ -166,7 +171,7 @@ class ArticleController extends AdminController
             $param['delete_time'] = 0;
             //自动提取缩略图
             if (isset($param['auto_image']) && $param['image'] == '') {
-                $param['image'] = GetImgSrc::src($param['content'], 1);
+                $param['image'] = GetImgSrc::src($param['content']);
                 $param['image'] = ! empty($param['image']) ? $param['image'] : '';
             }
             $param['description'] = empty($param['description']) ? str_cut(strip_tags($param['content']),
@@ -196,6 +201,8 @@ class ArticleController extends AdminController
             't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag');
         $tagsArr     = array_filter($tagsArr);
         $tags        = implode(',', $tagsArr);
+        $editor      = $this->request->param('editor', 1);
+        $this->assign('editor', $editor);
         $this->assign('tags', $tags);
         $this->assign('pidMenuList', $pidMenuList);
         $this->assign('data', $data);
@@ -218,12 +225,8 @@ class ArticleController extends AdminController
             if (empty($data)) {
                 $this->error('获取数据失败');
             }
-            try {
-                $this->model->where(['id' => $id])->data(['status' => 0, 'delete_time' => time()])->update();
-                $this->success('删除成功');
-            } catch (Exception $e) {
-                $this->error('删除失败'.$e->getMessage());
-            }
+            $this->model->where(['id' => $id])->data(['status' => 0, 'delete_time' => time()])->update();
+            $this->success('删除成功');
         }
     }
 
