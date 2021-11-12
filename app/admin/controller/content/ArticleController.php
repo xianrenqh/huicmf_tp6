@@ -36,15 +36,12 @@ class ArticleController extends AdminController
         $this->model = new ArticleModel();
     }
 
-    public function test()
-    {
-    }
-
     /**
      * @NodeAnotation(title="内容列表")
      */
     public function index(): Json|string
     {
+        $CategoryModel = new CategoryModel();
         if ($this->request->isAjax()) {
             $page  = (int)$this->request->param('page', 1);
             $limit = (int)$this->request->param('limit', 10);
@@ -54,6 +51,9 @@ class ArticleController extends AdminController
             $where = function ($query) use ($key) {
                 if ( ! empty($key['title'])) {
                     $query->whereLike('title', '%'.$key['title'].'%');
+                }
+                if ( ! empty($key['type_id'])) {
+                    $query->where('type_id', $key['type_id']);
                 }
                 if ( ! empty($key['status'])) {
                     if ($key['status'] == 2) {
@@ -65,8 +65,9 @@ class ArticleController extends AdminController
                 }
             };
             $count = $this->model->where($where)->count();
-            $list  = $this->model->where($where)->limit($first,
-                $limit)->order('is_top desc,weight desc,id desc')->select();
+            $list  = $this->model->field('a.*,c.cate_name,c.cate_en')->alias('a')->leftJoin('category c',
+                'c.id=a.type_id')->where($where)->limit($first,
+                $limit)->order('a.is_top desc,a.weight desc,a.id desc')->select();
             $data  = [
                 'code'  => 0,
                 'msg'   => 'ok',
@@ -76,6 +77,8 @@ class ArticleController extends AdminController
 
             return json($data);
         }
+        $pidMenuList = $CategoryModel->getPidMenuList();
+        $this->assign('pidMenuList', $pidMenuList);
 
         return $this->fetch();
     }

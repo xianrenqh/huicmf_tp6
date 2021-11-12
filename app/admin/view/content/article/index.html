@@ -13,6 +13,16 @@
                                    class="layui-input">
                         </div>
                         <div class="layui-inline">
+                            <label>
+                                <select name="type_id" id="type_id">
+                                    <option value="">请选择栏目</option>
+                                    {foreach $pidMenuList as $vo}
+                                    <option value="{$vo.id}">{$vo.cate_name|raw}</option>
+                                    {/foreach}
+                                </select>
+                            </label>
+                        </div>
+                        <div class="layui-inline">
                             <select name="status" id="isuse">
                                 <option value="0">==是否发布==</option>
                                 <option value="1">发布</option>
@@ -46,11 +56,13 @@
         </div>
 
         <table id="article_table" lay-filter="article_table"></table>
-
+        <script type="text/html" id="title_n">
+           <img src="__STATIC_ADMIN__/images/md.jpeg" width="12" style="margin-right: 5px;margin-left: -12px;">{{d.title}}
+        </script>
         <script type="text/html" id="image">
             {{#  if(d.image !=''){ }}
             <img src="{{d.image}}" onmouseover="hui_img_preview('image2','{{d.image}}')" onmouseout="layer.closeAll();"
-                 id="image2" width="60">
+                 id="image2" width="20">
             {{#  } }}
         </script>
         <script type="text/html" id="status">
@@ -86,7 +98,8 @@
       , cellMinWidth: 100
       , cols: [[
         {field: 'id', title: 'ID', width: 60, align: 'center'}
-        , {field: 'title', title: '标题'}
+        , {field: 'title', title: '标题', templet: '#title_n'}
+        , {field: 'cate_name', title: '所属栏目', width: 120, align: 'center'}
         , {field: 'image', title: '缩略图', width: 100, align: 'center', templet: '#image'}
         , {field: 'click', title: '点击量', width: 100, align: 'center'}
         , {field: 'nickname', title: '发布人', width: 110}
@@ -106,6 +119,7 @@
           where: {
             key: {
               title: $('#title').val(),
+              type_id: $('#type_id').val(),
               status: $('#isuse').val(),
             }
           }
