@@ -70,6 +70,7 @@ CREATE TABLE `cmf_article` (
   `keywords` varchar(250) NOT NULL DEFAULT '' COMMENT '关键词',
   `description` varchar(500) NOT NULL DEFAULT '' COMMENT '描述',
   `content` text,
+  `content_md` text,
   `create_time` int(10) NOT NULL DEFAULT '0',
   `update_time` int(10) NOT NULL DEFAULT '0',
   `delete_time` int(10) NOT NULL DEFAULT '0',

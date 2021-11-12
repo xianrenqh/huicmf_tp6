@@ -58,14 +58,14 @@ class Form
         $libPath  = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'lib'.DS;
         $string   = '';
         $string   .= '<link href="'.$css1.'" rel="stylesheet">';
-        $string   .= '<div id="test-editor">';
+        $string   .= '<div id="content-editor">';
         $string   .= '<textarea style="display:none;" name="'.$name.'">'.$val.'</textarea>';
         $string   .= '</div>';
         $string   .= '<script type="text/javascript" charset="utf-8" src="'.$jquery.'"></script>';
         $string   .= '<script type="text/javascript" charset="utf-8" src="'.$editormd.'"></script>';
         $string   .= '<script type="text/javascript">';
         $string   .= '$(function() {
-            var editor = editormd("test-editor", {
+            var editor = editormd("content-editor", {
             path   : "'.$libPath.'",
             height : "500px",
             imageUpload : true,

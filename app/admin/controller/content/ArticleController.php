@@ -107,7 +107,16 @@ class ArticleController extends AdminController
             }
             $param['description'] = empty($param['description']) ? str_cut(strip_tags($param['content']),
                 250) : $param['description'];
-            $param['content']     = htmlspecialchars($param['content']);
+
+            //如果编辑器是md，转换编辑器代码，md的内容存储到字段：content_md
+            if ( ! empty($param['editor']) && $param['editor'] == 2) {
+                $param['content_md'] = ($param['content']);
+                $param['content']    = htmlspecialchars($param['content-editor-html-code']);
+                unset($param['content-editor-html-code']);
+            } else {
+                $param['content'] = htmlspecialchars($param['content']);
+            }
+
             try {
                 $param['create_time'] = time();
                 $param['update_time'] = time();
@@ -143,7 +152,8 @@ class ArticleController extends AdminController
     {
         $CategoryModel = new CategoryModel();
 
-        $id = $this->request->param('id');
+        $id     = $this->request->param('id');
+        $editor = $this->request->param('editor', 1);
         if (empty($id)) {
             $this->error('参数错误');
         }
@@ -155,6 +165,9 @@ class ArticleController extends AdminController
         $data['thumbs_count'] = count($data['thumbs']);
         $data['thumbs']       = implode(',', $data['thumbs']);
         $data['flag']         = array_filter(explode(',', $data['flag']));
+        if ( ! empty($editor) && $editor == 2) {
+            $data['content'] = $data['content_md'];
+        }
         if ($this->request->isAjax()) {
             $param = $this->request->param();
             $rule  = [
@@ -176,7 +189,16 @@ class ArticleController extends AdminController
             }
             $param['description'] = empty($param['description']) ? str_cut(strip_tags($param['content']),
                 250) : $param['description'];
-            $param['content']     = htmlspecialchars($param['content']);
+
+            //如果编辑器是md，转换编辑器代码，md的内容存储到字段：content_md
+            if ( ! empty($param['editor']) && $param['editor'] == 2) {
+                $param['content_md'] = ($param['content']);
+                $param['content']    = htmlspecialchars($param['content-editor-html-code']);
+                unset($param['content-editor-html-code']);
+            } else {
+                $param['content'] = htmlspecialchars($param['content']);
+            }
+
             try {
                 $param['update_time'] = time();
                 $res                  = Db::name('article')->strict(false)->data($param)->update();
@@ -201,7 +223,6 @@ class ArticleController extends AdminController
             't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag');
         $tagsArr     = array_filter($tagsArr);
         $tags        = implode(',', $tagsArr);
-        $editor      = $this->request->param('editor', 1);
         $this->assign('editor', $editor);
         $this->assign('tags', $tags);
         $this->assign('pidMenuList', $pidMenuList);
