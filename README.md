@@ -6,6 +6,8 @@ HuiCMF v6.0
 > 运行环境要求PHP7.1+，兼容PHP8.0。
 >
 > 数据库要求：mysql5.5+，推荐5.7。
+> 
+> 编辑器使用了 editor.md | UEeditor | icEditor
 >
 by:xiaohuihui
 
