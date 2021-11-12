@@ -69,9 +69,9 @@ class CategoryController extends AdminController
             ];
             $this->validate($param, $rule);
             //查询栏目名称|en是否存在
-            $row = $this->model->where('cate_name', $param['cate_name'])->where('cate_en', $param['cate_en'])->find();
+            $row = $this->model->whereOr('cate_en', $param['cate_en'])->find();
             if ( ! empty($row)) {
-                $this->error('栏目名称已经存在啦，请重新输入');
+                $this->error('栏目名称en已经存在啦，请重新输入');
             }
             $save = $this->model->save($param);
             if ($save) {
@@ -100,6 +100,10 @@ class CategoryController extends AdminController
                 'cate_en|栏目名称（en）' => 'require'
             ];
             $this->validate($param, $rule);
+            $row = $this->model->where('cate_en', $param['cate_en'])->find();
+            if ( ! empty($row)) {
+                $this->error('栏目名称en已经存在啦，请重新输入');
+            }
             $save = $this->model->update($param, ['id' => $param['id']]);
             if ($save) {
                 $this->success('保存成功');
