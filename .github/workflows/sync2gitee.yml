@@ -12,6 +12,6 @@ jobs:
         uses: pixta-dev/repository-mirroring-action@v1
         with:
           target_repo_url:
-            https://gitee.com/xianrenqh/huicmf_tp6.git
+            git@gitee.com:xianrenqh/huicmf_tp6.git
           ssh_private_key:
             ${{ secrets.GITHUBTOGITEE }}
