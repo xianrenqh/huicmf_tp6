@@ -27,7 +27,7 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
     }
   });
 
-  $('.fa-refresh').click(function () {
+  $('.btn-refresh').click(function () {
     window.location.reload();
   });
 
