@@ -171,25 +171,35 @@ class UploadController
 
     /**
      * 上传附件写入数据库
+     * 默认方法对gif报错，改后无法获取gif的长宽
      */
     public function _att_write($file, $fileName)
     {
-        $fileinfo           = Image::open('.'.$fileName);
         $arr                = [];
         $arr['admin_id']    = $this->admin_id;
         $arr['user_id']     = $this->user_id;
         $arr['url']         = $fileName;
-        $arr['imagewidth']  = $fileinfo->width();
-        $arr['imageheight'] = $fileinfo->height();
-        $arr['imagetype']   = $fileinfo->type();
-        $arr['filesize']    = $file->getSize();
-        $arr['mimetype']    = $fileinfo->mime();
-        $arr['extparam']    = json_encode(['name' => $file->getOriginalName(), 'mime' => $file->getOriginalMime()]);
-        $arr['createtime']  = time();
-        $arr['updatetime']  = time();
-        $arr['uploadtime']  = time();
-        $arr['storage']     = 'local';
-        $arr['sha1']        = $file->hash('sha1');
+        $arr['imagewidth']  = 0;
+        $arr['imageheight'] = 0;
+        $arr['imagetype']   = '';
+        $arr['mimetype']    = '';
+        if (strstr($fileName, '.gif')) {
+            $arr['imagetype'] = 'gif';
+            $arr['mimetype']  = 'image/gif';
+        } else {
+            $fileinfo           = Image::open('.'.$fileName);
+            $arr['imagewidth']  = $fileinfo->width();
+            $arr['imageheight'] = $fileinfo->height();
+            $arr['imagetype']   = $fileinfo->type();
+            $arr['mimetype']    = $fileinfo->mime();
+        }
+        $arr['filesize']   = $file->getSize();
+        $arr['extparam']   = json_encode(['name' => $file->getOriginalName(), 'mime' => $file->getOriginalMime()]);
+        $arr['createtime'] = time();
+        $arr['updatetime'] = time();
+        $arr['uploadtime'] = time();
+        $arr['storage']    = 'local';
+        $arr['sha1']       = $file->hash('sha1');
         Db::name('attachment')->data($arr)->insert();
     }
 

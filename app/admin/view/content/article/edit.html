@@ -227,9 +227,8 @@
       elem: '#test1'
       , url: "{:__url('upload/index',['save_path'=>'images'])}"
       , done: function (res) {
-        console.log(res.src)
-        if (res.status === 1) {
-          $("#demo1").val(res.src);
+        if (res.code === 1) {
+          $("#image").val(res.url);
         }
       }
     })
