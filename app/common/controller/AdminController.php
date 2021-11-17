@@ -9,7 +9,7 @@
 
 namespace app\common\controller;
 
-use app\BaseController;
+use app\admin\controller\BaseController;
 use think\facade\Env;
 use think\Model;
 
