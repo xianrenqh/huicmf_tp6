@@ -12,9 +12,24 @@ namespace app\admin\model;
 class Category extends TimeModel
 {
 
-    public function getPidMenuList()
+    /**
+     * 默认是否显示全部
+     *
+     * @param bool $type
+     *
+     */
+    public function getPidMenuList($type = '')
     {
-        $list        = $this->field('id,parent_id,cate_name')->select()->toArray();
+        $where       = function ($query) use ($type) {
+            if ( ! empty($type)) {
+                if (is_array($type)) {
+                    $query->whereIn('type', $type);
+                } else {
+                    $query->where('type', $type);
+                }
+            }
+        };
+        $list        = $this->field('id,parent_id,cate_name')->where($where)->select()->toArray();
         $pidMenuList = $this->buildPidMenu(0, $list);
 
         return $pidMenuList;

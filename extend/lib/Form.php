@@ -69,6 +69,7 @@ class Form
             path   : "'.$libPath.'",
             height : "500px",
             imageUpload : true,
+            autoFocus : false,
             //theme : "dark",
             imageFormats : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
             imageUploadURL : "'.__url('upload/index', ['editor_type' => 'editorMd']).'",

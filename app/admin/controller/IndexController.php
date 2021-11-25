@@ -20,6 +20,7 @@ use think\facade\Cache;
 use app\admin\model\Admin as AdminModel;
 use think\facade\Env;
 use think\facade\Db;
+use lib\Random;
 
 class IndexController extends AdminController
 {
@@ -126,6 +127,8 @@ class IndexController extends AdminController
      */
     public function editPassword()
     {
+        $Random  = new Random();
+        $salt    = $Random::alnum(6);
         $adminId = cmf_get_admin_id();
         $data    = AdminModel::where('id', $adminId)->find();
         if ($this->request->isPost()) {
@@ -137,16 +140,18 @@ class IndexController extends AdminController
                 $this->error('新密码和确认密码不相同');
             }
             //判断旧密码是否正确
-            if (cmf_password($param['old_password']) != $data['password']) {
+            if (cmf_password($param['old_password'], $data['salt']) != $data['password']) {
                 $this->error('旧密码不正确');
             }
             // 判断是否为演示站点
-            $example = Env::get('hui_admin.is_demo', true);
-            $example == true && $this->error('演示站点不允许修改密码');
-
+            $example = Env::get('HUIADMIN.is_demo');
+            if ( ! empty($example) || $example == true) {
+                $this->error('演示站点不允许修改密码');
+            }
             AdminModel::where('id', $adminId)->data([
-                'password'   => cmf_password($param['new_password']),
-                'updatetime' => time()
+                'password'   => cmf_password($param['new_password'], $salt),
+                'salt'       => $salt,
+                'update_time' => time()
             ])->update();
             $this->success('修改成功');
         }

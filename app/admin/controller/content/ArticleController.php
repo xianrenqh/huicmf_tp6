@@ -77,7 +77,7 @@ class ArticleController extends AdminController
 
             return json($data);
         }
-        $pidMenuList = $CategoryModel->getPidMenuList();
+        $pidMenuList = $CategoryModel->getPidMenuList(1);
         $this->assign('pidMenuList', $pidMenuList);
 
         return $this->fetch();
@@ -139,7 +139,7 @@ class ArticleController extends AdminController
             }
         }
         $click       = Random::numeric(2);
-        $pidMenuList = $CategoryModel->getPidMenuList();
+        $pidMenuList = $CategoryModel->getPidMenuList(1);
         $editor      = $this->request->param('editor', 1);
         $this->assign('editor', $editor);
         $this->assign('click', $click);
@@ -221,7 +221,7 @@ class ArticleController extends AdminController
                 $this->error('保存失败'.$e->getMessage());
             }
         }
-        $pidMenuList = $CategoryModel->getPidMenuList();
+        $pidMenuList = $CategoryModel->getPidMenuList(1);
         $tagsArr     = Db::name('tag_content')->alias('tc')->leftJoin('tag t',
             't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag');
         $tagsArr     = array_filter($tagsArr);
