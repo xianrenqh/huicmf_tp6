@@ -39,7 +39,7 @@ class ArticleController extends AdminController
     /**
      * @NodeAnotation(title="内容列表")
      */
-    public function index(): Json|string
+    public function index()
     {
         $CategoryModel = new CategoryModel();
         if ($this->request->isAjax()) {
@@ -86,7 +86,7 @@ class ArticleController extends AdminController
     /**
      * @NodeAnotation(title="添加内容")
      */
-    public function add(): string
+    public function add()
     {
         $CategoryModel = new CategoryModel();
         if ($this->request->isAjax()) {
@@ -151,7 +151,7 @@ class ArticleController extends AdminController
     /**
      * @NodeAnotation(title="修改内容")
      */
-    public function edit(): string
+    public function edit()
     {
         $CategoryModel = new CategoryModel();
 
