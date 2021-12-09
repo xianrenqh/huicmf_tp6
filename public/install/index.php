@@ -107,7 +107,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         if ( ! $sql) {
             throw new Exception("无法读取public/install/database.sql文件，请检查是否有读权限");
         }
-        $sql = str_replace("`hui_", "`{$mysqlPrefix}", $sql);
+        $sql = str_replace(["`hui_", "`cmf_"], "`{$mysqlPrefix}", $sql);
         $pdo = new PDO("mysql:host={$mysqlHostname};port={$mysqlHostport}", $mysqlUsername, $mysqlPassword, array(
             PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
             PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
