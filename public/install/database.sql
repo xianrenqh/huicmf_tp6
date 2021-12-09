@@ -1,27 +1,26 @@
--- MySQL dump 10.13  Distrib 5.7.34, for Linux (x86_64)
---
--- Host: localhost    Database: huicmf_tp6_auth
--- ------------------------------------------------------
--- Server version	5.7.34-log
+/*
+ Navicat Premium Data Transfer
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+ Source Server         : huicmf_tp6_auth
+ Source Server Type    : MySQL
+ Source Server Version : 50734
+ Source Host           : 82.156.11.220:3306
+ Source Schema         : huicmf_tp6_auth
 
---
--- Table structure for table `cmf_admin`
---
+ Target Server Type    : MySQL
+ Target Server Version : 50734
+ File Encoding         : 65001
 
+ Date: 03/12/2021 10:44:50
+*/
+
+SET NAMES utf8mb4;
+SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for cmf_admin
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_admin` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `username` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
@@ -41,25 +40,18 @@ CREATE TABLE `cmf_admin` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='管理员表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_admin`
---
+-- ----------------------------
+-- Records of cmf_admin
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_admin` VALUES (1, 'admin', '超级管理员', '3296135c44983633d8b1254dd62c6ff1', 'abedf7', '/uploads/avatars/20211105/0783bcd626c8895f2cd082cf7ce502bd.jpg', 'admin@admin.com', 2, 1638498889, '127.0.0.1', 82, 1635759162, 1638498889, '', 'normal');
+COMMIT;
 
-LOCK TABLES `cmf_admin` WRITE;
-/*!40000 ALTER TABLE `cmf_admin` DISABLE KEYS */;
-INSERT INTO `cmf_admin` VALUES (1,'admin','超级管理员','3296135c44983633d8b1254dd62c6ff1','abedf7','/uploads/avatars/20211105/0783bcd626c8895f2cd082cf7ce502bd.jpg','admin@admin.com',2,1638172645,'127.0.0.1',81,1635759162,1638172645,'','normal');
-/*!40000 ALTER TABLE `cmf_admin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_article`
---
-
+-- ----------------------------
+-- Table structure for cmf_article
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_article`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(150) NOT NULL DEFAULT '' COMMENT '文章标题',
@@ -84,25 +76,18 @@ CREATE TABLE `cmf_article` (
   `delete_time` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_article`
---
+-- ----------------------------
+-- Records of cmf_article
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_article` VALUES (1, '是', 1, '超级管理员', 1, '', '[]', '', 0, '', 72, 0, 2, 0, '', '```asp\r\n', '&lt;h3 id=&quot;h3--md-&quot;&gt;&lt;a name=&quot;测试md保存&quot; class=&quot;reference-link&quot;&gt;&lt;/a&gt;&lt;span class=&quot;header-link octicon octicon-link&quot;&gt;&lt;/span&gt;测试md保存&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;lang-asp&quot;&gt;&amp;lt;?php\r\n// 全局中间件定义文件\r\nreturn [\r\n\r\n    // Session初始化\r\n    \\think\\middleware\\SessionInit::class,\r\n\r\n    // 系统操作日志\r\n    \\app\\admin\\middleware\\SystemLog::class,\r\n\r\n];\r\n&lt;/code&gt;&lt;/pre&gt;\r\n', '### 测试md保存\r\n\r\n```asp\r\n<?php\r\n// 全局中间件定义文件\r\nreturn [\r\n\r\n    // Session初始化\r\n    \\think\\middleware\\SessionInit::class,\r\n\r\n    // 系统操作日志\r\n    \\app\\admin\\middleware\\SystemLog::class,\r\n\r\n];\r\n\r\n```', 1636683641, 1636689132, 0);
+COMMIT;
 
-LOCK TABLES `cmf_article` WRITE;
-/*!40000 ALTER TABLE `cmf_article` DISABLE KEYS */;
-INSERT INTO `cmf_article` VALUES (1,'是',1,'超级管理员',1,'','[]','',0,'',72,0,2,0,'','```asp\r\n','&lt;h3 id=&quot;h3--md-&quot;&gt;&lt;a name=&quot;测试md保存&quot; class=&quot;reference-link&quot;&gt;&lt;/a&gt;&lt;span class=&quot;header-link octicon octicon-link&quot;&gt;&lt;/span&gt;测试md保存&lt;/h3&gt;&lt;pre&gt;&lt;code class=&quot;lang-asp&quot;&gt;&amp;lt;?php\r\n// 全局中间件定义文件\r\nreturn [\r\n\r\n    // Session初始化\r\n    \\think\\middleware\\SessionInit::class,\r\n\r\n    // 系统操作日志\r\n    \\app\\admin\\middleware\\SystemLog::class,\r\n\r\n];\r\n&lt;/code&gt;&lt;/pre&gt;\r\n','### 测试md保存\r\n\r\n```asp\r\n<?php\r\n// 全局中间件定义文件\r\nreturn [\r\n\r\n    // Session初始化\r\n    \\think\\middleware\\SessionInit::class,\r\n\r\n    // 系统操作日志\r\n    \\app\\admin\\middleware\\SystemLog::class,\r\n\r\n];\r\n\r\n```',1636683641,1636689132,0);
-/*!40000 ALTER TABLE `cmf_article` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_attachment`
---
-
+-- ----------------------------
+-- Table structure for cmf_attachment
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_attachment`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_attachment` (
   `id` int(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `admin_id` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '管理员ID',
@@ -122,24 +107,17 @@ CREATE TABLE `cmf_attachment` (
   `sha1` varchar(40) NOT NULL DEFAULT '' COMMENT '文件 sha1编码',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='附件表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_attachment`
---
+-- ----------------------------
+-- Records of cmf_attachment
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-LOCK TABLES `cmf_attachment` WRITE;
-/*!40000 ALTER TABLE `cmf_attachment` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_attachment` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_auth_group`
---
-
+-- ----------------------------
+-- Table structure for cmf_auth_group
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_auth_group`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_auth_group` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `pid` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '父组别',
@@ -150,25 +128,19 @@ CREATE TABLE `cmf_auth_group` (
   `status` varchar(30) NOT NULL DEFAULT '' COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='分组表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_auth_group`
---
+-- ----------------------------
+-- Records of cmf_auth_group
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_auth_group` VALUES (1, 0, '超级管理员', '*', 1623383000, 1623383000, 'normal');
+INSERT INTO `cmf_auth_group` VALUES (2, 0, '管理员', '1,2,30,31,7,8,9,10', 1623383000, 1623383000, 'normal');
+COMMIT;
 
-LOCK TABLES `cmf_auth_group` WRITE;
-/*!40000 ALTER TABLE `cmf_auth_group` DISABLE KEYS */;
-INSERT INTO `cmf_auth_group` VALUES (1,0,'超级管理员','*',1623383000,1623383000,'normal'),(2,0,'管理员','1,2,30,31,7,8,9,10',1623383000,1623383000,'normal');
-/*!40000 ALTER TABLE `cmf_auth_group` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_auth_group_access`
---
-
+-- ----------------------------
+-- Table structure for cmf_auth_group_access
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_auth_group_access`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_auth_group_access` (
   `uid` int(10) unsigned NOT NULL COMMENT '会员ID',
   `group_id` int(10) unsigned NOT NULL COMMENT '级别ID',
@@ -176,25 +148,18 @@ CREATE TABLE `cmf_auth_group_access` (
   KEY `uid` (`uid`) USING BTREE,
   KEY `group_id` (`group_id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='权限分组表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_auth_group_access`
---
+-- ----------------------------
+-- Records of cmf_auth_group_access
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_auth_group_access` VALUES (1, 1);
+COMMIT;
 
-LOCK TABLES `cmf_auth_group_access` WRITE;
-/*!40000 ALTER TABLE `cmf_auth_group_access` DISABLE KEYS */;
-INSERT INTO `cmf_auth_group_access` VALUES (1,1);
-/*!40000 ALTER TABLE `cmf_auth_group_access` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_auth_rule`
---
-
+-- ----------------------------
+-- Table structure for cmf_auth_rule
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_auth_rule`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_auth_rule` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(1) NOT NULL DEFAULT '3' COMMENT '节点类型（1：控制器，2：节点）',
@@ -207,25 +172,123 @@ CREATE TABLE `cmf_auth_rule` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name` (`node`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='节点表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_auth_rule`
---
+-- ----------------------------
+-- Records of cmf_auth_rule
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_auth_rule` VALUES (1, 1, 'system.admin', '管理员管理', 1, '', 1622011952, 1622011952);
+INSERT INTO `cmf_auth_rule` VALUES (2, 2, 'system.admin/index', '管理员列表', 1, '', 1622011952, 1622011952);
+INSERT INTO `cmf_auth_rule` VALUES (3, 1, 'system.node', '系统节点管理', 1, '', 1622011952, 1622011952);
+INSERT INTO `cmf_auth_rule` VALUES (4, 2, 'system.node/index', '列表', 1, '', 1622011952, 1622011952);
+INSERT INTO `cmf_auth_rule` VALUES (5, 2, 'system.node/refreshNode', '系统节点更新', 1, '', 1622011952, 1622011952);
+INSERT INTO `cmf_auth_rule` VALUES (6, 2, 'system.node/clearNode', '清除失效节点', 1, '', 1622195846, 1622195846);
+INSERT INTO `cmf_auth_rule` VALUES (7, 1, 'system.menu', '菜单管理', 1, '', 1622452395, 1622452395);
+INSERT INTO `cmf_auth_rule` VALUES (8, 2, 'system.menu/index', '菜单列表', 1, '', 1622452395, 1622452395);
+INSERT INTO `cmf_auth_rule` VALUES (9, 2, 'system.menu/add', '添加', 1, '', 1622518868, 1622518868);
+INSERT INTO `cmf_auth_rule` VALUES (10, 2, 'system.menu/edit', '编辑', 1, '', 1622518869, 1622518869);
+INSERT INTO `cmf_auth_rule` VALUES (11, 2, 'system.menu/delete', '删除', 1, '', 1622518869, 1622518869);
+INSERT INTO `cmf_auth_rule` VALUES (12, 2, 'system.menu/modify', '属性修改', 1, '', 1622518870, 1622518870);
+INSERT INTO `cmf_auth_rule` VALUES (13, 1, 'system.auth', '角色组管理', 1, '', 1623229678, 1623229678);
+INSERT INTO `cmf_auth_rule` VALUES (14, 2, 'system.auth/index', '角色组列表', 1, '', 1623229678, 1623229678);
+INSERT INTO `cmf_auth_rule` VALUES (15, 2, 'system.auth/add', '添加角色组', 1, '', 1623229678, 1623229678);
+INSERT INTO `cmf_auth_rule` VALUES (16, 2, 'system.auth/edit', '修改角色组', 1, '', 1623229678, 1623229678);
+INSERT INTO `cmf_auth_rule` VALUES (17, 2, 'system.auth/delete', '删除角色组', 1, '', 1623229678, 1623229678);
+INSERT INTO `cmf_auth_rule` VALUES (18, 1, 'system.database', '数据库管理', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (19, 2, 'system.database/index', '数据表列表', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (20, 2, 'system.database/backup', '数据备份', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (21, 2, 'system.database/restore', '数据还原', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (22, 2, 'system.database/databack_list', '备份列表', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (23, 2, 'system.database/delete', '删除备份', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (24, 2, 'system.database/download', '下载备份', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (25, 2, 'system.database/optimize', '优化表', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (26, 2, 'system.database/repair', '修复表', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (27, 2, 'system.database/table_structure', '查看表结构', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (28, 2, 'system.database/table_data', '查看表数据', 1, '', 1623238857, 1623238857);
+INSERT INTO `cmf_auth_rule` VALUES (29, 2, 'system.auth/authorize', '授权节点', 1, '', 1623394528, 1623394528);
+INSERT INTO `cmf_auth_rule` VALUES (30, 2, 'system.admin/add', '添加管理员', 1, '', 1623406245, 1623406245);
+INSERT INTO `cmf_auth_rule` VALUES (31, 2, 'system.admin/edit', '编辑管理员', 1, '', 1623406245, 1623406245);
+INSERT INTO `cmf_auth_rule` VALUES (32, 2, 'system.admin/delete', '删除管理员', 1, '', 1623406245, 1623406245);
+INSERT INTO `cmf_auth_rule` VALUES (33, 1, 'system.config', '系统设置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (34, 2, 'system.config/index', '系统设置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (35, 2, 'system.config/save', '保存设置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (36, 2, 'system.config/custom_config', '自定义配置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (37, 2, 'system.config/custom_config_add', '添加自定义配置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (38, 2, 'system.config/custom_config_edit', '修改自定义配置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (39, 2, 'system.config/custom_config_delete', '删除自定义配置', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (40, 1, 'content.article', '文章管理', 1, '', 1623913353, 1623913353);
+INSERT INTO `cmf_auth_rule` VALUES (41, 2, 'content.article/index', '内容列表', 1, '', 1623913354, 1623913354);
+INSERT INTO `cmf_auth_rule` VALUES (42, 2, 'content.article/add', '添加内容', 1, '', 1623913354, 1623913354);
+INSERT INTO `cmf_auth_rule` VALUES (43, 2, 'content.article/edit', '修改内容', 1, '', 1623983125, 1623983125);
+INSERT INTO `cmf_auth_rule` VALUES (44, 2, 'content.article/delete', '删除内容', 1, '', 1623983126, 1623983126);
+INSERT INTO `cmf_auth_rule` VALUES (45, 1, 'system.log', '系统日志', 1, '', 1623997395, 1623997395);
+INSERT INTO `cmf_auth_rule` VALUES (46, 2, 'system.log/index', '操作日志', 1, '', 1623997395, 1623997395);
+INSERT INTO `cmf_auth_rule` VALUES (47, 1, 'plugin.plugin', '插件管理', 1, '', 1624863982, 1624863982);
+INSERT INTO `cmf_auth_rule` VALUES (48, 2, 'plugin.plugin/index', '插件列表', 1, '', 1624863982, 1624863982);
+INSERT INTO `cmf_auth_rule` VALUES (49, 2, 'plugin.plugin/install', '插件安装', 1, '', 1624863982, 1624863982);
+INSERT INTO `cmf_auth_rule` VALUES (51, 1, 'content.recycle_bin', '回收站管理', 1, '', 1624876870, 1624876870);
+INSERT INTO `cmf_auth_rule` VALUES (52, 2, 'content.recycle_bin/index', '回收站列表', 1, '', 1624876870, 1624876870);
+INSERT INTO `cmf_auth_rule` VALUES (53, 2, 'content.recycle_bin/delete', '回收站删除', 1, '', 1624876870, 1624876870);
+INSERT INTO `cmf_auth_rule` VALUES (54, 2, 'system.log/login_log', '登陆日志', 1, '', 1624956151, 1624956151);
+INSERT INTO `cmf_auth_rule` VALUES (55, 1, 'content.category', '前台栏目管理', 1, '', 1635761235, 1635761235);
+INSERT INTO `cmf_auth_rule` VALUES (56, 2, 'content.category/index', '栏目列表', 1, '', 1635761235, 1635761235);
+INSERT INTO `cmf_auth_rule` VALUES (57, 2, 'content.category/add', '添加栏目', 1, '', 1636094642, 1636094642);
+INSERT INTO `cmf_auth_rule` VALUES (58, 2, 'content.category/edit', '修改栏目', 1, '', 1636094642, 1636094642);
+INSERT INTO `cmf_auth_rule` VALUES (59, 2, 'content.category/delete', '删除栏目', 1, '', 1636094642, 1636094642);
+INSERT INTO `cmf_auth_rule` VALUES (60, 2, 'content.category/modify', '更改栏目显示状态', 1, '', 1636094642, 1636094642);
+INSERT INTO `cmf_auth_rule` VALUES (61, 1, 'content.tag', 'Tag标签管理', 1, '', 1636702184, 1636702184);
+INSERT INTO `cmf_auth_rule` VALUES (62, 2, 'content.tag/index', 'Tag标签列表', 1, '', 1636702184, 1636702184);
+INSERT INTO `cmf_auth_rule` VALUES (63, 2, 'content.tag/add', '添加Tag', 1, '', 1636702184, 1636702184);
+INSERT INTO `cmf_auth_rule` VALUES (64, 2, 'content.tag/exit', '修改Tag', 1, '', 1636702184, 1636702184);
+INSERT INTO `cmf_auth_rule` VALUES (65, 2, 'content.tag/delete', '删除Tag', 1, '', 1636702184, 1636702184);
+INSERT INTO `cmf_auth_rule` VALUES (66, 2, 'content.tag/select', '选择Tag', 1, '', 1636702184, 1636702184);
+COMMIT;
 
-LOCK TABLES `cmf_auth_rule` WRITE;
-/*!40000 ALTER TABLE `cmf_auth_rule` DISABLE KEYS */;
-INSERT INTO `cmf_auth_rule` VALUES (1,1,'system.admin','管理员管理',1,'',1622011952,1622011952),(2,2,'system.admin/index','管理员列表',1,'',1622011952,1622011952),(3,1,'system.node','系统节点管理',1,'',1622011952,1622011952),(4,2,'system.node/index','列表',1,'',1622011952,1622011952),(5,2,'system.node/refreshNode','系统节点更新',1,'',1622011952,1622011952),(6,2,'system.node/clearNode','清除失效节点',1,'',1622195846,1622195846),(7,1,'system.menu','菜单管理',1,'',1622452395,1622452395),(8,2,'system.menu/index','菜单列表',1,'',1622452395,1622452395),(9,2,'system.menu/add','添加',1,'',1622518868,1622518868),(10,2,'system.menu/edit','编辑',1,'',1622518869,1622518869),(11,2,'system.menu/delete','删除',1,'',1622518869,1622518869),(12,2,'system.menu/modify','属性修改',1,'',1622518870,1622518870),(13,1,'system.auth','角色组管理',1,'',1623229678,1623229678),(14,2,'system.auth/index','角色组列表',1,'',1623229678,1623229678),(15,2,'system.auth/add','添加角色组',1,'',1623229678,1623229678),(16,2,'system.auth/edit','修改角色组',1,'',1623229678,1623229678),(17,2,'system.auth/delete','删除角色组',1,'',1623229678,1623229678),(18,1,'system.database','数据库管理',1,'',1623238857,1623238857),(19,2,'system.database/index','数据表列表',1,'',1623238857,1623238857),(20,2,'system.database/backup','数据备份',1,'',1623238857,1623238857),(21,2,'system.database/restore','数据还原',1,'',1623238857,1623238857),(22,2,'system.database/databack_list','备份列表',1,'',1623238857,1623238857),(23,2,'system.database/delete','删除备份',1,'',1623238857,1623238857),(24,2,'system.database/download','下载备份',1,'',1623238857,1623238857),(25,2,'system.database/optimize','优化表',1,'',1623238857,1623238857),(26,2,'system.database/repair','修复表',1,'',1623238857,1623238857),(27,2,'system.database/table_structure','查看表结构',1,'',1623238857,1623238857),(28,2,'system.database/table_data','查看表数据',1,'',1623238857,1623238857),(29,2,'system.auth/authorize','授权节点',1,'',1623394528,1623394528),(30,2,'system.admin/add','添加管理员',1,'',1623406245,1623406245),(31,2,'system.admin/edit','编辑管理员',1,'',1623406245,1623406245),(32,2,'system.admin/delete','删除管理员',1,'',1623406245,1623406245),(33,1,'system.config','系统设置',1,'',1623913353,1623913353),(34,2,'system.config/index','系统设置',1,'',1623913353,1623913353),(35,2,'system.config/save','保存设置',1,'',1623913353,1623913353),(36,2,'system.config/custom_config','自定义配置',1,'',1623913353,1623913353),(37,2,'system.config/custom_config_add','添加自定义配置',1,'',1623913353,1623913353),(38,2,'system.config/custom_config_edit','修改自定义配置',1,'',1623913353,1623913353),(39,2,'system.config/custom_config_delete','删除自定义配置',1,'',1623913353,1623913353),(40,1,'content.article','文章管理',1,'',1623913353,1623913353),(41,2,'content.article/index','内容列表',1,'',1623913354,1623913354),(42,2,'content.article/add','添加内容',1,'',1623913354,1623913354),(43,2,'content.article/edit','修改内容',1,'',1623983125,1623983125),(44,2,'content.article/delete','删除内容',1,'',1623983126,1623983126),(45,1,'system.log','系统日志',1,'',1623997395,1623997395),(46,2,'system.log/index','操作日志',1,'',1623997395,1623997395),(47,1,'plugin.plugin','插件管理',1,'',1624863982,1624863982),(48,2,'plugin.plugin/index','插件列表',1,'',1624863982,1624863982),(49,2,'plugin.plugin/install','插件安装',1,'',1624863982,1624863982),(51,1,'content.recycle_bin','回收站管理',1,'',1624876870,1624876870),(52,2,'content.recycle_bin/index','回收站列表',1,'',1624876870,1624876870),(53,2,'content.recycle_bin/delete','回收站删除',1,'',1624876870,1624876870),(54,2,'system.log/login_log','登陆日志',1,'',1624956151,1624956151),(55,1,'content.category','前台栏目管理',1,'',1635761235,1635761235),(56,2,'content.category/index','栏目列表',1,'',1635761235,1635761235),(57,2,'content.category/add','添加栏目',1,'',1636094642,1636094642),(58,2,'content.category/edit','修改栏目',1,'',1636094642,1636094642),(59,2,'content.category/delete','删除栏目',1,'',1636094642,1636094642),(60,2,'content.category/modify','更改栏目显示状态',1,'',1636094642,1636094642),(61,1,'content.tag','Tag标签管理',1,'',1636702184,1636702184),(62,2,'content.tag/index','Tag标签列表',1,'',1636702184,1636702184),(63,2,'content.tag/add','添加Tag',1,'',1636702184,1636702184),(64,2,'content.tag/exit','修改Tag',1,'',1636702184,1636702184),(65,2,'content.tag/delete','删除Tag',1,'',1636702184,1636702184),(66,2,'content.tag/select','选择Tag',1,'',1636702184,1636702184);
-/*!40000 ALTER TABLE `cmf_auth_rule` ENABLE KEYS */;
-UNLOCK TABLES;
+-- ----------------------------
+-- Table structure for cmf_banner
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_banner`;
+CREATE TABLE `cmf_banner` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL DEFAULT '',
+  `image` varchar(100) NOT NULL DEFAULT '',
+  `url` varchar(150) NOT NULL DEFAULT '',
+  `listorder` smallint(5) unsigned NOT NULL DEFAULT '0',
+  `typeid` tinyint(2) unsigned NOT NULL DEFAULT '0',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '1显示0隐藏',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0',
+  `update_time` int(10) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`) USING BTREE,
+  KEY `status` (`status`) USING BTREE,
+  KEY `typeid` (`typeid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
 
---
--- Table structure for table `cmf_category`
---
+-- ----------------------------
+-- Records of cmf_banner
+-- ----------------------------
+BEGIN;
+COMMIT;
 
+-- ----------------------------
+-- Table structure for cmf_banner_type
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_banner_type`;
+CREATE TABLE `cmf_banner_type` (
+  `tid` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(30) NOT NULL DEFAULT '',
+  PRIMARY KEY (`tid`) USING BTREE
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+
+-- ----------------------------
+-- Records of cmf_banner_type
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
+-- Table structure for cmf_category
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_category`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_category` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `cate_name` varchar(100) NOT NULL DEFAULT '' COMMENT '栏目名称',
@@ -242,24 +305,17 @@ CREATE TABLE `cmf_category` (
   `update_time` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_category`
---
+-- ----------------------------
+-- Records of cmf_category
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-LOCK TABLES `cmf_category` WRITE;
-/*!40000 ALTER TABLE `cmf_category` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_category` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_config`
---
-
+-- ----------------------------
+-- Table structure for cmf_config
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_config`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_config` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL DEFAULT '' COMMENT '配置名称',
@@ -274,25 +330,39 @@ CREATE TABLE `cmf_config` (
   UNIQUE KEY `name` (`name`) USING BTREE,
   KEY `type` (`type`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_config`
---
+-- ----------------------------
+-- Records of cmf_config
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_config` VALUES (1, 'site_name', 1, '站点名称', 'HuiCMF6后台系统', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (2, 'site_url', 1, '站点跟网址', 'http://huicmf6.cc/', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (3, 'admin_log', 3, '启用后台管理操作日志', '0', 'radio', '', 1, '');
+INSERT INTO `cmf_config` VALUES (4, 'site_keyword', 1, '站点关键字', 'shop', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (5, 'site_copyright', 1, '网站版权信息', 'Powered By HuiCMF6后台系统 © 2019-2021 小灰灰工作室', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (6, 'site_beian', 1, '站点备案号', '京ICP备666666号', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (7, 'site_description', 1, '站点描述', '我是描述', 'text', '', 1, '');
+INSERT INTO `cmf_config` VALUES (8, 'site_code', 1, '统计代码', '', 'text', '', 1, '');
+INSERT INTO `cmf_config` VALUES (9, 'admin_prohibit_ip', 3, '禁止访问网站的IP', '', 'text', '', 1, '');
+INSERT INTO `cmf_config` VALUES (10, 'mail_server', 4, 'SMTP服务器', 'smtp.exmail.qq.com', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (11, 'mail_port', 4, 'SMTP服务器端口', '465', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (12, 'mail_user', 4, 'SMTP服务器的用户帐号', '', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (13, 'mail_pass', 4, 'SMTP服务器的用户密码', '', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (14, 'mail_inbox', 4, '收件邮箱地址', '', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (15, 'upload_maxsize', 2, '允许上传附件大小', '204800', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (16, 'watermark_enable', 2, '是否开启图片水印', '0', 'radio', '{\"0\":\"否\",\"1\":\"是\"}', 1, '');
+INSERT INTO `cmf_config` VALUES (17, 'watermark_name', 2, '水印图片名称', 'mark.png', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (18, 'watermark_position', 2, '水印的位置', '9', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (19, 'watermark_touming', 2, '水印透明度', '80', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (20, 'upload_types_image', 2, '允许上传类型', 'jpg,jpeg,png,gif,bmp', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (21, 'upload_mode', 2, '图片上传方式', 'local', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (22, 'site_editor', 1, '文本编辑器', 'uEditorMini', 'string', ' ', 1, '');
+COMMIT;
 
-LOCK TABLES `cmf_config` WRITE;
-/*!40000 ALTER TABLE `cmf_config` DISABLE KEYS */;
-INSERT INTO `cmf_config` VALUES (1,'site_name',1,'站点名称','HuiCMF6后台系统','string','',1,''),(2,'site_url',1,'站点跟网址','http://huicmf6.cc/','string','',1,''),(3,'admin_log',3,'启用后台管理操作日志','0','radio','',1,''),(4,'site_keyword',1,'站点关键字','shop','string','',1,''),(5,'site_copyright',1,'网站版权信息','Powered By HuiCMF6后台系统 © 2019-2021 小灰灰工作室','string','',1,''),(6,'site_beian',1,'站点备案号','京ICP备666666号','string','',1,''),(7,'site_description',1,'站点描述','我是描述','text','',1,''),(8,'site_code',1,'统计代码','','text','',1,''),(9,'admin_prohibit_ip',3,'禁止访问网站的IP','','text','',1,''),(10,'mail_server',4,'SMTP服务器','smtp.exmail.qq.com','string','',1,''),(11,'mail_port',4,'SMTP服务器端口','465','string','',1,''),(12,'mail_user',4,'SMTP服务器的用户帐号','','string','',1,''),(13,'mail_pass',4,'SMTP服务器的用户密码','','string','',1,''),(14,'mail_inbox',4,'收件邮箱地址','','string','',1,''),(15,'upload_maxsize',2,'允许上传附件大小','204800','string','',1,''),(16,'watermark_enable',2,'是否开启图片水印','0','radio','{\"0\":\"否\",\"1\":\"是\"}',1,''),(17,'watermark_name',2,'水印图片名称','mark.png','string','',1,''),(18,'watermark_position',2,'水印的位置','9','string','',1,''),(19,'watermark_touming',2,'水印透明度','80','string','',1,''),(20,'upload_types',2,'允许上传类型','jpg,jpeg,png,gif,bmp','string','',1,''),(21,'upload_mode',2,'图片上传方式','local','string','',1,''),(22,'site_editor',1,'文本编辑器','uEditorMini','string',' ',1,'');
-/*!40000 ALTER TABLE `cmf_config` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_hook`
---
-
+-- ----------------------------
+-- Table structure for cmf_hook
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_hook`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_hook` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
@@ -303,24 +373,17 @@ CREATE TABLE `cmf_hook` (
   `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统钩子表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_hook`
---
+-- ----------------------------
+-- Records of cmf_hook
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-LOCK TABLES `cmf_hook` WRITE;
-/*!40000 ALTER TABLE `cmf_hook` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_hook` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_hook_plugin`
---
-
+-- ----------------------------
+-- Table structure for cmf_hook_plugin
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_hook_plugin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_hook_plugin` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
@@ -329,25 +392,21 @@ CREATE TABLE `cmf_hook_plugin` (
   `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统钩子插件表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_hook_plugin`
---
+-- ----------------------------
+-- Records of cmf_hook_plugin
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_hook_plugin` VALUES (1, 10000, 1, 'footer_start', 'Demo');
+INSERT INTO `cmf_hook_plugin` VALUES (2, 10000, 1, 'footer_start', 'Demo');
+INSERT INTO `cmf_hook_plugin` VALUES (3, 10000, 1, 'footer_start', 'Demo');
+INSERT INTO `cmf_hook_plugin` VALUES (4, 10000, 1, 'footer_start', 'Demo');
+COMMIT;
 
-LOCK TABLES `cmf_hook_plugin` WRITE;
-/*!40000 ALTER TABLE `cmf_hook_plugin` DISABLE KEYS */;
-INSERT INTO `cmf_hook_plugin` VALUES (1,10000,1,'footer_start','Demo'),(2,10000,1,'footer_start','Demo'),(3,10000,1,'footer_start','Demo'),(4,10000,1,'footer_start','Demo');
-/*!40000 ALTER TABLE `cmf_hook_plugin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_login_log`
---
-
+-- ----------------------------
+-- Table structure for cmf_login_log
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_login_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_login_log` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) NOT NULL DEFAULT '0' COMMENT '用户id',
@@ -366,26 +425,24 @@ CREATE TABLE `cmf_login_log` (
   `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `user` (`user_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='后台登录记录表';
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='后台登录记录表';
 
---
--- Dumping data for table `cmf_login_log`
---
+-- ----------------------------
+-- Records of cmf_login_log
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_login_log` VALUES (1, 1, 'admin', 'Chrome', '95.0.4638.54', 'Linux', 'Linux hui 5.10.50-amd64-desktop #4000 SMP Wed Aug 18 18:51:11 CST 2021 x86_64', '127.0.0.1', '', '', '内网IP', '内网IP', 'success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}', 1636681529, 1636681529);
+INSERT INTO `cmf_login_log` VALUES (2, 1, 'admin', 'Chrome', '96.0.4664.35', 'Linux', 'Linux hui 5.10.60-amd64-desktop #5500 SMP Tue Sep 14 14:43:51 CST 2021 x86_64', '127.0.0.1', '', '', '内网IP', '内网IP', 'success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}', 1636697096, 1636697096);
+INSERT INTO `cmf_login_log` VALUES (3, 1, 'admin', 'Chrome', '96.0.4664.35', 'Linux', 'Linux hui 5.10.60-amd64-desktop #5500 SMP Tue Sep 14 14:43:51 CST 2021 x86_64', '127.0.0.1', '', '', '内网IP', '内网IP', 'success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}', 1636703253, 1636703253);
+INSERT INTO `cmf_login_log` VALUES (4, 1, 'admin', 'Chrome', '96.0.4664.35', 'Linux', 'Linux VM-8-9-centos 3.10.0-1127.19.1.el7.x86_64 #1 SMP Tue Aug 25 17:23:54 UTC 2020 x86_64', '123.53.37.154', '中国', '河南省', '郑州市', '电信', 'success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}', 1637118956, 1637118956);
+INSERT INTO `cmf_login_log` VALUES (5, 1, 'admin', 'Chrome', '96.0.4664.55', 'Linux', 'Linux hui 5.10.0-amd64-desktop #20.00.42.02-cbg SMP Fri Nov 12 14:13:51 CST 2021 x86_64', '127.0.0.1', '', '', '内网IP', '内网IP', 'success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}', 1638172645, 1638172645);
+INSERT INTO `cmf_login_log` VALUES (6, 1, 'admin', 'Chrome', '96.0.4664.55', 'Linux', 'Linux hui 5.10.0-amd64-desktop #20.00.42.02-cbg SMP Fri Nov 12 14:13:51 CST 2021 x86_64', '127.0.0.1', '', '', '内网IP', '内网IP', 'success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}', 1638498889, 1638498889);
+COMMIT;
 
-LOCK TABLES `cmf_login_log` WRITE;
-/*!40000 ALTER TABLE `cmf_login_log` DISABLE KEYS */;
-INSERT INTO `cmf_login_log` VALUES (1,1,'admin','Chrome','95.0.4638.54','Linux','Linux hui 5.10.50-amd64-desktop #4000 SMP Wed Aug 18 18:51:11 CST 2021 x86_64','127.0.0.1','','','内网IP','内网IP','success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}',1636681529,1636681529),(2,1,'admin','Chrome','96.0.4664.35','Linux','Linux hui 5.10.60-amd64-desktop #5500 SMP Tue Sep 14 14:43:51 CST 2021 x86_64','127.0.0.1','','','内网IP','内网IP','success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}',1636697096,1636697096),(3,1,'admin','Chrome','96.0.4664.35','Linux','Linux hui 5.10.60-amd64-desktop #5500 SMP Tue Sep 14 14:43:51 CST 2021 x86_64','127.0.0.1','','','内网IP','内网IP','success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}',1636703253,1636703253),(4,1,'admin','Chrome','96.0.4664.35','Linux','Linux VM-8-9-centos 3.10.0-1127.19.1.el7.x86_64 #1 SMP Tue Aug 25 17:23:54 UTC 2020 x86_64','123.53.37.154','中国','河南省','郑州市','电信','success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}',1637118956,1637118956),(5,1,'admin','Chrome','96.0.4664.55','Linux','Linux hui 5.10.0-amd64-desktop #20.00.42.02-cbg SMP Fri Nov 12 14:13:51 CST 2021 x86_64','127.0.0.1','','','内网IP','内网IP','success：登陆成功{\"username\":\"admin\",\"password\":\"******\"}',1638172645,1638172645);
-/*!40000 ALTER TABLE `cmf_login_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_plugin`
---
-
+-- ----------------------------
+-- Table structure for cmf_plugin
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_plugin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_plugin` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
   `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '插件类型;1:网站;8:微信',
@@ -403,25 +460,18 @@ CREATE TABLE `cmf_plugin` (
   `config` text COMMENT '插件配置',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='插件表';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_plugin`
---
+-- ----------------------------
+-- Records of cmf_plugin
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_plugin` VALUES (7, 1, 1, 1, 1624862689, 'Demo', '插件演示', 'http://demo.thinkcmf.com', '', 'ThinkCMF', 'http://www.thinkcmf.com', '1.0.2', '插件演示', '{\"custom_config\":\"0\",\"text\":\"hello,ThinkCMF!\",\"password\":\"\",\"number\":\"1.0\",\"select\":\"1\",\"checkbox\":1,\"radio\":\"1\",\"radio2\":\"1\",\"textarea\":\"\\u8fd9\\u91cc\\u662f\\u4f60\\u8981\\u586b\\u5199\\u7684\\u5185\\u5bb9\",\"date\":\"2017-05-20\",\"datetime\":\"2017-05-20\",\"color\":\"#103633\",\"image\":\"\",\"file\":\"\",\"location\":\"\"}');
+COMMIT;
 
-LOCK TABLES `cmf_plugin` WRITE;
-/*!40000 ALTER TABLE `cmf_plugin` DISABLE KEYS */;
-INSERT INTO `cmf_plugin` VALUES (7,1,1,1,1624862689,'Demo','插件演示','http://demo.thinkcmf.com','','ThinkCMF','http://www.thinkcmf.com','1.0.2','插件演示','{\"custom_config\":\"0\",\"text\":\"hello,ThinkCMF!\",\"password\":\"\",\"number\":\"1.0\",\"select\":\"1\",\"checkbox\":1,\"radio\":\"1\",\"radio2\":\"1\",\"textarea\":\"\\u8fd9\\u91cc\\u662f\\u4f60\\u8981\\u586b\\u5199\\u7684\\u5185\\u5bb9\",\"date\":\"2017-05-20\",\"datetime\":\"2017-05-20\",\"color\":\"#103633\",\"image\":\"\",\"file\":\"\",\"location\":\"\"}');
-/*!40000 ALTER TABLE `cmf_plugin` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_system_log`
---
-
+-- ----------------------------
+-- Table structure for cmf_system_log
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_system_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_system_log` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `admin_id` int(10) unsigned DEFAULT '0' COMMENT '管理员ID',
@@ -434,24 +484,17 @@ CREATE TABLE `cmf_system_log` (
   `create_time` int(10) DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202106';
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_system_log`
---
+-- ----------------------------
+-- Records of cmf_system_log
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-LOCK TABLES `cmf_system_log` WRITE;
-/*!40000 ALTER TABLE `cmf_system_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_system_log` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_system_menu`
---
-
+-- ----------------------------
+-- Table structure for cmf_system_menu
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_system_menu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_system_menu` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `pid` bigint(20) unsigned NOT NULL DEFAULT '0' COMMENT '父id',
@@ -469,26 +512,35 @@ CREATE TABLE `cmf_system_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `title` (`title`) USING BTREE,
   KEY `href` (`href`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
---
--- Dumping data for table `cmf_system_menu`
---
+-- ----------------------------
+-- Records of cmf_system_menu
+-- ----------------------------
+BEGIN;
+INSERT INTO `cmf_system_menu` VALUES (1, 99999999, '后台首页', 'fa fa-home', 'index/welcome', '', '_self', 0, 1, '', 0, 0, 0);
+INSERT INTO `cmf_system_menu` VALUES (2, 0, '系统管理', 'fa-chrome', '', '', '_self', 0, 1, '', 0, 1622614371, 0);
+INSERT INTO `cmf_system_menu` VALUES (3, 2, '菜单管理', 'fa-align-justify', 'system.menu/index', '', '_self', 0, 1, '', 0, 1622614310, 0);
+INSERT INTO `cmf_system_menu` VALUES (4, 2, '管理员管理', 'fa-user-md', 'system.admin/index', '', '_self', 0, 1, '', 0, 1622614329, 0);
+INSERT INTO `cmf_system_menu` VALUES (5, 2, '角色管理', 'fa-asl-interpreting', 'system.auth/index', '', '_self', 0, 1, '', 0, 1623229302, 0);
+INSERT INTO `cmf_system_menu` VALUES (6, 2, '节点管理', 'fa-list', 'system.node/index', '', '_self', 51, 1, '', 0, 1623920758, 0);
+INSERT INTO `cmf_system_menu` VALUES (7, 0, '内容管理', '', '', '', '_self', 0, 1, '', 0, 1622515479, 0);
+INSERT INTO `cmf_system_menu` VALUES (8, 7, '文章管理', 'fa-align-justify', 'content.article/index', '', '_self', 0, 1, '', 0, 1623727177, 0);
+INSERT INTO `cmf_system_menu` VALUES (9, 2, '数据库管理', 'fa-database', 'system.database/index', '', '_self', 52, 1, '数据库管理', 1623230461, 1624933860, 0);
+INSERT INTO `cmf_system_menu` VALUES (10, 2, '系统设置', 'fa-cogs', 'system.config/index', '', '_self', 0, 1, '', 1623913925, 1623913959, 0);
+INSERT INTO `cmf_system_menu` VALUES (11, 2, '自定义设置', 'fa-cog', 'system.config/custom_config', '', '_self', 0, 1, '', 1623920740, 1623920740, 0);
+INSERT INTO `cmf_system_menu` VALUES (12, 2, '系统日志', 'fa-book', 'system.log/index', '', '_self', 50, 1, '', 1624000849, 1624000871, 0);
+INSERT INTO `cmf_system_menu` VALUES (13, 7, '回收站管理', 'fa-drupal', 'content.recycle_bin/index', '', '_self', 0, 1, '', 1624876985, 1624876985, 0);
+INSERT INTO `cmf_system_menu` VALUES (14, 2, '登陆日志', 'fa-flag', 'system.log/login_log', '', '_self', 45, 1, '', 1624956129, 1624956129, 0);
+INSERT INTO `cmf_system_menu` VALUES (15, 7, '栏目管理', 'fa-certificate', 'content.category/index', '', '_self', 0, 1, '', 1635761077, 1635836956, 0);
+INSERT INTO `cmf_system_menu` VALUES (16, 0, '模块管理', 'fa-modx', 'module', '', '_self', 0, 1, '', 1638499060, 1638499060, 0);
+INSERT INTO `cmf_system_menu` VALUES (17, 16, '轮播管理', 'fa-picture-o', 'module.banner/index', '', '_self', 0, 1, '', 1638499108, 1638499108, 0);
+COMMIT;
 
-LOCK TABLES `cmf_system_menu` WRITE;
-/*!40000 ALTER TABLE `cmf_system_menu` DISABLE KEYS */;
-INSERT INTO `cmf_system_menu` VALUES (1,99999999,'后台首页','fa fa-home','index/welcome','','_self',0,1,'',0,0,0),(2,0,'系统管理','fa-chrome','','','_self',0,1,'',0,1622614371,0),(3,2,'菜单管理','fa-align-justify','system.menu/index','','_self',0,1,'',0,1622614310,0),(4,2,'管理员管理','fa-user-md','system.admin/index','','_self',0,1,'',0,1622614329,0),(5,2,'角色管理','fa-asl-interpreting','system.auth/index','','_self',0,1,'',0,1623229302,0),(6,2,'节点管理','fa-list','system.node/index','','_self',51,1,'',0,1623920758,0),(7,0,'内容管理','','','','_self',0,1,'',0,1622515479,0),(8,7,'文章管理','fa-align-justify','content.article/index','','_self',0,1,'',0,1623727177,0),(9,2,'数据库管理','fa-database','system.database/index','','_self',52,1,'数据库管理',1623230461,1624933860,0),(10,2,'系统设置','fa-cogs','system.config/index','','_self',0,1,'',1623913925,1623913959,0),(11,2,'自定义设置','fa-cog','system.config/custom_config','','_self',0,1,'',1623920740,1623920740,0),(12,2,'系统日志','fa-book','system.log/index','','_self',50,1,'',1624000849,1624000871,0),(13,7,'回收站管理','fa-drupal','content.recycle_bin/index','','_self',0,1,'',1624876985,1624876985,0),(14,2,'登陆日志','fa-flag','system.log/login_log','','_self',45,1,'',1624956129,1624956129,0),(15,7,'栏目管理','fa-certificate','content.category/index','','_self',0,1,'',1635761077,1635836956,0);
-/*!40000 ALTER TABLE `cmf_system_menu` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_tag`
---
-
+-- ----------------------------
+-- Table structure for cmf_tag
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_tag`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_tag` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `tag` varchar(50) NOT NULL DEFAULT '',
@@ -498,24 +550,17 @@ CREATE TABLE `cmf_tag` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `tag` (`tag`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_tag`
---
+-- ----------------------------
+-- Records of cmf_tag
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-LOCK TABLES `cmf_tag` WRITE;
-/*!40000 ALTER TABLE `cmf_tag` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_tag` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_tag_content`
---
-
+-- ----------------------------
+-- Table structure for cmf_tag_content
+-- ----------------------------
 DROP TABLE IF EXISTS `cmf_tag_content`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cmf_tag_content` (
   `modelid` smallint(5) unsigned NOT NULL DEFAULT '0',
   `catid` smallint(5) unsigned NOT NULL DEFAULT '0',
@@ -524,32 +569,11 @@ CREATE TABLE `cmf_tag_content` (
   KEY `tag_index` (`modelid`,`aid`) USING BTREE,
   KEY `tagid_index` (`tagid`) USING BTREE
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
---
--- Dumping data for table `cmf_tag_content`
---
+-- ----------------------------
+-- Records of cmf_tag_content
+-- ----------------------------
+BEGIN;
+COMMIT;
 
-LOCK TABLES `cmf_tag_content` WRITE;
-/*!40000 ALTER TABLE `cmf_tag_content` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_tag_content` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping events for database 'huicmf_tp6_auth'
---
-
---
--- Dumping routines for database 'huicmf_tp6_auth'
---
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2021-11-29 16:27:28
+SET FOREIGN_KEY_CHECKS = 1;

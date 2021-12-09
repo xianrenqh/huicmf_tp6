@@ -1,0 +1,94 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
+            </button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('module.banner/add')}layui-hide{/if}"
+               data-open="{:__url('module.banner/add')}"
+               data-title="添加轮播图">
+                <i class="fa fa-plus"></i> 添加轮播图</a>
+        </div>
+
+        <table id="banner_table" lay-filter="banner_table"></table>
+
+        <script type="text/html" id="imageTpl">
+            {{#  if(d.image !=''){ }}
+            <img src="{{d.image}}" onmouseover="hui_img_preview('image2','{{d.image}}')" onmouseout="layer.closeAll();"
+                 id="image2" width="20">
+            {{#  } }}
+        </script>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('module.banner/edit')}layui-hide{/if}"
+               data-open="{:__url('module.banner/edit')}?id={{d.id}}"
+               data-title="编辑链接" data-reload="2">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('module.banner/delete')}layui-hide{/if}"
+               data-delete="{:__url('module.banner/delete')}?id={{d.id}}"
+               data-title="删除链接" data-reload="2">删除</a>
+        </script>
+
+        <script type="text/html" id="status">
+            {{#  if(d.status == 1 ){ }}
+            <span class="layui-badge layui-bg-blue"> 显示 </span>
+            {{#  } else { }}
+            <span class="layui-badge layui-bg-danger"> 隐藏 </span>
+            {{#  } }}
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table'], function () {
+    var table = layui.table;
+    table.render({
+      elem: '#banner_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      , cellMinWidth: 100
+      , cols: [[
+        {type: 'numbers'}
+        , {field: 'id', title: 'ID', width: 60, align: 'center'}
+        , {field: 'title', title: '名称'}
+        , {field: 'image', title: 'image', templet: '#imageTpl', align: 'center'}
+        , {field: 'url', title: 'url'}
+        , {field: 'listorder', title: '排序', width: 100, align: 'center'}
+        , {field: 'status', title: '可见性', templet: '#status', width: 120, align: 'center'}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center'}
+      ]]
+      , id: 'testReload'
+      , page: true
+      , limit: 10
+    });
+
+    $('.hui-form-search .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .reset').on('click', function () {
+      window.location.reload();
+    });
+
+    //监听行工具事件
+    table.on('tool(banner_table)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'del') {
+        layer.confirm('你确定要删除吗？', {
+          btn: ['确定', '取消'] //按钮
+        }, function () {
+          var postdata = {ids: data.id};
+          posttips("{:__url('delete')}", postdata);
+        });
+      } else if (obj.event === 'edit') {
+        WeAdminShow("编辑", "{:__url('edit')}?id=" + data.id, '800');
+      }
+    });
+  });
+</script>
+</body>
+</html>

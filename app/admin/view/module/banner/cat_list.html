@@ -1,0 +1,56 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form method="post" action="javascript:" id="myform" onsubmit="return checkall(this)">
+            <button class="layui-btn layui-btn-sm layui-btn-danger" name="dosubmit" type="submit"> 批量删除</button>
+            <table class="layui-table">
+                <thead>
+                <tr>
+                    <td>分类ID</td>
+                    <td>分类名称</td>
+                </tr>
+                </thead>
+                {foreach $data as $val}
+                <tr>
+                    <td><input type="checkbox" value="{$val.tid}" name="id[]"> {$val.tid}</td>
+                    <td>{$val.name}</td>
+                </tr>
+                {/foreach}
+            </table>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery', 'upload'], function () {
+    let form = layui.form, $ = layui.jquery;
+    form.render();
+    window.checkall = function (obj) {
+      if ($("input[name='id[]']:checked").length < 1) {
+        layer.alert('请勾选信息！');
+        return false;
+      }
+      layer.confirm('确认要删除吗？', function (index) {
+        $.ajax({
+          type: "POST",
+          url: "{:__url('cat_list')}",
+          data: $(obj).serialize(),
+          dataType: "json",
+          success: function (res) {
+            if (res.code == 1) {
+              parent.location.reload();
+            } else {
+              layer.msg(res.msg);
+            }
+          }
+        })
+        return false;
+      });
+    }
+  });
+
+</script>
+</body>
+</html>

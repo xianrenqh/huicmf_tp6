@@ -1,0 +1,97 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label">轮播分类</label>
+                <div class="layui-input-inline">
+                    <select name="typeid" style="width:230px;" id="typeid">
+                        <option value="0">无分类</option>
+                        {foreach $types as $v}
+                        <option value="{$v.tid}">{$v.name}</option>
+                        {/foreach}
+                    </select>
+                </div>
+                <div class="layui-form-mid layui-word-aux">
+                    <a class="layui-btn layui-btn-xs layui-btn-normal {if !check_auth('module.banner/cat_add')}layui-hide{/if}"
+                       data-open="{:__url('module.banner/cat_add')}"
+                       data-title="添加分类" data-reload="2">添加</a>
+                    <a class="layui-btn layui-btn-xs {if !check_auth('module.banner/cat_list')}layui-hide{/if}"
+                       data-open="{:__url('module.banner/cat_list')}"
+                       data-title="管理分类" data-reload="2">管理</a>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">标题名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title" name="title" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="标题名称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">链接地址</label>
+                <div class="layui-input-block">
+                    <input type="text" id="url" name="url" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="链接地址不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">图片地址</label>
+                <div class="layui-input-inline" style="width: 55%">
+                    <label for="image">
+                        <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
+                               onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
+                    </label>
+                </div>
+                <div class="layui-input-inline" style="width: 120px">
+                    <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-block">
+                    <input type="number" id="listorder" name="listorder" value="50" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否启用</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="1" title="启用" checked>
+                    <input type="radio" name="status" value="0" title="禁用">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery', 'upload'], function () {
+    let form = layui.form, $ = layui.jquery, upload = layui.upload;
+    form.render();
+    upload.render({
+      elem: '#test1'
+      , url: "{:__url('upload/index',['save_path'=>'images'])}"
+      , done: function (res) {
+        if (res.code === 1) {
+          $("#image").val(res.url);
+        }
+      }
+    })
+    window.dosub = function (obj) {
+      HuiDoSub($(obj).serialize(), "{:__url('add')}");
+    }
+  });
+
+</script>
+</body>
+</html>

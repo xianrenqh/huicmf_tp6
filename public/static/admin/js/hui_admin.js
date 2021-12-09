@@ -119,14 +119,14 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
   });
 
   window.HuiDoSub = function (data, url) {
-    var loading = layer.load(0);
+    //var loading = layer.load(0);
     $.ajax({
       type: 'POST',
       url: url,
       data: data,
       dataType: "json",
       success: function (res) {
-        layer.close(loading);
+        //layer.close(loading);
         if (res.code === 1) {
           layer.msg(res.msg, {icon: 1, time: 2000}, function () {
             if (res.url != '') {
@@ -213,14 +213,16 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
   /**
    * 提示弹出
    */
-  window.HuiAdminConfirm = function (url, msg = '真的要这样操作么？', refresh = 0) {
+  window.HuiAdminConfirm = function (url, msg = '真的要这样操作么？', reload = 0) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
       var loading = layer.load(0);
       $.post(url, function (res) {
         layer.close(loading);
         if (res.code === 1) {
           layer.msg(res.msg, {icon: 1, time: 1500}, function () {
-            if (refresh == 1) {
+            if (reload == 1) {
+              window.location.reload();
+            } else if (reload == 2) {
               window.location.reload();
             }
           });
@@ -232,14 +234,16 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
   }
 
   /*删除弹出提示*/
-  window.HuiAdminDel = function (url, msg = '真的要删除么？', refresh = 0) {
+  window.HuiAdminDel = function (url, msg = '真的要删除么？', reload = 0) {
     layer.confirm(msg, {skin: 'skin-layer-hui'}, function (index) {
       var loading = layer.load(0);
       $.post(url, function (res) {
         layer.close(loading);
         if (res.code === 1) {
           layer.msg(res.msg, {icon: 1, time: 1500}, function () {
-            if (refresh == 1) {
+            if (reload == 1) {
+              window.location.reload();
+            } else if (reload == 2) {
               window.location.reload();
             }
           });

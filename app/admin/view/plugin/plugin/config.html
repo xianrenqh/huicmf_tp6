@@ -1,0 +1,123 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            {empty name="custom_config"}
+            <div class="layui-card-header">插件配置-{$data.info.title}</div>
+            {foreach name="data['config']" item="form" key="o_key"}
+                {switch name="form.type"}
+                    {case value="text"}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">{$form.title}</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="config[{$form.name}]" placeholder="请输入{$form.title}" autocomplete="off" class="layui-input" value="{$form.value}">
+                                <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                            </div>
+                        </div>
+                    {/case}
+                    {case value="password"}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{$form.title}</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="config[{$form.name}]" placeholder="请输入{$form.title}" autocomplete="off" class="layui-input" value="{$form.value}">
+                            <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                        </div>
+                    </div>
+                    {/case}
+                    {case value="radio"}
+                        <div class="layui-form-item">
+                            <label class="layui-form-label">{$form.title}</label>
+                            <div class="layui-input-block">
+                                {foreach name="form.options" item="opt" key="opt_k"}
+                                <input type="radio" name="config[{$form.name}]" value="{$opt_k}" title="{$opt}" {eq name="form.value" value="$opt_k"} checked{/eq}>
+                                {/foreach}
+                                <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                            </div>
+                        </div>
+                    {/case}
+                    {case value="select"}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{$form.title}</label>
+                        <div class="layui-input-block">
+                            <select name="config[{$form.name}]">
+                                <option value=""></option>
+                                {foreach name="form.options" item="opt" key="opt_k"}
+                                <option value="{$opt_k}" {eq name="form.value" value="$opt_k"}selected{/eq}>{$opt}</option>
+                                {/foreach}
+                            </select>
+                            <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                        </div>
+                    </div>
+                    {/case}
+                    {case value="checkbox"}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{$form.title}</label>
+                        <div class="layui-input-block">
+                            {foreach name="form.options" item="opt" key="opt_k"}
+                            {php}
+                            is_null($form["value"]) && $form["value"] = array();
+                            {/php}
+                            <input type="checkbox" name="config[{$form.name}][]" lay-skin="primary" title="{$opt}" value="{$opt_k}" {in name="opt_k" value="$form.value"} checked{/in}>
+                            {/foreach}
+                            <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                        </div>
+                    </div>
+                    {/case}
+                    {case value="textarea"}
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">{$form.title}</label>
+                        <div class="layui-input-block">
+                            <textarea placeholder="请输入{$form.title}" class="layui-textarea" name="config[{$form.name}]">{$form.value}</textarea>
+                            <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                        </div>
+                    </div>
+                    {/case}
+                    {case value="image"}
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">{$form.title}</label>
+                        <div class="layui-input-block">
+                            <div class="layui-col-xs4">
+                                <input type="text" name="config[{$form.name}]"  id="c-{$form.name}" value="{$form.value|default=''}" class="layui-input" onmouseover="hui_img_preview('c-{$form.name}',this.value)"
+                                       onmouseout="layer.closeAll();" autocomplete="off">
+                            </div>
+                            <button type="button" class="webUpload" id="picker_{$form.name}" data-multiple="false" data-input-id="c-{$form.name}" data-preview-id="p-{$form.name}" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                            <button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_{$form.name}" data-input-id="c-{$form.name}" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                            <ul class="layui-row list-inline plupload-preview" id="p-{$form.name}"></ul>
+                            <div class="layui-form-mid2 layui-word-aux">{notempty name="form.tip"}{$form.tip|raw}{/notempty}</div>
+                        </div>
+                    </div>
+                    {/case}
+                {/switch}
+            {/foreach}
+            {else /}
+                {present name="custom_config"}
+                {$custom_config|raw}
+                {/present}
+            {/empty}
+            <input type="hidden" name="id" value="{:input('id')}" readonly>
+            <input type="hidden" name="name" value="{:input('name')}" readonly>
+            <hr>
+
+            <div class="layui-form-item layer-footer">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery','webuploader'], function () {
+    var form = layui.form, $ = layui.jquery;
+    form.render();
+
+    window.dosub = function (obj) {
+      HuiDoSub($(obj).serialize(), "{:__url('config')}");
+    }
+  });
+</script>
+</body>
+</html>

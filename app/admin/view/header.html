@@ -15,4 +15,22 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script>
+      //全局变量
+      var GV = {
+        'site': {
+          "upload_thumb_water": "0",
+          "upload_thumb_water_pic": "",
+          "upload_image_size": "0",
+          "upload_file_size": "0",
+          "upload_image_ext": "{:get_config('upload_types_image')}",
+          "upload_file_ext": "{:get_config('upload_types_file')}",
+          "chunking": false,
+          "chunksize": "{:get_config('upload_maxsize')}"
+        },
+        'image_upload_url': "{:__url('upload/index',['save_path'=>'images'])}",
+        'file_upload_url': "{:__url('upload/index',['save_path'=>'files'])}",
+        'ueditor_upload_url': "{:__url('upload/index',['save_path'=>'ueditor'])}",
+      };
+    </script>
 </head>

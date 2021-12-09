@@ -17,7 +17,7 @@
                 <th>作者</th>
                 <th>版本号</th>
                 <th>状态</th>
-                <th>操作</th>
+                <th width="180">操作</th>
             </tr>
             </thead>
             <tbody>
@@ -28,31 +28,28 @@
                 <td>{$vo.description}</td>
                 <td>{$vo.author}</td>
                 <td>{$vo.version}</td>
-                <td>{$vo.status_name}</td>
+                <td></td>
                 <td>
-                    {if condition="$vo['status']==0"}
+                    {if condition="$vo['status']<0"}
                     <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/install')}layui-hide{/if}"
                        data-confirm="{:__url('plugin.plugin/install',['name'=>$vo['name']])}"
-                       data-title="确定安装该插件吗？">安装</a>
+                       data-title="确定安装该插件吗？" data-reload="2">安装</a>
                     {else/}
-                    <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/install')}layui-hide{/if}"
-                       data-confirm="{:__url('plugin.plugin/install',['name'=>$vo['name']])}"
-                       data-title="确定设置该插件吗？">设置</a>
+                    <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/config')}layui-hide{/if}"
+                       data-title="确定设置该插件吗？" data-open="{:__url('plugin.plugin/config',['name'=>$vo['name']])}">设置</a>
                         {if condition="$vo['status']==1"}
-                        <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/install')}layui-hide{/if}"
-                           data-confirm="{:__url('plugin.plugin/install',['name'=>$vo['name']])}"
-                           data-title="确定禁用该插件吗？">禁用</a>
-                        {elseif condition="$vo['status']==2"}
-                        <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/install')}layui-hide{/if}"
-                           data-confirm="{:__url('plugin.plugin/install',['name'=>$vo['name']])}"
-                           data-title="确定启用该插件吗？">启用</a>
+                        <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/status')}layui-hide{/if}"
+                           data-confirm="{:__url('plugin.plugin/status',['name'=>$vo['name'],'action'=>'disable'])}"
+                           data-title="确定禁用该插件吗？" data-reload="2">禁用</a>
+                        {elseif condition="$vo['status']==0"}
+                        <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/status')}layui-hide{/if}"
+                           data-confirm="{:__url('plugin.plugin/status',['name'=>$vo['name'],'action'=>'enable'])}"
+                           data-title="确定启用该插件吗？" data-reload="2">启用</a>
                         {else/}
-
                         {/if}
-                    <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/install')}layui-hide{/if}"
-                       data-confirm="{:__url('plugin.plugin/install',['name'=>$vo['name']])}"
-                       data-title="确定卸载该插件吗？">卸载</a>
-
+                    <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.plugin/uninstall')}layui-hide{/if}"
+                       data-confirm="{:__url('plugin.plugin/uninstall',['name'=>$vo['name']])}"
+                       data-title="确定卸载该插件吗？" data-reload="2">卸载</a>
                     {/if}
 
                 </td>

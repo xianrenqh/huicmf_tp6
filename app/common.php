@@ -3,7 +3,9 @@
 use think\facade\Db;
 use app\common\service\AuthService;
 use app\admin\library\LibAuthService;
+use think\Loader;
 
+define('ADDON_PATH', ROOT_PATH.'addons'.DS);
 /**
  * 返回带协议的域名
  */
@@ -914,3 +916,37 @@ function list_sort_by($list, $field, $sortby = 'asc')
 
     return false;
 }
+
+function get_plugins_list()
+{
+    $results = scandir(ADDON_PATH);
+    $list    = [];
+    foreach ($results as $name) {
+        if ($name === '.' or $name === '..') {
+            continue;
+        }
+        if (is_file(ADDON_PATH.$name)) {
+            continue;
+        }
+        $addonDir = ADDON_PATH.$name.DS;
+        if ( ! is_dir($addonDir)) {
+            continue;
+        }
+        if ( ! is_file($addonDir.ucfirst($name).'.php')) {
+            continue;
+        }
+        $info_file = $addonDir.'info.ini';
+        if ( ! is_file($info_file)) {
+            continue;
+        }
+        $info = parse_ini_file($info_file, true, INI_SCANNER_TYPED) ?: [];
+        if ( ! isset($info['name'])) {
+            continue;
+        }
+        $list[$name] = $info;
+    }
+
+    return $list;
+}
+
+

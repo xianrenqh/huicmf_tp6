@@ -2,16 +2,14 @@
 /**
  * Created by PhpStorm.
  * User: 小灰灰
- * Date: 2021-06-28
- * Time: 11:25:11
+ * Date: 2021-11-22
+ * Time: 下午3:39:46
  * Info:
  */
 
 namespace app\admin\model;
 
-use think\Model;
-
-class Plugin extends Model
+class BannerType extends TimeModel
 {
 
 }

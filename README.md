@@ -2,14 +2,15 @@ HuiCMF v6.0
 ===============
 **【基于ThinkPHP6.0和layui的快速开发的后台管理系统。】**
 
-**仅用于学习使用。**
+**用于学习并允许商业使用。**
 > 运行环境要求PHP7.1+，兼容PHP8.0。
 >
 > 数据库要求：mysql5.5+，推荐5.7。
-> 
+>
 > 编辑器使用了 editor.md | UEeditor | icEditor
 >
-by:xiaohuihui
+> 支持插件安装，（使用了think-addons扩展插件）
+>
 
 ## 安装
 
@@ -117,7 +118,7 @@ data-delete：删除询问对话框
 
 - data-reload="1"  刷新父级页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在列表页（父级）页面刷新。默认不写或者 data-reload="0"为不刷新】
 - data-reload="2"  刷新当前页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在当前页面刷新。默认不写或者 data-reload="0"为不刷新】
-【实例：】
+  【实例：】
 
 ~~~
 //弹出层打开:width:90%，height:80%
@@ -133,6 +134,59 @@ data-delete：删除询问对话框
 <a href="javascript:;" data-confirm="{:__url('system.node/index')}" data-title="您确定要取消收藏吗？">1231232313</a>
 
 ~~~
+### 3、上传图片（附件）
+>1、在页面中直接使用layui上传
+```html
+<!--html-->
+<button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+```
+```javascript
+/*javascript*/
+upload.render({
+  elem: '#test1'
+  , url: "{:__url('upload/index',['save_path'=>'images'])}"
+  , done: function (res) {
+    if (res.code === 1) {
+      $("#image").val(res.url);
+    }
+  }
+})
+```
+
+> 2、使用封装好的layui上传（只需要一个按钮，无需在页面中写js）
+
+#### 使用案例：
+```html
+<button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_pic" data-input-id="c-pic" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+```
+**以上代码中国注释如下：**
+
+|  参数名  |是否允许为空| 参数值|
+| ------------ | ------------ |
+|  class | 否  |layUpload [必填一致]|
+|  id | 否  |例如：lay_pic|
+|  data-input-id | 否  |图片文本框的id值，用于返回url填充|
+|  data-type | 是  |image [图片格式]；file [附件格式]|
+
+
+>3、使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
+
+**参数同上**
+```html
+<button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="c-pic" data-preview-id="p-pic" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+```
+
+### 4、二开了think-addons扩展插件
+**插件基于：zzstudio/think-addons 进行了二开处理**
+
+1. 在helper助手中增加了部分公共方法
+2. 修改了Addons.php文件，方便在程序中二次调用
+3. 插件文件夹里：
+- 插件名要和插件控制器一直，例如： test插件文件夹里的 Test.php文件
+- info.ini 一定要有，而且字段要对应
+- config.php文件参数 参考 test插件里的
+
+
 
 ## 特别感谢
 
@@ -154,9 +208,15 @@ data-delete：删除询问对话框
 
 * CKEditor：[https://github.com/ckeditor/ckeditor4](https://github.com/ckeditor/ckeditor4)
 
+## 版权信息
+HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。
+本项目包含的第三方源码和二进制文件之版权信息另行标注。
+版权所有Copyright © 2019-2022 by xiaohuihui (https://xiaohuihui.net.cn)
+All rights reserved。
+
 ## 免责声明
 
-> 任何用户在使用`HuiCMF`后台框架前，请您仔细阅读并透彻理解本声明。您可以选择不使用`HuiCMF`后台框架，若您一旦使用`HuiCMF`后台框架，您的使用行为即被视为对本声明全部内容的认可和接受。
+> HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。任何用户在使用`HuiCMF`后台框架前，请您仔细阅读并透彻理解本声明。您可以选择不使用`HuiCMF`后台框架，若您一旦使用`HuiCMF`后台框架，您的使用行为即被视为对本声明全部内容的认可和接受。
 
 * `HuiCMF`后台框架是一款开源免费的后台快速开发框架 ，主要用于更便捷地开发后台管理；其尊重并保护所有用户的个人隐私权，不窃取任何用户计算机中的信息。更不具备用户数据存储等网络传输功能。
 * 您承诺秉着合法、合理的原则使用`HuiCMF`后台框架，不利用`HuiCMF`后台框架进行任何违法、侵害他人合法利益等恶意的行为，亦不将`HuiCMF`后台框架运用于任何违反我国法律法规的 Web 平台。

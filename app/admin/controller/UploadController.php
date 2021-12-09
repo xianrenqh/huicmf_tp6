@@ -30,7 +30,7 @@ class UploadController
     }
 
     /**
-     * 普通图片上蔡
+     * 普通图片上传
      * @return \think\response\Json|void
      */
     public function index()
@@ -44,7 +44,6 @@ class UploadController
                 try {
                     if ($editor_type === 'editorMd') {
                         $up_file = request()->file();
-
                     } else {
                         $up_file = request()->file('file');
                     }
@@ -63,28 +62,45 @@ class UploadController
                         break;
                 }
                 try {
-                    validate([
-                        'imgFile' => [
-                            'fileSize' => intval(get_config('upload_maxsize')) * 1000,
-                            'fileExt'  => get_config('upload_types')
-                        ]
-                    ])->check(['imgFile' => $file]);
+                    $getMime = $up_file->getMime();
+                    if (strstr($getMime, 'image')) {
+                        //判断是图片
+                        validate([
+                            'imgFile' => [
+                                'fileSize' => intval(get_config('upload_maxsize')) * 1000,
+                                'fileExt'  => get_config('upload_types_image')
+                            ]
+                        ])->check(['imgFile' => $file]);
+                        $errorTips = "上传图片失败";
+                    } else {
+                        //判断是其他附件
+                        validate([
+                            'imgFile' => [
+                                'fileSize' => intval(get_config('upload_maxsize')) * 1000,
+                                'fileExt'  => get_config('upload_types_file')
+                            ]
+                        ])->check(['imgFile' => $file]);
+                        $errorTips = "上传附件失败";
+                    }
                     //上传图片到本地服务器
                     try {
                         $saveName = \think\facade\Filesystem::disk('public')->putFile($save_path, $file);
                     } catch (\think\exception\ValidateException $e) {
                         return json($e->getMessage());
                     }
+
                     if ( ! $saveName) {
-                        return json(['code' => 0, 'msg' => '上传图片失败']);
+                        return json(['code' => 0, 'msg' => $errorTips]);
                     }
                     $saveName = str_replace("\\", "/", $saveName);
                     $savePath = '/uploads/'.$saveName;
 
-                    //水印
-                    $this->add_water($savePath);
-                    //写入数据库
-                    $this->_att_write($file, $savePath);
+                    if (strstr($getMime, 'image')) {
+                        //水印-图片
+                        $this->add_water($savePath);
+                        //写入数据库
+                        $this->_att_write($file, $savePath);
+                    }
 
                     switch ($editor_type) {
                         case "iceEditor":
@@ -102,7 +118,7 @@ class UploadController
                         default:
                             return json([
                                 'code' => 1,
-                                'msg'  => '图片上传成功',
+                                'msg'  => '上传成功',
                                 'name' => $saveName,
                                 'url'  => $savePath
                             ]);
@@ -209,7 +225,7 @@ class UploadController
     private function _get_upload_types()
     {
 
-        $arr   = explode('|', get_config('upload_types'));
+        $arr   = explode('|', get_config('upload_types_image'));
         $allow = array(
             'gif',
             'jpg',
