@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "57d199e9f5f44fabaf32c4f5f9f75b5a",
+    "content-hash": "b642518f2d1d25199b33594a059956a4",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1128,16 +1128,16 @@
         },
         {
             "name": "xianrenqh/think-addons",
-            "version": "v0.0.2",
+            "version": "v0.03",
             "source": {
                 "type": "git",
                 "url": "https://github.com/xianrenqh/think-addons.git",
-                "reference": "9bf0a56b437cd2c2c4004c82835df87f13cfca88"
+                "reference": "8cf2e679efdebe1e9c7cde8eb41ab0775918b94f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/xianrenqh/think-addons/zipball/9bf0a56b437cd2c2c4004c82835df87f13cfca88",
-                "reference": "9bf0a56b437cd2c2c4004c82835df87f13cfca88",
+                "url": "https://api.github.com/repos/xianrenqh/think-addons/zipball/8cf2e679efdebe1e9c7cde8eb41ab0775918b94f",
+                "reference": "8cf2e679efdebe1e9c7cde8eb41ab0775918b94f",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1184,9 +1184,9 @@
             "description": "The ThinkPHP6 Addons Package",
             "support": {
                 "issues": "https://github.com/xianrenqh/think-addons/issues",
-                "source": "https://github.com/xianrenqh/think-addons/tree/v0.0.2"
+                "source": "https://github.com/xianrenqh/think-addons/tree/v0.03"
             },
-            "time": "2021-12-09T01:53:35+00:00"
+            "time": "2021-12-09T02:33:04+00:00"
         },
         {
             "name": "xiaodi/think-whoops",
