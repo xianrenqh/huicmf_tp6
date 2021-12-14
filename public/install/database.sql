@@ -334,50 +334,27 @@ INSERT INTO `cmf_config` VALUES (1,'site_name',1,'站点名称','HuiCMF6后台�
 UNLOCK TABLES;
 
 --
--- Table structure for table `cmf_hook`
+-- Table structure for table `cmf_plugin`
 --
 
-DROP TABLE IF EXISTS `cmf_hook`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cmf_hook` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '钩子类型(1:系统钩子;2:应用钩子;3:模板钩子;4:后台模板钩子)',
-  `once` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否只允许一个插件运行(0:多个;1:一个)',
-  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名称',
-  `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子',
-  `app` varchar(15) NOT NULL DEFAULT '' COMMENT '应用名(只有应用钩子才用)',
-  `description` varchar(255) NOT NULL DEFAULT '' COMMENT '描述',
+DROP TABLE IF EXISTS `cmf_plugin`;
+CREATE TABLE `cmf_plugin` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT '自增id',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '插件类型;1:网站;8:微信',
+  `has_admin` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '是否有后台管理,0:没有;1:有',
+  `status` tinyint(3) unsigned NOT NULL DEFAULT '1' COMMENT '状态;1:开启;0:禁用',
+  `create_time` int(10) unsigned NOT NULL DEFAULT '0' COMMENT '插件安装时间',
+  `name` varchar(50) NOT NULL DEFAULT '' COMMENT '插件标识名,英文字母(惟一)',
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件名称',
+  `demo_url` varchar(50) NOT NULL DEFAULT '' COMMENT '演示地址，带协议',
+  `hooks` varchar(255) NOT NULL DEFAULT '' COMMENT '实现的钩子;以“,”分隔',
+  `author` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT '插件作者',
+  `author_url` varchar(50) NOT NULL DEFAULT '' COMMENT '作者网站链接',
+  `version` varchar(20) NOT NULL DEFAULT '' COMMENT '插件版本号',
+  `description` varchar(255) NOT NULL COMMENT '插件描述',
+  `config` text COMMENT '插件配置',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统钩子表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `cmf_hook`
---
-
-LOCK TABLES `cmf_hook` WRITE;
-/*!40000 ALTER TABLE `cmf_hook` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cmf_hook` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `cmf_hook_plugin`
---
-
-DROP TABLE IF EXISTS `cmf_hook_plugin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `cmf_hook_plugin` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `list_order` float NOT NULL DEFAULT '10000' COMMENT '排序',
-  `status` tinyint(4) NOT NULL DEFAULT '1' COMMENT '状态(0:禁用,1:启用)',
-  `hook` varchar(50) NOT NULL DEFAULT '' COMMENT '钩子名',
-  `plugin` varchar(50) NOT NULL DEFAULT '' COMMENT '插件',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统钩子插件表';
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='插件表';
 
 --
 -- Table structure for table `cmf_login_log`

@@ -179,6 +179,7 @@
         body {
             position: static;
             font-size: 12px;
+            background: #ccc;
         }
 
         input::-webkit-input-placeholder {
@@ -300,7 +301,7 @@
         }
     </style>
 </head>
-<body style="background: url({$bg}) 50% 50% / cover;">
+<body style="{:hook('admin_login_style')}">
 <div class="main-body">
     <div class="login-main">
         <div class="login-top">

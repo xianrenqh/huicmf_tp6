@@ -186,6 +186,25 @@ upload.render({
 - info.ini 一定要有，而且字段要对应
 - config.php文件参数 参考 test插件里的
 
+### 5、后台表单省市区域三级联动
+```html
+<div class="layui-form-item tpl-district-container">
+  <label class="layui-form-label">地区</label>
+  <div class="layui-inline">
+    <select name="province" lay-filter="tpl-province" data-value="" class="form-control tpl-province">
+    </select>
+  </div>
+  <div class="layui-inline">
+    <select name="city" lay-filter="tpl-city" data-value="" class="form-control tpl-city">
+    </select>
+  </div>
+  <div class="layui-inline">
+    <select name="area" lay-filter="tpl-district" data-value="" class="form-control tpl-district">
+    </select>
+  </div>
+</div>
+```
+> 之后在layui里引用一下即可。其中 data-value 属性是用于编辑的赋值
 
 
 ## 特别感谢

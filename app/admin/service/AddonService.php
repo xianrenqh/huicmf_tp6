@@ -63,6 +63,7 @@ class AddonService
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+        self::refresh();
 
         return true;
     }
@@ -102,6 +103,7 @@ class AddonService
         } catch (Exception $e) {
             throw new Exception($e->getMessage());
         }
+        self::refresh();
 
         return true;
     }
@@ -192,6 +194,7 @@ class AddonService
         $info           = get_addons_info($name);
         $info['status'] = 1;
         set_addons_info($name, $info);
+        self::refresh();
 
         return true;
     }
@@ -225,6 +228,7 @@ class AddonService
         $info           = get_addons_info($name);
         $info['status'] = 0;
         set_addons_info($name, $info);
+        self::refresh();
 
         return true;
     }
@@ -244,6 +248,32 @@ class AddonService
         }
 
         return $assetsDir;
+    }
+
+    /**
+     * 刷新插件缓存文件.
+     * @return bool
+     * @throws Exception
+     */
+    protected static function refresh()
+    {
+        $file   = ROOT_PATH.'config'.DS.'addons.php';
+        $config = get_addons_autoload_config(true);
+        if ($config['autoload']) {
+            return;
+        }
+        if ( ! \lib\File::is_really_writable($file)) {
+            throw new Exception('addons.php文件没有写入权限');
+        }
+        if ($handle = fopen($file, 'w')) {
+            fwrite($handle, "<?php\n\n".'return '.var_export($config, true).';');
+            fclose($handle);
+        } else {
+            throw new Exception('文件没有写入权限');
+        }
+
+        return true;
+
     }
 
 }

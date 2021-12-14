@@ -329,3 +329,7 @@ body .layui-btn-lvse {
 body .readonly-bg {
     background: rgba(238, 238, 238, 0.76);
 }
+
+body .layui-form-select .layui-input {
+    padding-right: 0
+}
