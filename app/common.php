@@ -3,7 +3,6 @@
 use think\facade\Db;
 use app\common\service\AuthService;
 use app\admin\library\LibAuthService;
-use think\Loader;
 
 /**
  * 返回带协议的域名
@@ -52,6 +51,30 @@ if ( ! function_exists('check_auth')) {
         $Auth = AuthService::instance();
 
         return $Auth->check($rule_name, cmf_get_admin_id());
+    }
+}
+
+/**
+ * 获取文件目录列表,该方法返回数组
+ */
+if ( ! function_exists('getDir')) {
+    function getDir($dir)
+    {
+        $dirArray[] = null;
+        if (false != ($handle = opendir($dir))) {
+            $i = 0;
+            while (false !== ($file = readdir($handle))) {
+                //去掉"“.”、“..”以及带“.xxx”后缀的文件
+                if ($file != "." && $file != ".." && ! strpos($file, ".")) {
+                    $dirArray[$i] = $file;
+                    $i++;
+                }
+            }
+            //关闭句柄
+            closedir($handle);
+        }
+
+        return $dirArray;
     }
 }
 
@@ -243,6 +266,50 @@ if ( ! function_exists('array_format_key')) {
         return $newArray;
     }
 
+}
+
+/**
+ * 列出目录下所有文件
+ *
+ * @param string $path 路径
+ * @param string $exts 扩展名
+ * @param array  $list 增加的文件列表
+ *
+ * @return  array  所有满足条件的文件
+ */
+if ( ! function_exists('dir_path')) {
+    function dir_path($path)
+    {
+        $path = str_replace('\\', '/', $path);
+        if (substr($path, -1) != '/') {
+            $path = $path.'/';
+        }
+
+        return $path;
+    }
+}
+
+/**
+ * 删除目录及目录下面的所有文件
+ *
+ * @param string $dir 路径
+ *
+ * @return  bool   如果成功则返回 TRUE，失败则返回 FALSE
+ */
+if ( ! function_exists('dir_delete')) {
+    function dir_delete($dir)
+    {
+        $dir = dir_path($dir);
+        if ( ! is_dir($dir)) {
+            return false;
+        }
+        $list = glob($dir.'*');
+        foreach ($list as $v) {
+            is_dir($v) ? dir_delete($v) : @unlink($v);
+        }
+
+        return @rmdir($dir);
+    }
 }
 
 /**
@@ -600,7 +667,8 @@ if ( ! function_exists('str_cut')) {
             '&lt;',
             '&gt;',
             '&middot;',
-            '&hellip;'
+            '&hellip;',
+            '\r\n'
         ), array('∵', ' ', '&', '"', "'", '“', '”', '—', '<', '>', '·', '…'), $string);
         $strcut = '';
         if ($code == 'utf-8') {
@@ -916,6 +984,177 @@ function list_sort_by($list, $field, $sortby = 'asc')
     return false;
 }
 
+/**
+ * 返回经addslashes处理过的字符串或数组
+ *
+ * @param $string 需要处理的字符串或数组
+ *
+ * @return mixed
+ */
+if ( ! function_exists('new_addslashes')) {
+    function new_addslashes($string)
+    {
+        if ( ! is_array($string)) {
+            return addslashes($string);
+        }
+        foreach ($string as $key => $val) {
+            $string[$key] = new_addslashes($val);
+        }
 
+        return $string;
+    }
+}
 
+/**
+ * 转换数据为HTML代码
+ *
+ * @param $data 数组
+ *
+ * @return bool|string
+ */
+if ( ! function_exists('arr_to_html')) {
+    function arr_to_html($data)
+    {
+        if (is_array($data)) {
+            $str = 'array(';
+            foreach ($data as $key => $val) {
+                if (is_array($val)) {
+                    $str .= "'$key'=>".arr_to_html($val).",";
+                } else {
+                    //如果是变量的情况
+                    if (strpos($val, '$') === 0) {
+                        $str .= "'$key'=>$val,";
+                    } else {
+                        if (preg_match("/^([a-zA-Z_].*)\(/i", $val, $matches)) {
+                            //判断是否使用函数
+                            if (function_exists($matches[1])) {
+                                $str .= "'$key'=>$val,";
+                            } else {
+                                $str .= "'$key'=>'".newAddslashes($val)."',";
+                            }
+                        } else {
+                            $str .= "'$key'=>'".newAddslashes($val)."',";
+                        }
+                    }
+                }
+            }
 
+            return $str.')';
+        }
+
+        return false;
+    }
+}
+
+/**
+ * 返回经addslashes处理过的字符串或数组
+ *
+ * @param $string 需要处理的字符串或数组
+ *
+ * @return array|string
+ */
+if ( ! function_exists('newAddslashes')) {
+    function newAddslashes($string)
+    {
+        if ( ! is_array($string)) {
+            return addslashes($string);
+        }
+        foreach ($string as $key => $val) {
+            $string[$key] = newAddslashes($val);
+        }
+
+        return $string;
+    }
+}
+
+/**
+ * 根据PHP各种类型变量生成唯一标识号
+ *
+ * @param mixed $mix 变量
+ *
+ * @return string
+ */
+if ( ! function_exists('to_guid_string')) {
+    function to_guid_string($mix)
+    {
+        if (is_object($mix)) {
+            return spl_object_hash($mix);
+        } elseif (is_resource($mix)) {
+            $mix = get_resource_type($mix).strval($mix);
+        } else {
+            $mix = serialize($mix);
+        }
+
+        return md5($mix);
+    }
+}
+
+/**
+ * 兼容低版本的array_column
+ *
+ * @param  $array      多维数组
+ * @param  $column_key 需要返回值的列
+ * @param  $index_key  可选。作为返回数组的索引/键的列。
+ *
+ * @return array       返回一个数组，数组的值为输入数组中某个单一列的值。
+ */
+if ( ! function_exists('hui_array_column')) {
+    function hui_array_column($array, $column_key, $index_key = null)
+    {
+        if (function_exists('array_column')) {
+            return array_column($array, $column_key, $index_key);
+        }
+
+        $result = array();
+        foreach ($array as $key => $value) {
+            if ( ! is_array($value)) {
+                continue;
+            }
+            if ($column_key) {
+                if ( ! isset($value[$column_key])) {
+                    continue;
+                }
+                $tmp = $value[$column_key];
+            } else {
+                $tmp = $value;
+            }
+            if ($index_key) {
+                $key = isset($value[$index_key]) ? $value[$index_key] : $key;
+            }
+            $result[$key] = $tmp;
+        }
+
+        return $result;
+    }
+}
+
+/**
+ * 传入时间戳,计算距离现在的时间
+ *
+ * @param number $time 时间戳
+ *
+ * @return string     返回多少以前
+ */
+if ( ! function_exists('hui_word_time')) {
+    function hui_word_time($time)
+    {
+        $time = (int)substr($time, 0, 10);
+        $int  = time() - $time;
+        $str  = '';
+        if ($int <= 2) {
+            $str = sprintf('刚刚', $int);
+        } elseif ($int < 60) {
+            $str = sprintf('%d秒前', $int);
+        } elseif ($int < 3600) {
+            $str = sprintf('%d分钟前', floor($int / 60));
+        } elseif ($int < 86400) {
+            $str = sprintf('%d小时前', floor($int / 3600));
+        } elseif ($int < 1728000) {
+            $str = sprintf('%d天前', floor($int / 86400));
+        } else {
+            $str = date('Y-m-d H:i:s', $time);
+        }
+
+        return $str;
+    }
+}
