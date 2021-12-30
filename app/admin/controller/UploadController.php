@@ -11,6 +11,7 @@ namespace app\admin\controller;
 
 use think\facade\Db;
 use think\facade\Request;
+use think\facade\View;
 use think\Image;
 
 class UploadController
@@ -39,6 +40,8 @@ class UploadController
         $option['allowtype'] = $this->_get_upload_types();
         $save_path           = Request::param('save_path', 'images');
         $editor_type         = Request::param('editor_type', '');
+        $groupId             = Request::param('group_id', '0');
+        $group_id            = $groupId == '-1' ? 0 : $groupId;
         switch ($this->upload_mode) {
             case 'local':
                 try {
@@ -93,23 +96,24 @@ class UploadController
                         return json(['code' => 0, 'msg' => $errorTips]);
                     }
                     $saveName = str_replace("\\", "/", $saveName);
+                    $picName  = explode('/', $saveName);
+                    $picName  = end($picName);
                     $savePath = '/uploads/'.$saveName;
-
                     if (strstr($getMime, 'image')) {
                         //水印-图片
                         $this->add_water($savePath);
                         //写入数据库
-                        $this->_att_write($file, $savePath);
+                        $this->_att_write($file, $savePath, $picName, $group_id);
                     }
 
                     switch ($editor_type) {
                         case "iceEditor":
-                            return json([['url' => $savePath, 'name' => $saveName, 'error' => 0]]);
+                            return json([['url' => $savePath, 'name' => $picName, 'error' => 0]]);
                             break;
                         case "wangEditor":
                             return json([
                                 'errno' => 0,
-                                'data'  => ['url' => $savePath, 'alt' => $saveName, 'href' => '']
+                                'data'  => ['url' => $savePath, 'alt' => $picName, 'href' => '']
                             ]);
                             break;
                         case "editorMd";
@@ -119,7 +123,7 @@ class UploadController
                             return json([
                                 'code' => 1,
                                 'msg'  => '上传成功',
-                                'name' => $saveName,
+                                'name' => $picName,
                                 'url'  => $savePath
                             ]);
                             break;
@@ -185,11 +189,36 @@ class UploadController
         }
     }
 
-    /**
-     * 上传附件写入数据库
-     * 默认方法对gif报错，改后无法获取gif的长宽
-     */
-    public function _att_write($file, $fileName)
+    //写入数据库
+    public function _att_write($file, $fileName, $picName, $group_id)
+    {
+        if (strstr($fileName, '.gif')) {
+            $extension  = 'gif';
+            $img_width  = 0;
+            $img_height = 0;
+        } else {
+            $fileinfo   = Image::open('.'.$fileName);
+            $extension  = $fileinfo->type();
+            $img_width  = $fileinfo->width();
+            $img_height = $fileinfo->height();
+        }
+        $arr = [
+            'storage'     => 'local',
+            'group_id'    => $group_id,
+            'file_url'    => $fileName,
+            'file_name'   => $picName,
+            'file_size'   => $file->getSize(),
+            'file_type'   => 'image',
+            'extension'   => $extension,
+            'sha1'        => $file->hash('sha1'),
+            'img_width'   => $img_width,
+            'img_height'  => $img_height,
+            'create_time' => time()
+        ];
+        Db::name('upload_file')->data($arr)->insert();
+    }
+
+    public function _att_write_bak($file, $fileName)
     {
         $arr                = [];
         $arr['admin_id']    = $this->admin_id;
@@ -282,6 +311,17 @@ class UploadController
         ];
 
         return $data[$msg] ?? $msg;
+    }
+
+    public function fileList()
+    {
+        $type = Request::param('type', 'many');
+        // 分组列表
+        $group_list = Db::name('upload_group')->select();
+        View::assign('type', $type);
+        View::assign('group_list', $group_list);
+
+        return View::fetch();
     }
 
 }

@@ -313,7 +313,7 @@ layui.define(["jquery", "miniMenu", "element", "miniTab", "miniTheme"], function
           try {
             layer.close(window.openTips);
           } catch (e) {
-            console.log(e.message);
+            //console.log(e.message);
           }
         }
       });
@@ -374,7 +374,6 @@ layui.define(["jquery", "miniMenu", "element", "miniTab", "miniTheme"], function
           }
           //填充ID
           var input_id = $(that).data("input-id") ? $(that).data("input-id") : "";
-          console.log(input_id);
           Exts = Exts.replaceAll(",", "|");
           layui.define('upload', function (exports) {
             let upload = layui.upload;

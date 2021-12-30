@@ -1,0 +1,83 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main file-library">
+        <div class="layui-row layui-layer-content layui-form ">
+            <div class="layui-col-xs3">
+                <div class="file-group">
+                    <ul class="nav-new">
+                        <li class="ng-scope active" data-group-id="-1">
+                            <a class="group-name am-text-truncate" href="javascript:void(0);" title="全部">全部</a>
+                        </li>
+                        <li class="ng-scope" data-group-id="0">
+                            <a class="group-name am-text-truncate" href="javascript:void(0);" title="未分组">未分组</a>
+                        </li>
+                        {notempty name="group_list"}
+                        {volist name="group_list" id="vo"}
+                        <li class="ng-scope" data-group-id="{$vo.group_id}" title="{$vo.group_name}">
+                            <a class="group-edit" href="javascript:void(0);" title="编辑分组">
+                                <i class="fa fa-edit"></i>
+                            </a>
+                            <a class="group-name am-text-truncate" href="javascript:void(0);">
+                                {$vo.group_name}
+                            </a>
+                            <a class="group-delete" href="javascript:void(0);" title="删除分组">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </li>
+                        {/volist}
+                        {/notempty}
+                    </ul>
+                    <a class="group-add" href="javascript:void(0);">新增分组</a>
+                </div>
+            </div>
+
+            <div class="layui-col-xs9">
+                <div class="layui-btn-group">
+                    <ul class="layui-nav layui-bg-green" lay-filter=""
+                        style="font-size: 12px;border-radius: 0px;float: left;padding:0px 0px 0px 0px;margin-left: 2px;">
+                        <li class="layui-nav-item group-select" style="line-height: 30px;font-size: 12px;">
+                            <a href="javascript:;" class="am-dropdown-toggle"
+                               style="width:65px;color:white;font-size: 12px;padding: 0px 20px 0px 20px;background: #3bb4f2">移动至<span
+                                    class="layui-nav-more" style="right: 10px;font-size: 12px;"><i
+                                    class="layui-icon layui-icon-triangle-d"></i>   </span></a>
+                            <dl class="layui-nav-child" style="top: 30px;line-height: 31px;padding: 0px 0px 0px 0px;">
+                            </dl>
+                        </li>
+                    </ul>
+                    <a class="layui-btn layui-btn-danger layui-btn-sm file-delete" style="margin-left: 6px;">删除</a>
+                    <button type="button" class="layui-btn layui-btn-lvse layui-btn-sm j-upload upload-image"
+                            id="lay_pic" data-input-id="c-pic" data-type="image">
+                        <i class="layui-icon"></i>上传图片
+                    </button>
+
+                </div>
+                <div id="file-list-body" class="v-box-body">
+
+                </div>
+
+            </div>
+
+            <div style="position: fixed;bottom: 20px;right: 10px;z-index: 99;">
+                <button name="dosubmit" class="layui-btn btn-sure" type="submit">&nbsp;&nbsp;确定&nbsp;&nbsp;</button>&nbsp;&nbsp;&nbsp;&nbsp;
+                <button onclick="hui_close()" class="layui-btn layui-btn-normal" type="button">&nbsp;&nbsp;关闭&nbsp;&nbsp;
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery', 'fileLibrary', 'webuploader'], function () {
+    var form = layui.form, $ = layui.jquery;
+    form.render();
+    $('.file-library').fileLibrary({
+      input_type: "{:input('type')}"
+    });
+  });
+</script>
+</body>
+</html>

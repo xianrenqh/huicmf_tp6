@@ -20,7 +20,7 @@ use think\App;
 use lib\Random;
 use lib\GetImgSrc;
 use think\facade\Db;
-use think\response\Json;
+use app\admin\model\UploadFile as UploadFileModel;
 
 /**
  * @ControllerAnnotation(title="文章管理")
@@ -153,7 +153,8 @@ class ArticleController extends AdminController
      */
     public function edit()
     {
-        $CategoryModel = new CategoryModel();
+        $CategoryModel   = new CategoryModel();
+        $UploadFileModel = new UploadFileModel();
 
         $id     = $this->request->param('id');
         $editor = $this->request->param('editor', 1);
@@ -164,10 +165,18 @@ class ArticleController extends AdminController
         if (empty($data)) {
             $this->error('获取数据失败');
         }
-        $data['thumbs']       = json_decode($data['thumbs'], true);
-        $data['thumbs_count'] = count($data['thumbs']);
-        $data['thumbs']       = implode(',', $data['thumbs']);
-        $data['flag']         = array_filter(explode(',', $data['flag']));
+        $thumbArr = json_decode($data['thumbs'], true);
+        if ( ! empty($thumbArr)) {
+            $thumbIds   = $UploadFileModel->getFildIds($thumbArr);
+            $thumbDatas = [];
+            foreach ($thumbArr as $key => $v) {
+                $v2['file_id']  = $thumbIds[$key];
+                $v2['file_url'] = $v;
+                $thumbDatas[]   = $v2;
+            }
+            $data['thumbs'] = $thumbDatas;
+        }
+        $data['flag'] = array_filter(explode(',', $data['flag']));
         if ( ! empty($editor) && $editor == 2) {
             $data['content'] = $data['content_md'];
         }
@@ -182,7 +191,7 @@ class ArticleController extends AdminController
             $param['is_top']      = ( ! empty($param['flag']) && in_array(1, $param['flag'])) ? 1 : 0;
             $param['jump_url']    = ( ! empty($param['flag']) && in_array(7, $param['flag'])) ? $param['jump_url'] : '';
             $param['flag']        = ! empty($param['flag']) ? implode(',', $param['flag']) : '';
-            $thumbArr             = array_filter(explode(',', $param['thumbs']));
+            $thumbArr             = ! empty($param['params']) ? $param['params']['thumbs'] : [];
             $param['thumbs']      = json_encode($thumbArr, true);
             $param['delete_time'] = 0;
             //自动提取缩略图

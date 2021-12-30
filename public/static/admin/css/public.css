@@ -333,3 +333,319 @@ body .readonly-bg {
 body .layui-form-select .layui-input {
     padding-right: 0
 }
+
+/* 文件库 */
+.file-library .layui-layer-content .file-group {
+    float: left;
+    width: 150px;
+    padding-top: 20px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new {
+    overflow-y: auto;
+    max-height: 340px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li {
+    position: relative;
+    margin: 3px 0;
+    padding: 8px 23px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li a i.iconfont {
+    font-size: 14px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li a.group-name {
+    color: #595961;
+    font-size: 13px;
+    margin-left: 10px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li a.group-edit {
+    display: none;
+    position: absolute;
+    left: 6px;
+    top: 10px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li a.group-delete {
+    display: none;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li:hover, .file-library .layui-layer-content .file-group .nav-new li.active {
+    background: rgba(48, 145, 242, 0.1);
+    border-radius: 6px;
+}
+
+.file-library .layui-layer-content .layui-btn-group ul li dl dd {
+    margin: 0
+}
+
+.file-library .layui-layer-content .file-group .nav-new li:hover .group-name, .file-library .layui-layer-content .file-group .nav-new li.active .group-name {
+    color: #0e90d2;
+}
+
+.file-library .layui-layer-content .file-group .nav-new li:hover .group-edit, .file-library .layui-layer-content .file-group .nav-new li:hover .group-delete {
+    display: inline;
+}
+
+.file-library .layui-layer-content .file-group a.group-add {
+    display: block;
+    margin-top: 18px;
+    font-size: 12px;
+    padding: 0 30px;
+}
+
+.file-library .layui-layer-content .file-group a.group-add:hover {
+    color: #0e90d2
+}
+
+.file-library .layui-layer-content .file-list {
+    float: left;
+}
+
+.file-library .layui-layer-content .file-list .v-box-header {
+    padding: 0 20px 0 10px;
+    margin-bottom: 10px;
+}
+
+.file-library .layui-layer-content .file-list .v-box-header .h-left .tpl-table-black-operation {
+    margin: 0 10px;
+}
+
+.file-library .layui-layer-content .file-list .v-box-header .h-left .tpl-table-black-operation a {
+    padding: 6px 10px;
+}
+
+.file-library .layui-layer-content .file-list .v-box-header .h-left .am-dropdown-toggle {
+    font-size: 12px;
+}
+
+.file-library .layui-layer-content .file-list .v-box-header .h-left .am-dropdown-content a {
+    font-size: 13px;
+}
+
+.file-library .layui-layer-content .file-list .v-box-header .h-rigth .upload-image .iconfont {
+    font-size: 12px;
+}
+
+.file-library .layui-layer-content .v-box-body {
+    width: 660px;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item {
+    overflow-y: auto;
+    height: 373px;
+    margin-top: 20px
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li {
+    position: relative;
+    cursor: pointer;
+    border-radius: 6px;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    float: left;
+    margin: 10px;
+    height: 145px;
+    -webkit-transition: All 0.2s ease-in-out;
+    -moz-transition: All 0.2s ease-in-out;
+    -o-transition: All 0.2s ease-in-out;
+    transition: All 0.2s ease-in-out;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li:hover {
+    border: 1px solid #16bce2;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li .img-cover {
+    width: 120px;
+    height: 120px;
+    background: no-repeat center center / 100%;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li p.file-name {
+    margin: 5px 0 0 0;
+    width: 120px;
+    font-size: 13px;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li.active .select-mask {
+    display: block;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li .select-mask {
+    display: none;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    text-align: center;
+    border-radius: 6px;
+}
+
+.file-library .layui-layer-content .v-box-body ul.file-list-item li .select-mask img {
+    position: absolute;
+    top: 50px;
+    left: 45px;
+}
+
+.file-library .layui-layer-content .v-box-body ul.pagination {
+    margin: 0;
+}
+
+.file-library .layui-layer-content .v-box-body ul.pagination > li > a, .file-library .layui-layer-content .v-box-body ul.pagination > li > span {
+    padding: 3px 9px;
+    font-size: 13px;
+}
+
+.am-ellipsis, .am-text-truncate {
+    word-wrap: normal;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.pagination > li > a, .pagination > li > span {
+    position: relative;
+    float: left;
+    padding: 4px 12px;
+    line-height: 1.42857143;
+    color: #23abf0;
+    text-decoration: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    margin: 0 2px;
+}
+
+.am-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.am-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1020;
+    display: none;
+    float: left;
+    min-width: 160px;
+    margin: 9px 0 0;
+    text-align: left;
+    line-height: 1.6;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    -webkit-animation-duration: .15s;
+    animation-duration: .15s;
+}
+
+.am-dropdown-header {
+    display: block;
+    padding: 6px 20px;
+    font-size: 12px;
+    color: #999;
+}
+
+.am-dropdown-content :first-child {
+    margin-top: 0;
+}
+
+ul.am-dropdown-content > li > a {
+    display: block;
+    padding: 5px 20px;
+    clear: both;
+    font-weight: 400;
+    color: #333;
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+ul.am-dropdown-content > li > a:focus, ul.am-dropdown-content > li > a:hover {
+    text-decoration: none;
+    color: #262626;
+    background-color: #f5f5f5;
+}
+
+.am-dropdown-content:after, .am-dropdown-content:before {
+    position: absolute;
+    display: block;
+    content: "";
+    width: 0;
+    height: 0;
+    border: 8px dashed transparent;
+    z-index: 1;
+}
+
+.am-dropdown-content:after, .am-dropdown-content:before {
+    left: 10px;
+    top: -16px;
+    pointer-events: none;
+}
+
+.am-dropdown-content:before {
+    border-bottom-color: #ddd;
+    bottom: 0;
+}
+
+/* 图片上传*/
+.uploader-list .file-item {
+    float: left;
+    width: 100px;
+    position: relative;
+    margin: 20px 20px 0 0;
+    padding: 4px;
+    border: 1px solid #ddd;
+    background: #fff;
+}
+
+.uploader-list .file-item img {
+    width: 100px;
+    height: 100px;
+}
+
+.uploader-list .file-item .error {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    background: red;
+    color: white;
+    text-align: center;
+    height: 20px;
+    font-size: 1.3rem;
+    line-height: 23px;
+}
+
+.uploader-list .file-item:hover .file-item-delete {
+    display: block;
+}
+
+.uploader-list .file-item .file-item-delete {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    cursor: pointer;
+    height: 22px;
+    width: 22px;
+    line-height: 22px;
+    background: rgba(153, 153, 153, 0.7);
+    border-radius: 50%;
+    text-align: center;
+    color: #fff !important;
+    display: none;
+}
+
+.uploader-list .file-item .file-item-delete:hover {
+    background: #000;
+}

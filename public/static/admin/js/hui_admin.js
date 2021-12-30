@@ -36,7 +36,9 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
     let title = $(this).attr('data-title');
     let url = $(this).attr('data-open');
     let reload = $(this).attr('data-reload');
-    HuiAdminShow(title, url, '', '', reload);
+    let w = $(this).attr('data-width');
+    let h = $(this).attr('data-height');
+    HuiAdminShow(title, url, w, h, reload);
   });
 
   $('body').on('click', '[data-open-full]', function () {
@@ -309,6 +311,18 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
   window.hui_close = function () {
     var index = parent.layer.getFrameIndex(window.name);
     parent.layer.close(index);
+  }
+
+  // 删除图片 (数据库已有的)
+  window.fileItemDelete = function (id) {
+    layer.confirm('您确定要删除该图片吗？', {
+      title: '友情提示'
+    }, function (index) {
+      console.log(id);
+      console.log($(this).parent());
+      $('.file-item-id-' + id).remove();
+      layer.close(index);
+    });
   }
 
 });

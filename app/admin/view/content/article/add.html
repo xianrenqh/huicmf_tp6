@@ -54,50 +54,27 @@
                 <label class="layui-form-label">缩略图</label>
                 <div class="layui-input-block">
                     <div class="layui-input-inline" style="width: 50%">
-                        <label for="image">
-                            <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
-                                   onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
-                        </label>
+                        <input type="text" name="image" value=""
+                               onmouseover="hui_img_preview('image',this.value)"
+                               onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input image-select-input">
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
-                        <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片
-                        </button>
-                    </div>
-                    <div class="layui-input-inline" style="width: 120px">
-                        <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
-                                onclick="hui_img_cropper('image','{:__url(\'upload/img_cropper\')}')"><i
-                                class="layui-icon layui-icon-picture"></i>裁剪图片
-                        </button>
+                        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one'])}" data-title="选择图片"
+                           data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
                     </div>
                 </div>
             </div>
 
-
-            <div class="layui-form-item" id="imgItem">
-                <label class="layui-form-label">上传多图：</label>
-                <button type="button" id="importModel" class="layui-hide">图片导入</button>
-                <div class="layui-input-inlines-self" id="imgItemInfo">
-                    <div class="layui-upload-drag-self" id="importImg0">
-                        <div id="imgDivs0">
-                            <i class="layui-icon" id="uploadIcon0"> &#xe624; </i>
-                        </div>
-                        <div class="img layui-hide" id="uploadDemoView0">
-                            <img class="layui-upload-img" id="imgs0" src="" alt="">
-                            <div class="handle layui-hide" id="handle0">
-                                <i class="layui-icon layui-icon-picture-fine" id="preImg0" style="color:#fff"></i>
-                                <i class="layui-icon layui-icon-delete" id="delImg0" style="color:#fff"></i>
-                            </div>
-                        </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">多图选择</label>
+                <div class="layui-input-block" style="margin-top: 15px;">
+                    <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'more'])}" data-title="选择图片"
+                       data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
+                    <div style="margin-top: 15px;">
+                        <small>(可拖拽图片调整显示顺序 )</small>
                     </div>
-                </div>
-            </div>
-
-            <div class="layui-form-item layui-hide">
-                <label class="layui-form-label"></label>
-                <div class="layui-input-block">
-                    <label for="thumbs">
-                        <input class="layui-input" type="text" id="thumbs" name="thumbs">
-                    </label>
+                    <!--回调显示选择的图片-->
+                    <div class="uploader-list am-cf"></div>
                 </div>
             </div>
 
@@ -214,9 +191,19 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['form', 'jquery', 'upload', 'miniHuitags'], function () {
+  layui.use(['form', 'jquery', 'miniHuitags', 'ddSort'], function () {
     let form = layui.form, $ = layui.jquery, upload = layui.upload;
     form.render();
+    // 图片列表拖动，需要引入ddSort
+    $('.uploader-list').DDSort({
+      target: '.file-item',
+      delay: 100, // 延时处理，默认为 50 ms，防止手抖点击 A 链接无效
+      floatStyle: {
+        'border': '1px solid #ccc',
+        'background-color': '#fff'
+      }
+    });
+
     $("#Huitags-demo1").Huitags(
       {
         maxlength: 20,
@@ -224,43 +211,6 @@
       }
     );
 
-    //普通图片上传
-    upload.render({
-      elem: '#test1'
-      , url: "{:__url('upload/index',['save_path'=>'images'])}"
-      , done: function (res) {
-        console.log(res.src)
-        if (res.status === 1) {
-          $("#demo1").val(res.src);
-        }
-      }
-    })
-
-    $(document).on('click', '[id^=delImg]', function () {
-      let importImgF = $('#imgItemInfo').find('div:first');//importImg0、importImg1、importImg2
-      let empt = $(this).parent().parent().parent();//importImg0、importImg1、importImg2
-      let nextImgSrc = $(this).parent().parent().parent().next().find('img').attr('src');//src
-      //判断当前DIV后面的div的url是否为空
-      if (!nextImgSrc) {
-        //判断是否为第一个
-        if (importImgF.attr('id') === empt.attr('id')) {
-          //-是 ，清空第一个 最后面的删除
-          //图片url清空
-          empt.find('img').attr('src', '');
-          $(this).parent().parent().addClass('layui-hide');
-          importImgF.find('i:first').removeClass('layui-hide');
-          count--;
-          $('#' + 'importImg' + count).remove();
-        } else {
-          // -否，删除当前
-          empt.remove();
-        }
-      } else {
-        //如果有值删除当前div
-        empt.remove();
-      }
-      return false;
-    });
     form.on('checkbox(flag)', function (obj) {
       let check = obj.elem.checked;
       if (check) {
@@ -271,80 +221,6 @@
         $("#jumpUrl>div>input").attr('data-s', '0');
       }
     });
-
-    //图片预览
-    $(document).on('click', '[id^=preImg]', function () {
-      let iHtml = "<img src='" + $(this).parent().parent().find('img:first').attr('src') + "' style='width: 100%; height: 100%;' alt=''/>";
-      layer.open({
-        type: 1,
-        shade: false,
-        title: false, //不显示标题
-        area: ['50%', '50%'],
-        content: iHtml //捕获的元素，注意：最好该指定的元素要存放在body最外层，否则可能被其它的相对元素所影响
-      });
-      return false;
-    });
-
-    //图片绑定鼠标悬浮
-    $(document).on("mouseenter", ".img", function () {
-      //鼠标悬浮
-      $(this).find('div:first').removeClass('layui-hide');
-    }).on("mouseleave", ".img", function () {
-      //鼠标离开
-      $(this).find('div:first').addClass('layui-hide');
-    });
-
-    let imgsId,
-      uploadDemoViewId,
-      uploadIconId;
-    let count = 1;
-
-    $(document).on('click', '[id^=imgDivs]', function () {
-      if (count > 5) {
-        layer.msg('最多上传5张', {icon: 2});
-        return false;
-      }
-      //给id赋值
-      uploadIconId = $(this).find('i').attr('id');
-      uploadDemoViewId = $(this).next().attr('id');
-      imgsId = $(this).next().find('img').attr('id');
-      $('#importModel').click();
-    });
-
-    upload.render({
-      elem: '#importModel'
-      , multiple: true
-      , url: "{:__url('upload/index',['save_path'=>'images'])}"
-      , before: function (obj) {
-        obj.preview(function (index, file, result) {
-
-        });
-      }
-      , done: function (res) {
-        if (res.code !== 1) {
-          return layer.msg(res.msg, {icon: 2})
-        }
-        $('#' + imgsId).attr('src', res.url);
-        $('#' + uploadDemoViewId).removeClass('layui-hide');
-        $('#' + uploadIconId).addClass('layui-hide');
-        $('#imgItemInfo').append(
-          '<div class="layui-upload-drag-self" id="importImg' + count + '">' +
-          '<div id="imgDivs' + count + '">' +
-          '<i class="layui-icon" id="uploadIcon' + count + '"> &#xe624; </i>' +
-          '</div>' +
-          '<div class="img layui-hide" id="uploadDemoView' + count + '">' +
-          '<img class="layui-upload-img" id="imgs' + count + '" src="" alt="">' +
-          '<div class="handle layui-hide" id="handle' + count + '">' +
-          '<i class="layui-icon layui-icon-picture-fine" id="preImg' + count + '" style="color:#fff"></i>' +
-          '<i class="layui-icon layui-icon-delete" id="delImg' + count + '" style="color:#fff"></i>' +
-          '</div>' + '</div>' + '</div>'
-        );
-        count++;
-      }
-    });
-    window.set_status = function (s) {
-      $("input[name='status']").val(s);
-    }
 
     window.dosub = function (obj) {
       let jump_url = $('#jump_url').val();
@@ -362,15 +238,6 @@
           return false;
         }
       }
-      let imgs = $('[id^=imgs]');
-      let imgArray = '';
-      imgs.each(function () {
-        let url = $(this).attr('src');
-        if (url) {
-          imgArray += url + ',';
-        }
-      });
-      $('#thumbs').val(imgArray);
       HuiDoSub($(obj).serialize(), "{:__url('content.Article/add')}");
     }
   })

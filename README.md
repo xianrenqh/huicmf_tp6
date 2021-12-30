@@ -135,6 +135,7 @@ data-delete：删除询问对话框
 
 ~~~
 ### 3、上传图片（附件）
+案例页面：http://你的域名/admin.php/system.test/upload.html
 >1、在页面中直接使用layui上传
 ```html
 <!--html-->

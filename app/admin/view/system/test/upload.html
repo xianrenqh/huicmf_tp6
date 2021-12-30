@@ -1,0 +1,156 @@
+{include file='header'/}
+<title>添加内容</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:" onsubmit="return dosub(this)" method="post">
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>原生layui上传</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传图片1</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width: 50%">
+                        <label for="demo1">
+                            <input type="text" name="image" value="" onmouseover="hui_img_preview('demo1',this.value)"
+                                   onmouseout="layer.closeAll();" id="demo1" autocomplete="off" class="layui-input">
+                        </label>
+                    </div>
+                    <div class="layui-input-inline" style="width: 120px">
+                        <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片
+                        </button>
+                    </div>
+                    <div class="layui-input-inline" style="width: 120px">
+                        <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
+                                onclick="hui_img_cropper('image','{:__url(\'upload/img_cropper\')}')"><i
+                                class="layui-icon layui-icon-picture"></i>裁剪图片
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>封装好的layui上传</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传图片2</label>
+                <div class="layui-input-inline" style="width: 50%">
+                    <label for="demo2">
+                        <input type="text" name="image" value="" onmouseover="hui_img_preview('demo2',this.value)"
+                               onmouseout="layer.closeAll();" id="demo2" autocomplete="off" class="layui-input">
+                    </label>
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_pic"
+                            data-input-id="demo2" data-type="image"><i class="layui-icon"></i>上传图片
+                    </button>
+                </div>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>封装好的webUploader插件上传</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传图片3</label>
+                <div class="layui-input-inline" style="width: 50%">
+                    <label for="demo3">
+                        <input type="text" name="image" value="" onmouseover="hui_img_preview('demo3',this.value)"
+                               onmouseout="layer.closeAll();" id="demo3" autocomplete="off" class="layui-input">
+                    </label>
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="demo3"
+                            data-preview-id="demo3" data-type="image"><i class="layui-icon"></i>上传图片
+                    </button>
+                </div>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>layui多图上传</legend>
+            </fieldset>
+            <div class="layui-form-item" id="imgItem">
+                <label class="layui-form-label">上传多图：</label>
+                <button type="button" id="importModel" class="layui-hide">图片导入</button>
+                <div class="layui-input-inlines-self" id="imgItemInfo">
+                    <div class="layui-upload-drag-self" id="importImg0">
+                        <div id="imgDivs0">
+                            <i class="layui-icon" id="uploadIcon0"> &#xe624; </i>
+                        </div>
+                        <div class="img layui-hide" id="uploadDemoView0">
+                            <img class="layui-upload-img" id="imgs0" src="" alt="">
+                            <div class="handle layui-hide" id="handle0">
+                                <i class="layui-icon layui-icon-picture-fine" id="preImg0" style="color:#fff"></i>
+                                <i class="layui-icon layui-icon-delete" id="delImg0" style="color:#fff"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+                <legend>图片库选择与上传(webUploader控件)</legend>
+            </fieldset>
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传图片4</label>
+                <div class="layui-input-inline" style="width: 50%">
+                    <label for="demo1">
+                        <input type="text" name="image" value="" onmouseover="hui_img_preview('demo5',this.value)"
+                               onmouseout="layer.closeAll();" id="demo5" autocomplete="off"
+                               class="layui-input image-select-input">
+                    </label>
+                </div>
+                <div class="layui-input-inline" style="width: 120px">
+                    <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one'])}" data-title="选择图片1"
+                       data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片1</a>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">上传图片5</label>
+                <div class="layui-input-block" style="margin-top: 15px;">
+                    <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'more'])}" data-title="选择图片"
+                       data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
+                    <div style="margin-top: 15px;">
+                        <small>尺寸750x750像素以上，大小2M以下 (可拖拽图片调整显示顺序 )</small>
+                    </div>
+                    <!--回调显示选择的图片-->
+                    <div class="uploader-list am-cf"></div>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+</body>
+</html>
+<script>
+  //layui多图上传使用的是 huiPicUpload 控件，记得要引入
+  //图片拖拽需要引入 ddSort 控件
+  layui.use(['form', 'jquery', 'upload', 'huiPicUpload', 'ddSort'], function () {
+    let form = layui.form, $ = layui.jquery, upload = layui.upload;
+    form.render();
+    //普通图片上传
+    upload.render({
+      elem: '#test1'
+      , url: "{:__url('upload/index',['save_path'=>'images'])}"
+      , done: function (res) {
+        console.log(res.url)
+        if (res.code === 1) {
+          $("#demo1").val(res.url);
+        }
+      }
+    });
+
+    // 图片列表拖动，需要引入ddSort
+    $('.uploader-list').DDSort({
+      target: '.file-item',
+      delay: 100, // 延时处理，默认为 50 ms，防止手抖点击 A 链接无效
+      floatStyle: {
+        'border': '1px solid #ccc',
+        'background-color': '#fff'
+      }
+    });
+
+  });
+</script>
