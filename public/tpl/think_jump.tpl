@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <title>温馨提示</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="https://cdn.demo.fastadmin.net/assets/img/favicon.ico" />
+  <link rel="shortcut icon" href="favicon.ico" />
   <style type="text/css">
     *{box-sizing:border-box;margin:0;padding:0;font-family:Lantinghei SC,Open Sans,Arial,Hiragino Sans GB,Microsoft YaHei,"微软雅黑",STHeiti,WenQuanYi Micro Hei,SimSun,sans-serif;-webkit-font-smoothing:antialiased}
     body{padding:20px 0;background:#fff;font-weight:400;font-size:1pc;-webkit-text-size-adjust:none;color:#333}
