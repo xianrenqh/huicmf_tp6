@@ -1,0 +1,116 @@
+{include file='header'/}
+<title>会员列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="javascript:;" id="form_admin_search">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" class="layui-input" id="time" placeholder="开始时间 到 结束时间">
+                        </div>
+                        <div class="layui-inline">
+                            <select name="type" id="type">
+                                <option value="">==类型==</option>
+                                <option value="1">签到</option>
+                                <option value="2">消费送积分</option>
+                                <option value="3">使用积分</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-sm reset" type="reset"><i
+                                    class="layui-icon">&#xe63f;</i>清空
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <div class="layui-btn-group tableTool">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
+            </button>
+        </div>
+
+        <table id="admin_table" lay-filter="admin_table"></table>
+
+        <script type="text/html" id="statusTpl">
+            {{#  if(d.status =='1'){ }}
+            <span class="layui-badge layui-bg-green"> 正常 </span>
+            {{#  } else { }}
+            <span class="layui-badge layui-bg-danger"> 停用 </span>
+            {{#  } }}
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table','laydate'], function () {
+    var table = layui.table,laydate = layui.laydate;
+    laydate.render({
+      elem: '#time'
+      ,type: 'date'
+      ,range: '到'
+      ,format: 'yyyy-M-d'
+    });
+    table.render({
+      elem: '#admin_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      ,where:{user_id:'{$user_id}'}
+      , cellMinWidth: 100
+      , cols: [[
+        {field: 'id', title: 'ID', width: 80, align: 'center'}
+        , {field: 'user_id', title: '用户id', align: 'center', width: 120}
+        , {field: 'type', title: '类型', width: 120, align: 'center'}
+        , {field: 'num', title: '积分数量', width: 120, align: 'center'}
+        , {field: 'balance', title: '积分余额', width: 120, align: 'center'}
+        , {field: 'remarks', title: '备注',  align: 'center'}
+        , {field: 'create_time', title: '时间', width: 170, align: 'center'}
+      ]]
+      , id: 'Datalist'
+      , page: true
+      , limit: 10
+    });
+    var $ = layui.$, active = {
+      reload: function () {
+        //执行重载
+        table.reload('Datalist', {
+          page: {curr: 1},
+          where: {
+            key: {
+              time: $('#time').val(),
+              type: $('#type').val()
+            }
+          }
+        });
+      }
+    };
+
+    $('.tableTool .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .reset').on('click', function () {
+      window.location.reload();
+    });
+
+  });
+</script>
+</body>
+</html>

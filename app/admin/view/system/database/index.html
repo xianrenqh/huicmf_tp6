@@ -65,7 +65,7 @@
 
     var $ = layui.$, active = {
       youhuaData: function () { //优化表数据
-        var tables = table_get_ids(table);
+        var tables = table_get_ids(table,'Datalist','Name');
         if (tables === false) {
           return false;
         }
@@ -81,7 +81,7 @@
 
       }
       , xiufuData: function () { //修复表数据
-        var tables = table_get_ids(table);
+        var tables = table_get_ids(table,'Datalist','Name');
         if (tables === false) {
           return false;
         }
@@ -129,25 +129,6 @@
 
   });
 
-  function table_get_ids(table) {
-    var checkStatus = table.checkStatus('Datalist')
-      , data = checkStatus.data;
-    if (data.length < 1) {
-      layer.msg('你没有选择任何数据', {icon: 2});
-      return false;
-    } else {
-      var ids = [];
-      for (var i = 0; i < data.length; i++) {
-        ids += data[i].Name + ',';
-      }
-      ids = ids.slice(0, -1);
-      var arr = ids.split(',');
-      for (var i in arr) {
-        (arr[i])
-      }
-      return arr;
-    }
-  }
 </script>
 </body>
 </html>

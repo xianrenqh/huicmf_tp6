@@ -1,0 +1,122 @@
+{include file='header'/}
+<title>添加管理员</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">用户名</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="username" name="username" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="用户名不能为空">
+                </div>
+                <label class="layui-form-label required">手机号</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="mobile" name="mobile" value="" lay-verify="required|phone" autocomplete="off"
+                           class="layui-input" lay-reqtext="手机号不能为空">
+                </div>
+
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label required">密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password" name="password" value="" autocomplete="off"
+                           lay-verify="required" lay-reqtext="密码不能为空" class="layui-input" placeholder="">
+                    <tip>密码长度：6-15位</tip>
+                </div>
+                <label class="layui-form-label required">确认密码</label>
+                <div class="layui-input-inline">
+                    <input type="password" id="password2" name="password2" value="" lay-verify="required|regPwd"
+                           autocomplete="off" lay-reqtext="确认密码不能为空" class="layui-input" placeholder="">
+                    <tip>密码长度：6-15位</tip>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">昵称</label>
+                <div class="layui-input-inline">
+                    <input type="text" id="nickname" name="nickname" value="" autocomplete="off"
+                           class="layui-input">
+                </div>
+                <label class="layui-form-label">生日</label>
+                <div class="layui-input-inline">
+                    <input type="text" class="layui-input" id="birthday" name="birthday" autocomplete="off" placeholder="yyyy-MM-dd">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">性别</label>
+                <div class="layui-input-inline">
+                    <input type="radio" name="sex" value="1" title="男" checked>
+                    <input type="radio" name="sex" value="2" title="女">
+                </div>
+                <label class="layui-form-label">等级</label>
+                <div class="layui-input-inline">
+                    <select name="grade" id="grade">
+                        <option value="">==请选择等级==</option>
+                        {volist name='grade' id='vo'}
+                        <option value="{$vo.id}">{$vo.name}</option>
+                        {/volist}
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">头像</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width: 50%">
+                        <input type="text" name="avatar" value=""
+                               onmouseover="hui_img_preview('avatar',this.value)"
+                               onmouseout="layer.closeAll();" id="avatar" autocomplete="off"
+                               class="layui-input image-select-input">
+                    </div>
+                    <div class="layui-input-inline" style="width: 120px">
+                        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one'])}" data-title="选择图片"
+                           data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label">状态</label>
+                <div class="layui-input-block" id="status">
+                    <input type="radio" name="status" value="1" title="可用" checked>
+                    <input type="radio" name="status" value="2" title="停用">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery', 'laydate'], function () {
+    var form = layui.form, $ = layui.jquery, laydate = layui.laydate;
+    form.render();
+    laydate.render({
+      elem: '#birthday'
+    });
+    form.verify({
+      newPwd: [
+        /^[\S]{6,15}$/
+        , '密码必须6到15位，且不能出现空格'
+      ],
+      regPwd: function (value) {
+        if ($("#password").val() != value) {
+          return "两次输入密码不一致，请重新输入！";
+        }
+      }
+    });
+    window.dosub = function (obj) {
+      HuiDoSub($(obj).serialize(), "{:__url('user.user/add')}");
+    }
+  });
+
+</script>
+</body>
+</html>

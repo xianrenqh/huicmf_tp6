@@ -1,0 +1,191 @@
+{include file='header'/}
+<title>会员列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="javascript:;" id="form_admin_search">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" name="mobile" id="mobile" placeholder="请输入手机号或用户名" class="layui-input">
+                        </div>
+                        <div class="layui-inline">
+                            <select name="sex" id="sex">
+                                <option value="">==请选择性别==</option>
+                                <option value="1">男</option>
+                                <option value="2">女</option>
+                                <option value="3">未知</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <select name="status" id="status">
+                                <option value="">==状态==</option>
+                                <option value="1">正常</option>
+                                <option value="2">停用</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <select name="grade" id="grade">
+                                <option value="">==用户等级==</option>
+                                {volist name='grade' id='vo'}
+                                <option value="{$vo.id}">{$vo.name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-sm reset" type="reset"><i
+                                    class="layui-icon">&#xe63f;</i>清空
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <div class="layui-btn-group tableTool">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
+            </button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('user.user/add')}layui-hide{/if}"
+               data-open="{:__url('user.user/add')}" data-width="750"
+               data-title="添加会员" data-reload="2">
+                <i class="fa fa-plus"></i> 添加会员</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('user.user/delete')}layui-hide{/if}"
+               data-type="deleteData" data-reload="2">批量删除</a>
+        </div>
+
+        <table id="admin_table" lay-filter="admin_table"></table>
+
+        <script type="text/html" id="avatarTpl">
+            {{#  if(d.avatar !=''){ }}
+            <img src="{{d.avatar}}" onmouseover="hui_img_preview('image2','{{d.avatar}}')" onmouseout="layer.closeAll();"
+                 id="image2" width="20">
+            {{#  } }}
+        </script>
+        <script type="text/html" id="pointTpl">
+            <a class="link-hot" data-open="{:__url('user.point/index')}?user_id={{d.id}}"
+               data-title="【{{d.username}}】的会员积分列表">{{d.point}}</a>
+        </script>
+        <script type="text/html" id="statusTpl">
+            {{#  if(d.status =='1'){ }}
+            <span class="layui-badge layui-bg-green"> 正常 </span>
+            {{#  } else { }}
+            <span class="layui-badge layui-bg-danger"> 停用 </span>
+            {{#  } }}
+        </script>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-sm layui-btn-lvse {if !check_auth('user.point/edit')}layui-hide{/if}"
+               data-open="{:__url('user.point/edit')}?user_id={{d.id}}" data-width="550" data-height="400"
+               data-title="积分修改" data-reload="2">积分修改</a>
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('user.user/edit')}layui-hide{/if}"
+               data-open="{:__url('user.user/edit')}?id={{d.id}}" data-width="750"
+               data-title="编辑会员" data-reload="2">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('user.user/delete')}layui-hide{/if}"
+               data-delete="{:__url('user.user/delete')}?id={{d.id}}"
+               data-title="删除会员" data-reload="2">删除</a>
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table'], function () {
+    var table = layui.table;
+    table.render({
+      elem: '#admin_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      , cellMinWidth: 100
+      , cols: [[
+        {type: 'checkbox', LAY_CHECKED: false}
+        , {field: 'id', title: 'ID', width: 60, align: 'center', sort: true}
+        , {field: 'username', title: '用户名', align: 'center'}
+        , {field: 'nickname', title: '昵称', width: 110, align: 'center'}
+        , {field: 'mobile', title: '手机号', width: 118, align: 'center'}
+        , {field: 'sex', title: '性别', width: 60, align: 'center'}
+        , {field: 'avatar', title: '头像', width: 80, align: 'center', templet: '#avatarTpl'}
+        , {field: 'nickname', title: '昵称', align: 'center'}
+        , {field: 'birthday', title: '生日', width: 110, align: 'center'}
+        , {field: 'balance', title: '余额', sort: true, align: 'center'}
+        , {field: 'point', title: '积分', sort: true, width: 90, align: 'center', templet: '#pointTpl'}
+        , {field: 'grade_name', title: '用户等级', align: 'center'}
+        , {field: 'create_time', title: '添加时间', width: 170, sort: true, align: 'center'}
+        , {field: 'update_time', title: '更新时间', width: 170, sort: true, align: 'center'}
+        , {field: 'status', title: '状态', sort: true, templet: '#statusTpl', align: 'center', width: 90}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 220}
+      ]]
+      , id: 'Datalist'
+      , page: true
+      , limit: 10
+    });
+    var $ = layui.$, active = {
+      reload: function () {
+        //执行重载
+        table.reload('Datalist', {
+          page: {curr: 1},
+          where: {
+            key: {
+              mobile: $('#mobile').val(),
+              sex: $('#sex').val(),
+              status: $('#status').val(),
+              grade: $('#grade').val(),
+            }
+          }
+        });
+      },
+      deleteData: function () { //批量删除
+        var ids = table_get_ids(table, 'Datalist', 'id');
+        if (ids === false) {
+          return false;
+        }
+        var loading = layer.load();
+        $.post("{:__url('delete')}", {
+          id: ids
+        }, function (res) {
+          layer.close(loading);
+          layer.msg(res.msg, {
+            icon: res.code
+          },function (){
+            table.reload('Datalist', {});
+          })
+        })
+
+      }
+    };
+    //监听排序
+    table.on('sort(admin_table)', function (obj) {
+      console.log(obj);
+      table.reload('Datalist', {
+        initSort: obj
+        , where: {
+          field: obj.field
+          , order: obj.type
+        }
+      });
+    });
+
+    $('.tableTool .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .reset').on('click', function () {
+      window.location.reload();
+    });
+
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+{include file='header'/}
+<title>等级列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <div class="layui-btn-group tableTool">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
+            </button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('user.grade/add')}layui-hide{/if}"
+               data-open="{:__url('user.grade/add')}" data-width="750"
+               data-title="添加等级" data-reload="2">
+                <i class="fa fa-plus"></i> 添加等级</a>
+
+        </div>
+
+        <table id="admin_table" lay-filter="admin_table"></table>
+
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('user.grade/edit')}layui-hide{/if}"
+               data-open="{:__url('user.grade/edit')}?id={{d.id}}" data-width="750"
+               data-title="编辑等级" data-reload="2">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('user.grade/delete')}layui-hide{/if}"
+               data-delete="{:__url('user.grade/delete')}?id={{d.id}}"
+               data-title="删除等级" data-reload="2">删除</a>
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table'], function () {
+    var table = layui.table;
+    table.render({
+      elem: '#admin_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      , cellMinWidth: 100
+      , cols: [[
+        {field: 'id', title: 'ID', width: 60, align: 'center'}
+        , {field: 'name', title: '等级名称'}
+        , {field: 'is_def', title: '是否默认'}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 150}
+      ]]
+      , id: 'Datalist'
+      , page: false
+    });
+    var $ = layui.$, active = {
+      reload: function () {
+        //执行重载
+        table.reload('Datalist', {
+          page: {curr: 1},
+          where: {
+            key: {
+              mobile: $('#mobile').val(),
+              sex: $('#sex').val(),
+              status: $('#status').val(),
+              grade: $('#grade').val(),
+            }
+          }
+        });
+      },
+    };
+
+    $('.tableTool .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+
+  });
+</script>
+</body>
+</html>

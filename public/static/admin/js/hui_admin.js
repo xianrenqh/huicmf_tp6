@@ -325,4 +325,31 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
     });
   }
 
+  /**
+   *
+   * @param table 数据
+   * @param table_id 表格的id名
+   * @param id_attr 要取id的字符串名
+   * @returns {boolean|*}
+   */
+  window.table_get_ids = function (table, table_id, id_attr) {
+    var checkStatus = table.checkStatus(table_id)
+      , data = checkStatus.data;
+    if (data.length < 1) {
+      layer.msg('你没有选择任何数据', {icon: 2});
+      return false;
+    } else {
+      var ids = [];
+      for (var i = 0; i < data.length; i++) {
+        ids += data[i][id_attr] + ',';
+      }
+      ids = ids.slice(0, -1);
+      var arr = ids.split(',');
+      for (var i in arr) {
+        (arr[i])
+      }
+      return arr;
+    }
+  }
+
 });
