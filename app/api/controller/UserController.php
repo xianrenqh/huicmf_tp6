@@ -9,12 +9,25 @@
 
 namespace app\api\controller;
 
+/**
+ * @title      会员接口
+ * @controller app\api\controller\User
+ * @group      base
+ */
 class UserController extends ApiController
 {
 
     /**
-     * 登陆
-     * @return array|mixed
+     * @title  会员登陆
+     * @desc   最基础的接口注释写法
+     *
+     * @param name:method type:string require:1 desc:必须
+     * @param name:event type:string require:1 desc:事件名称
+     *
+     * @author 小灰灰
+     * @url    /api.html
+     * @method POST
+     * @tag    登陆
      */
     public function login()
     {

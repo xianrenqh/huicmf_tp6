@@ -10,7 +10,7 @@
 
 namespace app\api\controller;
 
-use app\common\model\UserToken;
+use app\common\model\UserToken as UserTokenModel;
 
 class IndexController extends ApiController
 {
@@ -19,6 +19,11 @@ class IndexController extends ApiController
 
     protected $action = [];
 
+    /**
+     * @title      首页接口
+     * @controller api\controller\Index
+     * @group      base
+     */
     public function index()
     {
 
@@ -69,7 +74,7 @@ class IndexController extends ApiController
             if ( ! input('?param.token')) {
                 return error_msg('请先登录');
             }
-            $userTokenModel = new UserToken();
+            $userTokenModel = new UserTokenModel();
             $result         = $userTokenModel->checkToken(input('param.token'));
             if ( ! $result['status']) {
                 return error_msg('用户身份过期请重新登录');
