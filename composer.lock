@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1df904c8b1b18457a1fea96526d515a5",
+    "content-hash": "325a4b30414c7db42c5e3fbec33fde70",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1071,6 +1071,53 @@
                 "source": "https://github.com/top-think/think-view/tree/v1.0.14"
             },
             "time": "2019-11-06T11:40:13+00:00"
+        },
+        {
+            "name": "xianrenqh/api-doc-v2",
+            "version": "v0.03",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xianrenqh/api-doc-v2.git",
+                "reference": "c6dd9cadf31c893ebcc5585518b627c54f6c66f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xianrenqh/api-doc-v2/zipball/c6dd9cadf31c893ebcc5585518b627c54f6c66f5",
+                "reference": "c6dd9cadf31c893ebcc5585518b627c54f6c66f5",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "think": {
+                    "config": {
+                        "apidoc_v2": "src/config/apidoc_v2.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "xianrenqh\\apidoc_v2\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "xiaohuihui",
+                    "email": "762229008@qq.com"
+                }
+            ],
+            "description": "php API文档自动生成",
+            "support": {
+                "issues": "https://github.com/xianrenqh/api-doc-v2/issues",
+                "source": "https://github.com/xianrenqh/api-doc-v2/tree/v0.03"
+            },
+            "time": "2022-03-04T09:37:28+00:00"
         },
         {
             "name": "xianrenqh/think-addons",
