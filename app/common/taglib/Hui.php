@@ -145,7 +145,7 @@ class Hui extends TagLib
         ?>
 
         <?php
-            \$navMenuModel = new \app\admin\model\NavMenu();
+            \$navMenuModel = new \app\common\model\NavMenu();
             \$menus = \$navMenuModel->navMenusTreeArray({$navId},{$maxLevel});
         ?>
         <if condition="'{$root}'==''">
@@ -252,7 +252,7 @@ class Hui extends TagLib
                 ?>
 
                 <?php
-                    \$navMenuModel = new \app\admin\model\NavMenuModel();
+                    \$navMenuModel = new \app\common\model\NavMenuModel();
                     \$menus = \$navMenuModel->subNavMenusTreeArray({$parent},{$maxLevel});
                 ?>
                 <if condition="'{$root}'==''">

@@ -7,7 +7,7 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
 use app\admin\controller\system\Auth;
 use think\Model;

@@ -13,8 +13,8 @@ namespace app\admin\logic;
 
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
-use app\admin\model\Plugin as PluginModel;
-use app\admin\model\HookPlugin as HookPluginModel;
+use app\common\model\Plugin as PluginModel;
+use app\common\model\HookPlugin as HookPluginModel;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\AnnotationRegistry;
 use Doctrine\Common\Annotations\FileCacheReader;

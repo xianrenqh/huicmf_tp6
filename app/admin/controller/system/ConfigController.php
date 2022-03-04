@@ -12,7 +12,7 @@ namespace app\admin\controller\system;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
-use app\admin\model\Config as ConfigModel;
+use app\common\model\Config as ConfigModel;
 use think\Exception;
 
 /**

@@ -9,7 +9,7 @@
 
 namespace app\admin\controller\system;
 
-use app\admin\model\SystemMenu;
+use app\common\model\SystemMenu;
 use app\admin\service\TriggerService;
 use app\common\constants\MenuConstant;
 use app\common\controller\AdminController;

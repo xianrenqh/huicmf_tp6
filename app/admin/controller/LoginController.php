@@ -13,8 +13,8 @@ use app\common\controller\AdminController;
 use think\facade\Cookie;
 use think\facade\Env;
 use think\captcha\facade\Captcha;
-use app\admin\model\Admin as AdminModel;
-use app\admin\model\LoginLog as LoginLogModel;
+use app\common\model\Admin as AdminModel;
+use app\common\model\LoginLog as LoginLogModel;
 use think\facade\Session;
 use function GuzzleHttp\Psr7\str;
 

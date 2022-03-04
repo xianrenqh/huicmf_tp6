@@ -14,8 +14,8 @@ use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
 use think\Exception;
 use think\App;
-use app\admin\model\UserPointLog as UserPointLogModel;
-use app\admin\model\User as UserModel;
+use app\common\model\UserPointLog as UserPointLogModel;
+use app\common\model\User as UserModel;
 
 /**
  * @ControllerAnnotation(title="积分管理")

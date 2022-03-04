@@ -12,8 +12,8 @@ namespace app\admin\controller\module;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
-use app\admin\model\Banner as BannerModel;
-use app\admin\model\BannerType as BannerTypeModel;
+use app\common\model\Banner as BannerModel;
+use app\common\model\BannerType as BannerTypeModel;
 use think\Exception;
 use think\App;
 

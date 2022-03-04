@@ -7,9 +7,9 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
-use app\admin\model\User as UserModel;
+use app\common\model\User as UserModel;
 
 class UserPointLog extends TimeModel
 {

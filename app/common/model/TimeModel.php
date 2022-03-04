@@ -7,7 +7,7 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
 use think\Model;
 use think\model\concern\SoftDelete;

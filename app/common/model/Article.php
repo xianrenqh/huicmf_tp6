@@ -7,7 +7,7 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
 class Article extends TimeModel
 {

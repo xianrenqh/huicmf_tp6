@@ -13,8 +13,8 @@ use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
 use think\App;
-use app\admin\model\UploadGroup as UploadGroupModel;
-use app\admin\model\UploadFile as UploadFileModel;
+use app\common\model\UploadGroup as UploadGroupModel;
+use app\common\model\UploadFile as UploadFileModel;
 
 /**
  * @ControllerAnnotation(title="文件库管理")

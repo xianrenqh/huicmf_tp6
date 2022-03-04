@@ -7,9 +7,9 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
-use app\admin\model\UserGrade as UserGradeModel;
+use app\common\model\UserGrade as UserGradeModel;
 use lib\Random;
 
 class User extends TimeModel

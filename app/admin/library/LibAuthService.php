@@ -10,9 +10,9 @@
 namespace app\admin\library;
 
 use lib\Tree2;
-use app\admin\model\Admin as AdminModel;
-use app\admin\model\AuthGroup as AuthGroupModel;
-use app\admin\model\AuthGroupAccess as AuthGroupAccessModel;
+use app\common\model\Admin as AdminModel;
+use app\common\model\AuthGroup as AuthGroupModel;
+use app\common\model\AuthGroupAccess as AuthGroupAccessModel;
 use app\common\service\AuthService;
 
 class LibAuthService extends AuthService

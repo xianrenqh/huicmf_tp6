@@ -5,6 +5,30 @@ use app\common\service\AuthService;
 use app\admin\library\LibAuthService;
 
 /**
+ * @param      $code
+ * @param bool $mini
+ *
+ * @return array|mixed
+ */
+if ( ! function_exists('error_msg')) {
+
+
+    function error_msg($msg, $mini = false)
+    {
+        $result = [
+            'code' => 0,
+            'data' => [],
+            'msg'  => $msg
+        ];
+        if ($mini) {
+            return json($result['msg']);
+        } else {
+            return json($result);
+        }
+    }
+}
+
+/**
  * 返回带协议的域名
  */
 if ( ! function_exists('get_client_ip')) {
@@ -509,7 +533,7 @@ function cmf_plugin_url($url, $vars = [], $domain = false)
     /*global $CMF_GV_routes;
 
     if (empty($CMF_GV_routes)) {
-        $routeModel    = new \app\admin\model\RouteModel();
+        $routeModel    = new \app\common\model\RouteModel();
         $CMF_GV_routes = $routeModel->getRoutes();
     }*/
 

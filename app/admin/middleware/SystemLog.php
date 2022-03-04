@@ -9,7 +9,7 @@
 
 namespace app\admin\middleware;
 
-use app\admin\model\AuthRule;
+use app\common\model\AuthRule;
 use app\admin\service\SystemLogService;
 
 class SystemLog

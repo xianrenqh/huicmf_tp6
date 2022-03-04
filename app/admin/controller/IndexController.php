@@ -9,15 +9,15 @@
 
 namespace app\admin\controller;
 
-use app\admin\model\AuthGroup;
-use app\admin\model\LoginLog;
-use app\admin\model\SystemLog;
+use app\common\model\AuthGroup;
+use app\common\model\LoginLog;
+use app\common\model\SystemLog;
 use app\common\controller\AdminController;
 use app\common\service\MenuService;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
-use app\admin\model\Admin as AdminModel;
+use app\common\model\Admin as AdminModel;
 use think\facade\Env;
 use think\facade\Db;
 use lib\Random;

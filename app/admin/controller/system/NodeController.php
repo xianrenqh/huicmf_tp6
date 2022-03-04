@@ -15,7 +15,7 @@ use app\admin\service\NodeService;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use think\App;
-use app\admin\model\AuthRule;
+use app\common\model\AuthRule;
 
 /**
  * @ControllerAnnotation(title="系统节点管理")

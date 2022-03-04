@@ -12,7 +12,7 @@ namespace app\admin\controller\content;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
-use app\admin\model\Article as ArticleModel;
+use app\common\model\Article as ArticleModel;
 use think\Exception;
 use think\App;
 

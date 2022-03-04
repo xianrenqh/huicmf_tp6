@@ -12,7 +12,7 @@ namespace app\admin\controller\plugin;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
-use app\admin\model\Plugin as PluginModel;
+use app\common\model\Plugin as PluginModel;
 use app\admin\service\AddonService;
 use think\Exception;
 use think\App;

@@ -12,13 +12,13 @@ namespace app\admin\controller\system;
 
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
-use app\admin\model\AuthGroup;
+use app\common\model\AuthGroup;
 use app\common\service\AuthService;
 use lib\Random;
 use lib\Tree;
 use think\App;
-use app\admin\model\Admin as AdminModel;
-use app\admin\model\AuthGroupAccess;
+use app\common\model\Admin as AdminModel;
+use app\common\model\AuthGroupAccess;
 use app\admin\library\LibAuthService;
 
 /**

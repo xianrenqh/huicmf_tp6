@@ -11,7 +11,7 @@ namespace app\admin\library;
 
 use PhpOffice\PhpSpreadsheet\Calculation\Database\DStDev;
 use think\Exception;
-use app\admin\model\SystemMenu as SystemMenuModel;
+use app\common\model\SystemMenu as SystemMenuModel;
 
 class AddonMenu
 {

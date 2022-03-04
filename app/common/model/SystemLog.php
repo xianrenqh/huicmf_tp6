@@ -7,13 +7,13 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
 class SystemLog extends TimeModel
 {
 
     public function admin()
     {
-        return $this->belongsTo('app\admin\model\Admin', 'admin_id', 'id');
+        return $this->belongsTo('app\common\model\Admin', 'admin_id', 'id');
     }
 }

@@ -7,9 +7,9 @@
  * Info:
  */
 
-namespace app\admin\model;
+namespace app\common\model;
 
-use app\admin\model\BannerType;
+use app\common\model\BannerType;
 
 class Banner extends TimeModel
 {

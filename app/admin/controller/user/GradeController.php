@@ -12,7 +12,7 @@ namespace app\admin\controller\user;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
-use app\admin\model\UserGrade as UserGradeModel;
+use app\common\model\UserGrade as UserGradeModel;
 use think\Exception;
 use think\App;
 

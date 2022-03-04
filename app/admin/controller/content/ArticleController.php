@@ -12,15 +12,15 @@ namespace app\admin\controller\content;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
-use app\admin\model\Article as ArticleModel;
-use app\admin\model\Tag as TagModel;
-use app\admin\model\Category as CategoryModel;
+use app\common\model\Article as ArticleModel;
+use app\common\model\Tag as TagModel;
+use app\common\model\Category as CategoryModel;
 use think\Exception;
 use think\App;
 use lib\Random;
 use lib\GetImgSrc;
 use think\facade\Db;
-use app\admin\model\UploadFile as UploadFileModel;
+use app\common\model\UploadFile as UploadFileModel;
 
 /**
  * @ControllerAnnotation(title="文章管理")

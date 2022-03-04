@@ -10,8 +10,8 @@
 namespace app\admin\controller\system;
 
 use app\admin\library\LibAuthService;
-use app\admin\model\AuthGroup;
-use app\admin\model\AuthRule;
+use app\common\model\AuthGroup;
+use app\common\model\AuthRule;
 use app\common\controller\AdminController;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;

@@ -13,8 +13,8 @@ use app\common\controller\AdminController;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use think\Exception;
-use app\admin\model\SystemLog;
-use app\admin\model\LoginLog;
+use app\common\model\SystemLog;
+use app\common\model\LoginLog;
 
 /**
  * @ControllerAnnotation(title="系统日志")
