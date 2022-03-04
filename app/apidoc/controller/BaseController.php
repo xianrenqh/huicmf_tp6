@@ -7,7 +7,7 @@
  * Info:
  */
 
-namespace app\admin\controller;
+namespace app\apidoc\controller;
 
 use think\App;
 use think\exception\ValidateException;

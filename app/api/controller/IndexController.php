@@ -12,6 +12,11 @@ namespace app\api\controller;
 
 use app\common\model\UserToken as UserTokenModel;
 
+/**
+ * @title      首页接口
+ * @controller api\controller\Index
+ * @group      base
+ */
 class IndexController extends ApiController
 {
 
@@ -19,11 +24,6 @@ class IndexController extends ApiController
 
     protected $action = [];
 
-    /**
-     * @title      首页接口
-     * @controller api\controller\Index
-     * @group      base
-     */
     public function index()
     {
 

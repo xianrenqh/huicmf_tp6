@@ -2,7 +2,6 @@
 
 namespace app\apidoc\controller;
 
-use app\BaseController;
 use think\facade\Request;
 
 class IndexController extends BaseController
@@ -27,7 +26,7 @@ class IndexController extends BaseController
             'auth_password' => "123456",
             'headers_key'   => "apidocToken",
         ],
-        'definitions'     => "app\apidoc\library\Definitions",
+        'definitions'     => "xianrenqh\apidoc_v2\lib\Definitions",
         'filter_method'   => [
             '_empty',
         ],
@@ -44,7 +43,7 @@ class IndexController extends BaseController
      */
     public function getConfig()
     {
-        $config       = config('apidoc') ? config('apidoc') : config('apidoc.');
+        $config       = config('apidoc_v2') ? config('apidoc_v2') : config('apidoc_v2.');
         $this->config = array_merge($this->config, $config);
         if ( ! empty($this->config['auth'])) {
             $this->config['auth'] = [
@@ -63,7 +62,7 @@ class IndexController extends BaseController
      */
     public function getList()
     {
-        $config       = config('apidoc') ? config('apidoc') : config('apidoc.');
+        $config       = config('apidoc_v2') ? config('apidoc_v2') : config('apidoc_v2.');
         $this->config = array_merge($this->config, $config);
         // 验证token身份
         if ($this->config['auth']['with_auth'] === true) {
@@ -142,6 +141,7 @@ class IndexController extends BaseController
 
         $res = [
             'code' => 0,
+            'msg'  => '',
             'data' => $data,
         ];
 
@@ -153,7 +153,7 @@ class IndexController extends BaseController
      */
     public function verifyAuth()
     {
-        $config       = config('apidoc') ? config('apidoc') : config('apidoc.');
+        $config       = config('apidoc_v2') ? config('apidoc_v2') : config('apidoc_v2.');
         $this->config = array_merge($this->config, $config);
         $request      = Request::instance();
         $params       = $request->param();
@@ -176,7 +176,7 @@ class IndexController extends BaseController
      */
     public function getApiList($version)
     {
-        $config       = config('apidoc') ? config('apidoc') : config('apidoc.');
+        $config       = config('apidoc_v2') ? config('apidoc_v2') : config('apidoc_v2.');
         $this->config = array_merge($this->config, $config);
         $list         = [];
         $controllers  = $this->config['controllers'];
@@ -193,7 +193,7 @@ class IndexController extends BaseController
             if (class_exists($class)) {
                 $reflection = new \ReflectionClass($class);
                 $doc_str    = $reflection->getDocComment();
-                $doc        = new \app\apidoc\library\Parser($this->config);
+                $doc        = new \xianrenqh\apidoc_v2\lib\Parser($this->config);
                 // 解析控制器类的注释
                 $class_doc = $doc->parseClass($doc_str);
 
@@ -205,20 +205,27 @@ class IndexController extends BaseController
                     // 过滤不解析的方法
                     if ( ! in_array($action->name, $filter_method)) {
                         // 获取当前方法的注释
-                        $actionDoc    = new \app\apidoc\library\Parser($this->config);
+                        $actionDoc    = new \xianrenqh\apidoc_v2\lib\Parser($this->config);
                         $actionDocStr = $action->getDocComment();
                         if ($actionDocStr) {
                             // 解析当前方法的注释
                             $action_doc = $actionDoc->parseAction($actionDocStr);
                             //$action_doc['name'] = $class."::".$action->name;
                             $action_doc['id']     = $k."-".$j;
-                            $action_doc['author'] = str_replace(" ", "", $action_doc['author']);
-                            $action_doc['desc']   = str_replace(" ", "", $action_doc['desc']);
-                            $action_doc['method'] = str_replace(" ", "", $action_doc['method']);
-                            $action_doc['title']  = str_replace(" ", "", $action_doc['title']);
-                            $action_doc['url']    = str_replace(" ", "", $action_doc['url']);
-                            $action_doc['tag']    = str_replace(" ", "", $action_doc['tag']);
-                            $action_doc['tag']    = str_replace("|", " ", $action_doc['tag']);
+                            $action_doc['author'] = ! empty($action_doc['author']) ? str_replace(" ", "",
+                                $action_doc['author']) : '';
+                            $action_doc['desc']   = ! empty($action_doc['desc']) ? str_replace(" ", "",
+                                $action_doc['desc']) : '';
+                            $action_doc['method'] = ! empty($action_doc['method']) ? str_replace(" ", "",
+                                $action_doc['method']) : '';
+                            $action_doc['title']  = ! empty($action_doc['title']) ? str_replace(" ", "",
+                                $action_doc['title']) : '';
+                            $action_doc['url']    = ! empty($action_doc['url']) ? str_replace(" ", "",
+                                $action_doc['url']) : '';
+                            $action_doc['tag']    = ! empty($action_doc['tag']) ? str_replace(" ", "",
+                                $action_doc['tag']) : '';
+                            $action_doc['tag']    = ! empty($action_doc['tag']) ? str_replace("|", " ",
+                                $action_doc['tag']) : '';
                             // 解析方法
                             $actions[] = $action_doc;
                         }
