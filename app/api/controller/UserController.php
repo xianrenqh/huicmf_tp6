@@ -9,6 +9,8 @@
 
 namespace app\api\controller;
 
+use app\common\model\User as UserModel;
+
 /**
  * @title      会员接口
  * @controller api\controller\User
@@ -34,9 +36,13 @@ class UserController extends ApiController
      */
     public function login()
     {
-        $data           = $this->request->param();
-        $data['return'] = 'test';
+        $platform  = $this->request->param('platform', 1); //1就是h5登陆（h5端和微信公众号端），2就是微信小程序登陆，3是支付宝小程序，4是app，5是pc
+        $userModel = new UserModel();
+        $data      = $this->request->param();
 
-        return $data;
+        $res = $userModel->toLogin($data, 2, $platform);
+
+        return json($res);
     }
+
 }

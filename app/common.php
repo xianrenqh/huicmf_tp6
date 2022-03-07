@@ -11,20 +11,27 @@ use app\admin\library\LibAuthService;
  * @return array|mixed
  */
 if ( ! function_exists('error_msg')) {
-
-
-    function error_msg($msg, $mini = false)
+    function error_msg($msg = '未定义的错误消息', $is_json = true, $mini = false)
     {
         $result = [
             'code' => 0,
-            'data' => [],
-            'msg'  => $msg
+            'msg'  => $msg,
+            'data' => ''
         ];
-        if ($mini) {
-            return json($result['msg']);
+        if ($is_json) {
+            if ($mini) {
+                return json_encode($result['msg'], true);
+            } else {
+                return json($result);
+            }
         } else {
-            return json($result);
+            if ($mini) {
+                return $result['msg'];
+            } else {
+                return $result;
+            }
         }
+        exit;
     }
 }
 
