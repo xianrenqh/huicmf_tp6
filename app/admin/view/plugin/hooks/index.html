@@ -1,0 +1,123 @@
+{include file='header'/}
+<title>钩子列表</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="javascript:;" id="form_admin_search">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" name="name" id="name" placeholder="请输入编码或描述" autocomplete="off"
+                                   class="layui-input">
+                        </div>
+
+                        <div class="layui-inline">
+                            <select name="type" id="type">
+                                <option value="">==类型==</option>
+                                <option value="1">控制器</option>
+                                <option value="2">视图</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-sm reset" type="reset"><i
+                                    class="layui-icon">&#xe63f;</i>清空
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i></button>
+            <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('plugin.hooks/add')}layui-hide{/if}"
+               data-open="{:__url('plugin.hooks/add')}" data-title="添加钩子" data-width="580" data-height="400" data-reload="2">
+                <i class="fa fa-plus"></i> 添加钩子</a>
+        </div>
+
+        <table id="admin_table" lay-filter="admin_table"></table>
+
+        <script type="text/html" id="typeTpl">
+            {{#  if(d.type =='1'){ }}
+            <span class="layui-badge layui-bg-green"> 控制器 </span>
+            {{#  } else { }}
+            <span class="layui-badge layui-bg-blue"> 视图 </span>
+            {{#  } }}
+        </script>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('plugin.hooks/edit')}layui-hide{/if}" data-open="{:__url('plugin.hooks/edit')}?id={{d.id}}"
+               data-title="编辑钩子" data-reload="2">编辑</a>
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('plugin.hooks/delete')}layui-hide{/if}" data-delete="{:__url('plugin.hooks/delete')}?id={{d.id}}"
+               data-title="删除钩子" data-reload="2">删除</a>
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table'], function () {
+    var table = layui.table;
+    table.render({
+      elem: '#admin_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      , cellMinWidth: 100
+      , cols: [[
+        {field: 'id', title: 'ID', width: 60, align: 'center', sort: true}
+        , {field: 'name', title: '钩子名称'}
+        , {field: 'description', title: '钩子描述'}
+        , {field: 'type', title: '类型', sort: true, templet: '#typeTpl', align: 'center', width: 90}
+        , {field: 'create_time', title: '添加时间', width: 170}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 150}
+      ]]
+      , id: 'testReload'
+      , page: true
+      , limit: 10
+    });
+    var $ = layui.$, active = {
+      reload: function () {
+        //执行重载
+        table.reload('testReload', {
+          page: {curr: 1},
+          where: {
+            key: {
+              name: $('#name').val(),
+              type: $('#type').val(),
+            }
+          }
+        });
+      }
+    };
+    //监听排序
+    table.on('sort(admin_table)', function (obj) {
+      table.reload('testReload', {
+        initSort: obj
+        , where: {
+          field: obj.field
+          , order: obj.type
+        }
+      });
+    });
+
+    $('.hui-form-search .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .reset').on('click', function () {
+      window.location.reload();
+    });
+
+  });
+</script>
+</body>
+</html>

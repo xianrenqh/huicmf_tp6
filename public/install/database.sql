@@ -354,6 +354,28 @@ INSERT INTO `cmf_config` VALUES (23, 'upload_types_file', 2, '允许上传附件
 COMMIT;
 
 -- ----------------------------
+-- Table structure for cmf_hooks
+-- ----------------------------
+DROP TABLE IF EXISTS `cmf_hooks`;
+CREATE TABLE `cmf_hooks` (
+ `id` int(10) NOT NULL AUTO_INCREMENT,
+ `name` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '钩子名称',
+ `description` text COMMENT '钩子描述',
+ `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '钩子类型,1是控制器，2是视图',
+ `addons` text COMMENT '钩子挂载的插件，逗号分隔',
+ `create_time` int(10) NOT NULL DEFAULT '0' COMMENT '创建时间',
+ `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
+ PRIMARY KEY (`id`) USING BTREE,
+ KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='钩子信息';
+
+-- ----------------------------
+-- Records of cmf_hooks
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for cmf_login_log
 -- ----------------------------
 DROP TABLE IF EXISTS `cmf_login_log`;

@@ -1,0 +1,50 @@
+{include file='header'/}
+<title>添加管理员</title>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
+            <div class="layui-form-item">
+                <label class="layui-form-label required">编码</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="钩子名称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item layui-form-text">
+                <label class="layui-form-label ">描述</label>
+                <div class="layui-input-block">
+                    <textarea name="description" class="layui-textarea" placeholder="钩子描述"></textarea>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">类型</label>
+                <div class="layui-input-block" id="type">
+                    <input type="radio" name="type" value="1" title="控制器" checked>
+                    <input type="radio" name="type" value="2" title="视图">
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-sm" lay-submit="">立即提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary layui-btn-sm">重置</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+{include file='footer'/}
+<script>
+  layui.use(['form', 'jquery'], function () {
+    var form = layui.form, $ = layui.jquery;
+    form.render();
+    window.dosub = function (obj) {
+      HuiDoSub($(obj).serialize(), "{:__url('add')}");
+    }
+  });
+
+</script>
+</body>
+</html>
