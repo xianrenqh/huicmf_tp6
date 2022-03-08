@@ -1,4 +1,4 @@
-HuiCMF v6.0 
+HuiCMF v6.0
 ===============
 **【基于ThinkPHP6.0和layui的快速开发的后台管理系统。】**
 
@@ -220,6 +220,26 @@ upload.render({
 
 > 之后在layui里引用一下即可。其中 data-value 属性是用于编辑的赋值
 
+### 6、【小插件】-让数字动起来
+
+```html
+<span class="number-timer">66</span>
+```
+
+```js
+layui.use(['jquery', 'miniCountUp'], function () {
+  var $ = layui.jquery;
+  var countUp = layui.miniCountUp;
+  var count_up = new countUp({
+    target: $('.number-timer'),
+    startVal: 0, //目标开始的值，默认值为0
+    endVal: 3, //到达目标值,默认值为元素的值
+    decimals: 0, //小数位数，默认值为0
+    duration: 1.5, //动画持续时间为秒，默认值为2
+  });
+  count_up.start();
+});
+```
 
 ## 特别感谢
 

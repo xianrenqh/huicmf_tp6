@@ -36,8 +36,7 @@
                                 <div carousel-item="">
                                     <ul class="grid quick-link layui-row layui-col-space10 layui-this">
                                         <li class="layui-col-xs3">
-                                            <a href="" class="javascript"
-                                               rel="simple_clear">
+                                            <a href="javascript:;" data-confirm="{:__url('index/clearCache')}" data-title="清除缓存？">
                                                 <i class="layui-icon layui-icon-fonts-clear"></i>
                                                 <span>清除缓存</span>
                                             </a>
@@ -50,13 +49,13 @@
                                             </a>
                                         </li>
                                         <li class="layui-col-xs3">
-                                            <a href="" class="new_tab" data-title="系统配置">
+                                            <a class="new_tab" data-title="系统配置" data-open-full="{:__url('system.config/index')}">
                                                 <i class="layui-icon layui-icon-set-sm"></i>
                                                 <span>系统配置</span>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs3">
-                                            <a href="" class="new_tab" data-title="个人信息">
+                                            <a class="new_tab" data-title="个人信息" data-open="{:__url('index/editInfo')}">
                                                 <i class="layui-icon layui-icon-username"></i>
                                                 <span>个人信息</span>
                                             </a>
@@ -114,27 +113,27 @@
                                 <div carousel-item="">
                                     <ul class="grid layui-row layui-col-space10 layui-this">
                                         <li class="layui-col-xs6">
-                                            <a href="" class="new_tab" data-title="管理列表">
+                                            <a href="javascript:;" class="new_tab" data-title="管理列表">
                                                 <h2>管理</h2>
-                                                <span class="number-timer">0</span>
+                                                <span class="number-timer">{$count_num.admins}</span>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs6">
-                                            <a href="" class="new_tab" data-title="会员列表">
+                                            <a href="javascript:;" class="new_tab" data-title="会员列表">
                                                 <h2>会员</h2>
-                                                <span class="number-timer">3</span>
+                                                <span class="number-timer">{$count_num.users}</span>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs6">
                                             <a href="javascript:;" class="new_tab" data-title="文章列表">
                                                 <h2>文章</h2>
-                                                <span class="number-timer">88</span>
+                                                <span class="number-timer">{$count_num.articles}</span>
                                             </a>
                                         </li>
                                         <li class="layui-col-xs6">
                                             <a href="javascript:;" class="new_tab" data-title="商品列表">
                                                 <h2>商品</h2>
-                                                <span class="number-timer">66</span>
+                                                <span class="number-timer">{$count_num.goods}</span>
                                             </a>
                                         </li>
                                     </ul>
@@ -160,9 +159,12 @@
                                 <div class="admin_user_rght">
                                     <div class="headimg">
                                         <i></i>
-                                        <a href="{:__url('index/editInfo')}" data-title="个人主页" class="new_tab"><img
-                                                src="{$admin_info.avatar}"
-                                                alt="{$admin_info.username}"></a>
+                                        <a class="layui-btn layui-btn-normal layui-btn-sm new_tab {if !check_auth('index/editInfo')}layui-hide{/if}"
+                                           data-open="{:__url('index/editInfo')}"
+                                           data-title="个人主页">
+                                            <img src="{$admin_info.avatar}" alt="{$admin_info.username}">
+                                        </a>
+
                                     </div>
                                     <div class="welcome en-font">
                                         您好！<span>{$admin_info.username}</span>
@@ -178,8 +180,8 @@
                                         <li>登录时间：<span class="c">{$admin_info.logintime|date="Y-m-d H:i:s"}</span></li>
                                     </ul>
                                     <div class="user_link">
-                                        <a href="{:__url('index/editInfo')}"
-                                           class="layui-btn layui-btn-primary layui-border-green layui-btn-radius new_tab"
+                                        <a class="layui-btn layui-btn-primary layui-border-green layui-btn-radius new_tab {if !check_auth('index/editInfo')}layui-hide{/if}"
+                                           data-open="{:__url('index/editInfo')}"
                                            data-title="个人信息">
                                             <i class="layui-icon layui-icon-username"></i>
                                         </a>
@@ -251,11 +253,10 @@
 
 {include file='footer'/}
 <script>
-  layui.use(['element', 'carousel', 'layer', 'jquery', 'miniCountUp'], function () {
+  layui.use(['element', 'carousel', 'layer', 'jquery'], function () {
     var $ = layui.jquery;
     var element = layui.element;
     var carousel = layui.carousel;
-    var countUp = layui.miniCountUp;
     layer = layui.layer;
 
     var winWidth = $(window).width();
@@ -273,14 +274,6 @@
         , interval: $(this).data('interval') ? $(this).data('interval') : 3000
       });
     })
-    var count_up = new countUp({
-      target: $('.number-timer'),
-      startVal: 5, //目标开始的值，默认值为0
-      endVal: 1000, //到达目标值,默认值为元素的值
-      decimals: 0, //小数位数，默认值为0
-      duration: 2, //动画持续时间为秒，默认值为2
-    });
-    count_up.start();
 
   })
 

@@ -22,4 +22,28 @@ class Admin extends TimeModel
         return $list;
     }
 
+    /**
+     * 获取管理员总数
+     */
+    public function getNums()
+    {
+        $total = $this->count();
+
+        return $total;
+    }
+
+    /**
+     * 根据id获取管理员信息
+     */
+    public function getAdminInfo($admin_id)
+    {
+        $info = [];
+        if (empty($admin_id)) {
+            return $info;
+        }
+        $info = $this->find($admin_id);
+
+        return $info;
+    }
+
 }

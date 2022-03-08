@@ -361,4 +361,12 @@ class User extends TimeModel
         return $result;
     }
 
+    /**
+     * 获取会员总是
+     */
+    public function getNums(){
+        $total = $this->count();
+        return $total;
+    }
+
 }

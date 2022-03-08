@@ -12,12 +12,14 @@ namespace app\admin\controller;
 use app\common\model\AuthGroup;
 use app\common\model\LoginLog;
 use app\common\model\SystemLog;
+use app\common\model\Admin as AdminModel;
+use app\common\model\User as UserModel;
+use app\common\model\Article as ArticleModel;
 use app\common\controller\AdminController;
 use app\common\service\MenuService;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
-use app\common\model\Admin as AdminModel;
 use think\facade\Env;
 use think\facade\Db;
 use lib\Random;
@@ -61,18 +63,31 @@ class IndexController extends AdminController
 
     public function welcome()
     {
+        $adminModel   = new AdminModel();
+        $userModel    = new UserModel();
+        $articleModel = new ArticleModel();
+
         $adminId   = cmf_get_admin_id();
         $roleId    = cmf_get_admin_role_id();
         $roleName  = AuthGroup::whereIn('id', $roleId)->column('name');
-        $adminInfo = AdminModel::where('id', $adminId)->find();
+        $adminInfo = $adminModel->getAdminInfo($adminId);
 
         $adminInfo['role_name'] = '';
         if ( ! empty($roleName)) {
             $adminInfo['role_name'] = implode(',', $roleName);
         }
+
+        $countNums = [
+            'admins'   => $adminModel->getNums(),
+            'users'    => $userModel->getNums(),
+            'articles' => $articleModel->getNums(),
+            'goods'    => '0'
+        ];
+
         $this->assign('is_file_admin', file_exists(ROOT_PATH.'/public/admin1.php'));
         $this->assign('admin_info', $adminInfo);
         $this->assign('sys_info', $this->get_sys_info());
+        $this->assign('count_num', $countNums);
 
         return $this->fetch();
     }
@@ -149,8 +164,8 @@ class IndexController extends AdminController
                 $this->error('演示站点不允许修改密码');
             }
             AdminModel::where('id', $adminId)->data([
-                'password'   => cmf_password($param['new_password'], $salt),
-                'salt'       => $salt,
+                'password'    => cmf_password($param['new_password'], $salt),
+                'salt'        => $salt,
                 'update_time' => time()
             ])->update();
             $this->success('修改成功');
