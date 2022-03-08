@@ -57,6 +57,74 @@ class UserPointLog extends TimeModel
     }
 
     /**
+     * 获取积分记录
+     *
+     * @param      $user_id
+     * @param bool $type
+     * @param int  $page
+     * @param int  $limit
+     *
+     * @return array
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function pointLogList($user_id, $page = 1, $limit = 20, $type = false, $params = [])
+    {
+        $return = [
+            'code'  => 0,
+            'msg'   => '获取失败',
+            'data'  => [],
+            'count' => 0,
+            'total' => 0
+        ];
+        if ($type) {
+            $where[] = ['type', '=', $type];
+        }
+        if ($user_id) {
+            $where[] = ['user_id', '=', $user_id];
+        }
+
+        /*if ($params) {
+            if (isset($params['mobile']) && ! empty($params['mobile']) && ! $user_id) {
+                $user_id_search = get_user_id($params['mobile']);
+                if ($user_id_search) {
+                    $where[] = ['user_id', 'eq', $user_id_search];
+                }
+            }
+            if (isset($params['date']) && ! empty($params['date'])) {
+                $date_string = $params['date'];
+                $date_array  = explode(' 到 ', urldecode($date_string));
+                $sdate       = strtotime($date_array[0].' 00:00:00');
+                $edate       = strtotime($date_array[1].' 23:59:59');
+                $where[]     = ['create_time', ['>=', $sdate], ['<=', $edate], 'and'];
+            }
+
+        }*/
+        $first = ((int)$page - 1) * $limit;
+        $res   = $this->field('id, type, num, balance, remarks, create_time,user_id')->where($where)->order('create_time',
+            'desc')->limit($first, $limit)->select()->toArray();
+        $count = $this->where($where)->count();
+
+        if ($res) {
+            $return['code'] = 200;
+            $return['msg']  = '暂无积分记录';
+            if ($count > 0) {
+                $return['msg']  = '积分记录获取成功';
+                $return['data'] = $res;
+                foreach ($return['data'] as &$v) {
+                    $v['username'] = '';
+                    $v['type']     = '';
+                }
+            }
+            $return['count'] = $count;
+            $return['total'] = ceil($count / $limit);
+        }
+
+        return $return;
+    }
+
+    /**
      * 根据输入的查询条件，返回所需要的where
      *
      * @param $post

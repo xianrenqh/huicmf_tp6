@@ -5,37 +5,6 @@ use app\common\service\AuthService;
 use app\admin\library\LibAuthService;
 
 /**
- * @param      $code
- * @param bool $mini
- *
- * @return array|mixed
- */
-if ( ! function_exists('error_msg')) {
-    function error_msg($msg = '未定义的错误消息', $is_json = true, $mini = false)
-    {
-        $result = [
-            'code' => 0,
-            'msg'  => $msg,
-            'data' => ''
-        ];
-        if ($is_json) {
-            if ($mini) {
-                return json_encode($result['msg'], true);
-            } else {
-                return json($result);
-            }
-        } else {
-            if ($mini) {
-                return $result['msg'];
-            } else {
-                return $result;
-            }
-        }
-        exit;
-    }
-}
-
-/**
  * 返回带协议的域名
  */
 if ( ! function_exists('get_client_ip')) {
@@ -70,6 +39,22 @@ if ( ! function_exists('cmf_get_admin_role_id')) {
         $roleId  = $libAuth->getChildrenGroupIds(true);
 
         return $roleId;
+    }
+}
+
+/**
+ * 根据手机号获取会员id
+ */
+if ( ! function_exists('cmf_get_user_id')) {
+    function cmf_get_user_id($mobile)
+    {
+        $userModel = new app\common\model\User();
+        $user      = $userModel->where(array('mobile' => $mobile))->find();
+        if ($user) {
+            return $user->id;
+        } else {
+            return false;
+        }
     }
 }
 

@@ -10,9 +10,13 @@ return [
     'user' => [
         'code'   => 'User',
         'method' => [
-            'login' => [
+            'login'      => [
                 'code'     => 'login',
                 'is_login' => false
+            ],
+            'user_point' => [
+                'code'     => 'user_point',
+                'is_login' => true
             ]
         ]
     ]

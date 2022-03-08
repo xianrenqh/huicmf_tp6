@@ -16,6 +16,8 @@ use think\facade\Request;
 class ApiController extends \app\BaseController
 {
 
+    use \app\common\traits\JumpTrait;
+
     protected $token = '';
 
     protected $domain = '';

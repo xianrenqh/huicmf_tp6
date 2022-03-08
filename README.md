@@ -117,8 +117,7 @@ data-confirm：普通询问对话框
 data-delete：删除询问对话框
 
 - data-reload="1"  刷新父级页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在列表页（父级）页面刷新。默认不写或者 data-reload="0"为不刷新】
-- data-reload="2"  刷新当前页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在当前页面刷新。默认不写或者 data-reload="0"为不刷新】
-  【实例：】
+- data-reload="2"  刷新当前页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在当前页面刷新。默认不写或者 data-reload="0"为不刷新】 【实例：】
 
 ~~~
 //弹出层打开:width:90%，height:80%
@@ -134,13 +133,17 @@ data-delete：删除询问对话框
 <a href="javascript:;" data-confirm="{:__url('system.node/index')}" data-title="您确定要取消收藏吗？">1231232313</a>
 
 ~~~
+
 ### 3、上传图片（附件）
+
 案例页面：http://你的域名/admin.php/system.test/upload.html
->1、在页面中直接使用layui上传
+> 1、在页面中直接使用layui上传
+
 ```html
 <!--html-->
 <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
 ```
+
 ```javascript
 /*javascript*/
 upload.render({
@@ -157,54 +160,64 @@ upload.render({
 > 2、使用封装好的layui上传（只需要一个按钮，无需在页面中写js）
 
 #### 使用案例：
+
 ```html
-<button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_pic" data-input-id="c-pic" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+
+<button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_pic" data-input-id="c-pic" data-type="image">
+    <i class="layui-icon">&#xe67c;</i>上传图片
+</button>
 ```
+
 **以上代码中国注释如下：**
 
-|  参数名  |是否允许为空| 参数值|
-| ------------ | ------------ |
-|  class | 否  |layUpload [必填一致]|
-|  id | 否  |例如：lay_pic|
-|  data-input-id | 否  |图片文本框的id值，用于返回url填充|
-|  data-type | 是  |image [图片格式]；file [附件格式]|
+| 参数名 |是否允许为空| 参数值| | ------------ | ------------ | | class | 否 |layUpload [必填一致]| | id | 否 |例如：lay_pic| | data-input-id
+| 否 |图片文本框的id值，用于返回url填充| | data-type | 是 |image [图片格式]；file [附件格式]|
 
 
->3、使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
+> 3、使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
 
 **参数同上**
+
 ```html
-<button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="c-pic" data-preview-id="p-pic" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+
+<button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="c-pic"
+        data-preview-id="p-pic" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片
+</button>
 ```
 
 ### 4、二开了think-addons扩展插件
+
 **插件基于：zzstudio/think-addons 进行了二开处理**
 
 1. 在helper助手中增加了部分公共方法
 2. 修改了Addons.php文件，方便在程序中二次调用
 3. 插件文件夹里：
+
 - 插件名要和插件控制器一直，例如： test插件文件夹里的 Test.php文件
 - info.ini 一定要有，而且字段要对应
 - config.php文件参数 参考 test插件里的
 
 ### 5、后台表单省市区域三级联动
+
 ```html
+
 <div class="layui-form-item tpl-district-container">
-  <label class="layui-form-label">地区</label>
-  <div class="layui-inline">
-    <select name="province" lay-filter="tpl-province" data-value="" class="form-control tpl-province">
-    </select>
-  </div>
-  <div class="layui-inline">
-    <select name="city" lay-filter="tpl-city" data-value="" class="form-control tpl-city">
-    </select>
-  </div>
-  <div class="layui-inline">
-    <select name="area" lay-filter="tpl-district" data-value="" class="form-control tpl-district">
-    </select>
-  </div>
+    <label class="layui-form-label">地区</label>
+    <div class="layui-inline">
+        <select name="province" lay-filter="tpl-province" data-value="" class="form-control tpl-province">
+        </select>
+    </div>
+    <div class="layui-inline">
+        <select name="city" lay-filter="tpl-city" data-value="" class="form-control tpl-city">
+        </select>
+    </div>
+    <div class="layui-inline">
+        <select name="area" lay-filter="tpl-district" data-value="" class="form-control tpl-district">
+        </select>
+    </div>
 </div>
 ```
+
 > 之后在layui里引用一下即可。其中 data-value 属性是用于编辑的赋值
 
 
@@ -229,9 +242,9 @@ upload.render({
 * CKEditor：[https://github.com/ckeditor/ckeditor4](https://github.com/ckeditor/ckeditor4)
 
 ## 版权信息
-HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。
-本项目包含的第三方源码和二进制文件之版权信息另行标注。
-版权所有Copyright © 2019-2022 by xiaohuihui (https://xiaohuihui.net.cn)
+
+HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。 本项目包含的第三方源码和二进制文件之版权信息另行标注。 版权所有Copyright © 2019-2022 by
+xiaohuihui (https://xiaohuihui.net.cn)
 All rights reserved。
 
 ## 免责声明

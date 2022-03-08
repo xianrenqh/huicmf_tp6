@@ -10,6 +10,7 @@
 namespace app\api\controller;
 
 use app\common\model\User as UserModel;
+use app\common\model\UserPointLog as UserPointLogModel;
 
 /**
  * @title      会员接口
@@ -41,8 +42,26 @@ class UserController extends ApiController
         $data      = $this->request->param();
 
         $res = $userModel->toLogin($data, 2, $platform);
+        if ( ! empty($res['code']) && $res['code'] == 200) {
+            $this->success($res['msg'], $res['data']);
+        } else {
+            $this->error($res['msg']);
+        }
+    }
 
-        return json($res);
+    public function user_point()
+    {
+        $user_id      = $this->userId;
+        $userPointLog = new UserPointLogModel();
+        $params       = $this->request->param();
+        $page         = $this->request->param('page', 1);
+        $limit        = $this->request->param('limit', 20);
+        $res          = $userPointLog->pointLogList($user_id, $page, $limit, $type = false, $params = []);
+        if ( ! empty($res['code']) && $res['code'] == 200) {
+            $this->success($res['msg'], $res);
+        } else {
+            $this->error($res['msg']);
+        }
     }
 
 }

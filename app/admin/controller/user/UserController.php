@@ -101,7 +101,7 @@ class UserController extends AdminController
         }
         $user_id = $this->request->param('id');
         $data    = $userModel->getUserInfo($user_id);
-        if ( empty($data['data'])) {
+        if (empty($data['data'])) {
             $this->error('获取信息失败');
         }
         $userGradeModel = new UserGradeModel();

@@ -329,20 +329,21 @@ class User extends TimeModel
      */
     public function setSession($userInfo, $loginType, $platform = 1, $type = 1)
     {
-        $result = [
+        $result   = [
             'code' => 0,
             'data' => '',
             'msg'  => ''
         ];
+        $userInfo = $userInfo->toArray();
         //判断账号状态
-        if ($userInfo->status != self::STATUS_NORMAL) {
+        if ($userInfo['status'] != self::STATUS_NORMAL) {
             $result['msg'] = '该账号已停用';
 
             return $result;
         }
         switch ($loginType) {
             case 1:
-                session('user', $userInfo->toArray());
+                session('user', $userInfo);
                 $result['code'] = 200;
                 break;
             case 2:
