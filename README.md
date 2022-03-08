@@ -1,4 +1,4 @@
-HuiCMF v6.0
+HuiCMF v6.0 
 ===============
 **【基于ThinkPHP6.0和layui的快速开发的后台管理系统。】**
 
