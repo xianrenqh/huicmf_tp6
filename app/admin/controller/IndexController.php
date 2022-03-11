@@ -84,7 +84,7 @@ class IndexController extends AdminController
             'goods'    => '0'
         ];
 
-        $this->assign('is_file_admin', file_exists(ROOT_PATH.'/public/admin1.php'));
+        $this->assign('is_file_admin', file_exists(ROOT_PATH.'/public/admin.php'));
         $this->assign('admin_info', $adminInfo);
         $this->assign('sys_info', $this->get_sys_info());
         $this->assign('count_num', $countNums);
