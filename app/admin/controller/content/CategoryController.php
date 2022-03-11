@@ -100,7 +100,7 @@ class CategoryController extends AdminController
                 'cate_en|栏目名称（en）' => 'require'
             ];
             $this->validate($param, $rule);
-            $row = $this->model->where('cate_en', $param['cate_en'])->find();
+            $row = $this->model->where('cate_en', $param['cate_en'])->where('id', '<>', $param['id'])->find();
             if ( ! empty($row)) {
                 $this->error('栏目名称en已经存在啦，请重新输入');
             }
