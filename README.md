@@ -256,6 +256,9 @@ layui.use(['jquery', 'miniCountUp'], function () {
 * CKEditor：[https://github.com/ckeditor/ckeditor4](https://github.com/ckeditor/ckeditor4)
 * JetBrains：[https://jb.gg/OpenSourceSupport](https://jb.gg/OpenSourceSupport)
 
+![PhpStorm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PhpStorm.svg)
+![PhpStorm logo](https://resources.jetbrains.com/storage/products/company/brand/logos/PhpStorm_icon.svg)
+
 ## 版权信息
 
 HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。 本项目包含的第三方源码和二进制文件之版权信息另行标注。 版权所有Copyright © 2019-2022 by
