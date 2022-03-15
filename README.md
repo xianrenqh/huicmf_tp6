@@ -1,8 +1,10 @@
 HuiCMF v6.0
-===============
+===========
+
 **【基于ThinkPHP6.0和layui的快速开发的后台管理系统。】**
 
 **用于学习并允许商业使用。**
+
 > 运行环境要求PHP7.1+，兼容PHP8.0。
 >
 > 数据库要求：mysql5.5+，推荐5.7。
@@ -10,7 +12,6 @@ HuiCMF v6.0
 > 编辑器使用了 editor.md | UEeditor | icEditor
 >
 > 支持插件安装，（使用了think-addons扩展插件）
->
 
 ## 安装
 
@@ -137,11 +138,12 @@ data-delete：删除询问对话框
 ### 3、上传图片（附件）
 
 案例页面：http://你的域名/admin.php/system.test/upload.html
+
 > 1、在页面中直接使用layui上传
 
 ```html
 <!--html-->
-<button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+<button type="button" class="layui-btn" id="test1"><i class="layui-icon"></i>上传图片</button>
 ```
 
 ```javascript
@@ -164,7 +166,7 @@ upload.render({
 ```html
 
 <button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_pic" data-input-id="c-pic" data-type="image">
-    <i class="layui-icon">&#xe67c;</i>上传图片
+    <i class="layui-icon"></i>上传图片
 </button>
 ```
 
@@ -173,7 +175,6 @@ upload.render({
 | 参数名 |是否允许为空| 参数值| | ------------ | ------------ | | class | 否 |layUpload [必填一致]| | id | 否 |例如：lay_pic| | data-input-id
 | 否 |图片文本框的id值，用于返回url填充| | data-type | 是 |image [图片格式]；file [附件格式]|
 
-
 > 3、使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
 
 **参数同上**
@@ -181,7 +182,7 @@ upload.render({
 ```html
 
 <button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="c-pic"
-        data-preview-id="p-pic" data-type="image"><i class="layui-icon">&#xe67c;</i>上传图片
+        data-preview-id="p-pic" data-type="image"><i class="layui-icon"></i>上传图片
 </button>
 ```
 
@@ -246,20 +247,14 @@ layui.use(['jquery', 'miniCountUp'], function () {
 以下项目排名不分先后
 
 * ThinkPHP：[https://github.com/top-think/framework](https://github.com/top-think/framework)
-
 * EasyAdmnin：[https://gitee.com/zhongshaofa/easyadmin](https://gitee.com/zhongshaofa/easyadmin)
-
 * Layuimini：[https://github.com/zhongshaofa/layuimini](https://github.com/zhongshaofa/layuimini)
-
 * Annotations：[https://github.com/doctrine/annotations](https://github.com/doctrine/annotations)
-
 * Layui：[https://github.com/sentsin/layui](https://github.com/sentsin/layui)
-
 * Jquery：[https://github.com/jquery/jquery](https://github.com/jquery/jquery)
-
 * NKeditor：[https://gitee.com/blackfox/NKeditor](https://gitee.com/blackfox/NKeditor)
-
 * CKEditor：[https://github.com/ckeditor/ckeditor4](https://github.com/ckeditor/ckeditor4)
+* JetBrains：[https://jb.gg/OpenSourceSupport](https://jb.gg/OpenSourceSupport)
 
 ## 版权信息
 
@@ -278,4 +273,3 @@ All rights reserved。
 * 任何单位或个人在阅读本免责声明后，应在《MIT 开源许可证》所允许的范围内进行合法的发布、传播和使用`HuiCMF`后台框架等行为，若违反本免责声明条款或违反法律法规所造成的法律责任(包括但不限于民事赔偿和刑事责任），由违约者自行承担。
 * 如果本声明的任何部分被认为无效或不可执行，其余部分仍具有完全效力。不可执行的部分声明，并不构成我们放弃执行该声明的权利。
 * 本开源项目有权随时对本声明条款及附件内容进行单方面的变更，并以消息推送、网页公告等方式予以公布，公布后立即自动生效，无需另行单独通知；若您在本声明内容公告变更后继续使用的，表示您已充分阅读、理解并接受修改后的声明内容。
-
