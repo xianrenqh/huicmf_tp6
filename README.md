@@ -242,6 +242,33 @@ layui.use(['jquery', 'miniCountUp'], function () {
 });
 ```
 
+## 接口文档（apidoc）
+
+> 接口文档使用了apidoc
+>
+> https://hg-code.gitee.io/thinkphp-apidoc/
+
+### **总结注意事项（爬坑）：**
+
+#### 安装：
+使用composer安装：
+~~~
+composer require hg/apidoc
+~~~
+#### 前端访问：
+
+    http://你的域名/apidoc
+
+    如果无法访问请查看伪静态是否正确
+
+#### 前端接口异常：
+请检查路径是否正确
+
+#### 基础案例：
+1. 配置config/apidoc.php文件
+2. 案例控制器文件：app/api/controller/UserController.php
+
+
 ## 特别感谢
 
 以下项目排名不分先后

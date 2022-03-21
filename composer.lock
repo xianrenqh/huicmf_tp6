@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "325a4b30414c7db42c5e3fbec33fde70",
+    "content-hash": "2b1b4bd5fa88604a3cd0a3a48eb47332",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -224,6 +224,75 @@
                 }
             ],
             "time": "2022-01-07T12:00:00+00:00"
+        },
+        {
+            "name": "hg/apidoc",
+            "version": "v3.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/HGthecode/thinkphp-apidoc.git",
+                "reference": "42a89d945cd6d7e0fd6effa69b74ce89e439c4b9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/HGthecode/thinkphp-apidoc/zipball/42a89d945cd6d7e0fd6effa69b74ce89e439c4b9",
+                "reference": "42a89d945cd6d7e0fd6effa69b74ce89e439c4b9",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "doctrine/annotations": "^1.6",
+                "php": ">=7.1.0",
+                "symfony/class-loader": "~3.4.47"
+            },
+            "type": "think-extend",
+            "extra": {
+                "think": {
+                    "services": [
+                        "hg\\apidoc\\Service"
+                    ],
+                    "config": {
+                        "apidoc": "src/config.php"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "hg\\apidoc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "hg-code",
+                    "email": "376401263@qq.com"
+                }
+            ],
+            "description": "thinkphp API文档自动生成",
+            "keywords": [
+                "apidoc",
+                "api文档",
+                "markdown",
+                "php api文档",
+                "php接口文档",
+                "thinkphp",
+                "接口文档",
+                "注释生成",
+                "自动生成api"
+            ],
+            "support": {
+                "issues": "https://github.com/HGthecode/thinkphp-apidoc/issues",
+                "source": "https://github.com/HGthecode/thinkphp-apidoc/tree/v3.1.4"
+            },
+            "time": "2022-03-02T13:55:26+00:00"
         },
         {
             "name": "league/flysystem",
@@ -678,6 +747,80 @@
             "time": "2017-10-23T01:57:42+00:00"
         },
         {
+            "name": "symfony/class-loader",
+            "version": "v3.4.47",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/class-loader.git",
+                "reference": "a22265a9f3511c0212bf79f54910ca5a77c0e92c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/class-loader/zipball/a22265a9f3511c0212bf79f54910ca5a77c0e92c",
+                "reference": "a22265a9f3511c0212bf79f54910ca5a77c0e92c",
+                "shasum": "",
+                "mirrors": [
+                    {
+                        "url": "https://mirrors.aliyun.com/composer/dists/%package%/%reference%.%type%",
+                        "preferred": true
+                    }
+                ]
+            },
+            "require": {
+                "php": "^5.5.9|>=7.0.8"
+            },
+            "require-dev": {
+                "symfony/finder": "~2.8|~3.0|~4.0",
+                "symfony/polyfill-apcu": "~1.1"
+            },
+            "suggest": {
+                "symfony/polyfill-apcu": "For using ApcClassLoader on HHVM"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\ClassLoader\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony ClassLoader Component",
+            "homepage": "https://symfony.com",
+            "support": {
+                "source": "https://github.com/symfony/class-loader/tree/v3.4.47"
+            },
+            "funding": [
+                {
+                    "url": "https://symfony.com/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-10-24T10:57:07+00:00"
+        },
+        {
             "name": "topthink/framework",
             "version": "v6.0.12",
             "source": {
@@ -1071,53 +1214,6 @@
                 "source": "https://github.com/top-think/think-view/tree/v1.0.14"
             },
             "time": "2019-11-06T11:40:13+00:00"
-        },
-        {
-            "name": "xianrenqh/api-doc-v2",
-            "version": "v0.03",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/xianrenqh/api-doc-v2.git",
-                "reference": "c6dd9cadf31c893ebcc5585518b627c54f6c66f5"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/xianrenqh/api-doc-v2/zipball/c6dd9cadf31c893ebcc5585518b627c54f6c66f5",
-                "reference": "c6dd9cadf31c893ebcc5585518b627c54f6c66f5",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.1.0"
-            },
-            "type": "library",
-            "extra": {
-                "think": {
-                    "config": {
-                        "apidoc_v2": "src/config/apidoc_v2.php"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "xianrenqh\\apidoc_v2\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "xiaohuihui",
-                    "email": "762229008@qq.com"
-                }
-            ],
-            "description": "php API文档自动生成",
-            "support": {
-                "issues": "https://github.com/xianrenqh/api-doc-v2/issues",
-                "source": "https://github.com/xianrenqh/api-doc-v2/tree/v0.03"
-            },
-            "time": "2022-03-04T09:37:28+00:00"
         },
         {
             "name": "xianrenqh/think-addons",
@@ -1626,5 +1722,5 @@
         "php": ">=7.1.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
