@@ -16,21 +16,27 @@ class Category extends TimeModel
      * 默认是否显示全部
      *
      * @param bool $type
+     * 类别：1=列表栏目；2=单页面；3=外链
      *
      */
-    public function getPidMenuList($type = '')
+    public function getPidMenuList($type = '', $parentId = '0')
     {
-        $where       = function ($query) use ($type) {
+        $where       = function ($query) use ($type, $parentId) {
             if ( ! empty($type)) {
                 if (is_array($type)) {
                     $query->whereIn('type', $type);
+                }
+            }
+            if ( ! empty($parentId)) {
+                if (is_array($type)) {
+                    $query->whereIn('parent_id', $parentId);
                 } else {
-                    $query->where('type', $type);
+                    $query->where('parent_id', $parentId);
                 }
             }
         };
-        $list        = $this->field('id,parent_id,cate_name')->where($where)->select()->toArray();
-        $pidMenuList = $this->buildPidMenu(0, $list);
+        $list        = $this->field('id,parent_id,cate_name')->where($where)->select();
+        $pidMenuList = $this->buildPidMenu($parentId, $list->toArray());
 
         return $pidMenuList;
     }
