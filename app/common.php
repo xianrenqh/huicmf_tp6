@@ -172,6 +172,7 @@ if ( ! function_exists('get_config')) {
             $data = $cacheData;
         } else {
             $data = Db::name('config')->where('status', 1)->select()->toArray();
+            cache('sysConfig', $data);
         }
         $configs = array();
         foreach ($data as $val) {
