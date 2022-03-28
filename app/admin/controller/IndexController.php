@@ -56,7 +56,7 @@ class IndexController extends AdminController
             'menuInfo' => $menuService->getMenuTree(),
         ];
 
-        //Cache::tag('initAdmin')->set('initAdmin_' . session('admin.id'), $data);
+        Cache::tag('initAdmin')->set('initAdmin_' . session('admin.id'), $data);
 
         return json($data);
     }

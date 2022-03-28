@@ -28,6 +28,7 @@ class TriggerService
         } else {
             Cache::delete('initAdmin_'.$adminId);
         }
+        Cache::delete('systemMenu');
 
         return true;
     }
@@ -46,6 +47,7 @@ class TriggerService
         } else {
             Cache::delete('allAuthNode_'.$adminId);
         }
+        Cache::delete('systemMenu');
 
         return true;
     }
@@ -56,8 +58,7 @@ class TriggerService
      */
     public static function updateSysconfig()
     {
-        Cache::tag('sysconfig')->clear();
-
+        Cache::delete('sysConfig');
         return true;
     }
 

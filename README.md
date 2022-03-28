@@ -5,13 +5,17 @@ HuiCMF v6.0
 
 **用于学习并允许商业使用。**
 
-> 运行环境要求PHP7.1+，兼容PHP8.0。
+> 运行环境要求PHP7.1+，兼容PHP8.0，Redis。
 >
 > 数据库要求：mysql5.5+，推荐5.7。
 >
 > 编辑器使用了 editor.md | UEeditor | icEditor
 >
 > 支持插件安装，（使用了think-addons扩展插件）
+> 
+> 系统默认缓存方式为redis。请先安装并开启redis。
+> 
+> 如果不想使用redis，请更改根目录.evn文件中DRIVER = redis的值为file
 
 ## 安装
 

@@ -15,6 +15,7 @@ use app\common\constants\MenuConstant;
 use app\common\controller\AdminController;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
+use think\facade\Cache;
 use think\App;
 
 /**
@@ -42,7 +43,13 @@ class MenuController extends AdminController
     public function index()
     {
         if ($this->request->isAjax()) {
-            $list  = SystemMenu::order($this->sort)->select()->toArray();
+            $cacheData = Cache::get('systemMenu');
+            if ( ! empty($cacheData)) {
+                $list = $cacheData;
+            } else {
+                $list = SystemMenu::order($this->sort)->select()->toArray();
+                Cache::tag('systemMenu')->set('systemMenu', $list);
+            }
             $count = SystemMenu::count();
             $data  = [
                 'code'  => 0,
@@ -117,6 +124,9 @@ class MenuController extends AdminController
             }
         }
         $id   = $this->request->param('id');
+        if($id==1){
+            $this->error('不能编辑id=1的数据');
+        }
         $data = $this->model->findOrEmpty($id);
         if ($data->isEmpty()) {
             $this->error('获取数据失败');

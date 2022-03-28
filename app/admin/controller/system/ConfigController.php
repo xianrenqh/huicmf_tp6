@@ -13,6 +13,7 @@ use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\controller\AdminController;
 use app\common\model\Config as ConfigModel;
+use app\admin\service\TriggerService;
 use think\Exception;
 
 /**
@@ -28,8 +29,16 @@ class ConfigController extends AdminController
      */
     public function index()
     {
-        $datalist = ConfigModel::select()->toArray();
-        $data     = array_column($datalist, 'value', 'name');
+        $d = get_config('site_name');
+        dump($d);
+        $cacheData = cache('sysConfig');
+        if ($cacheData) {
+            $datalist = $cacheData;
+        } else {
+            $datalist = ConfigModel::select()->toArray();
+            cache('sysConfig', $datalist);
+        }
+        $data = array_column($datalist, 'value', 'name');
         $this->assign('data', $data);
 
         return $this->fetch();
@@ -45,8 +54,9 @@ class ConfigController extends AdminController
             foreach ($param as $key => $value) {
                 $arr[$key] = $value;
                 $value     = htmlspecialchars($value);
-                ConfigModel::strict(false)->where(['name' => $key])->update(['value' => $value]);
+                ConfigModel::strict(false)->where(['name' => $key])->data(['value' => $value])->update();
             }
+            TriggerService::updateSysconfig();
             $this->success('保存成功');
         }
     }
@@ -90,6 +100,7 @@ class ConfigController extends AdminController
             ];
             try {
                 ConfigModel::insert($data);
+                TriggerService::updateSysconfig();
             } catch (Exception $e) {
                 $this->error('操作失败<br>'.$e->getMessage());
             }
@@ -108,7 +119,7 @@ class ConfigController extends AdminController
         $id   = $this->request->param('id');
         $data = ConfigModel::where('id', $id)->where('type', 99)->find();
         if (empty($data)) {
-            return json(['code'=>0,'msg'=>'获取数据失败']);
+            return json(['code' => 0, 'msg' => '获取数据失败']);
         }
         if ($this->request->isPost()) {
             $param = $this->request->post();
@@ -123,6 +134,7 @@ class ConfigController extends AdminController
                 $data = ['title' => $param['title'], 'value' => $param['value'], 'status' => $param['status']];
             }
             ConfigModel::where('id', $param['id'])->data($data)->update();
+            TriggerService::updateSysconfig();
             $this->success('修改成功');
         }
         if ($data['fieldtype'] == 'radio') {
@@ -155,6 +167,7 @@ class ConfigController extends AdminController
     {
         $id = $this->request->param('id');
         ConfigModel::where('id', $id)->delete();
+        TriggerService::updateSysconfig();
         $this->success('操作成功');
     }
 

@@ -167,7 +167,12 @@ if ( ! function_exists('get_client_ip')) {
 if ( ! function_exists('get_config')) {
     function get_config($key = '')
     {
-        $data    = Db::name('config')->where('status', 1)->select();
+        $cacheData = cache('sysConfig');
+        if ( ! empty($cacheData)) {
+            $data = $cacheData;
+        } else {
+            $data = Db::name('config')->where('status', 1)->select()->toArray();
+        }
         $configs = array();
         foreach ($data as $val) {
             $configs[$val['name']] = $val['value'];
