@@ -59,6 +59,18 @@ class TriggerService
     public static function updateSysconfig()
     {
         Cache::delete('sysConfig');
+
+        return true;
+    }
+
+    /**
+     * 更新会员信息
+     * @return void
+     */
+    public static function updateAdminInfo($adminId)
+    {
+        Cache::delete('adminInfo_'.$adminId);
+
         return true;
     }
 

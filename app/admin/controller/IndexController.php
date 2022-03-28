@@ -17,6 +17,7 @@ use app\common\model\User as UserModel;
 use app\common\model\Article as ArticleModel;
 use app\common\controller\AdminController;
 use app\common\service\MenuService;
+use app\admin\service\TriggerService;
 use think\db\exception\DataNotFoundException;
 use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
@@ -56,7 +57,7 @@ class IndexController extends AdminController
             'menuInfo' => $menuService->getMenuTree(),
         ];
 
-        Cache::tag('initAdmin')->set('initAdmin_' . session('admin.id'), $data);
+        Cache::tag('initAdmin')->set('initAdmin_'.session('admin.id'), $data);
 
         return json($data);
     }
@@ -67,10 +68,15 @@ class IndexController extends AdminController
         $userModel    = new UserModel();
         $articleModel = new ArticleModel();
 
-        $adminId   = cmf_get_admin_id();
-        $roleId    = cmf_get_admin_role_id();
-        $roleName  = AuthGroup::whereIn('id', $roleId)->column('name');
-        $adminInfo = $adminModel->getAdminInfo($adminId);
+        $adminId  = cmf_get_admin_id();
+        $roleId   = cmf_get_admin_role_id();
+        $roleName = AuthGroup::whereIn('id', $roleId)->column('name');
+
+        if (cache('adminInfo_'.$adminId)) {
+            $adminInfo = cache('adminInfo_'.$adminId);
+        } else {
+            $adminInfo = $adminModel->getAdminInfo($adminId);
+        }
 
         $adminInfo['role_name'] = '';
         if ( ! empty($roleName)) {
@@ -145,7 +151,13 @@ class IndexController extends AdminController
         $Random  = new Random();
         $salt    = $Random::alnum(6);
         $adminId = cmf_get_admin_id();
-        $data    = AdminModel::where('id', $adminId)->find();
+
+        if (cache('adminInfo_'.$adminId)) {
+            $data = cache('adminInfo_'.$adminId);
+        } else {
+            $data = AdminModel::where('id', $adminId)->find();
+        }
+
         if ($this->request->isPost()) {
             $param = $this->request->param();
             if (empty($param['old_password']) || empty($param['new_password']) || empty($param['again_password'])) {
@@ -168,6 +180,7 @@ class IndexController extends AdminController
                 'salt'        => $salt,
                 'update_time' => time()
             ])->update();
+            TriggerService::updateAdminInfo($adminId);
             $this->success('修改成功');
         }
         $this->assign('data', $data);
@@ -181,10 +194,16 @@ class IndexController extends AdminController
     public function editInfo()
     {
         $admin_id = cmf_get_admin_id();
-        $row      = AdminModel::where('id', $admin_id)->withoutField('password')->find();
+        if (cache('adminInfo_'.$admin_id)) {
+            $row = cache('adminInfo_'.$admin_id);
+        } else {
+            $row = AdminModel::where('id', $admin_id)->withoutField('password')->find();
+            cache('adminInfo_'.$admin_id, $row);
+        }
         if ($this->request->isPost()) {
             $param = $this->request->param();
             $res   = $row->save($param);
+            TriggerService::updateAdminInfo($admin_id);
             if ($res) {
                 $this->success('保存成功');
             } else {

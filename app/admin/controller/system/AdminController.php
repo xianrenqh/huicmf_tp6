@@ -13,13 +13,14 @@ namespace app\admin\controller\system;
 use app\admin\annotation\ControllerAnnotation;
 use app\admin\annotation\NodeAnotation;
 use app\common\model\AuthGroup;
+use app\common\model\Admin as AdminModel;
+use app\common\model\AuthGroupAccess;
 use app\common\service\AuthService;
+use app\admin\service\TriggerService;
+use app\admin\library\LibAuthService;
 use lib\Random;
 use lib\Tree;
 use think\App;
-use app\common\model\Admin as AdminModel;
-use app\common\model\AuthGroupAccess;
-use app\admin\library\LibAuthService;
 
 /**
  * Class AdminController
@@ -145,6 +146,7 @@ class AdminController extends \app\common\controller\AdminController
                 $data2[] = ['uid' => $insertId, 'group_id' => $v];
             }
             AuthGroupAccess::insertAll($data2);
+            TriggerService::updateAdminInfo($insertId);
             $this->success('添加成功');
         }
 
@@ -193,6 +195,7 @@ class AdminController extends \app\common\controller\AdminController
                 $data2[] = ['uid' => $id, 'group_id' => $v];
             }
             AuthGroupAccess::insertAll($data2);
+            TriggerService::updateAdminInfo($param['id']);
             $this->success('修改成功');
 
         }
@@ -220,6 +223,7 @@ class AdminController extends \app\common\controller\AdminController
             $this->error('管理员信息不存在');
         }
         $find->delete(true);
+        TriggerService::updateAdminInfo($id);
         $this->success('删除成功');
     }
 

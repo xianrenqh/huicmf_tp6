@@ -41,7 +41,13 @@ class Admin extends TimeModel
         if (empty($admin_id)) {
             return $info;
         }
-        $info = $this->find($admin_id);
+        $cacheData = cache('adminInfo_'.$admin_id);
+        if ( ! empty($cacheData)) {
+            $info = $cacheData;
+        } else {
+            $info = $this->find($admin_id);
+            cache('adminInfo_'.$admin_id, $info);
+        }
 
         return $info;
     }
