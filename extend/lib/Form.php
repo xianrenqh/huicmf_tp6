@@ -55,7 +55,7 @@ class Form
         $css1     = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'css'.DS.'editormd.min.css';
         $jquery   = DS.'static'.DS.'lib'.DS.'jquery-3.4.1'.DS.'jquery-3.4.1.min.js';
         $editormd = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'editormd.min.js';
-        $libPath  = DS.'static'.DS.'lib'.DS.'editor.md-1.5.0'.DS.'lib'.DS;
+        $libPath  = '/static/lib/editor.md-1.5.0/lib/';
         $string   = '';
         $string   .= '<link href="'.$css1.'" rel="stylesheet">';
         $string   .= '<div id="content-editor">';

@@ -3,6 +3,7 @@ body {
     margin: 0.6%;
     background: rgba(242, 242, 242, 0.58);
 }
+
 .link-hot {
     color: #009688;
     cursor: pointer;
@@ -342,7 +343,7 @@ body .layui-form-select .layui-input {
 .file-library .layui-layer-content .file-group {
     float: left;
     width: 150px;
-    padding-top: 20px;
+    padding-bottom: 10px;
 }
 
 .file-library .layui-layer-content .file-group .nav-new {
@@ -438,7 +439,7 @@ body .layui-form-select .layui-input {
 }
 
 .file-library .layui-layer-content .v-box-body {
-    width: 660px;
+    max-width: 660px;
 }
 
 .file-library .layui-layer-content .v-box-body ul.file-list-item {

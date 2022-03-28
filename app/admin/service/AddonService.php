@@ -266,7 +266,7 @@ class AddonService
             throw new Exception('addons.php文件没有写入权限');
         }
         if ($handle = fopen($file, 'w')) {
-            fwrite($handle, "<?php\n\n".'return '.var_export($config, true).';');
+            fwrite($handle, "<?php\n\n".'return '.var_export_short($config, true).';');
             fclose($handle);
         } else {
             throw new Exception('文件没有写入权限');
