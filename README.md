@@ -21,7 +21,8 @@ HuiCMF v6.0
 
 - 首先：git clone 获取数据
 - 然后：composer update 更新数据
-- 接着访问： http://你的域名/install
+- 接着：根目录 .example.env 复制一份重命名：.env（去掉.example）
+- 访问： http://你的域名/install
 - 执行安装程序
 - 最后访问后台：http://你的域名/admin.php
 - 默认后台账号密码： admin admin888
