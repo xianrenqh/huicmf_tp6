@@ -29,8 +29,6 @@ class ConfigController extends AdminController
      */
     public function index()
     {
-        $d = get_config('site_name');
-        dump($d);
         $cacheData = cache('sysConfig');
         if ($cacheData) {
             $datalist = $cacheData;
