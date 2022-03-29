@@ -8,3 +8,4 @@
 /public/install.lock
 /public/.user.ini
 /config/database.php
+/.env
