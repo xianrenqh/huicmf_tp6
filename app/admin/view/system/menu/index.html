@@ -7,6 +7,12 @@
             <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i></button>
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.menu/add')}layui-hide{/if}" data-open="{:__url('system.menu/add')}" data-title="添加菜单">
                 <i class="fa fa-plus"></i> 添加菜单</a>
+            <button id="btnExpandAll" class="layui-btn layui-btn-sm layuimini-btn-primary ">
+                <i class="layui-icon">&#xe668;</i>展开全部
+            </button>
+            <button id="btnFoldAll" class="layui-btn layui-btn-sm layuimini-btn-primary">
+                <i class="layui-icon">&#xe66b;</i>折叠全部
+            </button>
         </div>
         <table id="munu-table" lay-filter="munu-table"></table>
     </div>
@@ -38,7 +44,7 @@
 
     // 渲染表格
     layer.load(2);
-    treetable.render({
+    var insTb = treetable.render({
       treeColIndex: 1,
       treeSpid: 0,
       homdPid: 99999999,
@@ -100,6 +106,16 @@
         }
       })
     });
+    //全部展开
+    $('#btnExpandAll').click(function () {
+      treetable.expandAll('#munu-table');
+    });
+
+    // 全部折叠
+    $('#btnFoldAll').click(function () {
+      treetable.foldAll('#munu-table');
+    });
+
 
     /*$('#btn-expand').click(function () {
       treetable.expandAll('#munu-table');
