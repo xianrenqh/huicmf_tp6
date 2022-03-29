@@ -25,6 +25,13 @@ HuiCMF v6.0
 - 执行安装程序
 - 最后访问后台：http://你的域名/admin.php
 - 默认后台账号密码： admin admin888
+## 后台演示
+https://huicmf6.xiaohuihui.net/admin.php
+
+账号：admin
+
+密码：admin888
+
 
 ## 使用说明
 
