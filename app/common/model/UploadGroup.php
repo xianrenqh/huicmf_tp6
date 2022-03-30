@@ -13,4 +13,12 @@ class UploadGroup extends TimeModel
 {
 
     protected $pk = 'group_id';
+
+    public static function group_list()
+    {
+        $list = UploadGroup::order('sort asc')->field('group_id,group_name')->select()->toArray();
+
+        return $list;
+    }
+
 }

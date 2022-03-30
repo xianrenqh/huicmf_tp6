@@ -86,7 +86,8 @@
 
 {include file='footer'/}
 <script>
-  layui.use(['table'], function () {
+  layui.use(['table','jquery'], function () {
+    var $ = layui.jquery;
     var table = layui.table;
     table.render({
       elem: '#article_table'

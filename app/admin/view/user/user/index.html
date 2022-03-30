@@ -52,7 +52,7 @@
             <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
             </button>
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('user.user/add')}layui-hide{/if}"
-               data-open="{:__url('user.user/add')}" data-width="750"
+               data-open="{:__url('user.user/add')}" data-width="765"
                data-title="添加会员" data-reload="2">
                 <i class="fa fa-plus"></i> 添加会员</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('user.user/delete')}layui-hide{/if}"
@@ -83,7 +83,7 @@
                data-open="{:__url('user.point/edit')}?user_id={{d.id}}" data-width="550" data-height="400"
                data-title="积分修改" data-reload="2">积分修改</a>
             <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('user.user/edit')}layui-hide{/if}"
-               data-open="{:__url('user.user/edit')}?id={{d.id}}" data-width="750"
+               data-open="{:__url('user.user/edit')}?id={{d.id}}" data-width="765"
                data-title="编辑会员" data-reload="2">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('user.user/delete')}layui-hide{/if}"
                data-delete="{:__url('user.user/delete')}?id={{d.id}}"
@@ -95,8 +95,8 @@
 
 {include file='footer'/}
 <script>
-  layui.use(['table'], function () {
-    var table = layui.table;
+  layui.use(['table','jquery'], function () {
+    var table = layui.table,$=layui.jquery;
     table.render({
       elem: '#admin_table'
       , method: 'get'

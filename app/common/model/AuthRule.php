@@ -14,7 +14,7 @@ class AuthRule extends TimeModel
 
     public function getNodeTreeList()
     {
-        $list = $this->select()->toArray();
+        $list = $this->order('node asc')->select()->toArray();
         $list = $this->buildNodeTree($list);
 
         return $list;
@@ -53,7 +53,7 @@ class AuthRule extends TimeModel
     {
         $checkNodeList = (new AuthGroup())->where('id', $authId)->value('rules');
         $authRule      = new AuthRule();
-        $nodelList     = $authRule->where('is_auth', 1)->field('id,node,title,type,is_auth')->select()->toArray();
+        $nodelList     = $authRule->where('is_auth', 1)->field('id,node,title,type,is_auth')->order('node asc')->select()->toArray();
         $newNodeList   = [];
         foreach ($nodelList as $vo) {
             if ($vo['type'] == 1) {

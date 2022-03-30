@@ -1,0 +1,125 @@
+{include file='header'/}
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="javascript:;" id="form_admin_search">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <select name="group_id" id="group_id">
+                                <option value="">==所属分组==</option>
+                                <option value="0">默认</option>
+                                {volist name='group_list' id='vo'}
+                                <option value="{$vo.group_id}">{$vo.group_name}</option>
+                                {/volist}
+                            </select>
+                        </div>
+
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                            <button class="layui-btn layui-btn-danger layui-btn-sm reset" type="reset"><i
+                                    class="layui-icon">&#xe63f;</i>清空
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+
+        <div class="layui-btn-group">
+            <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
+            </button>
+            <!--<a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('module.banner/add')}layui-hide{/if}"
+               data-open="{:__url('module.banner/add')}"
+               data-title="添加轮播图">
+                <i class="fa fa-plus"></i> 添加轮播图</a>-->
+        </div>
+
+        <table id="banner_table" lay-filter="banner_table"></table>
+
+        <script type="text/html" id="file_urlTpl">
+            {{#  if(d.file_url !=''){ }}
+            <img src="{{d.file_url}}" onmouseover="hui_img_preview('image2','{{d.file_url}}')" onmouseout="layer.closeAll();"
+                 id="image2" width="30">
+            {{#  } }}
+        </script>
+        <script type="text/html" id="barDemo">
+            <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('module.images/delete')}layui-hide{/if}"
+               data-delete="{:__url('module.images/delete')}?file_id={{d.file_id}}"
+               data-title="确定要删除吗？（不会删除附件图片）" data-reload="2">删除</a>
+        </script>
+
+    </div>
+</div>
+
+{include file='footer'/}
+<script>
+  layui.use(['table','jquery'], function () {
+    var table = layui.table,$=layui.jquery;
+    table.render({
+      elem: '#banner_table'
+      , method: 'get'
+      , url: "{:__url('index')}"
+      , done: function (res) {
+        $("#total").html(res.count);
+      }
+      , cellMinWidth: 100
+      , cols: [[
+        {field: 'file_id', title: 'ID', width: 60, align: 'center'}
+        , {field: 'file_url', title: '缩略图', templet: '#file_urlTpl', align: 'center', width: 80}
+        , {field: 'group_name', title: '所属分组', align: 'center'}
+        , {field: 'w_h', title: '长宽px'}
+        , {field: 'storage', title: '存储方式', align: 'center', width: 120}
+        , {field: 'file_size', title: '文件大小'}
+        , {field: 'extension', title: '扩展名', align: 'center' , width: 100}
+        , {field: 'create_time', title: '创建时间', align: 'center' , width: 170}
+        , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 120}
+      ]]
+      , id: 'testReload'
+      , page: true
+      , limit: 10
+    });
+
+    var $ = layui.$, active = {
+      reload: function () {
+        //执行重载
+        table.reload('testReload', {
+          page: {curr: 1},
+          where: {
+            group_id: $('#group_id').val(),
+          }
+        });
+      }
+    }
+
+    $('.hui-form-search .layui-btn').on('click', function () {
+      var type = $(this).data('type');
+      active[type] ? active[type].call(this) : '';
+    });
+    $('.hui-form-search .reset').on('click', function () {
+      window.location.reload();
+    });
+
+    //监听行工具事件
+    table.on('tool(banner_table)', function (obj) {
+      var data = obj.data;
+      if (obj.event === 'del') {
+        layer.confirm('你确定要删除吗？', {
+          btn: ['确定', '取消'] //按钮
+        }, function () {
+          var postdata = {ids: data.id};
+          posttips("{:__url('delete')}", postdata);
+        });
+      } else if (obj.event === 'edit') {
+        WeAdminShow("编辑", "{:__url('edit')}?id=" + data.id, '800');
+      }
+    });
+  });
+</script>
+</body>
+</html>

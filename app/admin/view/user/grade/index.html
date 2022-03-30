@@ -29,8 +29,8 @@
 
 {include file='footer'/}
 <script>
-  layui.use(['table'], function () {
-    var table = layui.table;
+  layui.use(['table','jquery'], function () {
+    var table = layui.table,$=layui.jquery;
     table.render({
       elem: '#admin_table'
       , method: 'get'

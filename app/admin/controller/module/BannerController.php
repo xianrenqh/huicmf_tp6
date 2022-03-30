@@ -18,9 +18,9 @@ use think\Exception;
 use think\App;
 
 /**
- * @ControllerAnnotation(title="友情链接管理")
+ * @ControllerAnnotation(title="轮播图管理")
  * Class Node
- * @package app\admin\controller\content
+ * @package app\admin\controller\module
  */
 class BannerController extends AdminController
 {

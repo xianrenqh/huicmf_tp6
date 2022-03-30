@@ -53,8 +53,8 @@
 
 {include file='footer'/}
 <script>
-  layui.use(['table','laydate'], function () {
-    var table = layui.table,laydate = layui.laydate;
+  layui.use(['table','laydate','jquery'], function () {
+    var table = layui.table,laydate = layui.laydate,$=layui.jquery;
     laydate.render({
       elem: '#time'
       ,type: 'date'
