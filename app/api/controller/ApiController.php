@@ -12,13 +12,15 @@ namespace app\api\controller;
 
 use think\App;
 use think\facade\Request;
+use think\exception\HttpResponseException;
 use think\exception\ValidateException;
 use think\Validate;
+use think\Response;
 
 class ApiController extends \app\BaseController
 {
 
-    use \app\common\traits\JumpTrait;
+    //use \app\common\traits\JumpTrait;
 
     protected $token = '';
 
@@ -38,8 +40,13 @@ class ApiController extends \app\BaseController
 
     protected function initialize()
     {
-        error_reporting(E_ERROR | E_WARNING | E_PARSE);
         parent::initialize();
+        //解决跨域问题
+        header('Access-Control-Allow-Origin:*');//允许所有来源访问
+        header("Access-Control-Allow-Headers:*");
+        header('Access-Control-Allow-Method:POST,GET');//允许访问的方式
+
+        error_reporting(E_ERROR | E_WARNING | E_PARSE);
         $getKey = $this->request->header('set-key');
         //配置统一入口，只让访问init方法
         if (request()->module() != 'api' || request()->controller() != 'Index' || request()->action() != 'index') {
@@ -124,4 +131,72 @@ class ApiController extends \app\BaseController
         return $v->failException(true)->check($data);
     }
 
+    /**
+     * 操作成功跳转的快捷方法
+     * @access protected
+     *
+     * @param mixed $msg    提示信息
+     * @param mixed $data   返回的数据
+     * @param array $header 发送的Header信息
+     *
+     * @return void
+     */
+    protected function success($msg = '', $data = '', array $header = [])
+    {
+        $code   = 200;
+        $result = [
+            'code' => $code,
+            'msg'  => $msg,
+            'data' => $data,
+        ];
+
+        $type                                   = $this->getResponseType();
+        $header['Access-Control-Allow-Origin']  = '*';
+        $header['Access-Control-Allow-Headers'] = '*';
+        $header['Access-Control-Allow-Methods'] = 'GET,POST,PATCH,PUT,DELETE,OPTIONS';
+        $response                               = Response::create($result, $type)->header($header);
+        throw new HttpResponseException($response);
+    }
+
+    /**
+     * 操作错误跳转的快捷方法
+     * @access protected
+     *
+     * @param mixed $msg    提示信息,若要指定错误码,可以传数组,格式为['code'=>您的错误码,'msg'=>'您的错误消息']
+     * @param mixed $data   返回的数据
+     * @param array $header 发送的Header信息
+     *
+     * @return void
+     */
+    protected function error($msg = '', $data = '', array $header = [])
+    {
+        $code = 0;
+        if (is_array($msg)) {
+            $code = $msg['code'];
+            $msg  = $msg['msg'];
+        }
+        $result = [
+            'code' => $code,
+            'msg'  => $msg,
+            'data' => $data,
+        ];
+
+        $type = $this->getResponseType();
+
+        $header['Access-Control-Allow-Origin']  = '*';
+        $header['Access-Control-Allow-Headers'] = '*';
+        $header['Access-Control-Allow-Methods'] = 'GET,POST,PATCH,PUT,DELETE,OPTIONS';
+        $response                               = Response::create($result, $type)->header($header);
+        throw new HttpResponseException($response);
+    }
+
+    /**
+     * 获取当前的 response 输出类型
+     * @access protected
+     * @return string
+     */
+    protected function getResponseType()
+    {
+        return 'json';
+    }
 }
