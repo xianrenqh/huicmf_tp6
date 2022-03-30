@@ -30,6 +30,9 @@ class Form
             case 'uEditorMini';
                 $res = self::editor_uEditorMini($name, $val, $isload, $style);
                 break;
+            case 'tinyMCE';
+                $res = self::editor_tinyMCE($name, $val, $isload, $style);
+                break;
             case 'iceEditor';
                 $res = self::editor_iceEditor($name, $val, $isload, $style);
                 break;
@@ -121,6 +124,28 @@ class Form
             elementPathEnabled:false,
             //serverUrl :\''.__url('upload/index', ['editor_type' => 'iceEditor']).'\'
         }); </script>';
+
+        return $string;
+    }
+
+    private static function editor_tinyMCE($name, $val, $isLoad, $style = '')
+    {
+        //$libDir  = '/static/lib/tinymce-6.0.1/tinymce.min.js';
+        $libDir = DS.'static'.DS.'lib'.DS.'tinymce-6.0.1'.DS.'tinymce.min.js';
+        $string = '';
+        $string .= '<script type="text/javascript" charset="utf-8" src="'.$libDir.'"></script>';
+        $string .= '<script>
+        tinymce.init({
+            selector: "#tinyMCEArea",
+            images_upload_url:"'.__url('upload/index', ['editor_type' => 'tinyMce']).'",
+            branding: false, //隐藏右下角powerby
+            language:"zh_CN",
+            inline: false,//开启内联模式
+            plugins: "code quickbars preview searchreplace autolink fullscreen image link media codesample table charmap advlist lists wordcount emoticons",
+            quickbars_selection_toolbar: "bold italic forecolor | link blockquote quickimage",
+        });
+            </script>';
+        $string .= '<textarea id="tinyMCEArea" name="'.$name.'">'.$val.'</textarea>';
 
         return $string;
     }

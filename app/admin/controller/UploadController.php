@@ -25,6 +25,7 @@ class UploadController
 
     public function __construct()
     {
+        header('Access-Control-Allow-Origin: *');
         $this->admin_id    = cmf_get_admin_id() ? cmf_get_admin_id() : '0';
         $this->user_id     = session('user_id') ? session('user_id') : '0';
         $this->upload_mode = 'local';
@@ -60,12 +61,15 @@ class UploadController
                     case "editorMd";
                         $file = $up_file['editormd-image-file'];
                         break;
+                    case "tinyMce";
+                        $file = $up_file;
+                        break;
                     default:
                         $file = $up_file;
                         break;
                 }
                 try {
-                    $getMime = $up_file->getMime();
+                    $getMime = $file->getMime();
                     if (strstr($getMime, 'image')) {
                         //判断是图片
                         validate([
@@ -124,7 +128,7 @@ class UploadController
                                 'code' => 1,
                                 'msg'  => '上传成功',
                                 'name' => $picName,
-                                'url'  => $savePath
+                                'location'  => $savePath
                             ]);
                             break;
                     }
