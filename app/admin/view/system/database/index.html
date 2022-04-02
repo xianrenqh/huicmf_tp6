@@ -74,7 +74,7 @@
           table: tables
         }, function (res) {
           layer.close(loading);
-          layer.msg(res.message, {
+          layer.msg(res.msg, {
             icon: res.icon
           })
         })
@@ -90,7 +90,7 @@
           table: tables
         }, function (res) {
           layer.close(loading);
-          layer.msg(res.message, {
+          layer.msg(res.msg, {
             icon: res.icon
           })
         })
@@ -101,7 +101,7 @@
           dosubmit: 1,
         }, function (str) {
           layer.close(loading);
-          layer.msg(str.message, {time: 1000}, function () {
+          layer.msg(str.msg, {time: 1000}, function () {
             if (str.status == 1) {
               WeAdminShow("数据还原", "{:__url('databack_list')}", '880');
             }
@@ -121,7 +121,7 @@
       $.get(url, {
         table: data.Name
       }, function (res) {
-        layer.msg(res.message, {
+        layer.msg(res.msg, {
           icon: res.icon
         })
       })

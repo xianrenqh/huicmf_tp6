@@ -62,10 +62,10 @@ class DatabaseController extends AdminController
                     $DataBase['connections']['mysql']['password'], $DataBase['connections']['mysql']['hostport']);
                 $backup->setIgnoreTable($CAdmin['backupIgnoreTables'])->backup($backupDir);
             } catch (Exception $e) {
-                return json(['message' => $e->getMessage(), 'status' => 0]);
+                return json(['msg' => $e->getMessage(), 'status' => 0]);
             }
 
-            return json(['message' => '备份成功', 'status' => 1]);
+            return json(['msg' => '备份成功', 'status' => 1]);
         }
 
         return;
@@ -195,12 +195,12 @@ class DatabaseController extends AdminController
             foreach ($name as $key => $row) {
                 Db::execute("OPTIMIZE TABLE `{$row}`");
             }
-            $return = ['message' => '全部优化成功', 'icon' => 1];
+            $return = ['msg' => '全部优化成功', 'icon' => 1];
         } else {
             if (Db::execute("OPTIMIZE TABLE `{$name}`")) {
-                $return = ['message' => '优化表 ['.$name.'] 成功', 'icon' => 1];
+                $return = ['msg' => '优化表 ['.$name.'] 成功', 'icon' => 1];
             } else {
-                $return = ['message' => '优化表 ['.$name.'] 失败', 'icon' => 2];
+                $return = ['msg' => '优化表 ['.$name.'] 失败', 'icon' => 2];
             }
         }
 
@@ -217,12 +217,12 @@ class DatabaseController extends AdminController
             foreach ($name as $key => $row) {
                 Db::execute("REPAIR TABLE `{$row}`");
             }
-            $return = ['message' => '全部修复成功', 'icon' => 1];
+            $return = ['msg' => '全部修复成功', 'icon' => 1];
         } else {
             if (Db::execute("REPAIR TABLE `{$name}`")) {
-                $return = ['message' => '修复表 ['.$name.'] 成功', 'icon' => 1];
+                $return = ['msg' => '修复表 ['.$name.'] 成功', 'icon' => 1];
             } else {
-                $return = ['message' => '修复表 ['.$name.'] 成功', 'icon' => 1];
+                $return = ['msg' => '修复表 ['.$name.'] 成功', 'icon' => 1];
             }
         }
 
