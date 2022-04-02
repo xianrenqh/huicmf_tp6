@@ -41,11 +41,27 @@ class LogController extends AdminController
      */
     public function login_log()
     {
-        $data = LoginLog::order('id desc')->paginate(10)->each(function ($item){
-            $item['desc']= explode("{",$item['desc'])[0];
+        $username   = $this->request->param('username', '');
+        $ip_address = $this->request->param('ip_address', '');
+        $login_status = $this->request->param('login_status', '');
+        $data       = LoginLog::order('id desc')->where(function ($query) use ($username,$ip_address,$login_status) {
+            if ( ! empty($username)) {
+                $query->where('user_name', $username);
+            }
+            if ( ! empty($ip_address)) {
+                $query->where('ip_address', $ip_address);
+            }
+            if(!empty($login_status)){
+                $query->whereLike('desc',$login_status.'：%');
+            }
+        })->paginate(10)->each(function ($item) {
+            $item['desc'] = explode("{", $item['desc'])[0];
         });
 
         $this->assign('data', $data);
+        $this->assign('username', $username);
+        $this->assign('ip_address', $ip_address);
+        $this->assign('login_status', $login_status);
 
         return $this->fetch();
     }

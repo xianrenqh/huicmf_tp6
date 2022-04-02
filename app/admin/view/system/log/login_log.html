@@ -2,6 +2,36 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
+        <fieldset class="table-search-fieldset">
+            <legend>搜索信息</legend>
+            <div class="layui-row hui-form-search">
+                <form class="layui-form layui-col-md12" action="{:__url('system.log/login_log')}" id="form_admin_search" method="post">
+                    <div class="layui-form-item">
+                        <div class="layui-inline">
+                            <input type="text" name="username" id="username" placeholder="请输入用户名" autocomplete="off"
+                                   class="layui-input" value="{$username|default=''}">
+                        </div>
+                        <div class="layui-inline">
+                            <input type="text" name="ip_address" id="ip_address" placeholder="请输入IP地址" autocomplete="off"
+                                   class="layui-input" value="{$ip_address|default=''}">
+                        </div>
+                        <div class="layui-inline">
+                            <select name="login_status" id="login_status">
+                                <option value="">==登录状态==</option>
+                                <option value="success" {if($login_status eq 'success')}selected{/if}>登录成功</option>
+                                <option value="error" {if($login_status eq 'error')}selected{/if}>登录失败</option>
+                            </select>
+                        </div>
+                        <div class="layui-inline">
+                            <button class="layui-btn layui-btn-sm" data-type="reload" lay-submit="" lay-filter="search">
+                                <i class="layui-icon">&#xe615;</i>搜索
+                            </button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </fieldset>
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i></button>
         </div>

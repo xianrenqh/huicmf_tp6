@@ -77,7 +77,7 @@ class LoginController extends AdminController
                     'password' => $param['password']
                 ]);
             $loginDevice['user_id']   = 0;
-            $loginDevice['user_name'] = '';
+            $loginDevice['user_name'] = $param['username'];
             LoginLogModel::addRecord($loginDevice);
 
             $this->error('用户名或密码不正确！');
@@ -98,7 +98,7 @@ class LoginController extends AdminController
                     'password' => $param['password']
                 ]);
             $loginDevice['user_id']   = 0;
-            $loginDevice['user_name'] = '';
+            $loginDevice['user_name'] = $param['username'];
             LoginLogModel::addRecord($loginDevice);
             $this->error('用户名或密码不正确！！！');
         }
