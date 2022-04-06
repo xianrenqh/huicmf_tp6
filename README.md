@@ -12,9 +12,9 @@ HuiCMF v6.0
 > 编辑器使用了 editor.md | UEeditor | icEditor
 >
 > 支持插件安装，（使用了think-addons扩展插件）
-> 
+>
 > 系统默认缓存方式为redis。请先安装并开启redis。
-> 
+>
 > 如果不想使用redis，请更改根目录.evn文件中DRIVER = redis的值为file
 
 ## 安装
@@ -26,13 +26,20 @@ HuiCMF v6.0
 - 执行安装程序
 - 最后访问后台：http://你的域名/admin.php
 - 默认后台账号密码： admin admin888
+
+### 备注：
+
+>如果迁移网站后访问提示：**No input file specified.** 则：
+> 
+>删除public目录下的 **.user.ini** 文件
+
 ## 后台演示
+
 https://huicmf6.xiaohuihui.net/admin.php
 
 账号：admin
 
 密码：admin888
-
 
 ## 使用说明
 
@@ -263,23 +270,26 @@ layui.use(['jquery', 'miniCountUp'], function () {
 ### **总结注意事项（爬坑）：**
 
 #### 安装：
+
 使用composer安装：
+
 ~~~
 composer require hg/apidoc
 ~~~
+
 #### 前端访问：
 
-    http://你的域名/apidoc
+http://你的域名/apidoc
 
-    如果无法访问请查看伪静态是否正确
-
+如果无法访问请查看伪静态是否正确
 #### 前端接口异常：
+
 请检查路径是否正确
 
 #### 基础案例：
+
 1. 配置config/apidoc.php文件
 2. 案例控制器文件：app/api/controller/UserController.php
-
 
 ## 特别感谢
 
