@@ -569,7 +569,7 @@ CREATE TABLE `cmf_upload_file` (
   `img_height` int(10) NOT NULL DEFAULT '0' COMMENT '图片宽度',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`file_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of cmf_upload_file
