@@ -119,7 +119,7 @@ class AdminController extends \app\common\controller\AdminController
             $param = $this->request->post();
             $rule  = [
                 'username|登录名称' => 'require',
-                'password|登录密码' => 'require',
+                'password|登录密码' => 'require|length:6,15',
                 'auth_ids|角色组'  => 'require',
                 'nickname|昵称'   => 'require'
             ];
@@ -187,7 +187,7 @@ class AdminController extends \app\common\controller\AdminController
             } else {
                 unset($param['password']);
             }
-            $updateRow = $find->update($updateData);
+            $find->update($updateData);
             //写入角色对应表
             AuthGroupAccess::where('uid', $id)->delete(true);
             $authIdsArr = array_filter(array_keys($param['auth_ids']));

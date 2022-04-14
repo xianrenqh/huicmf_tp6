@@ -31,12 +31,15 @@ body {
     right: 5px;
 }
 
-.layuimini-form > .layui-form-item > .layui-form-label {
+.layuimini-form > .layui-form-item  .layui-form-label {
     width: 110px !important;
 }
 
 .layuimini-form > .layui-form-item > .layui-input-block {
     margin-left: 150px !important;
+}
+.layuimini-form > .layui-form-item  .layui-input-inline{
+    margin-left: 10px !important;
 }
 
 .layuimini-form > .layui-form-item .layui-input-inline > tip {
