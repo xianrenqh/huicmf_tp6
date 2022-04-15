@@ -120,6 +120,10 @@ layui.define(['jquery', 'form', 'layer', 'element', 'table', 'iconPickerFa', 'up
     return false;
   });
 
+  window.set_status = function (s) {
+    $("input[name='status']").val(s);
+  }
+
   window.HuiDoSub = function (data, url) {
     //var loading = layer.load(0);
     $.ajax({

@@ -1,3 +1,22 @@
+/**
+ * html代码i用方法：
+ * <div class="layui-form-item">
+ *     <label class="layui-form-label">TAG：</label>
+ *     <div class="layui-input-inline block" style="width: 50%;">
+ *         <div id="Huitags-demo1"></div>
+ *     </div>
+ *     <a class="layui-btn layui-btn-normal {if !check_auth('content.tag/select')}layui-hide{/if}"
+ *        data-open="{:__url('content.tag/select')}"
+ *        data-title="TAG标签选择" data-reload="0">选择</a>
+ * </div>
+ * script引用方法：
+ * $("#Huitags-demo1").Huitags(
+ *       {
+ *         maxlength: 20,
+ *         number: 10,
+ *       }
+ *     );
+ */
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define(factory) :

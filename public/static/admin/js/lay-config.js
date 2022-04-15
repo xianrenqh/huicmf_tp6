@@ -33,7 +33,8 @@ layui.config({
   webuploader: 'webuploader/webuploader', //  webuploader上传
   huiPicUpload: 'layuimini/huiPicUpload', //  huiPicUpload上传
   fileLibrary: "layuimini/fileLibrary", // 图片库选择与上传
-  huiTag: "huiTag/huiTag", // tag标签
+  tag: "tag/tag", // tag标签
+  notice: "notice/notice", // notice通知
   ddSort: "ddsort/ddSort", // ddSort拖拽
 });
 

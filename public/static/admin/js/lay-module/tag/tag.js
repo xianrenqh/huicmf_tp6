@@ -1,4 +1,3 @@
-//动态标签 tag - v=3.9.3
 layui.define('jquery', function (exports) {
   "use strict";
 
@@ -12,7 +11,6 @@ layui.define('jquery', function (exports) {
     DEFAULT_SKIN = 'layui-btn layui-btn-primary layui-btn-sm'
     , tag = function () {
       this.config = {
-        //likeHref: layui.cache.base +'huiTag.css',
         skin: DEFAULT_SKIN,
         tagText: '+ New Tag'
       };
@@ -45,6 +43,19 @@ layui.define('jquery', function (exports) {
       , tagItemElem = tagElem.find('>.' + TAG_ITEM + '[lay-id="' + layid + '"]');
     call.delete(null, tagItemElem);
     return this;
+  };
+
+  //获取数据
+  tag.prototype.data = function (filter) {
+    var tagElem = $(TAG_CLASS + '[lay-filter=' + filter + ']');
+    var data = [];
+    tagElem.find(".tag-item").each(function (i, item) {
+      var val = $(item).contents().filter(function (index, content) {
+        return content.nodeType === 3;
+      }).text();
+      data.push(val);
+    });
+    return data;
   };
 
   //基础事件体
@@ -96,6 +107,19 @@ layui.define('jquery', function (exports) {
         inpatNewTag.remove();
         call.tagAuto(filter);
       }).focus();
+      //回车事件
+      inpatNewTag.children('.layui-input').keyup(function (event) {
+        if (event.keyCode == 13) {
+          if (this.value) {
+            var options = {
+              text: this.value
+            }
+            call.add(null, parents, options);
+          }
+          inpatNewTag.remove();
+          call.tagAuto(filter);
+        }
+      })
     }
     //Tag删除
     , delete: function (e, othis) {
@@ -146,8 +170,8 @@ layui.define('jquery', function (exports) {
 
   //初始化元素操作
   tag.prototype.init = function (filter, options) {
-    layui.link(layui.cache.base + 'huiTag/huiTag.css');
-
+    //layui.addcss(tag.config.likeHref);
+    layui.link(layui.cache.base + 'tag/tag.css');
     if (filter) {
       tag.configs[filter] = $.extend({}, tag.config, tag.configs[filter] || {}, options);
     }
@@ -162,3 +186,4 @@ layui.define('jquery', function (exports) {
   dom.on('click', '.' + TAG_ITEM, call.tagClick); //tag 单击事件
   exports(MOD_NAME, tag);
 });
+

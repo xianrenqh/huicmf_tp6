@@ -389,6 +389,7 @@ layui.define(["jquery", "layer"], function (exports) {
       //style += '.layui-btn-normal{background-color:'+color+'}'
       style += '.layuimini-container .layui-form-onswitch{border-color:' + color + '; background-color:' + color + '}'
       style += '.layuimini-menu-left .layui-nav-tree .layui-this, .layuimini-menu-left .layui-nav-tree .layui-this > a, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left .layui-nav-tree .layui-nav-child dd.layui-this a, .layuimini-menu-left-zoom.layui-nav-tree .layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-this > a, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this, .layuimini-menu-left-zoom.layui-nav-tree .layui-nav-child dd.layui-this a{background-color: ' + color + ' !important;}';
+      style += '.layuimini-tab .layui-tab-title .layui-this .layuimini-tab-active{background-color: ' + color + ' !important;}';
       if (this.autoHead === true || this.autoHead === "true") {
         style += '.pear-admin.banner-layout .layui-header .layui-logo,.pear-admin .layui-header{border:none;background-color:' + color + '!important;}.pear-admin.banner-layout .layui-header .layui-logo .title,.pear-admin .layui-header .layui-nav .layui-nav-item>a{color:whitesmoke!important;}';
         style += '.pear-admin.banner-layout .layui-header{ box-shadow: 2px 0 6px rgb(0 21 41 / 35%) }'

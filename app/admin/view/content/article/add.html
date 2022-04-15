@@ -3,7 +3,7 @@
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
-        <form class="layui-form layuimini-form" action="javascript:" onsubmit="return dosub(this)" method="post">
+        <form class="layui-form layuimini-form" action="javascript:" onsubmit="return dosub(this)" onkeydown="if(event.keyCode==13){return false;}" method="post">
             <div class="layui-form-item">
                 <label class="layui-form-label required">所属栏目</label>
                 <div class="layui-input-block">
@@ -122,12 +122,11 @@
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">TAG：</label>
-                <div class="layui-input-inline block" style="width: 50%;">
-                    <div id="Huitags-demo1"></div>
+                <div class="layui-input-block">
+                    <div class="layui-btn-container tag" lay-filter="hui_tag_demo" lay-allowclose="true" lay-newTag="true">
+                        <input type="hidden" name="hui_tags" id="hui_tags">
+                    </div>
                 </div>
-                <a class="layui-btn layui-btn-normal {if !check_auth('content.tag/select')}layui-hide{/if}"
-                   data-open="{:__url('content.tag/select')}"
-                   data-title="TAG标签选择" data-reload="0">选择</a>
             </div>
 
             <div class="layui-form-item">
@@ -191,8 +190,8 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['form', 'jquery', 'miniHuitags', 'ddSort'], function () {
-    let form = layui.form, $ = layui.jquery, upload = layui.upload;
+  layui.use(['form', 'jquery','ddSort','tag'], function () {
+    let form = layui.form, $ = layui.jquery, upload = layui.upload,tag = layui.tag;
     form.render();
     // 图片列表拖动，需要引入ddSort
     $('.uploader-list').DDSort({
@@ -203,13 +202,6 @@
         'background-color': '#fff'
       }
     });
-
-    $("#Huitags-demo1").Huitags(
-      {
-        maxlength: 20,
-        number: 10,
-      }
-    );
 
     form.on('checkbox(flag)', function (obj) {
       let check = obj.elem.checked;
@@ -238,6 +230,8 @@
           return false;
         }
       }
+      let tagArray = tag.data("hui_tag_demo");
+      $('#hui_tags').val(tagArray.toString());
       HuiDoSub($(obj).serialize(), "{:__url('content.Article/add')}");
     }
   })

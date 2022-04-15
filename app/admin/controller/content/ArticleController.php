@@ -127,7 +127,7 @@ class ArticleController extends AdminController
 
                 //写入tag标签
                 $huiTags    = $param['hui_tags'];
-                $huiTagsArr = explode(',', $huiTags);
+                $huiTagsArr = array_unique(array_filter(explode(',', $huiTags)));
                 if ( ! empty($huiTagsArr)) {
                     $TagModel = new TagModel();
                     $TagModel->tag_dispose($param['type_id'], $huiTagsArr, $id);
@@ -188,6 +188,7 @@ class ArticleController extends AdminController
                 'content|内容' => 'require'
             ];
             $this->validate($param, $rule);
+
             $param['is_top']      = ( ! empty($param['flag']) && in_array(1, $param['flag'])) ? 1 : 0;
             $param['jump_url']    = ( ! empty($param['flag']) && in_array(7, $param['flag'])) ? $param['jump_url'] : '';
             $param['flag']        = ! empty($param['flag']) ? implode(',', $param['flag']) : '';
@@ -217,7 +218,7 @@ class ArticleController extends AdminController
                 if ($res) {
                     //写入tag标签
                     $huiTags    = $param['hui_tags'];
-                    $huiTagsArr = explode(',', $huiTags);
+                    $huiTagsArr = array_unique(array_filter(explode(',', $huiTags)));
                     if ( ! empty($huiTagsArr)) {
                         $TagModel = new TagModel();
                         $TagModel->tag_dispose($param['type_id'], $huiTagsArr, $param['id']);
@@ -232,11 +233,10 @@ class ArticleController extends AdminController
         }
         $pidMenuList = $CategoryModel->getPidMenuList(1);
         $tagsArr     = Db::name('tag_content')->alias('tc')->leftJoin('tag t',
-            't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag');
+            't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag','t.id');
         $tagsArr     = array_filter($tagsArr);
-        $tags        = implode(',', $tagsArr);
         $this->assign('editor', $editor);
-        $this->assign('tags', $tags);
+        $this->assign('tags', $tagsArr);
         $this->assign('pidMenuList', $pidMenuList);
         $this->assign('data', $data);
         $this->assign('description_length', mb_strlen($data['description']));

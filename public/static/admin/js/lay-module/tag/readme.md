@@ -1,8 +1,10 @@
 ## tag标签
 ```script
-layui.use(['huiTag'], function () {
-let huiTag = laui.huiTag;
+layui.use(['tag'], function () {
+let tag = laui.tag;
 })
+//获取标签内容
+let tagArray = tag.data("demo");
 ```
 
 #### Tag 标签组件
@@ -27,9 +29,17 @@ let huiTag = laui.huiTag;
 ---
 
 #### 动态操作
-```script
-tag.add('demo', {text: '新选项',id: 12})
-tag.delete('demo', '44');
+```html
+<div class="layui-btn-container tag" lay-filter="demo" lay-allowclose="true" lay-newTag="true">
+    <button lay-id="11" type="button" class="tag-item tag-item-normal">网站设置</button>
+    <button lay-id="22" type="button" class="tag-item">用户管理</button>
+    <button lay-id="33" type="button" class="tag-item tag-item-warm">权限分配</button>
+    <button lay-id="44" type="button" class="tag-item tag-item-danger">商品管理</button>
+</div>
+<script>
+    tag.add('demo', {text: '新选项',id: 12})
+    tag.delete('demo', '44');
+</script>
 ```
 ---
 
