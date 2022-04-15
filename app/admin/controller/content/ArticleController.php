@@ -21,6 +21,7 @@ use lib\Random;
 use lib\GetImgSrc;
 use think\facade\Db;
 use app\common\model\UploadFile as UploadFileModel;
+use Faker\Factory;
 
 /**
  * @ControllerAnnotation(title="文章管理")
@@ -55,13 +56,8 @@ class ArticleController extends AdminController
                 if ( ! empty($key['type_id'])) {
                     $query->where('type_id', $key['type_id']);
                 }
-                if ( ! empty($key['status'])) {
-                    if ($key['status'] == 2) {
-                        $status = 0;
-                    } else {
-                        $status = 1;
-                    }
-                    $query->where('status', $status);
+                if (isset($key['status']) && $key['status'] != '') {
+                    $query->where('status', $key['status']);
                 }
             };
             $count = $this->model->where($where)->count();
@@ -81,6 +77,27 @@ class ArticleController extends AdminController
         $this->assign('pidMenuList', $pidMenuList);
 
         return $this->fetch();
+    }
+
+    public function add_faker()
+    {
+        $faker = Factory::create('zh_CN');//选择中文
+        $data  = [];
+        for ($i = 0; $i < 10000; $i++) {
+            $data[$i]['title']    = $faker->company();
+            $data[$i]['admin_id'] = 1;
+            $data[$i]['nickname'] = $faker->name;
+            $data[$i]['type_id']  = 1;
+            $data[$i]['click']    = $faker->numberBetween(20, 60);
+            $data[$i]['status']   = $faker->randomElement([1, 0]);
+            $data[$i]['content'] = $faker->company().'<br>'.$faker->title().'<br>'.$faker->uuid;
+            $data[$i]['create_time'] = time();
+            $data[$i]['update_time'] = time();
+        }
+
+        //调试工具
+        $a =Db::name('article')->insertAll($data);
+        halt($a);
     }
 
     /**
@@ -233,7 +250,7 @@ class ArticleController extends AdminController
         }
         $pidMenuList = $CategoryModel->getPidMenuList(1);
         $tagsArr     = Db::name('tag_content')->alias('tc')->leftJoin('tag t',
-            't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag','t.id');
+            't.id=tc.tagid')->where(['tc.aid' => $data['id']])->column('t.tag', 't.id');
         $tagsArr     = array_filter($tagsArr);
         $this->assign('editor', $editor);
         $this->assign('tags', $tagsArr);

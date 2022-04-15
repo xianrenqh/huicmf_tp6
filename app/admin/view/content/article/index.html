@@ -24,9 +24,9 @@
                         </div>
                         <div class="layui-inline">
                             <select name="status" id="isuse">
-                                <option value="0">==是否发布==</option>
+                                <option value="">==是否发布==</option>
                                 <option value="1">发布</option>
-                                <option value="2">草稿</option>
+                                <option value="0">草稿</option>
                             </select>
                         </div>
                         <div class="layui-inline">
@@ -57,7 +57,11 @@
 
         <table id="article_table" lay-filter="article_table"></table>
         <script type="text/html" id="title_n">
-           <img src="__STATIC_ADMIN__/images/md.jpeg" width="12" style="margin-right: 5px;margin-left: -12px;">{{d.title}}
+            {{#  if(d.editor ==2){ }}
+            <img src="__STATIC_ADMIN__/images/md.jpeg" width="12" style="margin-right: 5px;margin-left: -12px;">{{d.title}}
+            {{#  } else { }}
+            {{d.title}}
+            {{#  } }}
         </script>
         <script type="text/html" id="image">
             {{#  if(d.image !=''){ }}
@@ -93,13 +97,10 @@
       elem: '#article_table'
       , method: 'get'
       , url: "{:__url('index')}"
-      , done: function (res) {
-        $("#total").html(res.count);
-      }
       , cellMinWidth: 100
       , cols: [[
-        {field: 'id', title: 'ID', width: 60, align: 'center'}
-        , {field: 'title', title: '标题', templet: '#title_n'}
+        {field: 'id', title: 'ID', width: 80, align: 'center'}
+        , {field: 'title', title: '标题', templet: '#title_n',minWidth:200}
         , {field: 'cate_name', title: '所属栏目', width: 120, align: 'center'}
         , {field: 'image', title: '缩略图', width: 100, align: 'center', templet: '#image'}
         , {field: 'click', title: '点击量', width: 100, align: 'center'}
