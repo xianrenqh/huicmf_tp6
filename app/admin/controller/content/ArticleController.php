@@ -21,7 +21,6 @@ use lib\Random;
 use lib\GetImgSrc;
 use think\facade\Db;
 use app\common\model\UploadFile as UploadFileModel;
-use Faker\Factory;
 
 /**
  * @ControllerAnnotation(title="文章管理")
@@ -77,27 +76,6 @@ class ArticleController extends AdminController
         $this->assign('pidMenuList', $pidMenuList);
 
         return $this->fetch();
-    }
-
-    public function add_faker()
-    {
-        $faker = Factory::create('zh_CN');//选择中文
-        $data  = [];
-        for ($i = 0; $i < 10000; $i++) {
-            $data[$i]['title']    = $faker->company();
-            $data[$i]['admin_id'] = 1;
-            $data[$i]['nickname'] = $faker->name;
-            $data[$i]['type_id']  = 1;
-            $data[$i]['click']    = $faker->numberBetween(20, 60);
-            $data[$i]['status']   = $faker->randomElement([1, 0]);
-            $data[$i]['content'] = $faker->company().'<br>'.$faker->title().'<br>'.$faker->uuid;
-            $data[$i]['create_time'] = time();
-            $data[$i]['update_time'] = time();
-        }
-
-        //调试工具
-        $a =Db::name('article')->insertAll($data);
-        halt($a);
     }
 
     /**
