@@ -99,8 +99,6 @@ class Hui extends TagLib
         <?php
             }
         ?>
-
-
         parse;
 
         return $parse;
@@ -155,7 +153,6 @@ class Hui extends TagLib
                 {:{$parseNavigationFuncName}(\$menus)}
             </$root>
         </if>
-
         parse;
 
         return $parse;
@@ -212,7 +209,7 @@ class Hui extends TagLib
                             </{$dropdown}>
                         </{$root}>
                     </if>
-                    parse;
+        parse;
 
         return $parse;
     }
@@ -262,7 +259,6 @@ class Hui extends TagLib
                         {:{$parseSubNavigationFuncName}(\$menus)}
                     </$root>
                 </if>
-
             parse;
 
         return $parse;
