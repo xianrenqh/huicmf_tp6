@@ -15,6 +15,7 @@ use think\facade\Env;
 use think\captcha\facade\Captcha;
 use app\common\model\Admin as AdminModel;
 use app\common\model\LoginLog as LoginLogModel;
+use think\facade\Cache;
 use think\facade\Session;
 use function GuzzleHttp\Psr7\str;
 
@@ -132,6 +133,7 @@ class LoginController extends AdminController
         $loginDevice['user_id']   = $adminInfo['id'];
         $loginDevice['user_name'] = $adminInfo['username'];
         LoginLogModel::addRecord($loginDevice);
+        Cache::clear();
 
         $this->success('登录成功');
     }
