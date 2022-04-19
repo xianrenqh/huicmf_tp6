@@ -1,4 +1,4 @@
-HuiCMF v6.0
+``HuiCMF v6.0
 =========== ==
 
 **【基于ThinkPHP6.0和layui的快速开发的后台管理系统。】**
@@ -29,9 +29,9 @@ HuiCMF v6.0
 
 ### 备注：
 
->如果迁移网站后访问提示：**No input file specified.** 则：
-> 
->删除public目录下的 **.user.ini** 文件
+> 如果迁移网站后访问提示：**No input file specified.** 则：
+>
+> 删除public目录下的 **.user.ini** 文件
 
 ## 后台演示
 
@@ -282,6 +282,7 @@ composer require hg/apidoc
 http://你的域名/apidoc
 
 如果无法访问请查看伪静态是否正确
+
 #### 前端接口异常：
 
 请检查路径是否正确
@@ -291,13 +292,123 @@ http://你的域名/apidoc
 1. 配置config/apidoc.php文件
 2. 案例控制器文件：app/api/controller/UserController.php
 
+---
+
 # 开发教程
 
 ## API接口开发
 
+### 接口说明
+
+系统前台接口所有端都使用同一套接口，接口源码文件夹：app\api
+
+接口的访问地址为：域名/api.html
+
+参数格式为：method 调用具体方法
+
+其它参数：根据每个参数来定义。
+
+需要登录的接口，可以用$this->userId获取当前访问用户id
+
+> $this->userId
+
+**需要登录的接口的接口必须传递参数 token **
+
+判断登录与否的标准就是是否在本地保存了token，如果保存了，就是登录状态，如果没有保存，就是未登录状态，需要登录的接口会自动带上token来进行请求数据。
+
+### 新增一个接口
+
+新增接口时，需要先在api模块中增加一个接口控制器，所有接口控制器均要继承\app\api\controller\ApiController 控制器，如：
+
+> 控制器名称需要使用完整名称，需要带上"Controller"，如：TestController
+
+例如：
+
+```php
+namespace app\api\controller;
+class TestController extends ApiController{
+    public function list(){}
+}
+```
+
+然后在接口配置文件 app\api\config\api.php 中定义下新增的接口
+
+```php
+'test'=>[
+    'code' => 'Test',
+    'method'    =>  [
+        'getlist' => [
+            'code' => 'list',
+            'is_login' => false
+        ]
+    ]
+]
+```
+
+> 最外面的test是url地址调用的第一个参数
+> code对应的是接口控制器类名
+> method里面定义的是参数
+> getlist是外部访问的方法名，getlist里面code是Test控制器里面的具体方法名
+> is_login 含义为是否需要登录，当is_login 为true时，必须传token。可使用$this->userId 获取当前登录用户
+
+### 公共接口
+
+如果是一个公共数据接口，直接在 app\api\controller\CommonController.php 文件中写方法，任意请求方式访问：
+
+http://你的域名/api.html/common/test 即可。
+
+### 接口调用案例（以UserController为例）：
+
+> 基本信息
+
+* **接口URL：** `https://demo.jihainet.com/api.html`
+* **请求方式：** `POST`
+* **Content-Type：** `multipart/form-data`
+
+> 请求参数：
+
+接口请求参数见下表：
+
+**Body参数说明 (multipart/form-data)**
 
 
-## 特别感谢
+| 参数名   | 示例值     | 是否必填 | 参数描述 |
+| ---------- | ------------ | ---------- | ---------- |
+| method   | user.login | 必填     | 接口方法 |
+| username | admin      | 必填     | 登录名   |
+| password | admin      | 必填     | 密码     |
+
+> 响应示例
+
+正确响应示例
+
+```json
+{
+	"code": 200,
+	"data": "c9d2343fd754ca12a9be33e957574cce",
+	"msg": ""
+}
+```
+
+> 错误响应示例
+
+```json
+
+
+{
+	"code": 0,
+	"msg": "没有找到此账号",
+	"data": ""
+}
+```
+
+> 响应图片：
+
+[![L0xcd0.md.png](https://s1.ax1x.com/2022/04/19/L0xcd0.md.png)](https://imgtu.com/i/L0xcd0)
+
+---
+
+# 特别感谢
 
 以下项目排名不分先后
 
