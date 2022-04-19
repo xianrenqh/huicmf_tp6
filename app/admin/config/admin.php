@@ -40,9 +40,13 @@ return [
     //数据库备份文件夹
     'backupDir'           => '/databak/',
 
-    //不做备份的数据表
-    //可以是数组也可以是字符串（英文逗号拼接）
+    /**
+     * 不做备份的数据表（表结构和表数据均不备份）
+     * 可以是数组也可以是字符串（英文逗号拼接）
+     * 必须写表前缀
+     */
     'backupIgnoreTables'  => [
-        'hui_system_log'
+        'cmf_system_log',
+        'cmf_login_log'
     ]
 ];

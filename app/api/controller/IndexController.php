@@ -96,9 +96,7 @@ class IndexController extends ApiController
         }
 
         trace(input('param.'), 'api');
-        $data = $c->$aname();
-        trace($data, 'api');
 
-        return $data;
+        return $c->$aname();
     }
 }

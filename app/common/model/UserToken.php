@@ -39,7 +39,7 @@ class UserToken extends TimeModel
         $tokenInfo = $this->where(['token' => $token, 'delete_time' => 0])->cache(true)->order('id desc')->find();
         if ( ! empty($tokenInfo)) {
             //密码有效期半年
-            if ($tokenInfo['create_time'] < time() - 60 * 60 * 24 * 180) {
+            if (strtotime($tokenInfo['create_time']) < time() - 60 * 60 * 24 * 180) {
                 $result['msg'] = '密码过期了';
 
                 return $result;

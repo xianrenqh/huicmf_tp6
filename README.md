@@ -261,7 +261,7 @@ layui.use(['jquery', 'miniCountUp'], function () {
 });
 ```
 
-## 接口文档（apidoc）
+### 接口文档（apidoc）
 
 > 接口文档使用了apidoc
 >
@@ -271,7 +271,7 @@ layui.use(['jquery', 'miniCountUp'], function () {
 
 #### 安装：
 
-使用composer安装：
+使用composer安装：（默认第一次composer后已安装）
 
 ~~~
 composer require hg/apidoc
@@ -290,6 +290,12 @@ http://你的域名/apidoc
 
 1. 配置config/apidoc.php文件
 2. 案例控制器文件：app/api/controller/UserController.php
+
+# 开发教程
+
+## API接口开发
+
+
 
 ## 特别感谢
 
