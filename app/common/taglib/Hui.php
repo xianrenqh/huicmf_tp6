@@ -397,8 +397,11 @@ class Hui extends TagLib
         $title    = empty($tag['title']) ? '换一张' : $tag['title'];
         $style    = empty($tag['style']) ? 'cursor: pointer;' : $tag['style'];
         $params   = ltrim("{$paramId}{$height}{$width}{$fontSize}{$length}{$bg}", '&');
-        $parse    = <<<parse
-        <img src="/admin.php/login/captcha" onclick="this.src='/admin.php/login/captcha?time='+Math.random();" title="{$title}" class="captcha captcha-img verify_img" style="{$style}"/>{$content}
+
+        $admin_url_password = get_config('admin_url_password');
+
+        $parse = <<<parse
+        <img src="/{$admin_url_password}.php/login/captcha" onclick="this.src='/{$admin_url_password}.php/login/captcha?time='+Math.random();" title="{$title}" class="captcha captcha-img verify_img" style="{$style}"/>{$content}
         <input type="hidden" name="_captcha_id" value="{$id}">
         parse;
 

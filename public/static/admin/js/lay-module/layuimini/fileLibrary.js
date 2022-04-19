@@ -5,7 +5,7 @@
 }(this, (function () {
   layui.define(["jquery"], function (exports) {
     var $ = layui.$;
-    STORE_URL = "/admin.php";
+    STORE_URL = GV.admin_module_name;
 
     function FileLibrary(trigger, options) {
       // 配置项

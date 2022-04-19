@@ -22,10 +22,11 @@
     <p>因此我们强烈建议你修改后台的登录入口，达到隐藏后台登录入口的效果。</p>
     <div class="site-title"><fieldset><legend><a name="config">操作步骤</a></legend></fieldset></div>
     <p>1、首页修改application/config.php中deny_module_list的值，改成['common', 'admin']，本系统已默认修改完毕。</p>
-    <p>2、然后修改项目public目录下的admin.php，将其改名为admin_d75KABNWt.php，我们可以将admin.php其中的admin改成任意随机的字符串，越长越好。</p>
+    <p>2、登录后台，找到系统管理-系统设置-安全设置：【后台加密码】修改，将其值改为（admin_d75KABNWt），改成任意随机的字符串，越长越好。</p>
     <div class="site-title"><fieldset><legend><a name="config">登录后台</a></legend></fieldset></div>
     <p>通过以上的修改后，我们不能再通过www.yoursite.com/admin.php的形式登录后台了，此时我们可以采用www.yoursite.com/admin_d75KABNWt.php，其中admin_d75KABNWt.php就是我们任意修改的名称。</p>
     <p>请保护好你后台的登录入口，千万别到处去粘贴，如果有泄漏后台入口，请再次尝试修改即可。</p>
+    <p><b>如改后无法访问，请查看数据库config表中admin_url_password字段是否和你修改的一样，同时查看public/目录下是否有你刚修改的【名字.php】的文件。两者要保持一致哦</b></p>
     <div class="site-title"><fieldset><legend><a name="config">安全建议</a></legend></fieldset></div>
     <p>通过上面的隐藏后台入口地址，我们已经加好了第一道门，以下是HuiCMF给大家的安全建议，为我们后台添加更多的安全防护。</p>
     <p>1、定期修改后台管理的登录入口和超级管理员密码，越复杂越好。</p>

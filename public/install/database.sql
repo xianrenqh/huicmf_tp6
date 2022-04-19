@@ -322,7 +322,7 @@ CREATE TABLE `cmf_config` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name` (`name`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
 
 -- ----------------------------
 -- Records of cmf_config
@@ -332,7 +332,7 @@ INSERT INTO `cmf_config` VALUES (1, 'site_name', 1, '站点名称', 'HuiCMF6后�
 INSERT INTO `cmf_config` VALUES (2, 'site_url', 1, '站点跟网址', 'http://huicmf6.cc/', 'string', '', 1, '');
 INSERT INTO `cmf_config` VALUES (3, 'admin_log', 3, '启用后台管理操作日志', '0', 'radio', '', 1, '');
 INSERT INTO `cmf_config` VALUES (4, 'site_keyword', 1, '站点关键字', 'shop', 'string', '', 1, '');
-INSERT INTO `cmf_config` VALUES (5, 'site_copyright', 1, '网站版权信息', 'Powered By HuiCMF6后台系统 © 2019-2021 小灰灰工作室', 'string', '', 1, '');
+INSERT INTO `cmf_config` VALUES (5, 'site_copyright', 1, '网站版权信息', 'Powered By HuiCMF6后台系统 © 2019-2022 小灰灰工作室', 'string', '', 1, '');
 INSERT INTO `cmf_config` VALUES (6, 'site_beian', 1, '站点备案号', '豫ICP备666666号', 'string', '', 1, '');
 INSERT INTO `cmf_config` VALUES (7, 'site_description', 1, '站点描述', '我是描述', 'text', '', 1, '');
 INSERT INTO `cmf_config` VALUES (8, 'site_code', 1, '统计代码', '', 'text', '', 1, '');
@@ -351,6 +351,7 @@ INSERT INTO `cmf_config` VALUES (20, 'upload_types_image', 2, '允许上传图�
 INSERT INTO `cmf_config` VALUES (21, 'upload_mode', 2, '图片上传方式', 'local', 'string', '', 1, '');
 INSERT INTO `cmf_config` VALUES (22, 'site_editor', 1, '文本编辑器', 'uEditorMini', 'string', ' ', 1, '');
 INSERT INTO `cmf_config` VALUES (23, 'upload_types_file', 2, '允许上传附件类型', ' doc,docx,xls,xlsx,ppt,pptx,pdf,wps,txt,rar,zip,gz,bz2,7z', 'string', ' ', 1, '');
+INSERT INTO `cmf_config` VALUES (24, 'admin_url_password', 3, '后台加密码', 'admin', 'string', ' ', 1, ' ');
 COMMIT;
 
 -- ----------------------------

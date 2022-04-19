@@ -169,8 +169,12 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
         $pdo->query("UPDATE {$mysqlPrefix}admin SET username = '{$adminUsername}', email = '{$adminEmail}',password = '{$newPassword}', salt = '{$newSalt}',create_time ='{$times}' WHERE username = 'admin'");
         if (is_file($adminFile)) {
             $x         = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            $adminName = substr(str_shuffle(str_repeat($x, ceil(10 / strlen($x)))), 1, 10).'.php';
-            rename($adminFile, ROOT_PATH.'public'.DS.$adminName);
+            $adminName = substr(str_shuffle(str_repeat($x, ceil(10 / strlen($x)))), 1, 10);
+            //修改数据库中config配置的后台安全码
+            $pdo->query("UPDATE {$mysqlPrefix}config SET `value` = '{$adminName}' WHERE `name` = 'admin_url_password'");
+
+            rename($adminFile, ROOT_PATH.'public'.DS.$adminName).'.php';
+
         }
         echo "success|{$adminName}";
     } catch (PDOException $e) {

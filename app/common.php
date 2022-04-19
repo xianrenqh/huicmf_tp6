@@ -124,6 +124,15 @@ if ( ! function_exists('__url')) {
         return $string;
     }
 }
+/**
+ * 返回带协议的域名
+ */
+if ( ! function_exists('cmf_get_domain')) {
+    function cmf_get_domain()
+    {
+        return request()->domain();
+    }
+}
 
 /**
  * CMF密码加密方法

@@ -48,14 +48,28 @@ class ConfigController extends AdminController
     public function save()
     {
         if ($this->request->isPost()) {
-            $param = $this->request->post();
+            $param         = $this->request->post();
+            $msg           = "保存成功";
+            $url           = "";
+            $clearCacheAll = false;
+
             foreach ($param as $key => $value) {
-                $arr[$key] = $value;
-                $value     = htmlspecialchars($value);
+                $arr[$key]           = $value;
+                $value               = htmlspecialchars($value);
+                $oldAdminUrlPassrowd = get_config('admin_url_password');
+                if ($key == 'admin_url_password') {
+                    if ($oldAdminUrlPassrowd != $value) {
+                        $msg = "您修改了后台加密码，请退出重新登录!";
+                        rename(ROOT_PATH.'/public/'.$oldAdminUrlPassrowd.'.php', $value.'.php');
+                        $url           = cmf_get_domain()."/".$value.'.php';
+                        $clearCacheAll = true;
+                    }
+                }
                 ConfigModel::strict(false)->where(['name' => $key])->data(['value' => $value])->update();
             }
-            TriggerService::updateSysconfig();
-            $this->success('保存成功');
+            TriggerService::updateSysconfig($clearCacheAll);
+
+            $this->success($msg, '', $url.'/login/index');
         }
     }
 

@@ -93,6 +93,20 @@
                             </thead>
                             <tbody>
                             <tr>
+                                <td>后台加密码</td>
+                                <td>
+                                    <input type="text" name="admin_url_password" value="{$data.admin_url_password}" autocomplete="off"
+                                           class="layui-input" lay-verify="required|url_password">
+                                    <tip>
+                                        英文字母数字，不能为纯数字<br>
+                                        <p style="color:#e72828">设置加密码后必须通过以下地址访问后台,请劳记此地址，为了安全，您也可以定期更换此加密码!</p>
+                                        <p style="color:rgba(236,34,110,0.96)"><b>修改加密码后请退出重新登录后台</b></p>
+                                        后台登录地址：{:cmf_get_domain()}/{$data.admin_url_password|default='admin'}.php
+                                    </tip>
+                                </td>
+                                <td>admin_url_password</td>
+                            </tr>
+                            <tr>
                                 <td>此ip禁止访问网站</td>
                                 <td>
                                     <textarea class="layui-textarea" name="admin_prohibit_ip"
@@ -267,6 +281,17 @@
       , theme: '#FF5722' //主题色
       , input: true //输入框
     });
+    form.verify({
+      url_password: function(value, item){ //value：表单的值、item：表单的DOM对象
+        if(!new RegExp("^[a-zA-Z0-9\u4e00-\u9fa5\\s·]+$").test(value)){
+          return '后台加密码不能有特殊字符';
+        }
+        if(/^\d+\d+\d$/.test(value)){
+          return '后台加密码不能全为数字';
+        }
+
+      }
+    })
 
     //保存
     window.dosub = function (obj) {

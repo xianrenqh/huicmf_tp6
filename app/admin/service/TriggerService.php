@@ -56,9 +56,15 @@ class TriggerService
      * 更新系统设置缓存
      * @return bool
      */
-    public static function updateSysconfig()
+    public static function updateSysconfig($clearAll = false)
     {
-        Cache::delete('sysConfig');
+        if ($clearAll) {
+            //清除所有缓存，并退出重新登录
+            Cache::clear();
+            session('admin', null);
+        } else {
+            Cache::delete('sysConfig');
+        }
 
         return true;
     }

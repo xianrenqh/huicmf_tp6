@@ -28,6 +28,7 @@
           "chunking": false,
           "chunksize": "{:get_config('upload_maxsize')}"
         },
+        'admin_module_name': "/{:get_config('admin_url_password')}.php",
         'image_upload_url': "{:__url('upload/index',['save_path'=>'images'])}",
         'file_upload_url': "{:__url('upload/index',['save_path'=>'files'])}",
         'ueditor_upload_url': "{:__url('upload/index',['save_path'=>'ueditor'])}",
