@@ -361,7 +361,7 @@ http://你的域名/api.html/common/test 即可。
 
 > 基本信息
 
-* **接口URL：** `https://demo.jihainet.com/api.html`
+* **接口URL：** `https://你的域名/api.html`
 * **请求方式：** `POST`
 * **Content-Type：** `multipart/form-data`
 
