@@ -404,7 +404,7 @@ http://你的域名/api.html/common/test 即可。
 
 > 响应图片：
 
-[![L0xcd0.md.png](https://s1.ax1x.com/2022/04/19/L0xcd0.md.png)](https://imgtu.com/i/L0xcd0)
+[![L0xcd0.md.png](https://s1.ax1x.com/2022/04/19/L0xcd0.md.png)](https://s1.ax1x.com/2022/04/19/L0xcd0.md.png)
 
 ---
 
