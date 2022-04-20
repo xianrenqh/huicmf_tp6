@@ -55,11 +55,11 @@
                 <div class="layui-input-block">
                     <div class="layui-input-inline" style="width: 50%">
                         <input type="text" name="image" value=""
-                               onmouseover="hui_img_preview('image',this.value)"
-                               onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input image-select-input">
+                               onmouseover="hui_img_preview('image-select-input',this.value)"
+                               onmouseout="layer.closeAll();" id="image-select-input" autocomplete="off" class="layui-input">
                     </div>
                     <div class="layui-input-inline" style="width: 120px">
-                        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one'])}" data-title="选择图片"
+                        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input'])}" data-title="选择图片"
                            data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
                     </div>
                 </div>

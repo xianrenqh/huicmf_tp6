@@ -21,6 +21,7 @@
       // 容器元素
       this.$element = null;
       this.inputType = options.input_type
+      this.selectId = options.select_id ? options.select_id : 'image-select-input'
       // 初始化对象事件
       this.init();
     }
@@ -490,15 +491,16 @@
         _this.$element.find('.file-library').on('click', '.btn-sure', function () {
           var selectedList = _this.getSelectedFiles();
           var input_type = _this.inputType;
+          var input_select_id = _this.selectId;
           var index = parent.layer.getFrameIndex(window.name);
           if (input_type == 'one') {
             if (selectedList.length > 0) {
-              parent.layui.$(".image-select-input").val(selectedList[0]['file_path']);
+              parent.layui.$("#"+input_select_id).val(selectedList[0]['file_path']);
             }
           } else {
             let str = "";
             $.each(selectedList, function (i, val) {
-              str += ' <div class="file-item file-item-id-'+val.file_id+'">\n' +
+              str += ' <div class="file-item file-item-id-' + val.file_id + '">\n' +
                 '    <img src="' + val.file_path + '">\n' +
                 '    <input type="hidden" name="params[thumbs][]" value="' + val.file_path + '">\n' +
                 '    <i class="layui-icon layui-icon-close file-item-delete" onclick="fileItemDelete(' + val.file_id + ')"></i>\n' +

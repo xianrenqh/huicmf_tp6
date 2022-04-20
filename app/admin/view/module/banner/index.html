@@ -6,8 +6,8 @@
             <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i>
             </button>
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('module.banner/add')}layui-hide{/if}"
-               data-open="{:__url('module.banner/add')}"
-               data-title="添加轮播图">
+               data-open-full="{:__url('module.banner/add')}"
+               data-title="添加轮播图" data-reload="2">
                 <i class="fa fa-plus"></i> 添加轮播图</a>
         </div>
 
@@ -21,7 +21,7 @@
         </script>
         <script type="text/html" id="barDemo">
             <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('module.banner/edit')}layui-hide{/if}"
-               data-open="{:__url('module.banner/edit')}?id={{d.id}}"
+               data-open-full="{:__url('module.banner/edit')}?id={{d.id}}"
                data-title="编辑链接" data-reload="2">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('module.banner/delete')}layui-hide{/if}"
                data-delete="{:__url('module.banner/delete')}?id={{d.id}}"
@@ -73,21 +73,6 @@
     });
     $('.hui-form-search .reset').on('click', function () {
       window.location.reload();
-    });
-
-    //监听行工具事件
-    table.on('tool(banner_table)', function (obj) {
-      var data = obj.data;
-      if (obj.event === 'del') {
-        layer.confirm('你确定要删除吗？', {
-          btn: ['确定', '取消'] //按钮
-        }, function () {
-          var postdata = {ids: data.id};
-          posttips("{:__url('delete')}", postdata);
-        });
-      } else if (obj.event === 'edit') {
-        WeAdminShow("编辑", "{:__url('edit')}?id=" + data.id, '800');
-      }
     });
   });
 </script>

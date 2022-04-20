@@ -75,7 +75,8 @@
     var form = layui.form, $ = layui.jquery;
     form.render();
     $('.file-library').fileLibrary({
-      input_type: "{:input('type')}"
+      input_type: "{:input('type')}",
+      select_id: "{:input('select_id')}"
     });
   });
 </script>

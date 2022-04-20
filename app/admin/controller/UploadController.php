@@ -109,7 +109,6 @@ class UploadController
                         //写入数据库
                         $this->_att_write($file, $savePath, $picName, $group_id);
                     }
-
                     switch ($editor_type) {
                         case "iceEditor":
                             return json([['url' => $savePath, 'name' => $picName, 'error' => 0]]);
@@ -123,12 +122,15 @@ class UploadController
                         case "editorMd";
                             return json(['url' => $savePath, 'message' => '上传成功', 'success' => 1]);
                             break;
+                        case "tinyMce";
+                            return json(['location' => $savePath, 'msg' => '上传成功', 'code' => 1]);
+                            break;
                         default:
                             return json([
-                                'code' => 1,
-                                'msg'  => '上传成功',
-                                'name' => $picName,
-                                'location'  => $savePath
+                                'code'     => 1,
+                                'msg'      => '上传成功',
+                                'name'     => $picName,
+                                'url' => $savePath
                             ]);
                             break;
                     }

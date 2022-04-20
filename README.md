@@ -33,7 +33,7 @@
 >
 > 删除public目录下的 **.user.ini** 文件
 >
->后台安全访问码可以在管理后台：系统管理-系统设置-安全设置：【后台加密码】中修改。切记不要直接修改public目录下的后台文件名
+> 后台安全访问码可以在管理后台：系统管理-系统设置-安全设置：【后台加密码】中修改。切记不要直接修改public目录下的后台文件名
 
 ## 后台演示
 
@@ -130,20 +130,10 @@ public function index()
 
 ### 2、按钮属性
 
-data-open：弹出层打开:width:90%，height:80%
+```html
 
-data-open-full：弹出层打开全屏:width:100%，height:100%
-
-data-confirm：普通询问对话框
-
-data-delete：删除询问对话框
-
-- data-reload="1"  刷新父级页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在列表页（父级）页面刷新。默认不写或者 data-reload="0"为不刷新】
-- data-reload="2"  刷新当前页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在当前页面刷新。默认不写或者 data-reload="0"为不刷新】 【实例：】
-
-~~~
 //弹出层打开:width:90%，height:80%
-<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试编辑打开" data-reload="1">编辑</a>
+<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试编辑打开" data-reload="1" data-width="910" data-height="550">编辑</a>
 
 //弹出层打开全屏:width:100%，height:100%
 <a href="javascript:;" data-open-full="{:__url('system.node/index')}" data-title="测试添加打开">添加</a>
@@ -153,14 +143,31 @@ data-delete：删除询问对话框
 
 //普通询问对话框
 <a href="javascript:;" data-confirm="{:__url('system.node/index')}" data-title="您确定要取消收藏吗？">1231232313</a>
+```
+data-title：弹出层title名称
 
-~~~
+data-open：弹出层打开默认值:width:90%，height:80%
 
-### 3、上传图片（附件）
+data-width="910" :(弹出层的宽度，只针对data-open有效)
+
+data-height="550"(弹出层的高度，只针对data-open有效)
+
+data-open-full：弹出层打开全屏:width:100%，height:100%
+
+data-confirm：普通询问对话框
+
+data-delete：删除询问对话框
+
+- data-reload="1"  刷新父级页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在列表页（父级）页面刷新。默认不写或者 data-reload="0"为不刷新】
+- data-reload="2"  刷新当前页面【例如点击编辑按钮弹出窗口后保存或者关闭窗口在当前页面刷新。默认不写或者 data-reload="0"为不刷新】
+
+### 3、上传图片
 
 案例页面：http://你的域名/admin.php/system.test/upload.html
 
-> 1、在页面中直接使用layui上传
+> HuiCMF允许你使用以下5种方式上传图片
+
+#### 1.在页面中直接使用layui上传控件
 
 ```html
 <!--html-->
@@ -180,7 +187,7 @@ upload.render({
 })
 ```
 
-> 2、使用封装好的layui上传（只需要一个按钮，无需在页面中写js）
+#### 2.使用封装好的layui上传（只需要一个按钮，无需在页面中写js）
 
 #### 使用案例：
 
@@ -191,20 +198,152 @@ upload.render({
 </button>
 ```
 
-**以上代码中国注释如下：**
+**以上代码中注释如下：**
 
-| 参数名 |是否允许为空| 参数值| | ------------ | ------------ | | class | 否 |layUpload [必填一致]| | id | 否 |例如：lay_pic| | data-input-id
-| 否 |图片文本框的id值，用于返回url填充| | data-type | 是 |image [图片格式]；file [附件格式]|
 
-> 3、使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
+| 参数名        | 是否允许为空      | 参数值                                                    |
+| --------------- | ------------------- | ----------------------------------------------------------- |
+| class         | 否                | layUpload [**必填一致**]                                  |
+| id            | 否                | 例如：lay_pic                                             |
+| data-input-id | 否                | 图片文本框的id值，用于返回url填充，需和文本框中的id值对应 |
+| data-type     | 是（默认：image） | 上传类型：image [图片格式]（默认）；file [附件格式]       |
 
-**参数同上**
+> 如果一个页面中需要有多个上传控件：
+>
+> 则两组上传需要保持：id和data-input-id不一致即可（返回输入框对应的id值同理）
+
+#### 3.使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
 
 ```html
-
 <button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="c-pic"
         data-preview-id="p-pic" data-type="image"><i class="layui-icon"></i>上传图片
 </button>
+```
+
+**以上代码中注释如下：**
+
+
+| 参数名        | 是否允许为空      | 参数值                                                    |
+| --------------- | ------------------- | ----------------------------------------------------------- |
+| class         | 否                | webUpload [**必填一致**]                                  |
+| id            | 否                | 例如：picker_pic                                          |
+| data-input-id | 否                | 图片文本框的id值，用于返回url填充，需和文本框中的id值对应 |
+| data-type     | 是（默认：image） | 上传类型：image [图片格式]（默认）；file [附件格式]       |
+
+> 如果一个页面中需要有多个上传控件：
+>
+> 则两组上传需要保持：id和data-input-id不一致即可（返回输入框对应的id值同理）
+
+#### 4.使用封装好的上传选择框上传一张（单张）
+
+如图所示：
+
+![.jpg](https://s1.ax1x.com/2022/04/20/Lrmkyn.jpg)
+
+> 如果是上传一张，上图中多选会只返回第一张图。
+
+调用代码（两组上传示例）：
+
+```html
+<div class="layui-form-item">
+    <label class="layui-form-label">缩略图</label>
+    <div class="layui-input-block">
+        <div class="layui-input-inline" style="width: 50%">
+            <input type="text" name="image" value=""
+                   onmouseover="hui_img_preview('image-select-input',this.value)"
+                   onmouseout="layer.closeAll();" id="image-select-input" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: 120px">
+            <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input'])}" data-title="选择图片"
+               data-width="910" data-height="550"><i class="layui-icon"></i>选择图片</a>
+        </div>
+    </div>
+</div>
+<div class="layui-form-item">
+    <label class="layui-form-label">缩略图2</label>
+    <div class="layui-input-block">
+        <div class="layui-input-inline" style="width: 50%">
+            <input type="text" name="image2" value=""
+                   onmouseover="hui_img_preview('image-select-input2',this.value)"
+                   onmouseout="layer.closeAll();" id="image-select-input2" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: 120px">
+            <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input2'])}" data-title="选择图片"
+               data-width="910" data-height="550"><i class="layui-icon"></i>选择图片</a>
+        </div>
+    </div>
+</div>
+```
+
+**说明：**
+
+> 文本框中的 id 一定要和选择图片按钮中的date-open值：select_id值保持一致（用于返回不同文本框中的回调值）。
+>
+> 选择图片按钮组中的type='one'：上传单张。上传多张参考下方说明。
+
+#### 5.使用封装好的上传选择框上传多张
+
+> （参考案例：文章上传多张）
+
+添加代码：
+
+```html
+<div class="layui-form-item">
+    <label class="layui-form-label">多图选择</label>
+    <div class="layui-input-block" style="margin-top: 15px;">
+        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'more'])}" data-title="选择图片"
+           data-width="910" data-height="550"><i class="layui-icon"></i>选择图片</a>
+        <div style="margin-top: 15px;">
+            <small>(可拖拽图片调整显示顺序 )</small>
+        </div>
+        <!--回调显示选择的图片-->
+        <div class="uploader-list am-cf"></div>
+    </div>
+</div>
+```
+
+编辑代码：
+
+```html
+<div class="layui-form-item">
+    <label class="layui-form-label">多图选择</label>
+    <div class="layui-input-block" style="margin-top: 15px;">
+        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'more'])}" data-title="选择图片"
+           data-width="910" data-height="550"><i class="layui-icon"></i>选择图片</a>
+        <div style="margin-top: 15px;">
+            <small>(可拖拽图片调整显示顺序 )</small>
+        </div>
+        <!--回调显示选择的图片-->
+        <div class="uploader-list am-cf">
+            <!--这里是取到的循环数据-->
+            {foreach name="data.thumbs" item="vo" key="k"}
+            <div class="file-item file-item-id-{$vo.file_id}">
+                <img src="{$vo.file_url}">
+                <input type="hidden" name="params[thumbs][]" value="{$vo.file_url}">
+                <i class="layui-icon layui-icon-close file-item-delete" onclick="fileItemDelete('{$vo.file_id}')"></i>
+            </div>
+            {/foreach}
+        </div>
+    </div>
+</div>
+```
+
+> ps：多图上传后 可以拖动图片进行排序哦~~~。需要添加js代码：
+
+```javascript
+layui.use(['jquery','ddSort'], function () {
+  let $ = layui.jquery;
+
+  // 图片列表拖动，需要引入ddSort
+  $('.uploader-list').DDSort({
+    target: '.file-item',
+    delay: 100, // 延时处理，默认为 50 ms，防止手抖点击 A 链接无效
+    floatStyle: {
+      'border': '1px solid #ccc',
+      'background-color': '#fff'
+    }
+  });
+})
 ```
 
 ### 4、二开了think-addons扩展插件

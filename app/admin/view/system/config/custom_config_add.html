@@ -16,7 +16,7 @@
                     <select name="fieldtype" class="select" style="width:230px" lay-filter="fieldtype">
                         <option value="textarea" selected>文本类型</option>
                         <option value="image">图片上传</option>
-                        <option value="attachment">附件上传</option>
+                        <!--<option value="attachment">附件上传</option>-->
                         <option value="radio">radio选项卡</option>
                         <option value="select">option下拉框</option>
                     </select>
@@ -29,15 +29,14 @@
                         <textarea name="value[textarea]" class="layui-textarea" placeholder="例如：214243830"></textarea>
                     </div>
                     <div class="upload_mode mode_image" style="display:none">
-                        <div class="layui-input-inline" style="width: 60%">
-                            <input type="text" name="value[image]"
-                                   onmouseover="hui_img_preview('upload_pic', this.value)"
-                                   onmouseout="layer.closeAll();" id="upload_pic" autocomplete="off"
-                                   class="layui-input">
+                        <div class="layui-input-inline" style="width: 50%">
+                            <input type="text" name="value[image]" value=""
+                                   onmouseover="hui_img_preview('image-select-input',this.value)"
+                                   onmouseout="layer.closeAll();" id="image-select-input" autocomplete="off" class="layui-input">
                         </div>
                         <div class="layui-input-inline" style="width: 120px">
-                            <button type="button" class="layui-btn" id="upload_pic1"><i class="layui-icon">&#xe67c;</i>上传图片
-                            </button>
+                            <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input'])}" data-title="选择图片"
+                               data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
                         </div>
                     </div>
                     <div class="upload_mode mode_attachment" style="display:none">

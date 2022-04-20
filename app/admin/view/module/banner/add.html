@@ -37,17 +37,34 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label required">图片地址</label>
-                <div class="layui-input-inline" style="width: 55%">
-                    <label for="image">
-                        <input type="text" name="image" value="" onmouseover="hui_img_preview('image',this.value)"
-                               onmouseout="layer.closeAll();" id="image" autocomplete="off" class="layui-input">
-                    </label>
-                </div>
-                <div class="layui-input-inline" style="width: 120px">
-                    <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片</button>
+                <label class="layui-form-label">缩略图</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width: 50%">
+                        <input type="text" name="image" value=""
+                               onmouseover="hui_img_preview('image-select-input',this.value)"
+                               onmouseout="layer.closeAll();" id="image-select-input" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline" style="width: 120px">
+                        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input'])}" data-title="选择图片"
+                           data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
+                    </div>
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">缩略图</label>
+                <div class="layui-input-block">
+                    <div class="layui-input-inline" style="width: 50%">
+                        <input type="text" name="image2" value=""
+                               onmouseover="hui_img_preview('image-select-input2',this.value)"
+                               onmouseout="layer.closeAll();" id="image-select-input2" autocomplete="off" class="layui-input">
+                    </div>
+                    <div class="layui-input-inline" style="width: 120px">
+                        <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input2'])}" data-title="选择图片"
+                           data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="layui-form-item">
                 <label class="layui-form-label">排序</label>
                 <div class="layui-input-block">
@@ -75,18 +92,9 @@
 </div>
 {include file='footer'/}
 <script>
-  layui.use(['form', 'jquery', 'upload'], function () {
-    let form = layui.form, $ = layui.jquery, upload = layui.upload;
+  layui.use(['form', 'jquery'], function () {
+    let form = layui.form, $ = layui.jquery;
     form.render();
-    upload.render({
-      elem: '#test1'
-      , url: "{:__url('upload/index',['save_path'=>'images'])}"
-      , done: function (res) {
-        if (res.code === 1) {
-          $("#image").val(res.url);
-        }
-      }
-    })
     window.dosub = function (obj) {
       HuiDoSub($(obj).serialize(), "{:__url('add')}");
     }

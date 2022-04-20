@@ -20,12 +20,12 @@
                         <button type="button" class="layui-btn" id="test1"><i class="layui-icon">&#xe67c;</i>上传图片
                         </button>
                     </div>
-                    <div class="layui-input-inline" style="width: 120px">
+                    <!--<div class="layui-input-inline" style="width: 120px">
                         <button type="button" class="layui-btn layui-btn-fense" id="pic_cropper"
                                 onclick="hui_img_cropper('image','{:__url(\'upload/img_cropper\')}')"><i
                                 class="layui-icon layui-icon-picture"></i>裁剪图片
                         </button>
-                    </div>
+                    </div>-->
                 </div>
             </div>
 
@@ -100,7 +100,7 @@
                     </label>
                 </div>
                 <div class="layui-input-inline" style="width: 120px">
-                    <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one'])}" data-title="选择图片1"
+                    <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'demo5'])}" data-title="选择图片1"
                        data-width="910" data-height="550"><i class="layui-icon">&#xe67c;</i>选择图片1</a>
                 </div>
             </div>
@@ -135,9 +135,9 @@
       elem: '#test1'
       , url: "{:__url('upload/index',['save_path'=>'images'])}"
       , done: function (res) {
-        console.log(res.url)
+        console.log(res.location)
         if (res.code === 1) {
-          $("#demo1").val(res.url);
+          $("#demo1").val(res.location);
         }
       }
     });

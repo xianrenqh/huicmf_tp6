@@ -5,7 +5,7 @@
         <div class="layui-btn-group">
             <button class="layui-btn layui-btn-sm layuimini-btn-primary btn-refresh"><i class="fa fa-refresh"></i></button>
             <a class="layui-btn layui-btn-normal layui-btn-sm {if !check_auth('system.config/custom_config_add')}layui-hide{/if}"
-               data-open="{:__url('system.config/custom_config_add')}" data-reload="1" data-title="添加配置">
+               data-open-full="{:__url('system.config/custom_config_add')}" data-reload="1" data-title="添加配置">
                 <i class="fa fa-plus"></i> 添加配置</a>
         </div>
         <table class="layui-table">
@@ -31,7 +31,7 @@
                 <td>{$vo.status}</td>
                 <td>
                     <a class="layui-btn layui-btn-sm layui-btn-normal {if !check_auth('system.config/custom_config_edit')}layui-hide{/if}"
-                       data-open="{:__url('system.config/custom_config_edit',['id'=>$vo.id])}"
+                       data-open-full="{:__url('system.config/custom_config_edit',['id'=>$vo.id])}"
                        data-title="编辑配置" data-reload="1">编辑</a>
                     <a class="layui-btn layui-btn-danger layui-btn-sm {if !check_auth('system.config/custom_config_delete')}layui-hide{/if}"
                        data-delete="{:__url('system.config/custom_config_delete',['id'=>$vo.id])}"
