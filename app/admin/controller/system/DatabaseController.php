@@ -250,10 +250,10 @@ class DatabaseController extends AdminController
         $name     = $this->request->param('table');
         $row      = Db::query("SHOW CREATE TABLE `{$name}`");
         $sqlquery = "SELECT * FROM `{$name}`";
-        $this->do_query($sqlquery);
+        $this->do_query($sqlquery, $name);
     }
 
-    private function do_query($sql = null)
+    private function do_query($sql, $tableName)
     {
 
         $sqlquery = $sql ? $sql : $this->request->post('sqlquery');
@@ -262,7 +262,7 @@ class DatabaseController extends AdminController
         }
         $sqlquery  = str_replace("\r", "", $sqlquery);
         $sqls      = preg_split("/;[ \t]{0,}\n/i", $sqlquery);
-        $maxreturn = 100;
+        $maxreturn = 200;
         $r         = '';
         foreach ($sqls as $key => $val) {
             if (trim($val) == '') {
@@ -273,7 +273,8 @@ class DatabaseController extends AdminController
             if (preg_match("/^(select|explain)(.*)/i ", $val)) {
                 DebugTrait::remark("begin");
                 $limit = stripos(strtolower($val), "limit") !== false ? true : false;
-                $count = Db::execute($val);
+                //$count = Db::query("SELECT COUNT(*) as hui_count from {$tableName} LIMIT 1");
+                $count = Db::table($tableName)->count();
                 if ($count > 0) {
                     $resultlist = Db::query($val.(! $limit && $count > $maxreturn ? ' LIMIT '.$maxreturn : ''));
                 } else {
@@ -298,7 +299,7 @@ class DatabaseController extends AdminController
                         break;
                     }
                     $r .= "<hr/>";
-                    $r .= "<font color='red'> 记录".$j."</font><br />";
+                    $r .= "<b style='color:#f00'> 记录".$j."</b><br />";
                     foreach ($n as $k => $v) {
                         $r .= "<font color='blue'>{$k}：</font>{$v}<br/>\r\n";
                     }
