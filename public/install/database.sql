@@ -479,7 +479,7 @@ CREATE TABLE `cmf_system_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `title` (`title`) USING BTREE,
   KEY `href` (`href`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of cmf_system_menu
@@ -510,6 +510,8 @@ INSERT INTO `cmf_system_menu` VALUES (24, 20, '测试添加插件菜单', 'fa-li
 INSERT INTO `cmf_system_menu` VALUES (25, 0, '会员管理', 'fa-user-circle', '', '', '_self', 2, 1, '', 1646102772, 1646102891, 0);
 INSERT INTO `cmf_system_menu` VALUES (26, 25, '会员列表', 'fa-user-circle', 'user.user/index', '', '_self', 0, 1, '', 1646102917, 1646102917, 0);
 INSERT INTO `cmf_system_menu` VALUES (27, 25, '会员等级', 'fa-graduation-cap', 'user.grade/index', '', '_self', 0, 1, '', 1646103055, 1646103055, 0);
+INSERT INTO `cmf_system_menu` VALUES (28, 16, '图片管理', 'fa-image', 'module.images/index', '', '_self', 0, 1, '', 1650425239, 1650425239, 0);
+
 COMMIT;
 
 -- ----------------------------
