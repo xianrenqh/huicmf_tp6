@@ -47,6 +47,7 @@ class TriggerService
         } else {
             Cache::delete('allAuthNode_'.$adminId);
         }
+        Cache::delete('cache_auth_rules');
         Cache::delete('systemMenu');
 
         return true;

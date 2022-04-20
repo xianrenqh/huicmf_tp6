@@ -211,14 +211,14 @@ class AuthService
             $where = [];
         }
         //读取用户组所有权限规则
-        /*if (cache('cache_auth_rules')) {
+        if (cache('cache_auth_rules')) {
             $this->rules = cache('cache_auth_rules');
         } else {
-            $this->rules = Db::name($this->config['auth_rule'])->where($where)->fetchSql()->select();
+            $this->rules = Db::name($this->config['auth_rule'])->where($where)->select();
 
             cache('cache_auth_rules', $this->rules);
-        }*/
-        $this->rules = Db::name($this->config['auth_rule'])->where($where)->select();
+        }
+        //$this->rules = Db::name($this->config['auth_rule'])->where($where)->select();
 
         //循环规则，判断结果。
         $rulelist = []; //
