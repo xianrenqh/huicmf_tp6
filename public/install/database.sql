@@ -39,7 +39,7 @@ CREATE TABLE `cmf_admin` (
   `status` varchar(30) NOT NULL DEFAULT 'normal' COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `username` (`username`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='管理员表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='管理员表';
 
 -- ----------------------------
 -- Records of cmf_admin
@@ -75,7 +75,7 @@ CREATE TABLE `cmf_article` (
   `update_time` int(10) NOT NULL DEFAULT '0',
   `delete_time` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmf_article
@@ -96,7 +96,7 @@ CREATE TABLE `cmf_auth_group` (
   `updatetime` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
   `status` varchar(30) NOT NULL DEFAULT '' COMMENT '状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='分组表';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='分组表';
 
 -- ----------------------------
 -- Records of cmf_auth_group
@@ -116,7 +116,7 @@ CREATE TABLE `cmf_auth_group_access` (
   UNIQUE KEY `uid_group_id` (`uid`,`group_id`) USING BTREE,
   KEY `uid` (`uid`) USING BTREE,
   KEY `group_id` (`group_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='权限分组表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='权限分组表';
 
 -- ----------------------------
 -- Records of cmf_auth_group_access
@@ -140,7 +140,7 @@ CREATE TABLE `cmf_auth_rule` (
   `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name` (`node`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='节点表';
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='节点表';
 
 -- ----------------------------
 -- Records of cmf_auth_rule
@@ -254,7 +254,7 @@ CREATE TABLE `cmf_banner` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `status` (`status`) USING BTREE,
   KEY `typeid` (`typeid`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmf_banner
@@ -270,7 +270,7 @@ CREATE TABLE `cmf_banner_type` (
   `tid` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` char(30) NOT NULL DEFAULT '',
   PRIMARY KEY (`tid`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
 
 -- ----------------------------
 -- Records of cmf_banner_type
@@ -297,7 +297,7 @@ CREATE TABLE `cmf_category` (
   `create_time` int(10) NOT NULL DEFAULT '0',
   `update_time` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of cmf_category
@@ -322,7 +322,7 @@ CREATE TABLE `cmf_config` (
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `name` (`name`) USING BTREE,
   KEY `type` (`type`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统配置';
 
 -- ----------------------------
 -- Records of cmf_config
@@ -360,7 +360,7 @@ COMMIT;
 DROP TABLE IF EXISTS `cmf_hooks`;
 CREATE TABLE `cmf_hooks` (
  `id` int(10) NOT NULL AUTO_INCREMENT,
- `name` varchar(50) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '钩子名称',
+ `name` varchar(50) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '钩子名称',
  `description` text COMMENT '钩子描述',
  `type` tinyint(1) NOT NULL DEFAULT '1' COMMENT '钩子类型,1是控制器，2是视图',
  `addons` text COMMENT '钩子挂载的插件，逗号分隔',
@@ -398,7 +398,7 @@ CREATE TABLE `cmf_login_log` (
   `update_time` int(10) NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE,
   KEY `user` (`user_id`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='后台登录记录表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='后台登录记录表';
 
 -- ----------------------------
 -- Records of cmf_login_log
@@ -450,7 +450,7 @@ CREATE TABLE `cmf_system_log` (
   `useragent` varchar(255) DEFAULT '' COMMENT 'User-Agent',
   `create_time` int(10) DEFAULT NULL COMMENT '操作时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202106';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='后台操作日志表 - 202106';
 
 -- ----------------------------
 -- Records of cmf_system_log
@@ -479,7 +479,7 @@ CREATE TABLE `cmf_system_menu` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `title` (`title`) USING BTREE,
   KEY `href` (`href`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=COMPACT COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of cmf_system_menu
@@ -526,7 +526,7 @@ CREATE TABLE `cmf_tag` (
   `create_time` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `tag` (`tag`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
 
 -- ----------------------------
 -- Records of cmf_tag
@@ -545,7 +545,7 @@ CREATE TABLE `cmf_tag_content` (
   `tagid` int(10) unsigned NOT NULL DEFAULT '0',
   KEY `tag_index` (`modelid`,`aid`) USING BTREE,
   KEY `tagid_index` (`tagid`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 ROW_FORMAT=FIXED;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 ROW_FORMAT=FIXED;
 
 -- ----------------------------
 -- Records of cmf_tag_content
@@ -572,7 +572,7 @@ CREATE TABLE `cmf_upload_file` (
   `img_height` int(10) NOT NULL DEFAULT '0' COMMENT '图片宽度',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`file_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=0 DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of cmf_upload_file
@@ -595,7 +595,7 @@ CREATE TABLE `cmf_upload_group` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '更新时间',
   PRIMARY KEY (`group_id`),
   KEY `type_index` (`group_type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- ----------------------------
 -- Records of cmf_upload_group
@@ -611,7 +611,7 @@ CREATE TABLE `cmf_user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `username` varchar(20) NOT NULL DEFAULT '' COMMENT '用户名',
   `password` char(32) NOT NULL DEFAULT '' COMMENT '密码',
-  `salt` varchar(30) CHARACTER SET utf8 NOT NULL DEFAULT '' COMMENT '密码盐',
+  `salt` varchar(30) CHARACTER SET utf8mb4 NOT NULL DEFAULT '' COMMENT '密码盐',
   `mobile` varchar(15) NOT NULL DEFAULT '' COMMENT '手机号',
   `sex` tinyint(1) unsigned NOT NULL DEFAULT '3' COMMENT '1=男 2=女 3=未知',
   `birthday` int(10) NOT NULL DEFAULT '0' COMMENT '生日',
