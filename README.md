@@ -144,6 +144,7 @@ public function index()
 //普通询问对话框
 <a href="javascript:;" data-confirm="{:__url('system.node/index')}" data-title="您确定要取消收藏吗？">1231232313</a>
 ```
+
 data-title：弹出层title名称
 
 data-open：弹出层打开默认值:width:90%，height:80%

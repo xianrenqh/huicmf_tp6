@@ -42,7 +42,7 @@
                 </div>
                 <div class="layui-input-inline">
                     <button type="button" class="layui-btn layui-btn-normal layUpload" id="lay_pic"
-                            data-input-id="demo2" data-type="image"><i class="layui-icon"></i>上传图片
+                            data-input-id="demo2" data-type="file"><i class="layui-icon"></i>上传图片
                     </button>
                 </div>
             </div>
@@ -134,6 +134,7 @@
     upload.render({
       elem: '#test1'
       , url: "{:__url('upload/index',['save_path'=>'images'])}"
+      , accept:'file'
       , done: function (res) {
         console.log(res.location)
         if (res.code === 1) {
