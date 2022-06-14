@@ -250,6 +250,9 @@ if ( ! function_exists('get_url')) {
 if ( ! function_exists('curl_post')) {
     function curl_post($post_url, $post_data, $header = [])
     {
+        if (is_array($post_data)) {
+            $post_data = http_build_query($post_data);
+        }
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
         curl_setopt($ch, CURLOPT_URL, $post_url);
