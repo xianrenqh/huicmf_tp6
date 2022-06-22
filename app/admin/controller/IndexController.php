@@ -23,6 +23,7 @@ use think\db\exception\ModelNotFoundException;
 use think\facade\Cache;
 use think\facade\Env;
 use think\facade\Db;
+use lib\IpAddress;
 use lib\Random;
 
 class IndexController extends AdminController
@@ -64,6 +65,10 @@ class IndexController extends AdminController
 
     public function welcome()
     {
+        /*$IpAddress = new IpAddress();
+        $address = $IpAddress->ipToAddress('123.153.230.215');
+        halt($address);*/
+
         $adminModel   = new AdminModel();
         $userModel    = new UserModel();
         $articleModel = new ArticleModel();
