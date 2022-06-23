@@ -65,9 +65,9 @@ class IndexController extends AdminController
 
     public function welcome()
     {
-        /*$IpAddress = new IpAddress();
-        $address = $IpAddress->ipToAddress('123.153.230.215');
-        halt($address);*/
+        $IpAddress = new IpAddress();
+        $address = $IpAddress->ipToAddress('127.0.0.1');
+        halt($address);
 
         $adminModel   = new AdminModel();
         $userModel    = new UserModel();

@@ -3,6 +3,7 @@
 use think\facade\Db;
 use app\common\service\AuthService;
 use app\admin\library\LibAuthService;
+use lib\IpAddress;
 
 /**
  * 返回带协议的域名
@@ -954,7 +955,22 @@ function getClientBrowser($agent = '')
  */
 function getIpToArea($clientIP)
 {
-    $ip_add      = "";
+    $IpAddress = new IpAddress();
+    $address   = $IpAddress->ipToAddress($clientIP);
+    $return    = [
+        'code' => 0,
+        'msg'  => '',
+        'data' => [
+            'Country'  => '',
+            'Province' => ! empty($address['province']) ? $address['province'] : '',
+            'City'     => ! empty($address['city']) ? $address['city'] : '',
+            'Isp'      => ! empty($address['isp']) ? $address['isp'] : '',
+        ]
+    ];
+
+    return $return;
+
+    /*$ip_add      = "";
     $appkey      = '4bd2987ea67c1ea77bb68f0ae8b2ef58';
     $url         = "http://apis.juhe.cn/ip/ipNew";
     $params      = array(
@@ -973,9 +989,8 @@ function getIpToArea($clientIP)
             'msg'  => $result['reason'],
             'data' => ['Country' => '', 'Province' => '', 'City' => '', 'Isp' => '']
         ];
-    }
+    }*/
 
-    return $return;
 }
 
 /**
