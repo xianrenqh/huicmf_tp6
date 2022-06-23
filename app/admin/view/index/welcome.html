@@ -159,12 +159,9 @@
                                 <div class="admin_user_rght">
                                     <div class="headimg">
                                         <i></i>
-                                        <a class="layui-btn layui-btn-normal layui-btn-sm new_tab {if !check_auth('index/editInfo')}layui-hide{/if}"
-                                           data-open="{:__url('index/editInfo')}"
-                                           data-title="个人主页">
+                                        <a data-open="{:__url('index/editInfo')}" data-title="个人主页" class="new_tab">
                                             <img src="{$admin_info.avatar}" alt="{$admin_info.username}">
                                         </a>
-
                                     </div>
                                     <div class="welcome en-font">
                                         您好！<span>{$admin_info.username}</span>
