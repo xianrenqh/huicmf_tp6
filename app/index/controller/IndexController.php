@@ -10,6 +10,7 @@
 namespace app\index\controller;
 
 use app\BaseController;
+use lib\IpAddress;
 
 class IndexController extends BaseController
 {
@@ -21,6 +22,9 @@ class IndexController extends BaseController
 
     public function test()
     {
-        return $this->fetch();
+        $ip        = "123.159.0.86";
+        $ipAddress = new IpAddress();
+        $data      = $ipAddress->ipToAddress($ip);
+        dump($data);
     }
 }

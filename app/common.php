@@ -958,14 +958,10 @@ function getIpToArea($clientIP)
     $IpAddress = new IpAddress();
     $address   = $IpAddress->ipToAddress($clientIP);
     $return    = [
-        'code' => 0,
-        'msg'  => '',
-        'data' => [
-            'Country'  => '',
-            'Province' => ! empty($address['province']) ? $address['province'] : '',
-            'City'     => ! empty($address['city']) ? $address['city'] : '',
-            'Isp'      => ! empty($address['isp']) ? $address['isp'] : '',
-        ]
+        'country'  => ! empty($address['country']) ? $address['country'] : '',
+        'province' => ! empty($address['province']) ? $address['province'] : '',
+        'city'     => ! empty($address['city']) ? $address['city'] : '',
+        'isp'      => ! empty($address['isp']) ? $address['isp'] : '',
     ];
 
     return $return;

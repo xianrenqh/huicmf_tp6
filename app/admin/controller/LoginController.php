@@ -43,16 +43,17 @@ class LoginController extends AdminController
     {
         //写入登陆日志表
         $Agent       = $_SERVER['HTTP_USER_AGENT'];
+        $getIp       = get_client_ip();
         $loginDevice = [
             'browser'     => getClientBrowser($Agent)['browser'],
             'browser_ver' => getClientBrowser($Agent)['browser_ver'],
             'os'          => getClientOS($Agent)['os'],
             'os_ver'      => getClientOS($Agent)['os_ver'],
-            'ip_address'  => get_client_ip(),
-            'country'     => getIpToArea(get_client_ip())['data']['Country'],
-            'area'        => getIpToArea(get_client_ip())['data']['Province'],
-            'city'        => getIpToArea(get_client_ip())['data']['City'],
-            'isp'         => getIpToArea(get_client_ip())['data']['Isp'],
+            'ip_address'  => $getIp,
+            'country'     => getIpToArea($getIp)['country'],
+            'area'        => getIpToArea($getIp)['province'],
+            'city'        => getIpToArea($getIp)['city'],
+            'isp'         => getIpToArea($getIp)['isp'],
         ];
 
         $param = $this->request->param();

@@ -10,6 +10,8 @@
 
 namespace lib;
 
+use itbdw\Ip\IpLocation;
+
 class IpAddress
 {
 
@@ -40,6 +42,16 @@ class IpAddress
         }
 
         return $returnAddress;
+    }
+
+    /**
+     * 使用纯真数据库插件调用函数
+     */
+    private function convertIp($clientIP)
+    {
+        $res = IpLocation::getLocation($clientIP);;
+
+        return $res;
     }
 
     /**
@@ -176,7 +188,7 @@ class IpAddress
      *
      * @return false|string
      */
-    private function convertIp($ip)
+    private function convertIpBak($ip)
     {
         $ip1num   = 0;
         $ip2num   = 0;
