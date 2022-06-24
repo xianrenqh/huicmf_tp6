@@ -1,4 +1,5 @@
 ## HuiCMF v6.0
+
 =========== ==
 
 **【基于ThinkPHP6.0和layui的快速开发的后台管理系统。】**
@@ -16,6 +17,19 @@
 > 系统默认缓存方式为redis。请先安装并开启redis。
 >
 > 如果不想使用redis，请更改根目录.evn文件中DRIVER = redis的值为file
+
+## 其他备注
+
+ip转地区，默认使用纯真数据库（后期需要更新数据库）
+
+更新数据库方法：
+
+1. 打开：/vendor/itbdw/ip-database/bin/update-ip.php文件
+2. 编辑：大概第22行，添加注释，如： //die("该功能已无法使用");
+3. 在当前目录（/vendor/itbdw/ip-database/bin/）执行命令(linux)：
+   **php update-ip.php -d=../src/libs**
+4. 当前执行后下载的最新数据库会放在：
+   /vendor/itbdw/ip-database/src/libs 下
 
 ## 安装
 
@@ -110,7 +124,8 @@ public function index()
 
 ### 1、前端auth权限验证
 
-> 为什么前端也做权限认证，权限认证不应该是后端做的吗？ 这里的权限认证指的是前端判断是否有权限查看的数据（例如：添加、删除、编辑之类的按钮），这些只有在点击到对应的url之后，后端才会进行权限认证。 为了避免用户困扰，可以在此用上前端的权限认证，判断是否显示还是隐藏
+> 为什么前端也做权限认证，权限认证不应该是后端做的吗？ 这里的权限认证指的是前端判断是否有权限查看的数据（例如：添加、删除、编辑之类的按钮），这些只有在点击到对应的url之后，后端才会进行权限认证。
+> 为了避免用户困扰，可以在此用上前端的权限认证，判断是否显示还是隐藏
 
 **第一种示例, 通过php的auth()方法生成layui-hide样式属性。**
 
@@ -133,7 +148,8 @@ public function index()
 ```html
 
 //弹出层打开:width:90%，height:80%
-<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试编辑打开" data-reload="1" data-width="910" data-height="550">编辑</a>
+<a href="javascript:;" data-open="{:__url('system.node/index')}" data-title="测试编辑打开" data-reload="1" data-width="910"
+   data-height="550">编辑</a>
 
 //弹出层打开全屏:width:100%，height:100%
 <a href="javascript:;" data-open-full="{:__url('system.node/index')}" data-title="测试添加打开">添加</a>
@@ -201,7 +217,6 @@ upload.render({
 
 **以上代码中注释如下：**
 
-
 | 参数名        | 是否允许为空      | 参数值                                                    |
 | --------------- | ------------------- | ----------------------------------------------------------- |
 | class         | 否                | layUpload [**必填一致**]                                  |
@@ -216,13 +231,13 @@ upload.render({
 #### 3.使用封装好的webUploader插件上传（只需要一个按钮，无需在页面中写js）
 
 ```html
+
 <button type="button" class="webUpload" id="picker_pic" data-multiple="false" data-input-id="c-pic"
         data-preview-id="p-pic" data-type="image"><i class="layui-icon"></i>上传图片
 </button>
 ```
 
 **以上代码中注释如下：**
-
 
 | 参数名        | 是否允许为空      | 参数值                                                    |
 | --------------- | ------------------- | ----------------------------------------------------------- |
@@ -246,6 +261,7 @@ upload.render({
 调用代码（两组上传示例）：
 
 ```html
+
 <div class="layui-form-item">
     <label class="layui-form-label">缩略图</label>
     <div class="layui-input-block">
@@ -255,7 +271,9 @@ upload.render({
                    onmouseout="layer.closeAll();" id="image-select-input" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline" style="width: 120px">
-            <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input'])}" data-title="选择图片"
+            <a class="layui-btn"
+               data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input'])}"
+               data-title="选择图片"
                data-width="910" data-height="550"><i class="layui-icon"></i>选择图片</a>
         </div>
     </div>
@@ -269,7 +287,9 @@ upload.render({
                    onmouseout="layer.closeAll();" id="image-select-input2" autocomplete="off" class="layui-input">
         </div>
         <div class="layui-input-inline" style="width: 120px">
-            <a class="layui-btn" data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input2'])}" data-title="选择图片"
+            <a class="layui-btn"
+               data-open="{:__url('upload/fileList',['type'=>'one','select_id'=>'image-select-input2'])}"
+               data-title="选择图片"
                data-width="910" data-height="550"><i class="layui-icon"></i>选择图片</a>
         </div>
     </div>
@@ -289,6 +309,7 @@ upload.render({
 添加代码：
 
 ```html
+
 <div class="layui-form-item">
     <label class="layui-form-label">多图选择</label>
     <div class="layui-input-block" style="margin-top: 15px;">
@@ -306,6 +327,7 @@ upload.render({
 编辑代码：
 
 ```html
+
 <div class="layui-form-item">
     <label class="layui-form-label">多图选择</label>
     <div class="layui-input-block" style="margin-top: 15px;">
@@ -332,7 +354,7 @@ upload.render({
 > ps：多图上传后 可以拖动图片进行排序哦~~~。需要添加js代码：
 
 ```javascript
-layui.use(['jquery','ddSort'], function () {
+layui.use(['jquery', 'ddSort'], function () {
   let $ = layui.jquery;
 
   // 图片列表拖动，需要引入ddSort
@@ -513,7 +535,6 @@ http://你的域名/api.html/common/test 即可。
 
 **Body参数说明 (multipart/form-data)**
 
-
 | 参数名   | 示例值     | 是否必填 | 参数描述 |
 | ---------- | ------------ | ---------- | ---------- |
 | method   | user.login | 必填     | 接口方法 |
@@ -526,9 +547,9 @@ http://你的域名/api.html/common/test 即可。
 
 ```json
 {
-	"code": 200,
-	"data": "c9d2343fd754ca12a9be33e957574cce",
-	"msg": ""
+  "code": 200,
+  "data": "c9d2343fd754ca12a9be33e957574cce",
+  "msg": ""
 }
 ```
 
@@ -538,9 +559,9 @@ http://你的域名/api.html/common/test 即可。
 
 
 {
-	"code": 0,
-	"msg": "没有找到此账号",
-	"data": ""
+  "code": 0,
+  "msg": "没有找到此账号",
+  "data": ""
 }
 ```
 
@@ -575,7 +596,8 @@ All rights reserved。
 
 ## 免责声明
 
-> HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。任何用户在使用`HuiCMF`后台框架前，请您仔细阅读并透彻理解本声明。您可以选择不使用`HuiCMF`后台框架，若您一旦使用`HuiCMF`后台框架，您的使用行为即被视为对本声明全部内容的认可和接受。
+> HuiCMF遵循Apache2.0开源协议发布，并允许商业使用。任何用户在使用`HuiCMF`后台框架前，请您仔细阅读并透彻理解本声明。您可以选择不使用`HuiCMF`后台框架，若您一旦使用`HuiCMF`
+> 后台框架，您的使用行为即被视为对本声明全部内容的认可和接受。
 
 * `HuiCMF`后台框架是一款开源免费的后台快速开发框架 ，主要用于更便捷地开发后台管理；其尊重并保护所有用户的个人隐私权，不窃取任何用户计算机中的信息。更不具备用户数据存储等网络传输功能。
 * 您承诺秉着合法、合理的原则使用`HuiCMF`后台框架，不利用`HuiCMF`后台框架进行任何违法、侵害他人合法利益等恶意的行为，亦不将`HuiCMF`后台框架运用于任何违反我国法律法规的 Web 平台。
