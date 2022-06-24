@@ -49,7 +49,7 @@ class IpAddress
      */
     private function convertIp($clientIP)
     {
-        $res = IpLocation::getLocation($clientIP);;
+        $res = IpLocation::getLocation($clientIP);
 
         return $res;
     }
