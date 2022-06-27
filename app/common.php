@@ -956,8 +956,18 @@ function getClientBrowser($agent = '')
 function getIpToArea($clientIP)
 {
     $IpAddress = new IpAddress();
-    $address   = $IpAddress->ipToAddress($clientIP);
-    $return    = [
+    if ($clientIP = '127.0.0.1') {
+        $return = [
+            'country'  => '',
+            'province' => '',
+            'city'     => '',
+            'isp'      => '',
+        ];
+
+        return $return;
+    }
+    $address = $IpAddress->ipToAddress($clientIP);
+    $return  = [
         'country'  => ! empty($address['country']) ? $address['country'] : '',
         'province' => ! empty($address['province']) ? $address['province'] : '',
         'city'     => ! empty($address['city']) ? $address['city'] : '',
