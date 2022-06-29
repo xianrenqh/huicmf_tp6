@@ -2,6 +2,8 @@
 
 =========== ==
 
+[![OSCS Status](https://www.oscs1024.com/platform/badge/xianrenqh/huicmf_tp6.svg?size=small)](https://www.oscs1024.com/project/xianrenqh/huicmf_tp6?ref=badge_small)
+
 ### 项目地址：
 
 ps:同步更新
