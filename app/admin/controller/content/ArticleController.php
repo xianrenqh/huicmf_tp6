@@ -175,6 +175,7 @@ class ArticleController extends AdminController
         if ( ! empty($editor) && $editor == 2) {
             $data['content'] = $data['content_md'];
         }
+        $data['content'] = htmlspecialchars_decode($data['content']);
         if ($this->request->isAjax()) {
             $param = $this->request->param();
             $rule  = [

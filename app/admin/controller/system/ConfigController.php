@@ -48,11 +48,12 @@ class ConfigController extends AdminController
     public function save()
     {
         if ($this->request->isPost()) {
-            $param         = $this->request->post();
-            $msg           = "保存成功";
-            $url           = "";
-            $clearCacheAll = false;
+            $param = $this->request->post();
+            $msg   = "保存成功";
+            $url   = "";
+            $url2  = "";
 
+            $clearCacheAll = false;
             foreach ($param as $key => $value) {
                 $arr[$key]           = $value;
                 $value               = htmlspecialchars($value);
@@ -63,13 +64,14 @@ class ConfigController extends AdminController
                         rename(ROOT_PATH.'/public/'.$oldAdminUrlPassrowd.'.php', $value.'.php');
                         $url           = cmf_get_domain()."/".$value.'.php';
                         $clearCacheAll = true;
+                        $url2          = $url.'/login/index';
                     }
                 }
                 ConfigModel::strict(false)->where(['name' => $key])->data(['value' => $value])->update();
             }
             TriggerService::updateSysconfig($clearCacheAll);
 
-            $this->success($msg, '', $url.'/login/index');
+            $this->success($msg, '', $url2);
         }
     }
 
