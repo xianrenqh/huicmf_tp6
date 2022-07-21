@@ -1,4 +1,7 @@
 {include file='header'/}
+<style>
+    .layui-form-selected dl{z-index:999999}
+</style>
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
@@ -19,6 +22,7 @@
                         <option value="attachment" {if($data.fieldtype=='attachment')}selected{/if}>附件上传</option>
                         <option value="radio" {if($data.fieldtype=='radio')}selected{/if}>radio选项卡</option>
                         <option value="select" {if($data.fieldtype=='select')}selected{/if}>option下拉框</option>
+                        <option value="select" {if($data.fieldtype=='content')}selected{/if}>富文本</option>
                     </select>
                 </div>
             </div>
@@ -69,6 +73,11 @@
                         <select name="value" class="select">
                             {$setting_data|raw}
                         </select>
+                    </div>
+                    {/if}
+                    {if($data.fieldtype=='content')}
+                    <div class="upload_mode mode_content {if($data.fieldtype!='content')}layui-hide{/if}" id="contentEditorHtml">
+                        {php}echo lib\Form::editor('value[content]',$val=$data['value'], 'width:100%;height:400px');{/php}
                     </div>
                     {/if}
                 </div>

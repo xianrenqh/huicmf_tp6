@@ -1,15 +1,11 @@
 {include file='header'/}
+<style>
+    .layui-form-selected dl{z-index:999999}
+</style>
 <body>
 <div class="layuimini-container">
     <div class="layuimini-main">
         <form class="layui-form layuimini-form" action="javascript:;" method="post" onsubmit="return dosub(this)">
-            <div class="layui-form-item">
-                <label class="layui-form-label required">配置名称</label>
-                <div class="layui-input-block">
-                    <input type="text" id="name" name="name" value="" lay-verify="required" autocomplete="off"
-                           class="layui-input" lay-reqtext="配置名称不能为空">
-                </div>
-            </div>
             <div class="layui-form-item">
                 <label class="layui-form-label required">配置类型</label>
                 <div class="layui-input-inline">
@@ -19,7 +15,22 @@
                         <!--<option value="attachment">附件上传</option>-->
                         <option value="radio">radio选项卡</option>
                         <option value="select">option下拉框</option>
+                        <option value="content">富文本</option>
                     </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label required">配置名称</label>
+                <div class="layui-input-block">
+                    <input type="text" id="name" name="name" value="" lay-verify="required" autocomplete="off"
+                           class="layui-input" lay-reqtext="配置名称不能为空">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">简洁说明</label>
+                <div class="layui-input-block">
+                    <input type="text" id="title" name="title" autocomplete="off" class="layui-input"
+                           placeholder="例如：这个是站点QQ">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -62,14 +73,9 @@
                         <input type="text" name="value[select]" class="layui-input" style="width:180px"
                                placeholder="默认值用配置值填写">
                     </div>
-                </div>
-            </div>
-
-            <div class="layui-form-item">
-                <label class="layui-form-label">简洁说明</label>
-                <div class="layui-input-block">
-                    <input type="text" id="title" name="title" autocomplete="off" class="layui-input"
-                           placeholder="例如：这个是站点QQ">
+                    <div class="upload_mode mode_content" id="contentEditorHtml" style="display:none">
+                        {php}echo lib\Form::editor('value[content]',$val='', 'width:100%;height:400px');{/php}
+                    </div>
                 </div>
             </div>
             <div class="layui-form-item">
