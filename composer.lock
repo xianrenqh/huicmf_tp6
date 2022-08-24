@@ -228,16 +228,16 @@
         },
         {
             "name": "hg/apidoc",
-            "version": "v3.1.7",
+            "version": "v3.1.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/HGthecode/thinkphp-apidoc.git",
-                "reference": "d647d1ccd005173c133bebf2ed4381907e8b36be"
+                "reference": "2acff1901f603fb464ed13b6f4a6690d8821fcd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/HGthecode/thinkphp-apidoc/zipball/d647d1ccd005173c133bebf2ed4381907e8b36be",
-                "reference": "d647d1ccd005173c133bebf2ed4381907e8b36be",
+                "url": "https://api.github.com/repos/HGthecode/thinkphp-apidoc/zipball/2acff1901f603fb464ed13b6f4a6690d8821fcd9",
+                "reference": "2acff1901f603fb464ed13b6f4a6690d8821fcd9",
                 "shasum": ""
             },
             "require": {
@@ -285,9 +285,9 @@
             ],
             "support": {
                 "issues": "https://github.com/HGthecode/thinkphp-apidoc/issues",
-                "source": "https://github.com/HGthecode/thinkphp-apidoc/tree/v3.1.7"
+                "source": "https://github.com/HGthecode/thinkphp-apidoc/tree/v3.1.8"
             },
-            "time": "2022-07-12T01:51:13+00:00"
+            "time": "2022-08-11T14:12:58+00:00"
         },
         {
             "name": "itbdw/ip-database",
@@ -1776,5 +1776,5 @@
         "php": ">=7.1.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
