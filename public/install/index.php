@@ -173,7 +173,7 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
             //修改数据库中config配置的后台安全码
             $pdo->query("UPDATE {$mysqlPrefix}config SET `value` = '{$adminName}' WHERE `name` = 'admin_url_password'");
 
-            rename($adminFile, ROOT_PATH.'public'.DS.$adminName).'.php';
+            rename($adminFile, ROOT_PATH.'public'.DS.$adminName.'.php');
 
         }
         echo "success|{$adminName}";
