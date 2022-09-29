@@ -60,6 +60,31 @@ if ( ! function_exists('cmf_get_user_id')) {
 }
 
 /**
+ * 转化数据库保存图片的文件路径，为可以访问的url
+ *
+ * @param string $file  文件路径，数据存储的文件相对路径
+ * @param string $style 图片样式
+ *
+ * @return string 图片链接
+ */
+if ( ! function_exists('cmf_get_image_url')) {
+    function cmf_get_image_url($file, $style = '')
+    {
+        if (empty($file)) {
+            return '';
+        }
+
+        if (strpos($file, "http") === 0) {
+            return $file;
+        } else {
+            if (strpos($file, "/") === 0) {
+                return cmf_get_domain().$file;
+            }
+        }
+    }
+}
+
+/**
  * 按钮权限验证
  */
 if ( ! function_exists('check_auth')) {

@@ -240,9 +240,12 @@
                                 <td>
                                     <div class="layui-input-inline">
                                         <select name="upload_mode" lay-filter="upload_mode">
-                                            <option value="local" {if ($data.upload_mode=='local')}selected{/if}>本地保存
-                                            </option>
+                                            <option value="local" {if ($data.upload_mode=='local')}selected{/if}>本地保存</option>
+                                            <option value="ali_oss" {if ($data.upload_mode=='ali_oss')}selected{/if}>阿里OSS</option>
                                         </select>
+                                    </div>
+                                    <div id="ali_oss_tips" class="layui-input-inline" {if ($data.upload_mode !='ali_oss')}style="display: none"{/if}>
+                                        <b style="color: #fd00ff;">注：请先在 【config/ali_oss.php】 中配置正确的ali oss信息后再使用</b>
                                     </div>
                                 </td>
                                 <td>upload_mode</td>
@@ -292,6 +295,14 @@
 
       }
     })
+
+    form.on('select(upload_mode)', function (data) {
+      if(data.value=='ali_oss'){
+        $('#ali_oss_tips').css('display','block');
+      }else{
+        $('#ali_oss_tips').css('display','none');
+      }
+    });
 
     //保存
     window.dosub = function (obj) {

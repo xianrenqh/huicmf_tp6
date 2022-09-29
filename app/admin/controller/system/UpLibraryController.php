@@ -30,21 +30,29 @@ class UpLibraryController extends AdminController
     public function fileList()
     {
         if ($this->request->isAjax()) {
+            $oss_config = config('ali_oss');
             // 文件列表
-            $group_id  = $this->request->param('group_id', 0);
-            $page      = $this->request->param('page', 1);
-            $limit     = 18;
-            $first     = intval(($page - 1) * $limit);
-            $total     = UploadFileModel::where(function ($query) use ($group_id) {
+            $group_id = $this->request->param('group_id', 0);
+            $page     = $this->request->param('page', 1);
+            $limit    = 18;
+            $first    = intval(($page - 1) * $limit);
+            $total    = UploadFileModel::where(function ($query) use ($group_id) {
                 if (isset($group_id) && $group_id != '-1') {
                     $query->where('group_id', $group_id);
                 }
             })->where('is_delete', 0)->count();
-            $list      = UploadFileModel::where(function ($query) use ($group_id) {
+            $list     = UploadFileModel::where(function ($query) use ($group_id) {
                 if (isset($group_id) && $group_id != '-1') {
                     $query->where('group_id', $group_id);
                 }
             })->where('is_delete', 0)->limit($first, $limit)->order('file_id desc')->select()->toArray();
+            for ($i = 0; $i < count($list); $i++) {
+                if ($list[$i]['storage'] == 'ali_oss') {
+                    $protocol             = $oss_config['protocol'];
+                    $domain               = $oss_config['domain'];
+                    $list[$i]['file_url'] =$protocol.'://'.$domain.$list[$i]['file_url'];
+                }
+            }
             $lastPage  = intval(ceil($total / $limit));
             $perPage   = intval($page - 1);
             $file_list = [
