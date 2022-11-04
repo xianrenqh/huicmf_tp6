@@ -139,7 +139,7 @@ if ( ! function_exists('__url')) {
         $defalutModule = 'admin';
         $currentModule = app('http')->getName();
         $string        = (string)url($url, $vars, $suffix, $domain);
-        $hideHomeName  = true; // 是否去除url中默认模块名admin/
+        $hideHomeName  = false; // 是否去除url中默认模块名admin/
         if ($hideHomeName && $currentModule == $defalutModule) {
             #去除url中默认模块名admin
             $search = '/'.$defalutModule.'/';
