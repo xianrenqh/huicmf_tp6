@@ -125,4 +125,11 @@ class UserToken extends TimeModel
         return md5(md5($user_id.$password.$platform.$createtime).rand(1, 10000));
     }
 
+    public function getLastToken($user_id)
+    {
+        $token = $this->onlyTrashed()->where('user_id', $user_id)->order('id desc')->value('token');
+
+        return $token;
+    }
+
 }
