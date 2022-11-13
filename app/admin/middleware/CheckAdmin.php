@@ -26,7 +26,6 @@ class CheckAdmin
         $currentNode = $node;
 
         $currentController = parse_name($request->controller());
-
         // 验证登录
         if ( ! in_array($currentController, $adminConfig['no_login_controller']) && ! in_array($currentNode,
                 $adminConfig['no_login_node'])) {
