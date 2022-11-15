@@ -27,10 +27,10 @@ class CheckAdmin
 
         $currentController = parse_name($request->controller());
         // 验证登录
-        if ( ! in_array($currentController, $adminConfig['no_login_controller']) && ! in_array($currentNode,
-                $adminConfig['no_login_node'])) {
+        if ( ! empty($adminConfig) && ! in_array($currentController,
+                $adminConfig['no_login_controller']) && ! in_array($currentNode, $adminConfig['no_login_node'])) {
             if (empty($adminId)) {
-                $this->error('请先登录', [], __url('admin/login/index'));
+                $this->error('请先登录', [], __url('login/index'));
             }
             // 判断是否登录过期
             if ($expireTime !== true && time() > $expireTime) {
@@ -39,8 +39,8 @@ class CheckAdmin
             }
         }
         // 验证权限
-        if ( ! in_array($currentController, $adminConfig['no_auth_controller']) && ! in_array($currentNode,
-                $adminConfig['no_auth_node'])) {
+        if ( ! empty($adminConfig) && ! in_array($currentController,
+                $adminConfig['no_auth_controller']) && ! in_array($currentNode, $adminConfig['no_auth_node'])) {
             $checkNode = AuthService::instance()->check($currentNode, $adminId);
             if ( ! $checkNode) {
                 $this->error('无访问权限！');
