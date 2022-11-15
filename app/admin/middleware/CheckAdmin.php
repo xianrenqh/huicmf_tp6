@@ -30,7 +30,7 @@ class CheckAdmin
         if ( ! empty($adminConfig) && ! in_array($currentController,
                 $adminConfig['no_login_controller']) && ! in_array($currentNode, $adminConfig['no_login_node'])) {
             if (empty($adminId)) {
-                $this->error('请先登录', [], __url('login/index'));
+                $this->error('请先登录', [], __url('admin/login/index'));
             }
             // 判断是否登录过期
             if ($expireTime !== true && time() > $expireTime) {
