@@ -27,7 +27,7 @@
     "topthink/think-image": "^1.0",
     "xiaodi/think-whoops": "^1.1",
     "xianrenqh/think-addons": "^0.0.4",
-    "hg/apidoc": "^3.1",
+    "hg/apidoc-thinkphp": "^3.1",
     "itbdw/ip-database": "3.0",
     "aliyuncs/oss-sdk-php": "^2.6"
   },
