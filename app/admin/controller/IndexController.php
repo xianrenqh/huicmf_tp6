@@ -203,7 +203,10 @@ class IndexController extends AdminController
         }
         if ($this->request->isPost()) {
             $param = $this->request->param();
-            $res   = $row->save($param);
+            if ( ! empty($param['username']) && ! empty($param['avatar'])) {
+                unset($param['avatar']);
+            }
+            $res = $row->save($param);
             TriggerService::updateAdminInfo($admin_id);
             if ($res) {
                 $this->success('保存成功');
