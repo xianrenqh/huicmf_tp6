@@ -28,7 +28,8 @@
     "xianrenqh/think-addons": "^0.0.4",
     "hg/apidoc-thinkphp": "^3.1",
     "aliyuncs/oss-sdk-php": "^2.6",
-    "itbdw/ip-database": "^2.0"
+    "itbdw/ip-database": "^2.0",
+    "topthink/think-filesystem": "^2.0"
   },
   "require-dev": {
     "symfony/var-dumper": "^4.2",
