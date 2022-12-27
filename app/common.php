@@ -143,7 +143,7 @@ if ( ! function_exists('__url')) {
         if ($hideHomeName && $currentModule == $defalutModule) {
             #去除url中默认模块名admin
             if(strstr($string,".php/admin/")){
-                $string = str_replace("","",$string);
+                $string = str_replace("/admin/","/",$string);
             }
             /*$search = '/'.$defalutModule.'/';
             $pos    = stripos($string, $search);
