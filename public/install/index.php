@@ -42,8 +42,8 @@ $lockFile = ROOT_PATH.DS."public".DS.'install.lock';
 if (is_file($lockFile)) {
     $errInfo = "当前已经安装{$sitename}，如果需要重新安装，请手动移除public/install.lock文件";
 } else {
-    if (version_compare(PHP_VERSION, '7.1', '<')) {
-        $errInfo = "当前版本(".PHP_VERSION.")过低，请使用PHP7.1以上版本";
+    if (version_compare(PHP_VERSION, '7.2', '<')) {
+        $errInfo = "当前版本(".PHP_VERSION.")过低，请使用PHP7.2以上版本";
     } else {
         if ( ! extension_loaded("PDO")) {
             $errInfo = "当前未开启PDO，无法进行安装";
@@ -108,16 +108,21 @@ if (isset($_SERVER['REQUEST_METHOD']) && $_SERVER['REQUEST_METHOD'] == 'POST') {
             throw new Exception("无法读取public/install/database.sql文件，请检查是否有读权限");
         }
         $sql = str_replace(["`hui_", "`cmf_"], "`{$mysqlPrefix}", $sql);
-        $pdo = new PDO("mysql:host={$mysqlHostname};port={$mysqlHostport}", $mysqlUsername, $mysqlPassword, array(
-            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-            PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-        ));
 
-        //检测mysql版本是否符合要求（最低需要5.5版本）
+        try {
+            $pdo = new PDO("mysql:host={$mysqlHostname};port={$mysqlHostport}", $mysqlUsername, $mysqlPassword, array(
+                PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+            ));
+        } catch (Exception $e) {
+            throw new Exception("数据库连接失败：".$e->getMessage());
+        }
+
+        //检测mysql版本是否符合要求（最低需要5.6版本）
         $res    = $pdo->query("select VERSION()");
         $result = $res->fetch();
-        if ($result[0] < 5.5) {
-            throw new Exception("本系统需要数据库版本最低为5.5，当前数据库版本为".$result[0]);
+        if ($result[0] < 5.6) {
+            throw new Exception("本系统需要数据库版本最低为5.6，当前数据库版本为".$result[0]);
         }
 
         //检测是否支持innodb存储引擎
@@ -546,7 +551,7 @@ EOT;
                     $('<a class="btn" href="/">访问首页</a>').appendTo($buttons);
 
                     if (typeof retArr[1] !== 'undefined' && retArr[1] !== '') {
-                      var url = location.href.replace("/install/", "/" + retArr[1]+".php");
+                      var url = location.href.replace("/install/", "/" + retArr[1] + ".php");
                       $("#warmtips").html('温馨提示：请将以下后台登录入口添加到你的收藏夹，为了你的安全，不要泄漏或发送给他人！如有泄漏请及时修改！<a href="' + url + '">' + url + '</a>').show();
                       $('<a class="btn" target="_blank" href="' + url + '" id="btn-admin" style="background:#18bc9c">访问后台</a>').appendTo($buttons);
                     }

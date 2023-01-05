@@ -24,7 +24,7 @@ https://gitee.com/xianrenqh/huicmf_tp6
 
 > 运行环境要求PHP7.2+(兼容PHP8.0)，Redis。
 >
-> 数据库要求：mysql5.5+，推荐5.7。
+> 数据库要求：mysql5.6+，推荐5.7。
 >
 > 编辑器使用了 editor.md | UEeditor | icEditor
 >
