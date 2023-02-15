@@ -215,10 +215,10 @@
     });
 
     window.dosub = function (obj) {
-      let jump_url = $('#jump_url').val();
+      let jump_url = data.field.jump_url;
       let jumpCheck = $("#jumpUrl>div>input").attr('data-s');
 
-      if (jumpCheck === 1 && jump_url === '') {
+      if (Number(jumpCheck) === 1 && jump_url.length <1) {
         layer.msg('跳转url地址不能为空', {icon: 2});
         return false;
       }
