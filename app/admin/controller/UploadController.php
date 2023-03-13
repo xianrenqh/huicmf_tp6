@@ -185,8 +185,11 @@ class UploadController extends BaseController
         //获取水印配置
         if (get_config('watermark_enable')) {
             $waterpic = "./static/water/".get_config('watermark_name');
-            $pic_url  = '.'.$fileName;
-            $image    = Image::open($pic_url);
+            if ( ! is_file($waterpic)) {
+                return;
+            }
+            $pic_url = '.'.$fileName;
+            $image   = Image::open($pic_url);
             $image->water($waterpic, get_config('watermark_position'), get_config('watermark_touming'))->save($pic_url);
         }
     }
