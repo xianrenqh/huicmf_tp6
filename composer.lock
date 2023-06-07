@@ -343,16 +343,16 @@
         },
         {
             "name": "itbdw/ip-database",
-            "version": "v2.0.5",
+            "version": "v2.0.9",
             "source": {
                 "type": "git",
                 "url": "https://github.com/itbdw/ip-database.git",
-                "reference": "1b074df1e8092eb0a19abef288b8a47abdba0ae3"
+                "reference": "f16b66269e9f0828599074228ded2385d0bda97e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/itbdw/ip-database/zipball/1b074df1e8092eb0a19abef288b8a47abdba0ae3",
-                "reference": "1b074df1e8092eb0a19abef288b8a47abdba0ae3",
+                "url": "https://api.github.com/repos/itbdw/ip-database/zipball/f16b66269e9f0828599074228ded2385d0bda97e",
+                "reference": "f16b66269e9f0828599074228ded2385d0bda97e",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -362,7 +362,10 @@
                 ]
             },
             "require": {
-                "php": ">=5.3.3"
+                "ext-iconv": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": "~5.4|~7.0"
             },
             "type": "library",
             "autoload": {
@@ -380,28 +383,30 @@
                     "email": "itbudaoweng@gmail.com",
                     "homepage": "http://github.com/itbdw",
                     "role": "Developer"
-                },
-                {
-                    "name": "马秉尧"
                 }
             ],
-            "description": "IP位置数据库（解析为国家、省、市、县、运营商）",
+            "description": "免费IP地址数据库(纯真IP地址数据库，输出格式为国家、省、市、县、运营商)❤️ 🇨🇳，中文数据库",
             "keywords": [
-                "China",
-                "Chinese",
                 "IP",
+                "IP地址库",
+                "IP数据库",
                 "database",
                 "location",
-                "位置",
-                "地区",
+                "qqwry",
                 "数据库",
-                "纯真"
+                "纯真IP地址库"
             ],
             "support": {
                 "issues": "https://github.com/itbdw/ip-database/issues",
-                "source": "https://github.com/itbdw/ip-database/tree/master"
+                "source": "https://github.com/itbdw/ip-database/tree/v2.0.9"
             },
-            "time": "2018-03-25T06:41:36+00:00"
+            "funding": [
+                {
+                    "url": "https://wx1.sinaimg.cn/large/6b94a2e5ly1gjoqqrkup8j20u00u0wh1.jpg",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-11-06T17:54:36+00:00"
         },
         {
             "name": "league/flysystem",
@@ -559,16 +564,16 @@
         },
         {
             "name": "psr/cache",
-            "version": "3.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/cache.git",
-                "reference": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf"
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/cache/zipball/aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
-                "reference": "aa5030cfa5405eccfdcb1083ce040c2cb8d253bf",
+                "url": "https://api.github.com/repos/php-fig/cache/zipball/d11b50ad223250cf17b86e38383413f5a6764bf8",
+                "reference": "d11b50ad223250cf17b86e38383413f5a6764bf8",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -578,7 +583,7 @@
                 ]
             },
             "require": {
-                "php": ">=8.0.0"
+                "php": ">=5.3.0"
             },
             "type": "library",
             "extra": {
@@ -598,7 +603,7 @@
             "authors": [
                 {
                     "name": "PHP-FIG",
-                    "homepage": "https://www.php-fig.org/"
+                    "homepage": "http://www.php-fig.org/"
                 }
             ],
             "description": "Common interface for caching libraries",
@@ -608,22 +613,22 @@
                 "psr-6"
             ],
             "support": {
-                "source": "https://github.com/php-fig/cache/tree/3.0.0"
+                "source": "https://github.com/php-fig/cache/tree/master"
             },
-            "time": "2021-02-03T23:26:27+00:00"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/container",
-            "version": "1.1.2",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/container.git",
-                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea"
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/container/zipball/513e0666f7216c7459170d56df27dfcefe1689ea",
-                "reference": "513e0666f7216c7459170d56df27dfcefe1689ea",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/8622567409010282b7aeebe4bb841fe98b58dcaf",
+                "reference": "8622567409010282b7aeebe4bb841fe98b58dcaf",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -633,7 +638,7 @@
                 ]
             },
             "require": {
-                "php": ">=7.4.0"
+                "php": ">=7.2.0"
             },
             "type": "library",
             "autoload": {
@@ -662,9 +667,9 @@
             ],
             "support": {
                 "issues": "https://github.com/php-fig/container/issues",
-                "source": "https://github.com/php-fig/container/tree/1.1.2"
+                "source": "https://github.com/php-fig/container/tree/1.1.1"
             },
-            "time": "2021-11-05T16:50:12+00:00"
+            "time": "2021-03-05T17:36:06+00:00"
         },
         {
             "name": "psr/http-message",

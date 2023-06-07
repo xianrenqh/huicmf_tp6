@@ -67,7 +67,7 @@ ip转地区，默认使用纯真数据库（后期需要更新数据库）
 
 ## 后台演示
 
-https://huicmf6.xiaohuihui.net/admin.php
+https://huicmf6.xiaohuihui.net.cn/admin.php
 
 账号：admin
 
