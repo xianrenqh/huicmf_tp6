@@ -45,15 +45,15 @@ class LoginController extends AdminController
         $Agent       = $_SERVER['HTTP_USER_AGENT'];
         $getIp       = get_client_ip();
         $loginDevice = [
-            'browser'     => getClientBrowser($Agent)['browser'],
-            'browser_ver' => getClientBrowser($Agent)['browser_ver'],
-            'os'          => getClientOS($Agent)['os'],
-            'os_ver'      => getClientOS($Agent)['os_ver'],
+            'browser'     => getClientBrowser($Agent)['browser'] ?? "",
+            'browser_ver' => getClientBrowser($Agent)['browser_ver'] ?? "",
+            'os'          => getClientOS($Agent)['os'] ?? "",
+            'os_ver'      => getClientOS($Agent)['os_ver'] ?? "",
             'ip_address'  => $getIp,
-            'country'     => getIpToArea($getIp)['country'],
-            'area'        => getIpToArea($getIp)['province'],
-            'city'        => getIpToArea($getIp)['city'],
-            'isp'         => getIpToArea($getIp)['isp'],
+            'country'     => getIpToArea($getIp)['country'] ?? "",
+            'area'        => getIpToArea($getIp)['province'] ?? "",
+            'city'        => getIpToArea($getIp)['city'] ?? "",
+            'isp'         => getIpToArea($getIp)['isp'] ?? "",
         ];
 
         $param = $this->request->param();
