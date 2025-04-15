@@ -22,7 +22,7 @@ https://gitee.com/xianrenqh/huicmf_tp6
 
 **用于学习并允许商业使用。**
 
-> 运行环境要求PHP7.2+(兼容PHP8.0)，Redis。
+> 运行环境要求PHP8.0+(推荐PHP8.1)+mysql+redis(可选)。
 >
 > 数据库要求：mysql5.6+，推荐5.7。
 >
@@ -30,9 +30,6 @@ https://gitee.com/xianrenqh/huicmf_tp6
 >
 > 支持插件安装，（使用了think-addons扩展插件）
 >
-> 系统默认缓存方式为redis。请先安装并开启redis。
->
-> 如果不想使用redis，请更改根目录.evn文件中DRIVER = redis的值为file
 
 ## 其他备注
 
@@ -237,12 +234,12 @@ upload.render({
 
 **以上代码中注释如下：**
 
-| 参数名        | 是否允许为空      | 参数值                                                    |
-| --------------- | ------------------- | ----------------------------------------------------------- |
-| class         | 否                | layUpload [**必填一致**]                                  |
-| id            | 否                | 例如：lay_pic                                             |
-| data-input-id | 否                | 图片文本框的id值，用于返回url填充，需和文本框中的id值对应 |
-| data-type     | 是（默认：image） | 上传类型：image [图片格式]（默认）；file [附件格式]       |
+| 参数名           | 是否允许为空      | 参数值                               |
+|---------------|-------------|-----------------------------------|
+| class         | 否           | layUpload [**必填一致**]              |
+| id            | 否           | 例如：lay_pic                        |
+| data-input-id | 否           | 图片文本框的id值，用于返回url填充，需和文本框中的id值对应  |
+| data-type     | 是（默认：image） | 上传类型：image [图片格式]（默认）；file [附件格式] |
 
 > 如果一个页面中需要有多个上传控件：
 >
@@ -259,12 +256,12 @@ upload.render({
 
 **以上代码中注释如下：**
 
-| 参数名        | 是否允许为空      | 参数值                                                    |
-| --------------- | ------------------- | ----------------------------------------------------------- |
-| class         | 否                | webUpload [**必填一致**]                                  |
-| id            | 否                | 例如：picker_pic                                          |
-| data-input-id | 否                | 图片文本框的id值，用于返回url填充，需和文本框中的id值对应 |
-| data-type     | 是（默认：image） | 上传类型：image [图片格式]（默认）；file [附件格式]       |
+| 参数名           | 是否允许为空      | 参数值                               |
+|---------------|-------------|-----------------------------------|
+| class         | 否           | webUpload [**必填一致**]              |
+| id            | 否           | 例如：picker_pic                     |
+| data-input-id | 否           | 图片文本框的id值，用于返回url填充，需和文本框中的id值对应  |
+| data-type     | 是（默认：image） | 上传类型：image [图片格式]（默认）；file [附件格式] |
 
 > 如果一个页面中需要有多个上传控件：
 >
@@ -479,21 +476,27 @@ http://你的域名/apidoc
 ---
 
 # 开发教程
+
 ## 1、API接口开发【在用版】
+
 > 路径： app\api文件夹下。
 
 ## **文件说明：**
 
 ### 1. config > api.php文件
+
 配置里有详细说明。
 
 ### 2. controller > BaseController.php
+
 基础控制器
 
 ### 3. controller > LoginController.php
+
 普通会员登录接口
 
 ### 4. controller > TestController.php
+
 测试接口
 
 ## **使用说明：**
@@ -507,12 +510,11 @@ http://你的域名/apidoc
 GET、POST等
 
 如果需要验证权限，需要在header中传递参数：
+
 * XX-Token
 * XX-Device-Type
 
 如果不想验证控制器或者不想验证某一方法，请在api.php配置文件中进行配置
-
-
 
 ## 2、API接口开发【旧版】
 
@@ -591,11 +593,11 @@ http://你的域名/api.html/common/test 即可。
 
 **Body参数说明 (multipart/form-data)**
 
-| 参数名   | 示例值     | 是否必填 | 参数描述 |
-| ---------- | ------------ | ---------- | ---------- |
-| method   | user.login | 必填     | 接口方法 |
-| username | admin      | 必填     | 登录名   |
-| password | admin      | 必填     | 密码     |
+| 参数名      | 示例值        | 是否必填 | 参数描述 |
+|----------|------------|------|------|
+| method   | user.login | 必填   | 接口方法 |
+| username | admin      | 必填   | 登录名  |
+| password | admin      | 必填   | 密码   |
 
 > 响应示例
 

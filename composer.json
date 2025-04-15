@@ -17,18 +17,18 @@
     }
   ],
   "require": {
-    "php": ">=7.2.0",
-    "topthink/framework": "^6.1.0",
-    "topthink/think-orm": "^2.0",
-    "topthink/think-multi-app": "^1.0",
-    "topthink/think-view": "^1.0.14",
-    "topthink/think-captcha": "^3.0",
+    "php": ">=8.0",
+    "topthink/framework": "^8.1.0",
+    "topthink/think-orm": "^3.0",
+    "topthink/think-multi-app": "^1.1",
+    "topthink/think-view": "^2.0",
+    "topthink/think-captcha": "^3.10",
     "doctrine/annotations": "1.*",
     "topthink/think-image": "^1.0",
     "xianrenqh/think-addons": "^0.0.4",
     "hg/apidoc-thinkphp": "^3.1",
     "aliyuncs/oss-sdk-php": "^2.6",
-    "itbdw/ip-database": "^2.0",
+    "itbdw/ip-database": "^3.x-dev",
     "topthink/think-filesystem": "^2.0"
   },
   "require-dev": {
